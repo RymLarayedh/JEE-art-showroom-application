@@ -13,7 +13,6 @@ public class Users implements UsersRemote {
      */
     public Users() {
         // TODO Auto-generated constructor stub
-    	hi..
     }
 
 }
