@@ -15,7 +15,7 @@ import entities.User;
 @Stateless
 public class UserManagment implements UserManagmentRemote {
 
-	@PersistenceContext(unitName = "")
+	@PersistenceContext(unitName = "Fanny-ejb")
 	EntityManager em;
 
 	/**
