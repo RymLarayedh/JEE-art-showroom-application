@@ -100,6 +100,15 @@ public class User implements Serializable {
 	public void setRole(String role) {
 		Role = role;
 	}
+
+	@Override
+	public String toString() {
+		return "User [idUser=" + idUser + ", firstName=" + firstName + ", lastName=" + lastName + ", username="
+				+ username + ", password=" + password + ", email=" + email + ", isActive=" + isActive + ", Role=" + Role
+				+ "]";
+	}
+	
+	
    
 	
 }

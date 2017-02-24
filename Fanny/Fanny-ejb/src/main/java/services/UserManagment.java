@@ -52,7 +52,7 @@ public class UserManagment implements UserManagmentRemote {
 
 	@Override
 	public List<User> getAllUsers() {
-		TypedQuery<User> q = em.createQuery("SELECT u FROM User i", User.class);
+		TypedQuery<User> q = em.createQuery("SELECT u FROM User u", User.class);
 		List<User> Luser = q.getResultList();
 		return Luser;
 
@@ -104,6 +104,49 @@ public class UserManagment implements UserManagmentRemote {
 		q.setParameter("email", email);
 		User user = q.getSingleResult();
 		return user;
+	}
+
+	@Override
+	public void blockUser(User user) {
+
+		enableUser(user);
+	}
+
+	@Override
+	public void unblockUser(User user) {
+		disableUser(user);
+	}
+
+	@Override
+	public List<User> filterFirstName(String name) {
+		TypedQuery<User> q = em.createQuery("SELECT u FROM User u where u.firstName LIKE :ln ", User.class);
+		q.setParameter("ln",'%'+name+'%');
+		List<User> Luser = q.getResultList();
+		return Luser;
+	}
+
+	@Override
+	public List<User> filterLastName(String name) {
+		TypedQuery<User> q = em.createQuery("SELECT u FROM User u where u.lastName LIKE :fn ", User.class);
+		q.setParameter("fn",'%'+name+'%');
+		List<User> Luser = q.getResultList();
+		return Luser;
+	}
+
+	@Override
+	public List<User> filterBlockedUser() {
+		TypedQuery<User> q = em.createQuery("SELECT u FROM User u where u.isActive =:status ", User.class);
+		q.setParameter("status", false);
+		List<User> LuserBlocked = q.getResultList();
+		return LuserBlocked;
+	}
+
+	@Override
+	public List<User> filterActiveUser() {
+		TypedQuery<User> q = em.createQuery("SELECT u FROM User u where u.isActive =:status ", User.class);
+		q.setParameter("status", true);
+		List<User> LuserActive = q.getResultList();
+		return LuserActive;
 	}
 
 }
