@@ -61,7 +61,11 @@ public class UserManagment implements UserManagmentRemote {
 	@Override
 	public boolean loginUser(String username, String password) {
 		User user = findByUsername(username);
-		if (user.getPassword().equals(password)) {
+		if(user == null)
+		{
+			return false ;
+		}
+		else if (user.getPassword().equals(password)) {
 			if (user.isActive()) {
 				return true;
 			}
@@ -92,10 +96,18 @@ public class UserManagment implements UserManagmentRemote {
 
 	@Override
 	public User findByUsername(String username) {
-		TypedQuery<User> q = em.createQuery("SELECT u FROM User u where u.username =:username", User.class);
-		q.setParameter("username", username);
-		User user = q.getSingleResult();
-		return user;
+		try
+		{
+			TypedQuery<User> q = em.createQuery("SELECT u FROM User u where u.username =:username", User.class);
+			q.setParameter("username", username);
+			User user = q.getSingleResult();
+			return user;	
+		}
+		catch(javax.persistence.NoResultException e)
+		{
+			return null ;
+		}
+
 	}
 
 	@Override
