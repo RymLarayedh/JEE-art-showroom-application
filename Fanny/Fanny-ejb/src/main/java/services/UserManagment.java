@@ -1,8 +1,20 @@
 package services;
 
 import java.util.List;
+import java.util.Properties;
 
+import javax.annotation.Resource;
 import javax.ejb.Stateless;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
@@ -159,6 +171,59 @@ public class UserManagment implements UserManagmentRemote {
 		q.setParameter("status", true);
 		List<User> LuserActive = q.getResultList();
 		return LuserActive;
+	}
+	
+	@Resource(name="java:jboss/mail/gmail")
+	private Session session;
+	public void sendMail(String Recipient ,String text , String subject ) throws AddressException, MessagingException
+	{
+        // Recipient's email ID needs to be mentioned.
+        String to = Recipient;
+
+        // Sender's email ID needs to be mentioned
+        String from = "fannytunisia@gmail.com";
+
+        
+        // Get system properties
+        Properties props = new Properties();
+          props.put("mail.smtp.starttls.enable", "true");
+          props.put("mail.smtp.auth", "true");
+          props.put("mail.smtp.host", "smtp.gmail.com");
+          props.put("mail.smtp.port", "587");
+        
+
+        // Get the default Session object.
+           
+        //Session session = Session.getDefaultInstance(props);
+
+          Session session = Session.getInstance(props,
+               new javax.mail.Authenticator() {
+                 protected PasswordAuthentication getPasswordAuthentication() {
+                     return new PasswordAuthentication("fannytunisia@gmail.com","Fanny2017");
+                 }
+               });
+           
+        try{
+           // Create a default MimeMessage object.
+           MimeMessage message = new MimeMessage(session);
+            
+           // Set From: header field of the header.
+           message.setFrom(new InternetAddress(from));
+
+           // Set To: header field of the header.
+           message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
+
+           // Set Subject: header field
+           message.setSubject(subject);
+
+           // Now set the actual message
+           message.setText(text);
+
+           
+           Transport.send(message);
+        }catch (MessagingException mex) {
+           mex.printStackTrace();
+        }
 	}
 
 }

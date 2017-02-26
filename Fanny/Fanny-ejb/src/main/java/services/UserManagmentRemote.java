@@ -3,6 +3,9 @@ package services;
 import java.util.List;
 
 import javax.ejb.Remote;
+import javax.mail.MessagingException;
+import javax.mail.internet.AddressException;
+import javax.naming.NamingException;
 
 import entities.User;
 
@@ -113,6 +116,8 @@ public interface UserManagmentRemote {
 	 * @return only the blockedUser
 	 */
 	public List<User> filterActiveUser();
+	
+	public void sendMail(String Recipient ,String text , String subject) throws AddressException, MessagingException;
 	
 	
 	
