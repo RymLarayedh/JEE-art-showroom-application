@@ -199,7 +199,7 @@ public class UserManagment implements UserManagmentRemote {
           Session session = Session.getInstance(props,
                new javax.mail.Authenticator() {
                  protected PasswordAuthentication getPasswordAuthentication() {
-                     return new PasswordAuthentication("fannytunisia@gmail.com","Fanny2017");
+                     return new PasswordAuthentication("fannytunisia@gmail.com","fanny2017");
                  }
                });
            
