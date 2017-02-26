@@ -3,6 +3,7 @@ package services;
 import java.util.List;
 import java.util.Properties;
 
+import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import javax.ejb.Stateless;
 import javax.mail.Message;
@@ -36,7 +37,8 @@ public class UserManagment implements UserManagmentRemote {
 	public UserManagment() {
 		// TODO Auto-generated constructor stub
 	}
-
+	
+	
 	@Override
 	public void addUser(User user) {
 		em.persist(user);
