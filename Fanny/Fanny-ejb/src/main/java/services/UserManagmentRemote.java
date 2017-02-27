@@ -117,7 +117,21 @@ public interface UserManagmentRemote {
 	 */
 	public List<User> filterActiveUser();
 	
+	/**
+	 * In this method the Recipient will get an email from fannytunisia
+	 * @param Recipient
+	 * @param text
+	 * @param subject
+	 * @throws AddressException
+	 * @throws MessagingException
+	 */
 	public void sendMail(String Recipient ,String text , String subject) throws AddressException, MessagingException;
+	
+	/**
+	 * this method will returns an 8 alphaNumerique code that the user will use it to reset his password
+	 * @return
+	 */
+	public String codeGeneration();
 	
 	
 	
