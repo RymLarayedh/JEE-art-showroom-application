@@ -128,7 +128,7 @@ public interface UserManagmentRemote {
 	public void sendMail(String Recipient ,String text , String subject) throws AddressException, MessagingException;
 	
 	/**
-	 * this method will returns an 8 alphaNumerique code that the user will use it to reset his password
+	 * this method will returns an 8 alphaNumeric code that the user will use it to reset his password
 	 * @return
 	 */
 	public String codeGeneration();
