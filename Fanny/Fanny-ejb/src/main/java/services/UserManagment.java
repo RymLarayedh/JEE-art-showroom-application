@@ -39,8 +39,7 @@ public class UserManagment implements UserManagmentRemote {
 	public UserManagment() {
 		// TODO Auto-generated constructor stub
 	}
-	
-	
+
 	@Override
 	public void addUser(User user) {
 		em.persist(user);
@@ -77,11 +76,9 @@ public class UserManagment implements UserManagmentRemote {
 	@Override
 	public boolean loginUser(String username, String password) {
 		User user = findByUsername(username);
-		if(user == null)
-		{
-			return false ;
-		}
-		else if (user.getPassword().equals(password)) {
+		if (user == null) {
+			return false;
+		} else if (user.getPassword().equals(password)) {
 			if (user.isActive()) {
 				return true;
 			}
@@ -107,31 +104,36 @@ public class UserManagment implements UserManagmentRemote {
 
 	@Override
 	public User findById(int id) {
-		return em.find(User.class, id);
+		try {
+			return em.find(User.class, id);
+		} catch (javax.persistence.NoResultException e) {
+			return null;
+		}
 	}
 
 	@Override
 	public User findByUsername(String username) {
-		try
-		{
+		try {
 			TypedQuery<User> q = em.createQuery("SELECT u FROM User u where u.username =:username", User.class);
 			q.setParameter("username", username);
 			User user = q.getSingleResult();
-			return user;	
-		}
-		catch(javax.persistence.NoResultException e)
-		{
-			return null ;
+			return user;
+		} catch (javax.persistence.NoResultException e) {
+			return null;
 		}
 
 	}
 
 	@Override
 	public User findByEmail(String email) {
-		TypedQuery<User> q = em.createQuery("SELECT u FROM User u where u.email =:email", User.class);
-		q.setParameter("email", email);
-		User user = q.getSingleResult();
-		return user;
+		try {
+			TypedQuery<User> q = em.createQuery("SELECT u FROM User u where u.email =:email", User.class);
+			q.setParameter("email", email);
+			User user = q.getSingleResult();
+			return user;
+		} catch (javax.persistence.NoResultException E) {
+			return null;
+		}
 	}
 
 	@Override
@@ -147,115 +149,123 @@ public class UserManagment implements UserManagmentRemote {
 
 	@Override
 	public List<User> filterFirstName(String name) {
-		TypedQuery<User> q = em.createQuery("SELECT u FROM User u where u.firstName LIKE :ln ", User.class);
-		q.setParameter("ln",'%'+name+'%');
-		List<User> Luser = q.getResultList();
-		return Luser;
+		try {
+			TypedQuery<User> q = em.createQuery("SELECT u FROM User u where u.firstName LIKE :ln ", User.class);
+			q.setParameter("ln", '%' + name + '%');
+			List<User> Luser = q.getResultList();
+			return Luser;
+		} catch (javax.persistence.NoResultException E) {
+			return null;
+		}
 	}
 
 	@Override
 	public List<User> filterLastName(String name) {
-		TypedQuery<User> q = em.createQuery("SELECT u FROM User u where u.lastName LIKE :fn ", User.class);
-		q.setParameter("fn",'%'+name+'%');
-		List<User> Luser = q.getResultList();
-		return Luser;
+		try {
+			TypedQuery<User> q = em.createQuery("SELECT u FROM User u where u.lastName LIKE :fn ", User.class);
+			q.setParameter("fn", '%' + name + '%');
+			List<User> Luser = q.getResultList();
+			return Luser;
+		} catch (javax.persistence.NoResultException E) {
+			return null;
+		}
 	}
 
 	@Override
 	public List<User> filterBlockedUser() {
-		TypedQuery<User> q = em.createQuery("SELECT u FROM User u where u.isActive =:status ", User.class);
-		q.setParameter("status", false);
-		List<User> LuserBlocked = q.getResultList();
-		return LuserBlocked;
+		try {
+			TypedQuery<User> q = em.createQuery("SELECT u FROM User u where u.isActive =:status ", User.class);
+			q.setParameter("status", false);
+			List<User> LuserBlocked = q.getResultList();
+			return LuserBlocked;
+		} catch (javax.persistence.NoResultException E) {
+			return null;
+		}
 	}
 
 	@Override
 	public List<User> filterActiveUser() {
-		TypedQuery<User> q = em.createQuery("SELECT u FROM User u where u.isActive =:status ", User.class);
-		q.setParameter("status", true);
-		List<User> LuserActive = q.getResultList();
-		return LuserActive;
+		try {
+
+			TypedQuery<User> q = em.createQuery("SELECT u FROM User u where u.isActive =:status ", User.class);
+			q.setParameter("status", true);
+			List<User> LuserActive = q.getResultList();
+			return LuserActive;
+		} catch (javax.persistence.NoResultException E) {
+			return null;
+		}
 	}
-	
-	@Resource(name="java:jboss/mail/gmail")
+
+	@Resource(name = "java:jboss/mail/gmail")
 	private Session session;
-	public void sendMail(String Recipient ,String text , String subject ) throws AddressException, MessagingException
-	{
-        // Recipient's email ID needs to be mentioned.
-        String to = Recipient;
 
-        // Sender's email ID needs to be mentioned
-        String from = "fannytunisia@gmail.com";
+	public void sendMail(String Recipient, String text, String subject) throws AddressException, MessagingException {
+		// Recipient's email ID needs to be mentioned.
+		String to = Recipient;
 
-        
-        // Get system properties
-        Properties props = new Properties();
-          props.put("mail.smtp.starttls.enable", "true");
-          props.put("mail.smtp.auth", "true");
-          props.put("mail.smtp.host", "smtp.gmail.com");
-          props.put("mail.smtp.port", "587");
-        
+		// Sender's email ID needs to be mentioned
+		String from = "fannytunisia@gmail.com";
 
-        // Get the default Session object.
-           
-        //Session session = Session.getDefaultInstance(props);
+		// Get system properties
+		Properties props = new Properties();
+		props.put("mail.smtp.starttls.enable", "true");
+		props.put("mail.smtp.auth", "true");
+		props.put("mail.smtp.host", "smtp.gmail.com");
+		props.put("mail.smtp.port", "587");
 
-          Session session = Session.getInstance(props,
-               new javax.mail.Authenticator() {
-                 protected PasswordAuthentication getPasswordAuthentication() {
-                     return new PasswordAuthentication("fannytunisia@gmail.com","fanny2017");
-                 }
-               });
-           
-        try{
-           // Create a default MimeMessage object.
-           MimeMessage message = new MimeMessage(session);
-            
-           // Set From: header field of the header.
-           message.setFrom(new InternetAddress(from));
+		// Get the default Session object.
 
-           // Set To: header field of the header.
-           message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
+		// Session session = Session.getDefaultInstance(props);
 
-           // Set Subject: header field
-           message.setSubject(subject);
+		Session session = Session.getInstance(props, new javax.mail.Authenticator() {
+			protected PasswordAuthentication getPasswordAuthentication() {
+				return new PasswordAuthentication("fannytunisia@gmail.com", "fanny2017");
+			}
+		});
 
-           // Now set the actual message
-           message.setText(text);
+		try {
+			// Create a default MimeMessage object.
+			MimeMessage message = new MimeMessage(session);
 
-           
-           Transport.send(message);
-        }catch (MessagingException mex) {
-           mex.printStackTrace();
-        }
+			// Set From: header field of the header.
+			message.setFrom(new InternetAddress(from));
+
+			// Set To: header field of the header.
+			message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
+
+			// Set Subject: header field
+			message.setSubject(subject);
+
+			// Now set the actual message
+			message.setText(text);
+
+			Transport.send(message);
+		} catch (MessagingException mex) {
+			mex.printStackTrace();
+		}
 	}
-
 
 	@Override
 	public String codeGeneration() {
 
-		List<Integer>Lascii = new ArrayList();
-		for(int i=48 ; i<58 ; i++)
-		{
+		List<Integer> Lascii = new ArrayList();
+		for (int i = 48; i < 58; i++) {
 			Lascii.add(i);
 		}
-		
-		for(int i=65 ; i<91 ; i++)
-		{
+
+		for (int i = 65; i < 91; i++) {
 			Lascii.add(i);
 		}
-		
-		for(int i=97 ; i<123 ; i++)
-		{
+
+		for (int i = 97; i < 123; i++) {
 			Lascii.add(i);
 		}
 		Random randomizer = new Random();
-		String random="";
-		for(int i=0 ; i<8 ; i++)
-		{
+		String random = "";
+		for (int i = 0; i < 8; i++) {
 			int x;
-			x = Lascii.get(randomizer.nextInt(Lascii.size()));		
-			random +=Character.toString((char) ((char) x));
+			x = Lascii.get(randomizer.nextInt(Lascii.size()));
+			random += Character.toString((char) ((char) x));
 		}
 		return random;
 	}
