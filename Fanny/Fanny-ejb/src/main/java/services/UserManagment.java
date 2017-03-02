@@ -22,6 +22,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
+import entities.Artist;
 import entities.User;
 
 /**
@@ -91,15 +92,15 @@ public class UserManagment implements UserManagmentRemote {
 
 	@Override
 	public int RedirectUser(User user) {
-		if (user.getRole().equals("ARTIST")) {
+
+		if (user instanceof Artist) {
 			return 1;
 		}
-		if (user.getRole().equals("GALLERY")) {
+		if (user instanceof Artist) {
 			return 2;
 		}
 
 		return 0;
-
 	}
 
 	@Override
