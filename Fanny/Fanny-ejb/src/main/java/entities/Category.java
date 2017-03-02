@@ -16,6 +16,7 @@ import entities.Topic;
 
 public class Category implements Serializable {
 
+	//added
 	   
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
