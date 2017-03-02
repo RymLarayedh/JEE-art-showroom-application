@@ -26,9 +26,7 @@ public class ForumManagement implements ForumManagementRemote {
 	@Override
 	public void addCategory(Category c) {
 		// TODO Auto-generated method stub
-		Topic t = new Topic();
-		em.persist(t);
-		em.persist(c);
+		em.persist(em.merge(c));
 
 		
 	}
@@ -36,7 +34,7 @@ public class ForumManagement implements ForumManagementRemote {
 	@Override
 	public void updateCategory(Category c) {
 		// TODO Auto-generated method stub
-		em.merge(c)		;
+		em.merge(c);
 
 		
 	}
