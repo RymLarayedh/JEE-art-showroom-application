@@ -22,7 +22,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
+import entities.Admin;
 import entities.Artist;
+import entities.Gallery;
 import entities.User;
 
 /**
@@ -270,5 +272,39 @@ public class UserManagment implements UserManagmentRemote {
 		}
 		return random;
 	}
+
+	@Override
+	public List<Artist> getAllArtists() {
+		try {
+			TypedQuery<Artist> q = em.createQuery("SELECT a FROM Artist a", Artist.class);
+			List<Artist> Lartist = q.getResultList();
+			return Lartist;
+		} catch (javax.persistence.NoResultException e) {
+			return null;
+		}
+	}
+
+	@Override
+	public List<Admin> getAllAdmins() {
+		try {
+			TypedQuery<Admin> q = em.createQuery("SELECT a FROM Admin a", Admin.class);
+			List<Admin> Ladmin = q.getResultList();
+			return Ladmin;
+		} catch (javax.persistence.NoResultException e) {
+			return null;
+		}
+	}
+
+	@Override
+	public List<Gallery> getAllGalleries() {
+		try {
+			TypedQuery<Gallery> q = em.createQuery("SELECT a FROM Gallery a", Gallery.class);
+			List<Gallery> Lgallery = q.getResultList();
+			return Lgallery;
+		} catch (javax.persistence.NoResultException e) {
+			return null;
+		}
+	}
+
 
 }

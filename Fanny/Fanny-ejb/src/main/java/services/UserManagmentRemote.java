@@ -7,6 +7,9 @@ import javax.mail.MessagingException;
 import javax.mail.internet.AddressException;
 import javax.naming.NamingException;
 
+import entities.Admin;
+import entities.Artist;
+import entities.Gallery;
 import entities.User;
 
 @Remote
@@ -132,6 +135,24 @@ public interface UserManagmentRemote {
 	 * @return
 	 */
 	public String codeGeneration();
+	
+	/**
+	 * this method returns a list of all the Artists
+	 * @return
+	 */
+	public List<Artist> getAllArtists();
+	
+	/**
+	 * this method returns a list of all the admins
+	 * @return
+	 */
+	public List<Admin> getAllAdmins();
+	
+	/**
+	 * this method returns a list of all the galleries
+	 * @return
+	 */
+	public List<Gallery> getAllGalleries();
 	
 	
 	

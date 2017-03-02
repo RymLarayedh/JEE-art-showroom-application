@@ -31,6 +31,11 @@ public class Artist extends User implements Serializable {
 		this.bio = bio;
 	}
 
+	@Override
+	public String toString() {
+		return "Artist ["+super.toString()+", bio=" + bio + "]";
+	}
+
 /*	public List<String> getFields() {
 		return Fields;
 	}
