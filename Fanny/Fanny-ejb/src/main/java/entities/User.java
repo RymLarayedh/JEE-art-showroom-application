@@ -11,6 +11,7 @@ import javax.validation.constraints.NotNull;
  */
 @Entity
 @Table(uniqueConstraints={@UniqueConstraint(columnNames={"username","email"})})
+@Inheritance(strategy=InheritanceType.SINGLE_TABLE)
 public class User implements Serializable {
 
 	   
@@ -26,22 +27,19 @@ public class User implements Serializable {
 	@NotNull
 	private String email;
 	private boolean isActive;
-	private String Role;
 	private static final long serialVersionUID = 1L;
 
 	public User() {
 		super();
 	}
 	
-	public User(String firstName, String lastName, String username, String password, String email, boolean isActive,
-			String role) {
+	public User(String firstName, String lastName, String username, String password, String email, boolean isActive) {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.username = username;
 		this.password = password;
 		this.email = email;
 		this.isActive = false;
-		Role = role;
 	}
 
 
@@ -94,17 +92,12 @@ public class User implements Serializable {
 	public void setActive(boolean isActive) {
 		this.isActive = isActive;
 	}
-	public String getRole() {
-		return Role;
-	}
-	public void setRole(String role) {
-		Role = role;
-	}
+
 
 	@Override
 	public String toString() {
 		return "User [idUser=" + idUser + ", firstName=" + firstName + ", lastName=" + lastName + ", username="
-				+ username + ", password=" + password + ", email=" + email + ", isActive=" + isActive + ", Role=" + Role
+				+ username + ", password=" + password + ", email=" + email + ", isActive=" + isActive
 				+ "]";
 	}
 	
