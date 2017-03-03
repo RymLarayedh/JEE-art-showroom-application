@@ -2,7 +2,7 @@ package entities;
 
 import java.io.Serializable;
 import java.lang.String;
-import java.util.List;
+import java.util.Set;
 
 import javax.persistence.*;
 
@@ -20,8 +20,8 @@ public class Fields implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int idField;
 	private String Libelle;
-	@OneToMany(mappedBy="artist")
-	private List<ArtistFields> listArtist;
+	@OneToMany(mappedBy="field")
+	private Set<ArtistFields> listArtist;
 	private static final long serialVersionUID = 1L;
 
 	public Fields() {
@@ -51,12 +51,12 @@ public class Fields implements Serializable {
 	}
 
 
-	public List<ArtistFields> getListArtist() {
+	public Set<ArtistFields> getListArtist() {
 		return listArtist;
 	}
 
 
-	public void setListArtist(List<ArtistFields> listArtist) {
+	public void setListArtist(Set<ArtistFields> listArtist) {
 		this.listArtist = listArtist;
 	}
 

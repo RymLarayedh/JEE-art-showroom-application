@@ -2,9 +2,9 @@ package entities;
 
 import entities.User;
 import java.io.Serializable;
-import java.util.List;
-
+import java.util.Set;
 import javax.persistence.*;
+
 
 /**
  * Entity implementation class for Entity: Artist
@@ -15,10 +15,10 @@ import javax.persistence.*;
 public class Artist extends User implements Serializable {
 
 	private String bio;
-	@OneToMany(mappedBy="field")
-	private List<ArtistFields> Lfields;
-	@OneToMany(mappedBy="user")
-	private List<ArtistFollowers> Followers;
+	@OneToMany(fetch=FetchType.EAGER,mappedBy="artist")
+	private Set<ArtistFields> Lfields ;
+	@OneToMany(fetch=FetchType.EAGER,mappedBy="artist")
+	private Set<ArtistFollowers> Followers ;
 	private static final long serialVersionUID = 1L;
 	@OneToOne(mappedBy="artist")
 	private Event event;
@@ -35,21 +35,20 @@ public class Artist extends User implements Serializable {
 		this.bio = bio;
 	}
 
-	
 
-	public List<ArtistFields> getLfields() {
+	public Set<ArtistFields> getLfields() {
 		return Lfields;
 	}
 
-	public void setLfields(List<ArtistFields> lfields) {
+	public void setLfields(Set<ArtistFields> lfields) {
 		Lfields = lfields;
 	}
 
-	public List<ArtistFollowers> getFollowers() {
+	public Set<ArtistFollowers> getFollowers() {
 		return Followers;
 	}
 
-	public void setFollowers(List<ArtistFollowers> followers) {
+	public void setFollowers(Set<ArtistFollowers> followers) {
 		Followers = followers;
 	}
 

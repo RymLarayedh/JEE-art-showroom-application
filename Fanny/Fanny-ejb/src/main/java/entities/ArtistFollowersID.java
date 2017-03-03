@@ -17,9 +17,17 @@ public class ArtistFollowersID implements Serializable {
 
 	public ArtistFollowersID() {
 		super();
+	}	
+	
+	public ArtistFollowersID(int idUserPK, int idArtistPK) {
+		super();
+		this.idUserPK = idUserPK;
+		this.idArtistPK = idArtistPK;
 	}
-	
-	
+
+
+
+
 	public int getIdUserPK() {
 		return idUserPK;
 	}

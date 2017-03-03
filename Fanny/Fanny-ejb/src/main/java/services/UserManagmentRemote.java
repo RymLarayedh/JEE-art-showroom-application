@@ -163,11 +163,32 @@ public interface UserManagmentRemote {
 	public void addFields(Fields field , User user);
 	
 	/**
+	 * this method allowed artist to remove some fields to his account
+	 * @param field
+	 * @param artist
+	 */
+	public void removeFields(Fields field , User user);
+	
+	/**
 	 * this method returns a list of artits that have incoma the lf list of Fields
 	 * @param lf
 	 * @return
 	 */
 	public List<Artist> findByField(List<Fields> lf);
+	
+	/**
+	 * this method allowed user to follow another user
+	 * @param follower
+	 * @param user
+	 */
+	public void addFollower(User follower , User user);
+	
+	/**
+	 * this method allowed user to unfollow another user
+	 * @param follower
+	 * @param user
+	 */
+	public void removeFollower(User follower , User user);
 	
 	
 

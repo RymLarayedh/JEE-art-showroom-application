@@ -8,6 +8,7 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
 import entities.Artist;
+import entities.ArtistFields;
 import entities.Category;
 import entities.Fields;
 import entities.User;
@@ -28,15 +29,33 @@ public class Entry {
 		
 		//frmManagment.addCategory(ctg);
 		
-		System.out.println(userManagment.getAllArtists());
+		//System.out.println(userManagment.getAllArtists());
 		Fields music = new Fields();
-		music.setIdField(1);
-		music.setLibelle("Music");
+		music.setIdField(2);
+		Fields music1 = new Fields();
+		music1.setIdField(1);
 		userManagment.addFields(music, userManagment.findById(2));
+		userManagment.addFields(music1, userManagment.findById(2));
 		List<Artist> LA = userManagment.getAllArtists();
 		for(Artist i : LA)
 		{
 			System.out.println("Inside");
+			for(ArtistFields af:i.getLfields())
+			{
+				System.out.println(af.getField().getLibelle());
+			}
+			
+		}
+		
+		userManagment.removeFields(music, userManagment.findById(2));
+		LA = userManagment.getAllArtists();
+		for(Artist i : LA)
+		{
+			System.out.println("Inside2");
+			for(ArtistFields af:i.getLfields())
+			{
+				System.out.println(af.getField().getLibelle());
+			}
 			
 		}
 		

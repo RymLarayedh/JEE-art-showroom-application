@@ -1,6 +1,7 @@
 package services;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Properties;
 import java.util.Random;
@@ -26,6 +27,8 @@ import entities.Admin;
 import entities.Artist;
 import entities.ArtistFields;
 import entities.ArtistFieldsID;
+import entities.ArtistFollowers;
+import entities.ArtistFollowersID;
 import entities.Fields;
 import entities.Gallery;
 import entities.User;
@@ -315,8 +318,10 @@ public class UserManagment implements UserManagmentRemote {
 		ArtistFields Af = new ArtistFields();
 		Af.setArtist(artist);
 		Af.setField(field);
-		Af.setArtistFieldId(new ArtistFieldsID(field.getIdField(),user.getIdUser()));
+		Af.setArtistFieldId(new ArtistFieldsID(field.getIdField(), user.getIdUser()));
+		artist.getLfields().add(Af);
 		em.persist(Af);
+		em.merge(artist);
 	}
 
 	@Override
@@ -324,6 +329,40 @@ public class UserManagment implements UserManagmentRemote {
 		// cette method permet d'avoir une liste d'artist d'où ces artist on
 		// l'une des ces fields en commun
 		return null;
+	}
+
+	@Override
+	public void removeFields(Fields field, User user) {
+		Artist artist = (Artist) user;
+		ArtistFields Af = new ArtistFields();
+		Af.setArtist(artist);
+		Af.setField(field);
+		Af.setArtistFieldId(new ArtistFieldsID(field.getIdField(), user.getIdUser()));
+		em.remove(em.merge(Af));
+	}
+
+	@Override
+	public void addFollower(User follower, User user) {
+		Artist artist = (Artist) user;
+		ArtistFollowers Af = new ArtistFollowers();
+		Af.setArtist(artist);
+		Af.setUser(follower);
+		Af.setArtistId(new ArtistFollowersID(follower.getIdUser(),artist.getIdUser()));
+		artist.getFollowers().add(Af);
+		em.persist(Af);
+		em.merge(artist);
+		
+	}
+
+	@Override
+	public void removeFollower(User follower, User user) {
+		Artist artist = (Artist) user;
+		ArtistFollowers Af = new ArtistFollowers();
+		Af.setArtist(artist);
+		Af.setUser(follower);
+		Af.setArtistId(new ArtistFollowersID(follower.getIdUser(),artist.getIdUser()));
+		em.remove(em.merge(Af));
+		
 	}
 
 }
