@@ -20,6 +20,8 @@ public class Artist extends User implements Serializable {
 	@OneToMany(fetch = FetchType.EAGER,mappedBy="user")
 	private List<ArtistFollowers> Followers;
 	private static final long serialVersionUID = 1L;
+	@OneToOne(mappedBy="artist")
+	private Event event;
 
 	public Artist() {
 		super();

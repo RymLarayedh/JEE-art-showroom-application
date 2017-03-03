@@ -2,6 +2,8 @@ package entities;
 
 import java.io.Serializable;
 import java.lang.String;
+import java.util.List;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
@@ -28,6 +30,13 @@ public class User implements Serializable {
 	private String email;
 	private boolean isActive;
 	private static final long serialVersionUID = 1L;
+	@OneToMany(mappedBy="user")
+	private List<EventUser>listEventUser;
+	@OneToOne(mappedBy="user")
+	private Feedback feedback;
+	/*@OneToOne(mappedBy="user")
+	private Reclamation reclamation;*/
+	
 
 	public User() {
 		super();

@@ -15,6 +15,8 @@ public class Artwork implements Serializable {
 	@Id
 	private int idArtwork;
 	private static final long serialVersionUID = 1L;
+	@OneToOne(mappedBy="user")
+	private Reclamation reclamation;
 
 	public Artwork() {
 		super();
