@@ -155,7 +155,19 @@ public interface UserManagmentRemote {
 	 */
 	public List<Gallery> getAllGalleries();
 	
+	/**
+	 * this method allowed artist to add some fields to his account
+	 * @param field
+	 * @param artist
+	 */
 	public void addFields(Fields field , Artist artist);
+	
+	/**
+	 * this method returns a list of artits that have incoma the lf list of Fields
+	 * @param lf
+	 * @return
+	 */
+	public List<Artist> findByField(List<Fields> lf);
 	
 	
 

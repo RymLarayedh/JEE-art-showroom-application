@@ -252,7 +252,7 @@ public class UserManagment implements UserManagmentRemote {
 	@Override
 	public String codeGeneration() {
 
-		List<Integer> Lascii = new ArrayList();
+		List<Integer> Lascii = new ArrayList<>();
 		for (int i = 48; i < 58; i++) {
 			Lascii.add(i);
 		}
@@ -312,9 +312,15 @@ public class UserManagment implements UserManagmentRemote {
 		List<Fields> tmp = artist.getLfields();
 		tmp.add(field);
 		artist.setLfields(tmp);
-		//call to update artist method
-		
+		// call to update artist method
+
 	}
 
+	@Override
+	public List<Artist> findByField(List<Fields> lf) {
+		// cette method permet d'avoir une liste d'artist d'où ces artist on
+		// l'une des ces fields en commun
+		return null;
+	}
 
 }
