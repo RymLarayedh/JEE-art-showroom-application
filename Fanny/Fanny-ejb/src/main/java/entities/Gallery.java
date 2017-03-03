@@ -18,6 +18,8 @@ public class Gallery extends User implements Serializable {
 	private String Description;
 	//private List<>
 	private static final long serialVersionUID = 1L;
+	@OneToOne(mappedBy="gallery")
+	private Event event;
 
 	public Gallery() {
 		super();
