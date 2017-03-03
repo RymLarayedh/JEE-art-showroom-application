@@ -9,6 +9,7 @@ import javax.naming.NamingException;
 
 import entities.Admin;
 import entities.Artist;
+import entities.Fields;
 import entities.Gallery;
 import entities.User;
 
@@ -154,8 +155,7 @@ public interface UserManagmentRemote {
 	 */
 	public List<Gallery> getAllGalleries();
 	
-	//added by aymen
-	
+	public void addFields(Fields field , Artist artist);
 	
 	
 

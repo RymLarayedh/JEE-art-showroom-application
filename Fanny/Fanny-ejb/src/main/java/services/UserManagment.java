@@ -24,6 +24,7 @@ import javax.persistence.TypedQuery;
 
 import entities.Admin;
 import entities.Artist;
+import entities.Fields;
 import entities.Gallery;
 import entities.User;
 
@@ -304,6 +305,15 @@ public class UserManagment implements UserManagmentRemote {
 		} catch (javax.persistence.NoResultException e) {
 			return null;
 		}
+	}
+
+	@Override
+	public void addFields(Fields field, Artist artist) {
+		List<Fields> tmp = artist.getLfields();
+		tmp.add(field);
+		artist.setLfields(tmp);
+		//call to update artist method
+		
 	}
 
 
