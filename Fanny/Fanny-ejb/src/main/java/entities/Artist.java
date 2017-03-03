@@ -15,8 +15,11 @@ import javax.persistence.*;
 public class Artist extends User implements Serializable {
 
 	private String bio;
-	private List<Fields> Lfields;
-	//private List<User> Followers;
+	
+	@OneToMany(mappedBy="fileds")
+	private List<ArtistFields> Lfields;
+	@OneToMany(mappedBy="user")
+	private List<ArtistFollowers> Followers;
 	private static final long serialVersionUID = 1L;
 
 	public Artist() {
@@ -32,29 +35,27 @@ public class Artist extends User implements Serializable {
 	}
 
 	
-	
-	public List<Fields> getLfields() {
+
+	public List<ArtistFields> getLfields() {
 		return Lfields;
 	}
 
-	public void setLfields(List<Fields> lfields) {
+	public void setLfields(List<ArtistFields> lfields) {
 		Lfields = lfields;
+	}
+
+	public List<ArtistFollowers> getFollowers() {
+		return Followers;
+	}
+
+	public void setFollowers(List<ArtistFollowers> followers) {
+		Followers = followers;
 	}
 
 	@Override
 	public String toString() {
 		return "Artist ["+super.toString()+", bio=" + bio + "]";
 	}
-
-
-	/*
-	public List<User> getFollowers() {
-		return Followers;
-	}
-
-	public void setFollowers(List<User> followers) {
-		Followers = followers;
-	}*/
 	
    
 }

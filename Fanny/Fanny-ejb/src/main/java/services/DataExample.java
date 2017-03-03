@@ -1,12 +1,18 @@
 package services;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 import entities.Admin;
 import entities.Artist;
+import entities.Fields;
 import entities.Gallery;
 import entities.User;
 
@@ -18,6 +24,9 @@ import entities.User;
 public class DataExample {
 
 	@EJB UserManagmentRemote usrManagment;
+	
+	@PersistenceContext(unitName = "Fanny-ejb")
+	EntityManager em;
     /**
      * Default constructor. 
      */
@@ -49,6 +58,18 @@ public class DataExample {
 		u13.setEmail("zimouarbi@gmail.com");
 		u13.setFirstName("zimouarbi");
 		
+		List<Fields> Lf = new ArrayList();
+		Lf.add(new Fields("Music"));
+		Lf.add(new Fields("Arts"));
+		Lf.add(new Fields("Visual Arts"));
+		Lf.add(new Fields("Tunisian Craft"));
+		
+		for(Fields f:Lf)
+		{
+			em.persist(f);
+		}
+		
+
 		usrManagment.addUser(u1);
 		usrManagment.addUser(u12);
 		usrManagment.addUser(u13);

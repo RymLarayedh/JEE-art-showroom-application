@@ -309,9 +309,9 @@ public class UserManagment implements UserManagmentRemote {
 
 	@Override
 	public void addFields(Fields field, Artist artist) {
-		List<Fields> tmp = artist.getLfields();
+		/*List<Fields> tmp = artist.getLfields();
 		tmp.add(field);
-		artist.setLfields(tmp);
+		artist.setLfields(tmp);*/
 		// call to update artist method
 
 	}
