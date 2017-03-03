@@ -15,9 +15,9 @@ import javax.persistence.*;
 public class Artist extends User implements Serializable {
 
 	private String bio;
-	@OneToMany(fetch = FetchType.EAGER,mappedBy="field")
+	@OneToMany(mappedBy="field")
 	private List<ArtistFields> Lfields;
-	@OneToMany(fetch = FetchType.EAGER,mappedBy="user")
+	@OneToMany(mappedBy="user")
 	private List<ArtistFollowers> Followers;
 	private static final long serialVersionUID = 1L;
 	@OneToOne(mappedBy="artist")
