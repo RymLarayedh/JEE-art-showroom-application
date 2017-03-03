@@ -154,6 +154,7 @@ public interface UserManagmentRemote {
 	 */
 	public List<Gallery> getAllGalleries();
 	
+	//added by aymen
 	
 	
 	
