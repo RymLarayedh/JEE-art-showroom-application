@@ -18,6 +18,14 @@ public class ArtistFieldsID implements Serializable {
 	public ArtistFieldsID() {
 		super();
 	}
+	
+	public ArtistFieldsID(int idFieldsPK, int idArtistPK) {
+		super();
+		this.idFieldsPK = idFieldsPK;
+		this.idArtistPK = idArtistPK;
+	}
+
+
 
 	public int getIdFieldsPK() {
 		return idFieldsPK;

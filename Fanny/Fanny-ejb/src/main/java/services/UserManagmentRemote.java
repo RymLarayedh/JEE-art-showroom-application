@@ -160,7 +160,7 @@ public interface UserManagmentRemote {
 	 * @param field
 	 * @param artist
 	 */
-	public void addFields(Fields field , Artist artist);
+	public void addFields(Fields field , User user);
 	
 	/**
 	 * this method returns a list of artits that have incoma the lf list of Fields

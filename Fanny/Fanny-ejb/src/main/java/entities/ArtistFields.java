@@ -15,7 +15,7 @@ public class ArtistFields implements Serializable {
 	private ArtistFieldsID artistFieldId;
 	@ManyToOne
 	@JoinColumn(name="idFieldsPK",insertable=false,updatable=false)
-	private Fields fileds;
+	private Fields field;
 	@ManyToOne
 	@JoinColumn(name="idArtistPK",insertable=false,updatable=false)
 	private Artist artist;
@@ -26,13 +26,16 @@ public class ArtistFields implements Serializable {
 		super();
 	}
 
-	public Fields getFileds() {
-		return fileds;
+
+	public Fields getField() {
+		return field;
 	}
 
-	public void setFileds(Fields fileds) {
-		this.fileds = fileds;
+
+	public void setField(Fields field) {
+		this.field = field;
 	}
+
 
 	public Artist getArtist() {
 		return artist;

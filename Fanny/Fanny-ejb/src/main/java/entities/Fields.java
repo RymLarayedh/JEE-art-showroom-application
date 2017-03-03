@@ -59,6 +59,14 @@ public class Fields implements Serializable {
 	public void setListArtist(List<ArtistFields> listArtist) {
 		this.listArtist = listArtist;
 	}
+
+
+	@Override
+	public String toString() {
+		return "Fields [idField=" + idField + ", Libelle=" + Libelle + ", listArtist=" + listArtist + "]";
+	}
+	
+	
 	
 	
    
