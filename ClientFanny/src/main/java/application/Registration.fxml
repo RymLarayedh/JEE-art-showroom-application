@@ -14,9 +14,9 @@
       <Label layoutX="85.0" layoutY="120.0" text="Last Name" />
       <JFXTextField fx:id="lastNameRegistrationTF" layoutX="267.0" layoutY="113.0" />
       <Label layoutX="85.0" layoutY="179.0" text="e-mail" />
-      <JFXTextField fx:id="mailRegistrationTF" layoutX="267.0" layoutY="172.0" />
+      <JFXTextField fx:id="mailRegistrationTF" layoutX="267.0" layoutY="172.0" onKeyTyped="#verifyRegistrationMail" />
       <Label layoutX="85.0" layoutY="238.0" text="Username" />
-      <JFXTextField fx:id="usernameRegistrationTF" layoutX="267.0" layoutY="231.0" />
+      <JFXTextField fx:id="usernameRegistrationTF" layoutX="267.0" layoutY="231.0" onKeyTyped="#verifyRegistrationUsername" />
       <Label layoutX="85.0" layoutY="297.0" text="Password" />
       <JFXTextField fx:id="PasswordRegistrationTF" layoutX="267.0" layoutY="290.0" />
       <Label layoutX="85.0" layoutY="356.0" text="RePassword" />
