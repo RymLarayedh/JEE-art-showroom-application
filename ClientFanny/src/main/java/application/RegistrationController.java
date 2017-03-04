@@ -148,7 +148,6 @@ public class RegistrationController implements Initializable {
              myImageView.setImage(image);
          } catch (IOException ex) { 
          }
-
 	}
 
 }
