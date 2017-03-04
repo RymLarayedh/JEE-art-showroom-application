@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="555.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.RegistrationController">
+   <children>
+      <Label layoutX="85.0" layoutY="61.0" text="First Name" />
+      <JFXTextField fx:id="firstNameRegistrationTF" layoutX="267.0" layoutY="54.0" />
+      <JFXButton layoutX="482.0" layoutY="506.0" onAction="#nextStepRegistration" text="Next" />
+      <Label layoutX="85.0" layoutY="120.0" text="Last Name" />
+      <JFXTextField fx:id="lastNameRegistrationTF" layoutX="267.0" layoutY="113.0" />
+      <Label layoutX="85.0" layoutY="179.0" text="e-mail" />
+      <JFXTextField fx:id="mailRegistrationTF" layoutX="267.0" layoutY="172.0" />
+      <Label layoutX="85.0" layoutY="238.0" text="Username" />
+      <JFXTextField fx:id="usernameRegistrationTF" layoutX="267.0" layoutY="231.0" />
+      <Label layoutX="85.0" layoutY="297.0" text="Password" />
+      <JFXTextField fx:id="PasswordRegistrationTF" layoutX="267.0" layoutY="290.0" />
+      <Label layoutX="85.0" layoutY="356.0" text="RePassword" />
+      <JFXTextField fx:id="rePasswordRegistrationTF" layoutX="267.0" layoutY="349.0" />
+      <Label layoutX="85.0" layoutY="415.0" text="Profile picture" />
+      <JFXButton layoutX="300.0" layoutY="408.0" onAction="#pickPicture" text="Choose" />
+      <ImageView fx:id="myImageView" fitHeight="59.0" fitWidth="74.0" layoutX="445.0" layoutY="396.0" pickOnBounds="true" preserveRatio="true" />
+   </children>
+</AnchorPane>

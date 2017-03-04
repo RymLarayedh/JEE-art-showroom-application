@@ -92,8 +92,9 @@ public class LoginController implements Initializable {
 
 	// Event Listener on Label.onMouseClicked
 	@FXML
-	public void registerNewUser(MouseEvent event) {
-		gotoRegistration();
+	public void registerNewUser(MouseEvent event) throws IOException {
+		ActionEvent ae = new ActionEvent(event.getSource(), event.getTarget());
+		gotoRegistration(ae);
 	}
 
 	// Event Listener on Label.onMouseClicked
@@ -136,8 +137,11 @@ public class LoginController implements Initializable {
 					Label createNewAccount = new Label("Create a new account from here");
 					createNewAccount.setOnMouseClicked(new EventHandler<MouseEvent>() {
 						public void handle(MouseEvent event) {
-							gotoRegistration();
-							System.out.println("hi");
+							ActionEvent ae = new ActionEvent(event.getSource(), event.getTarget());
+							try {
+								gotoRegistration(ae);
+							} catch (IOException e) {
+							}
 						};
 					});
 					resetPasswordPane.getChildren().add(createNewAccount);
@@ -235,9 +239,16 @@ public class LoginController implements Initializable {
 		resetPasswordPane.setVisible(true);
 	}
 
-	
-	void gotoRegistration() {
-
+	void gotoRegistration(ActionEvent event) throws IOException {
+		Parent adminScene = FXMLLoader.load(getClass().getResource("Registration.fxml"));
+		Scene scene = new Scene(adminScene);
+		scene.getStylesheets().add(getClass().getResource("Registration.css").toExternalForm());
+		Stage Sc = new Stage();
+		Sc.setScene(scene);
+		Sc.show();
+		final Node source = (Node) event.getSource();
+		final Stage stage = (Stage) source.getScene().getWindow();
+		stage.close();
 	}
 
 	void gotoAdmin(ActionEvent event) throws IOException {
