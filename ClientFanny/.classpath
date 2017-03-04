@@ -32,5 +32,6 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="D:/Aymen/Mateur ===¤ fst ===¤ Esprit/4eme/Aymen cour/Cour aymen/4eme/SEM 1/Final/Final/Ween/Ween/Lib/jfoenix.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

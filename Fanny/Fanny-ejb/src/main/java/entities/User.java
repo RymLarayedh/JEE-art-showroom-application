@@ -3,6 +3,7 @@ package entities;
 import java.io.Serializable;
 import java.lang.String;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -30,6 +31,8 @@ public class User implements Serializable {
 	private String email;
 	private boolean isActive;
 	private static final long serialVersionUID = 1L;
+	@OneToMany(mappedBy="user")
+	private Set<ArtistFollowers> listFollow;
 	@OneToMany(mappedBy="user")
 	private List<EventUser>listEventUser;
 	@OneToOne(mappedBy="user")
@@ -102,6 +105,14 @@ public class User implements Serializable {
 		this.isActive = isActive;
 	}
 
+
+	public Set<ArtistFollowers> getListFollow() {
+		return listFollow;
+	}
+
+	public void setListFollow(Set<ArtistFollowers> listFollow) {
+		this.listFollow = listFollow;
+	}
 
 	@Override
 	public String toString() {

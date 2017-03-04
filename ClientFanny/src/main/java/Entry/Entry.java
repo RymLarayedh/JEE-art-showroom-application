@@ -9,6 +9,7 @@ import javax.naming.NamingException;
 
 import entities.Artist;
 import entities.ArtistFields;
+import entities.ArtistFollowers;
 import entities.Category;
 import entities.Fields;
 import entities.User;
@@ -30,7 +31,7 @@ public class Entry {
 		//frmManagment.addCategory(ctg);
 		
 		//System.out.println(userManagment.getAllArtists());
-		Fields music = new Fields();
+		/*Fields music = new Fields();
 		music.setIdField(2);
 		Fields music1 = new Fields();
 		music1.setIdField(1);
@@ -57,7 +58,16 @@ public class Entry {
 				System.out.println(af.getField().getLibelle());
 			}
 			
+		}*/
+
+	//	userManagment.addFollower(userManagment.findById(1), userManagment.findById(2));
+		Artist x = (Artist) userManagment.findById(2);
+		for(ArtistFollowers u :x.getFollowers())
+		{
+			System.out.println(u.getUser());
 		}
+		
+		
 		
 	}
 
