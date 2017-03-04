@@ -13,9 +13,9 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-			Parent root = FXMLLoader.load(getClass().getResource("Login.fxml"));
-			Scene scene = new Scene(root,400,400);
-			scene.getStylesheets().add(getClass().getResource("Login.css").toExternalForm());
+			Parent root = FXMLLoader.load(getClass().getResource("MenuAdmin.fxml"));
+			Scene scene = new Scene(root,600,600);
+			//scene.getStylesheets().add(getClass().getResource("Login.css").toExternalForm());
 			primaryStage.setScene(scene);
 			primaryStage.setTitle("FannyTUNISIA");
             primaryStage.setOnCloseRequest(e ->{
