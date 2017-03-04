@@ -26,6 +26,7 @@ import com.jfoenix.controls.JFXTextField;
 import entities.User;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 
 public class RegistrationController implements Initializable {
 	
@@ -51,7 +52,19 @@ public class RegistrationController implements Initializable {
 	@FXML
 	private AnchorPane firstFrame;
 	@FXML
+	private AnchorPane secondFrame;
+	@FXML
 	private AnchorPane registrationFrame;
+	@FXML
+	private Button Generalinformation;
+	@FXML
+	private Button youare;
+	@FXML
+	private Button lastStep;
+	@FXML
+	private Button GalleryRegistration;
+	@FXML
+	private Button ArtistRegistration;
 	
 	
 	@Override
@@ -59,6 +72,11 @@ public class RegistrationController implements Initializable {
 		// TODO Auto-generated method stub
 		mailRegistrationError.setVisible(false);
 		usernameRegistrationError.setVisible(false);
+		secondFrame.setVisible(false);
+		youare.setDisable(true);
+		lastStep.setDisable(true);
+		
+		
 		
 	}
 	// Event Listener on JFXButton.onAction
@@ -85,6 +103,27 @@ public class RegistrationController implements Initializable {
         }
         newUser.setPicture(bFile);
         firstFrame.setVisible(false);
+        secondFrame.setVisible(true);
+		youare.setDisable(false);
+		
+		GalleryRegistration.setOnAction(new EventHandler<ActionEvent>() {
+			
+			@Override
+			public void handle(ActionEvent event) {
+				System.out.println("hi Gallery");
+				
+			}
+		});
+		
+		ArtistRegistration.setOnAction(new EventHandler<ActionEvent>() {
+			
+			@Override
+			public void handle(ActionEvent event) {
+				System.out.println("hi Artist");
+				
+			}
+		});
+		
 		
 	}
 	

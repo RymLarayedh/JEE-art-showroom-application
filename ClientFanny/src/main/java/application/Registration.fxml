@@ -8,15 +8,14 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-
-<AnchorPane fx:id="registrationFrame" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.RegistrationController">
+<AnchorPane fx:id="registrationFrame" prefHeight="616.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.RegistrationController">
    <children>
-      <AnchorPane fx:id="firstFrame" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="555.0" prefWidth="600.0">
+      <AnchorPane fx:id="firstFrame" layoutY="77.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="600.0">
          <children>
             <Label layoutX="85.0" layoutY="61.0" text="First Name" />
             <JFXTextField fx:id="firstNameRegistrationTF" layoutX="267.0" layoutY="54.0" />
-            <JFXButton layoutX="482.0" layoutY="506.0" onAction="#nextStepRegistration" text="Next" />
             <Label layoutX="85.0" layoutY="120.0" text="Last Name" />
             <JFXTextField fx:id="lastNameRegistrationTF" layoutX="267.0" layoutY="113.0" />
             <Label layoutX="85.0" layoutY="179.0" text="e-mail" />
@@ -30,7 +29,6 @@
             <Label layoutX="85.0" layoutY="415.0" text="Profile picture" />
             <JFXButton layoutX="300.0" layoutY="408.0" onAction="#pickPicture" text="Choose" />
             <ImageView fx:id="myImageView" fitHeight="59.0" fitWidth="74.0" layoutX="445.0" layoutY="396.0" pickOnBounds="true" preserveRatio="true" />
-            <Label layoutX="111.0" layoutY="16.0" prefHeight="31.0" prefWidth="349.0" text="Label" />
             <Button fx:id="mailRegistrationError" layoutX="477.0" layoutY="175.0" mnemonicParsing="false" text="Button">
                <effect>
                   <ImageInput>
@@ -51,40 +49,54 @@
             </Button>
          </children>
       </AnchorPane>
-      <Label layoutX="85.0" layoutY="61.0" text="First Name" />
-      <JFXTextField fx:id="firstNameRegistrationTF" layoutX="267.0" layoutY="54.0" />
-      <JFXButton layoutX="482.0" layoutY="506.0" onAction="#nextStepRegistration" text="Next" />
-      <Label layoutX="85.0" layoutY="120.0" text="Last Name" />
-      <JFXTextField fx:id="lastNameRegistrationTF" layoutX="267.0" layoutY="113.0" />
-      <Label layoutX="85.0" layoutY="179.0" text="e-mail" />
-      <JFXTextField fx:id="mailRegistrationTF" layoutX="267.0" layoutY="172.0" onKeyReleased="#verifyRegistrationMail" />
-      <Label layoutX="85.0" layoutY="238.0" text="Username" />
-      <JFXTextField fx:id="usernameRegistrationTF" layoutX="267.0" layoutY="231.0" onKeyReleased="#verifyRegistrationUsername" />
-      <Label layoutX="85.0" layoutY="297.0" text="Password" />
-      <JFXTextField fx:id="PasswordRegistrationTF" layoutX="267.0" layoutY="290.0" />
-      <Label layoutX="85.0" layoutY="356.0" text="RePassword" />
-      <JFXTextField fx:id="rePasswordRegistrationTF" layoutX="267.0" layoutY="349.0" />
-      <Label layoutX="85.0" layoutY="415.0" text="Profile picture" />
-      <JFXButton layoutX="300.0" layoutY="408.0" onAction="#pickPicture" text="Choose" />
-      <ImageView fx:id="myImageView" fitHeight="59.0" fitWidth="74.0" layoutX="445.0" layoutY="396.0" pickOnBounds="true" preserveRatio="true" />
-      <Label layoutX="111.0" layoutY="16.0" prefHeight="31.0" prefWidth="349.0" text="Label" />
-      <Button fx:id="mailRegistrationError" layoutX="477.0" layoutY="175.0" mnemonicParsing="false" text="Button">
+      <Button fx:id="Generalinformation" layoutX="23.0" layoutY="10.0" mnemonicParsing="false" prefHeight="52.0" prefWidth="178.0" text="Button">
          <effect>
             <ImageInput>
                <source>
-                  <Image url="@../buttons/rsz_error-128.png" />
+                  <Image url="file:/C:/Users/ElarbiMohamedAymen/git/Eureka/ClientFanny/src/main/java/buttons/Sans%20titre-4.png" />
                </source>
             </ImageInput>
          </effect>
       </Button>
-      <Button fx:id="usernameRegistrationError" layoutX="477.0" layoutY="234.0" mnemonicParsing="false" text="Button">
+      <Button fx:id="lastStep" layoutX="398.0" layoutY="10.0" mnemonicParsing="false" prefHeight="59.0" prefWidth="194.0" text="Button">
          <effect>
             <ImageInput>
                <source>
-                  <Image url="@../buttons/rsz_error-128.png" />
+                  <Image url="file:/C:/Users/ElarbiMohamedAymen/git/Eureka/ClientFanny/src/main/java/buttons/Sans%20titre-1.png" />
                </source>
             </ImageInput>
          </effect>
       </Button>
+      <Button fx:id="youare" layoutX="214.0" layoutY="9.0" mnemonicParsing="false" prefHeight="59.0" prefWidth="178.0" text="Button">
+         <effect>
+            <ImageInput>
+               <source>
+                  <Image url="file:/C:/Users/ElarbiMohamedAymen/git/Eureka/ClientFanny/src/main/java/buttons/Sans%20titre-5.png" />
+               </source>
+            </ImageInput>
+         </effect>
+      </Button>
+      <JFXButton layoutX="475.0" layoutY="555.0" onAction="#nextStepRegistration" text="Next" />
+      <Label layoutX="40.0" layoutY="13.0" prefHeight="46.0" prefWidth="141.0" text="General Information" textFill="WHITE">
+         <font>
+            <Font name="Comic Sans MS Bold" size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="260.0" layoutY="12.0" prefHeight="46.0" prefWidth="130.0" text="You are ?" textFill="WHITE">
+         <font>
+            <Font name="Comic Sans MS Bold" size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="430.0" layoutY="14.0" prefHeight="46.0" prefWidth="168.0" text="The Last Step" textFill="WHITE">
+         <font>
+            <Font name="Comic Sans MS Bold" size="16.0" />
+         </font>
+      </Label>
+      <AnchorPane fx:id="secondFrame" layoutY="96.0" prefHeight="450.0" prefWidth="607.0">
+         <children>
+            <Button fx:id="GalleryRegistration" layoutX="103.0" layoutY="200.0" mnemonicParsing="false" text="Button" />
+            <Button fx:id="ArtistRegistration" layoutX="358.0" layoutY="200.0" mnemonicParsing="false" text="Button" />
+         </children>
+      </AnchorPane>
    </children>
 </AnchorPane>
