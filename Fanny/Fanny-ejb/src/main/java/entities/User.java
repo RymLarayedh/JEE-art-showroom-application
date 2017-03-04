@@ -55,6 +55,16 @@ public class User implements Serializable {
 		this.email = email;
 		this.isActive = false;
 	}
+	
+	public User(User user)
+	{
+		this.firstName = user.getFirstName();
+		this.lastName = user.getLastName();
+		this.username = user.getUsername();
+		this.password = user.getPassword();
+		this.email = user.getEmail();
+		this.isActive = false;
+	}
 
 
 
