@@ -21,8 +21,11 @@ import java.util.ResourceBundle;
 
 import javax.imageio.ImageIO;
 
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 
+import entities.Artist;
+import entities.Gallery;
 import entities.User;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
@@ -56,6 +59,10 @@ public class RegistrationController implements Initializable {
 	@FXML
 	private AnchorPane registrationFrame;
 	@FXML
+	private AnchorPane thirdFrameArtist;
+	@FXML
+	private AnchorPane thirdFrameGallery;
+	@FXML
 	private Button Generalinformation;
 	@FXML
 	private Button youare;
@@ -65,6 +72,8 @@ public class RegistrationController implements Initializable {
 	private Button GalleryRegistration;
 	@FXML
 	private Button ArtistRegistration;
+	@FXML
+	private JFXButton stepsButtonRegistration;
 	
 	
 	@Override
@@ -73,6 +82,8 @@ public class RegistrationController implements Initializable {
 		mailRegistrationError.setVisible(false);
 		usernameRegistrationError.setVisible(false);
 		secondFrame.setVisible(false);
+		thirdFrameArtist.setVisible(false);
+		thirdFrameGallery.setVisible(false);
 		youare.setDisable(true);
 		lastStep.setDisable(true);
 		
@@ -110,7 +121,11 @@ public class RegistrationController implements Initializable {
 			
 			@Override
 			public void handle(ActionEvent event) {
-				System.out.println("hi Gallery");
+				Gallery gallery = new Gallery(newUser);
+				lastStep.setDisable(false);
+				secondFrame.setVisible(false);
+				thirdFrameGallery.setVisible(true);
+				stepsButtonRegistration.setText("Finish");
 				
 			}
 		});
@@ -119,7 +134,11 @@ public class RegistrationController implements Initializable {
 			
 			@Override
 			public void handle(ActionEvent event) {
-				System.out.println("hi Artist");
+				Artist artist = new Artist(newUser);
+				lastStep.setDisable(false);
+				secondFrame.setVisible(false);
+				thirdFrameArtist.setVisible(true);
+				stepsButtonRegistration.setText("Finish");
 				
 			}
 		});
