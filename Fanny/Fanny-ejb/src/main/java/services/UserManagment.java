@@ -5,6 +5,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Properties;
 import java.util.Random;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
@@ -347,11 +349,11 @@ public class UserManagment implements UserManagmentRemote {
 		ArtistFollowers Af = new ArtistFollowers();
 		Af.setArtist(artist);
 		Af.setUser(follower);
-		Af.setArtistId(new ArtistFollowersID(follower.getIdUser(),artist.getIdUser()));
+		Af.setArtistId(new ArtistFollowersID(follower.getIdUser(), artist.getIdUser()));
 		artist.getFollowers().add(Af);
 		em.persist(Af);
 		em.merge(artist);
-		
+
 	}
 
 	@Override
@@ -360,9 +362,42 @@ public class UserManagment implements UserManagmentRemote {
 		ArtistFollowers Af = new ArtistFollowers();
 		Af.setArtist(artist);
 		Af.setUser(follower);
-		Af.setArtistId(new ArtistFollowersID(follower.getIdUser(),artist.getIdUser()));
+		Af.setArtistId(new ArtistFollowersID(follower.getIdUser(), artist.getIdUser()));
 		em.remove(em.merge(Af));
+
+	}
+
+	@Override
+	public boolean verifyMail(String mail) {
+		String masque = "^[a-zA-Z]+[a-zA-Z0-9\\._-]*[a-zA-Z0-9]@[a-zA-Z]+"
+				+ "[a-zA-Z0-9\\._-]*[a-zA-Z0-9]+\\.[a-zA-Z]{2,4}$";
+		Pattern pattern = Pattern.compile(masque);
+		Matcher controler = pattern.matcher(mail);
+		if (controler.matches()) {
+			return true;
+		} else {
+			return false;
+		}
+
+	}
+
+	@Override
+	public boolean checkMailExistance(String mail) {
+		if(findByEmail(mail)== null)
+		{
+			return true;
+		}
+		return false;
+	}
+
+	@Override
+	public boolean checkUsernameExistance(String username) {
+		if(findByUsername(username) == null)
+		{
+			return true;
+		}
 		
+		return false;
 	}
 
 }
