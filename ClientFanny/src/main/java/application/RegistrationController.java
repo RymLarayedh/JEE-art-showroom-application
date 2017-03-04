@@ -9,10 +9,12 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -21,10 +23,13 @@ import javax.imageio.ImageIO;
 
 import com.jfoenix.controls.JFXTextField;
 
+import entities.User;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 
 public class RegistrationController implements Initializable {
+	
+	File file;
 	@FXML
 	private JFXTextField firstNameRegistrationTF;
 	@FXML
@@ -43,6 +48,10 @@ public class RegistrationController implements Initializable {
 	private Button mailRegistrationError;
 	@FXML
 	private Button usernameRegistrationError;
+	@FXML
+	private AnchorPane firstFrame;
+	@FXML
+	private AnchorPane registrationFrame;
 	
 	
 	@Override
@@ -54,7 +63,28 @@ public class RegistrationController implements Initializable {
 	}
 	// Event Listener on JFXButton.onAction
 	@FXML
-	public void nextStepRegistration(ActionEvent event) {
+	public void nextStepRegistration(ActionEvent event) throws IOException {
+		User newUser = new User();
+		newUser.setFirstName(firstNameRegistrationTF.getText());
+		newUser.setLastName(lastNameRegistrationTF.getText());
+		newUser.setEmail(mailRegistrationTF.getText());
+		newUser.setPassword(PasswordRegistrationTF.getText());
+		if(file == null)
+		{
+       	 file = new File("./src/main/java/buttons/PasDePhotoDeProfil.png");
+         BufferedImage bufferedImage = ImageIO.read(file);
+         Image image = SwingFXUtils.toFXImage(bufferedImage, null);
+         myImageView.setImage(image);
+		}
+		byte[] bFile = new byte[(int)file.length()];
+        try {
+	     FileInputStream fileInputStream = new FileInputStream(file);
+	     fileInputStream.read(bFile);
+	     fileInputStream.close();
+        } catch (Exception e) {
+        }
+        newUser.setPicture(bFile);
+        firstFrame.setVisible(false);
 		
 	}
 	
@@ -102,21 +132,23 @@ public class RegistrationController implements Initializable {
 	
 	// Event Listener on JFXButton.onAction
 	@FXML
-	public void pickPicture(ActionEvent event) {
+	public void pickPicture(ActionEvent event) throws IOException {
 		 FileChooser fileChooser = new FileChooser();
          FileChooser.ExtensionFilter extFilterJPG = new FileChooser.ExtensionFilter("JPG files (*.jpg)", "*.JPG");
          FileChooser.ExtensionFilter extFilterPNG = new FileChooser.ExtensionFilter("PNG files (*.png)", "*.PNG");
          fileChooser.getExtensionFilters().addAll(extFilterJPG, extFilterPNG);     
-         File file = fileChooser.showOpenDialog(null);               
+         file = fileChooser.showOpenDialog(null); 
+         if(file == null)
+         {
+        	 return ;
+         }
          try {
              BufferedImage bufferedImage = ImageIO.read(file);
              Image image = SwingFXUtils.toFXImage(bufferedImage, null);
              myImageView.setImage(image);
          } catch (IOException ex) { 
          }
-         catch (IllegalArgumentException e) {
-			System.out.println("hi");
-		}
+
 	}
 
 }
