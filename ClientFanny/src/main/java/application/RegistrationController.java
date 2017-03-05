@@ -32,7 +32,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 
 public class RegistrationController implements Initializable {
-	
+	User newUser;
 	File file;
 	@FXML
 	private JFXTextField firstNameRegistrationTF;
@@ -93,7 +93,7 @@ public class RegistrationController implements Initializable {
 	// Event Listener on JFXButton.onAction
 	@FXML
 	public void nextStepRegistration(ActionEvent event) throws IOException {
-		User newUser = new User();
+		newUser = new User();
 		newUser.setFirstName(firstNameRegistrationTF.getText());
 		newUser.setLastName(lastNameRegistrationTF.getText());
 		newUser.setEmail(mailRegistrationTF.getText());
@@ -116,11 +116,13 @@ public class RegistrationController implements Initializable {
         firstFrame.setVisible(false);
         secondFrame.setVisible(true);
 		youare.setDisable(false);
+		stepsButtonRegistration.setVisible(false);
 		
 		GalleryRegistration.setOnAction(new EventHandler<ActionEvent>() {
 			
 			@Override
 			public void handle(ActionEvent event) {
+				stepsButtonRegistration.setVisible(true);
 				Gallery gallery = new Gallery(newUser);
 				lastStep.setDisable(false);
 				secondFrame.setVisible(false);
@@ -134,7 +136,9 @@ public class RegistrationController implements Initializable {
 			
 			@Override
 			public void handle(ActionEvent event) {
+				stepsButtonRegistration.setVisible(true);
 				Artist artist = new Artist(newUser);
+				System.out.println(artist.getLastName());
 				lastStep.setDisable(false);
 				secondFrame.setVisible(false);
 				thirdFrameArtist.setVisible(true);
@@ -206,6 +210,74 @@ public class RegistrationController implements Initializable {
              myImageView.setImage(image);
          } catch (IOException ex) { 
          }
+	}
+
+	@FXML
+	public void ChooseWhoYouAre(ActionEvent event)
+	{
+		thirdFrameArtist.setVisible(false);
+		thirdFrameGallery.setVisible(false);
+        secondFrame.setVisible(true);
+		lastStep.setDisable(true);
+		stepsButtonRegistration.setVisible(false);
+		
+		GalleryRegistration.setOnAction(new EventHandler<ActionEvent>() {
+			
+			@Override
+			public void handle(ActionEvent event) {
+				stepsButtonRegistration.setVisible(true);
+				Gallery gallery = new Gallery(newUser);
+				lastStep.setDisable(false);
+				secondFrame.setVisible(false);
+				thirdFrameGallery.setVisible(true);
+				stepsButtonRegistration.setText("Finish");
+				
+			}
+		});
+		
+		ArtistRegistration.setOnAction(new EventHandler<ActionEvent>() {
+			
+			@Override
+			public void handle(ActionEvent event) {
+				stepsButtonRegistration.setVisible(true);
+				Artist artist = new Artist(newUser);
+				System.out.println(artist.getLastName());
+				lastStep.setDisable(false);
+				secondFrame.setVisible(false);
+				thirdFrameArtist.setVisible(true);
+				stepsButtonRegistration.setText("Finish");
+				
+			}
+		});
+		
+	
+	}
+	@FXML
+	public void reTypeGeneralInformation(ActionEvent event)
+	{
+		thirdFrameArtist.setVisible(false);
+		thirdFrameGallery.setVisible(false);
+        secondFrame.setVisible(false);
+        firstFrame.setVisible(true);
+		lastStep.setDisable(true);
+		youare.setDisable(true);
+		stepsButtonRegistration.setVisible(true);
+		stepsButtonRegistration.setText("Next");
+		
+	}
+	
+	@FXML
+	public void goToGeneral(MouseEvent event)
+	{
+		ActionEvent ae = new ActionEvent(event.getSource(), event.getTarget());
+		reTypeGeneralInformation(ae);
+	}
+
+	@FXML
+	public void goToWhoYouAre(MouseEvent event)
+	{
+		ActionEvent ae = new ActionEvent(event.getSource(), event.getTarget());
+		ChooseWhoYouAre(ae);
 	}
 
 }

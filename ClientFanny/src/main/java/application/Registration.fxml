@@ -51,7 +51,7 @@
             </Button>
          </children>
       </AnchorPane>
-      <Button fx:id="Generalinformation" layoutX="23.0" layoutY="10.0" mnemonicParsing="false" prefHeight="52.0" prefWidth="178.0" text="Button">
+      <Button fx:id="Generalinformation" layoutX="23.0" layoutY="10.0" mnemonicParsing="false" onAction="#reTypeGeneralInformation" prefHeight="52.0" prefWidth="178.0" text="Button">
          <effect>
             <ImageInput>
                <source>
@@ -69,7 +69,7 @@
             </ImageInput>
          </effect>
       </Button>
-      <Button fx:id="youare" layoutX="214.0" layoutY="9.0" mnemonicParsing="false" prefHeight="59.0" prefWidth="178.0" text="Button">
+      <Button fx:id="youare" layoutX="214.0" layoutY="9.0" mnemonicParsing="false" onAction="#ChooseWhoYouAre" prefHeight="59.0" prefWidth="184.0" text="Button">
          <effect>
             <ImageInput>
                <source>
@@ -79,12 +79,12 @@
          </effect>
       </Button>
       <JFXButton fx:id="stepsButtonRegistration" layoutX="475.0" layoutY="555.0" onAction="#nextStepRegistration" text="Next" />
-      <Label layoutX="40.0" layoutY="13.0" prefHeight="46.0" prefWidth="141.0" text="General Information" textFill="WHITE">
+      <Label layoutX="40.0" layoutY="13.0" onMouseClicked="#goToGeneral" prefHeight="46.0" prefWidth="141.0" text="General Information" textFill="WHITE">
          <font>
             <Font name="Comic Sans MS Bold" size="14.0" />
          </font>
       </Label>
-      <Label layoutX="260.0" layoutY="12.0" prefHeight="46.0" prefWidth="130.0" text="You are ?" textFill="WHITE">
+      <Label layoutX="260.0" layoutY="12.0" onMouseClicked="#goToWhoYouAre" prefHeight="46.0" prefWidth="130.0" text="You are ?" textFill="WHITE">
          <font>
             <Font name="Comic Sans MS Bold" size="18.0" />
          </font>
