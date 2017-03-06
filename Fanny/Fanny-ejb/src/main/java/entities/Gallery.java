@@ -1,6 +1,7 @@
 package entities;
 
 import entities.User;
+
 import java.io.Serializable;
 import java.lang.String;
 import java.util.List;
@@ -18,7 +19,8 @@ public class Gallery extends User implements Serializable {
 
 	private float Surface;
 	private String Description;
-	//private Set<byte[]> PhotoAlbum;
+	@OneToMany(cascade={CascadeType.PERSIST,CascadeType.MERGE})
+	private Set<Picture> PhotoAlbum;
 	private static final long serialVersionUID = 1L;
 	@OneToMany
 	private List<Event>listEvent;
@@ -47,12 +49,15 @@ public class Gallery extends User implements Serializable {
 		this.Description = Description;
 	}
 
-/*	public Set<byte[]> getPhotoAlbum() {
+	public Set<Picture> getPhotoAlbum() {
 		return PhotoAlbum;
 	}
 
-	public void setPhotoAlbum(Set<byte[]> photoAlbum) {
+	public void setPhotoAlbum(Set<Picture> photoAlbum) {
 		PhotoAlbum = photoAlbum;
-	}*/
+	}
+
+
+
 
 }
