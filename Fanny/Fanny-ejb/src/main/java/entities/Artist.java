@@ -2,6 +2,7 @@ package entities;
 
 import entities.User;
 import java.io.Serializable;
+import java.util.List;
 import java.util.Set;
 import javax.persistence.*;
 
@@ -19,8 +20,8 @@ public class Artist extends User implements Serializable {
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "artist")
 	private Set<ArtistFollowers> Followers;
 	private static final long serialVersionUID = 1L;
-	@OneToOne(mappedBy = "artist")
-	private Event event;
+	@OneToMany
+	private List<Event>listEvent;
 
 	public Artist() {
 		super();
