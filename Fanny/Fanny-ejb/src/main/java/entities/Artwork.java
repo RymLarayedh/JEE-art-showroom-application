@@ -11,7 +11,7 @@ import javax.persistence.*;
 
 public class Artwork implements Serializable {
 
-	   
+	  //this line is added by manel 
 	@Id
 	private int idArtwork;
 	private static final long serialVersionUID = 1L;
