@@ -1,11 +1,10 @@
-package applicationRym;
+package application;
 	
 import javafx.application.Application;
 import javafx.stage.Stage;
 import utils.ConfirmBox;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.layout.BorderPane;
 import javafx.fxml.FXMLLoader;
 
 
@@ -13,7 +12,7 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-			Parent root = FXMLLoader.load(getClass().getResource("EventAdd.fxml"));
+			Parent root = FXMLLoader.load(getClass().getResource("MenuAdmin.fxml"));
 			Scene scene = new Scene(root,600,600);
 			//scene.getStylesheets().add(getClass().getResource("Login.css").toExternalForm());
 			primaryStage.setScene(scene);
@@ -23,7 +22,7 @@ public class Main extends Application {
                 closeProgram(primaryStage);
             });
             primaryStage.show();
-			
+			primaryStage.show();
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
@@ -34,7 +33,7 @@ public class Main extends Application {
 	}
     public static void closeProgram(Stage s)
     {
-        boolean answer = ConfirmBox.display("Exit", "Sure you want to exit ?");
+        boolean answer = ConfirmBox.display("Exit", "Sure you want to exit Fanny ?");
         if(answer)
         {
             s.close();
