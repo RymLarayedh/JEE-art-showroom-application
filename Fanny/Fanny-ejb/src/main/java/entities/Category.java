@@ -2,6 +2,7 @@ package entities;
 
 import java.io.Serializable;
 import java.lang.String;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.*;
@@ -22,6 +23,9 @@ public class Category implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int idCategory;
 	private String name;
+	private Date addedAt ;
+	@ManyToOne(targetEntity=Admin.class)
+	private Admin addedBy ;
 	@OneToMany(targetEntity=Topic.class,mappedBy="catgory",cascade={CascadeType.ALL},orphanRemoval=true)
 	private List<Topic> listTopic;
 	
@@ -36,6 +40,38 @@ public class Category implements Serializable {
 		super();
 		this.idCategory = idCategory;
 		this.name = name;
+	}
+	
+	
+
+	public Category(String name, Admin addedBy) {
+		super();
+		this.name = name;
+		this.addedBy = addedBy;
+	}
+
+	public Category(String name, Date addedAt, Admin addedBy, List<Topic> listTopic) {
+		super();
+		this.name = name;
+		this.addedAt = addedAt;
+		this.addedBy = addedBy;
+		this.listTopic = listTopic;
+	}
+
+	public Date getAddedAt() {
+		return addedAt;
+	}
+
+	public void setAddedAt(Date addedAt) {
+		this.addedAt = addedAt;
+	}
+
+	public Admin getAddedBy() {
+		return addedBy;
+	}
+
+	public void setAddedBy(Admin addedBy) {
+		this.addedBy = addedBy;
 	}
 
 	public int getIdCategory() {
@@ -69,6 +105,13 @@ public class Category implements Serializable {
 		this.name = name;
 		this.listTopic = listTopic;
 	}
+
+	@Override
+	public String toString() {
+		return "Category [idCategory=" + idCategory + ", name=" + name + ", addedAt=" + addedAt + ", addedBy=" + addedBy
+				+ ", listTopic=" + listTopic + "]";
+	}
+	
 	
    
 }
