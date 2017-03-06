@@ -37,8 +37,8 @@ public class User implements Serializable {
 	private Set<ArtistFollowers> listFollow;
 	@OneToMany(mappedBy="user")
 	private List<EventUser>listEventUser;
-	@OneToOne(mappedBy="user")
-	private Feedback feedback;
+	@OneToMany(mappedBy="user")
+	private List <Feedback> listFeedback;
 	/*@OneToOne(mappedBy="user")
 	private Reclamation reclamation;*/
 	
