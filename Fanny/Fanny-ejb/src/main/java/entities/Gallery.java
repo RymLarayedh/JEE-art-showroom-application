@@ -3,6 +3,8 @@ package entities;
 import entities.User;
 import java.io.Serializable;
 import java.lang.String;
+import java.util.List;
+
 import javax.persistence.*;
 
 /**
@@ -17,8 +19,8 @@ public class Gallery extends User implements Serializable {
 	private String Description;
 	// private List<>
 	private static final long serialVersionUID = 1L;
-	@OneToOne(mappedBy = "gallery")
-	private Event event;
+	@OneToMany
+	private List<Event>listEvent;
 
 	public Gallery() {
 		super();
