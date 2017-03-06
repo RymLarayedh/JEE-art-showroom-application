@@ -7,7 +7,7 @@ import javax.persistence.Embeddable;
 public class FeedbackId implements Serializable{
 	
 	/**
-	 * 
+	 * Ines
 	 */
 	private static final long serialVersionUID = 1L;
 	private int artworkId ;
