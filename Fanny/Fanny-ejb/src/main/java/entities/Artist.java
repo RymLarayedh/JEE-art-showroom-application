@@ -5,7 +5,6 @@ import java.io.Serializable;
 import java.util.Set;
 import javax.persistence.*;
 
-
 /**
  * Entity implementation class for Entity: Artist
  *
@@ -15,16 +14,20 @@ import javax.persistence.*;
 public class Artist extends User implements Serializable {
 
 	private String bio;
-	@OneToMany(fetch=FetchType.EAGER,mappedBy="artist")
-	private Set<ArtistFields> Lfields ;
-	@OneToMany(fetch=FetchType.EAGER,mappedBy="artist")
-	private Set<ArtistFollowers> Followers ;
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "artist")
+	private Set<ArtistFields> Lfields;
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "artist")
+	private Set<ArtistFollowers> Followers;
 	private static final long serialVersionUID = 1L;
-	@OneToOne(mappedBy="artist")
+	@OneToOne(mappedBy = "artist")
 	private Event event;
 
 	public Artist() {
 		super();
+	}
+
+	public Artist(User user) {
+		super(user);
 	}
 
 	public String getBio() {
@@ -34,7 +37,6 @@ public class Artist extends User implements Serializable {
 	public void setBio(String bio) {
 		this.bio = bio;
 	}
-
 
 	public Set<ArtistFields> getLfields() {
 		return Lfields;
@@ -54,8 +56,7 @@ public class Artist extends User implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Artist ["+super.toString()+", bio=" + bio + "]";
+		return "Artist [" + super.toString() + ", bio=" + bio + "]";
 	}
-	
-   
+
 }

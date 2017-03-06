@@ -13,24 +13,29 @@ import javax.persistence.*;
 @DiscriminatorValue("GALLERY")
 public class Gallery extends User implements Serializable {
 
-	
 	private float Surface;
 	private String Description;
-	//private List<>
+	// private List<>
 	private static final long serialVersionUID = 1L;
-	@OneToOne(mappedBy="gallery")
+	@OneToOne(mappedBy = "gallery")
 	private Event event;
 
 	public Gallery() {
 		super();
-	}   
+	}
+
+	public Gallery(User user) {
+		super(user);
+	}
+
 	public float getSurface() {
 		return this.Surface;
 	}
 
 	public void setSurface(float Surface) {
 		this.Surface = Surface;
-	}   
+	}
+
 	public String getDescription() {
 		return this.Description;
 	}
@@ -38,5 +43,5 @@ public class Gallery extends User implements Serializable {
 	public void setDescription(String Description) {
 		this.Description = Description;
 	}
-   
+
 }

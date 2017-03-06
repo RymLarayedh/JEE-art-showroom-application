@@ -61,11 +61,12 @@ public class Entry {
 		}*/
 
 	//	userManagment.addFollower(userManagment.findById(1), userManagment.findById(2));
-		Artist x = (Artist) userManagment.findById(2);
+		/*Artist x = (Artist) userManagment.findById(2);
 		for(ArtistFollowers u :x.getFollowers())
 		{
 			System.out.println(u.getUser());
 		}
+		*/
 		
 		
 		

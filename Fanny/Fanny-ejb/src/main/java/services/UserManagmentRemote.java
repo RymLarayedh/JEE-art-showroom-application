@@ -190,6 +190,27 @@ public interface UserManagmentRemote {
 	 */
 	public void removeFollower(User follower , User user);
 	
+	/**
+	 * this method return true in case the user entered a valid mail
+	 * @param mail
+	 * @return
+	 */
+	public boolean verifyMail(String mail);
+	
+	/**
+	 * this method returns true in case that the mail entred doesn't exist in the database
+	 * @param mail
+	 * @return
+	 */
+	public boolean checkMailExistance(String mail);
+	
+	/**
+	 * this method returns true in case that the username entred doesn't exist in the database
+	 * @param username
+	 * @return
+	 */
+	public boolean checkUsernameExistance(String username);
+	
 	
 
 }

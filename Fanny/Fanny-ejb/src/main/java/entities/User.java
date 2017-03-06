@@ -30,6 +30,8 @@ public class User implements Serializable {
 	@NotNull
 	private String email;
 	private boolean isActive;
+	private boolean isBlocked;
+	private byte[] picture;
 	private static final long serialVersionUID = 1L;
 	@OneToMany(mappedBy="user")
 	private Set<ArtistFollowers> listFollow;
@@ -51,6 +53,16 @@ public class User implements Serializable {
 		this.username = username;
 		this.password = password;
 		this.email = email;
+		this.isActive = false;
+	}
+	
+	public User(User user)
+	{
+		this.firstName = user.getFirstName();
+		this.lastName = user.getLastName();
+		this.username = user.getUsername();
+		this.password = user.getPassword();
+		this.email = user.getEmail();
 		this.isActive = false;
 	}
 
@@ -112,6 +124,22 @@ public class User implements Serializable {
 
 	public void setListFollow(Set<ArtistFollowers> listFollow) {
 		this.listFollow = listFollow;
+	}
+
+	public boolean isBlocked() {
+		return isBlocked;
+	}
+
+	public void setBlocked(boolean isBlocked) {
+		this.isBlocked = isBlocked;
+	}
+
+	public byte[] getPicture() {
+		return picture;
+	}
+
+	public void setPicture(byte[] picture) {
+		this.picture = picture;
 	}
 
 	@Override
