@@ -6,7 +6,7 @@ import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-
+//Ines
 
 @Entity
 public class Feedback implements Serializable{
