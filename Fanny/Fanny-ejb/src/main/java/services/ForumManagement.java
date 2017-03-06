@@ -1,11 +1,16 @@
 package services;
 
+import java.util.List;
+
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 
 import entities.Category;
+import entities.Gallery;
 import entities.Topic;
+
 
 /**
  * Session Bean implementation class ForumManagement
@@ -45,6 +50,19 @@ public class ForumManagement implements ForumManagementRemote {
 		em.remove(em.merge(c));
 
 		
+	}
+
+	@Override
+	public List<Category> findAllCategories() {
+		// TODO Auto-generated method stub
+		try {
+			TypedQuery<Category> c = em.createQuery("SELECT c FROM Category c", Category.class);
+			List<Category> Listcategories = c.getResultList();
+			return Listcategories;
+		} catch (javax.persistence.NoResultException e) {
+			return null;
+		}
+
 	}
 
 }

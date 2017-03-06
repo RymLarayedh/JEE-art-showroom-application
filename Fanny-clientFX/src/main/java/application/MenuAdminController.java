@@ -26,12 +26,16 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TabPane;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.util.Duration;
 import services.ForumManagementRemote;
 import services.UserManagmentRemote;
-import javafx.animation.TranslateTransition;;
+import javafx.animation.TranslateTransition;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;;
 /**
 *
 * @author InesWanen
@@ -45,6 +49,12 @@ public class MenuAdminController  implements Initializable {
 	private TextField addCategoryTF;
 	@FXML
 	private JFXButton addCategoryButton;
+	@FXML
+	private TableView table;
+	@FXML
+	private TableColumn name;
+    ObservableList <Category> data = FXCollections.observableArrayList();
+
 	
 	InitialContext ctx;
 	public static ForumManagementRemote proxy ;
@@ -65,7 +75,8 @@ public class MenuAdminController  implements Initializable {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
+		 
+		
 
 		
 	}
@@ -89,6 +100,15 @@ public class MenuAdminController  implements Initializable {
 		//event handler in input //lambda expression
 		transition.setOnFinished((e)->{
 			tabpane.setVisible(true);
+			
+			 List<Category> listCategories =proxy.findAllCategories();
+				for ( Category c :listCategories)
+				{
+				System.out.println(c.getName());
+				data.add(c);
+				}
+				table.setItems(data);
+				
 			
 			
 			
@@ -120,10 +140,17 @@ public class MenuAdminController  implements Initializable {
 		proxy.addCategory(c);}
 
 	}
-	@FXML
-	public void displayCategories(Event event) {
-		//List<Category> listCategories =proxy.findAllCategories();
-	}
+	//@FXML
+	//public void displayCategories(Event event) {
+		//System.out.println(proxy.findAllCategories());
+//	
+//	//	List<Category> listCategories =proxy.findAllCategories();
+//		for ( Category c :listCategories)
+//		{
+//		System.out.println(c);
+//		}
+//		//table.setItems(data);
+//	}
 	
 
 }
