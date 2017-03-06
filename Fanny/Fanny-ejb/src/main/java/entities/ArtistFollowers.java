@@ -22,6 +22,7 @@ public class ArtistFollowers implements Serializable {
 	@ManyToOne
 	@JoinColumn(name="idArtistPK",insertable=false,updatable=false)
 	private Artist artist;
+	private static final long serialVersionUID = 1L;
 
 	public ArtistFollowers() {
 		super();
