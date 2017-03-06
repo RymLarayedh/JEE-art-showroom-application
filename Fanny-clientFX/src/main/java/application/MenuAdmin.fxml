@@ -30,14 +30,14 @@
                <effect>
                   <ImageInput>
                      <source>
-                        <Image url="file:/C:/Users/Ines/git/Eureka/ClientFanny/src/main/java/buttons/forum.png" />
+                        <Image url="file:/C:/Users/Ines/git/Eureka/Fanny-clientFX/src/main/java/buttons/forum.png" />
                      </source>
                   </ImageInput>
                </effect>
             </JFXButton>
             <TabPane fx:id="tabpane" layoutX="61.0" layoutY="135.0" prefHeight="348.0" prefWidth="623.0" tabClosingPolicy="UNAVAILABLE">
                <tabs>
-                  <Tab fx:id="flight" onSelectionChanged="#displayCategories" text="Categories">
+                  <Tab fx:id="flight" text="Categories">
                      <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="216.0" prefWidth="453.0">
                            <children>

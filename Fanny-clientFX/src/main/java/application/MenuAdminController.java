@@ -76,12 +76,7 @@ public class MenuAdminController  implements Initializable {
 				e.printStackTrace();
 			}
 		 
-//		 List<Category> listCategories =proxy.findAllCategories();
-//			for ( Category c :listCategories)
-//			{
-//			System.out.println(c);
-//			}
-			
+		
 
 		
 	}
@@ -105,6 +100,15 @@ public class MenuAdminController  implements Initializable {
 		//event handler in input //lambda expression
 		transition.setOnFinished((e)->{
 			tabpane.setVisible(true);
+			
+			 List<Category> listCategories =proxy.findAllCategories();
+				for ( Category c :listCategories)
+				{
+				System.out.println(c.getName());
+				data.add(c);
+				}
+				table.setItems(data);
+				
 			
 			
 			
