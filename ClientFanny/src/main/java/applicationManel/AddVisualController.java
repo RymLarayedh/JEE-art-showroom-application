@@ -37,7 +37,7 @@ import services.VisualArtworkEJBRemote;
 
 public class AddVisualController implements Initializable{
 
-	
+	//
 	 @FXML
 	    private JFXComboBox<String> cat;
 	    @FXML
