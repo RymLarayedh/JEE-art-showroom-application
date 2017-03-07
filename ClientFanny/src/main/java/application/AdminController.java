@@ -1,6 +1,7 @@
 package application;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 
@@ -22,8 +23,11 @@ import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -207,18 +211,14 @@ public class AdminController implements Initializable {
 	}
 
 	@FXML
-	public void showPopup(MouseEvent event) {
-		final Node source = (Node) event.getSource();
-		final Stage stage = (Stage) source.getScene().getWindow();
-        final Stage dialog = new Stage();
-        dialog.initModality(Modality.APPLICATION_MODAL);
-        dialog.initOwner(stage);
-        VBox dialogVbox = new VBox(20);
-        Scene dialogScene = new Scene(dialogVbox, 300, 200);
-        dialog.setScene(dialogScene);
-        dialog.show();
-        AnchorPane popup = new AnchorPane();
-        User userSelected = AllUsersTable.getSelectionModel().getSelectedItem();
+	public void showPopup(MouseEvent event) throws IOException {
+		 popupController.userChoosen = AllUsersTable.getSelectionModel().getSelectedItem();
+		Parent adminScene = FXMLLoader.load(getClass().getResource("popup.fxml"));
+		Scene scene = new Scene(adminScene);
+		Stage Sc = new Stage();
+		Sc.setScene(scene);
+		Sc.show();
+        popupController.userChoosen = AllUsersTable.getSelectionModel().getSelectedItem();
         
 	}
 }
