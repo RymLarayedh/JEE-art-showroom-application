@@ -54,7 +54,7 @@ public class Category implements Serializable {
 		this.name = name;
 		this.addedBy = addedBy;
 	}
-
+//
 	public Category(String name, Date addedAt, Admin addedBy, List<Topic> listTopic) {
 		super();
 		this.name = name;
