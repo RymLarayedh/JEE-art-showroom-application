@@ -14,33 +14,28 @@ import javax.persistence.OneToOne;
 @Entity
 @DiscriminatorValue("RECLAMATION")
 public class Reclamation extends Feedback implements Serializable {
-	@OneToOne
-	@JoinColumn(name="artwork_fk")
-	private Artwork artwork;
-	@OneToOne
-	@JoinColumn(name="userReported_fk")
-	private User user;
 	
+	//rymree
+	//er
+	//eeeee
 	private String body;
 	private Time time;
+	private Integer degree;
 	private static final long serialVersionUID = 1L;
 	
-	
+	//master
 	public Reclamation() {
 		super();
 	}
-	public Artwork getArtwork() {
-		return artwork;
+	
+	public Integer getDegree() {
+		return degree;
 	}
-	public void setArtwork(Artwork artwork) {
-		this.artwork = artwork;
+
+	public void setDegree(Integer degree) {
+		this.degree = degree;
 	}
-	public User getUser() {
-		return user;
-	}
-	public void setUser(User user) {
-		this.user = user;
-	}
+
 	public String getBody() {
 		return body;
 	}

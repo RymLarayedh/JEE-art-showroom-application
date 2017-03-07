@@ -17,9 +17,9 @@ public class Feedback implements Serializable{
 	@EmbeddedId
 	private FeedbackId  feedbackId ;
 	@ManyToOne
-	@JoinColumn(name="artworkId",insertable=false,updatable=false)
+	@JoinColumn(name="userId",insertable=false,updatable=false)
 	private User user ;
 	@ManyToOne
-	@JoinColumn(name="userId",insertable=false,updatable=false)
+	@JoinColumn(name="artworkId",insertable=false,updatable=false)
 	private Artwork artwork;
 }

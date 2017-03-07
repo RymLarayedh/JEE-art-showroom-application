@@ -106,7 +106,7 @@ public class UserManagment implements UserManagmentRemote {
 		if (user instanceof Artist) {
 			return 1;
 		}
-		if (user instanceof Artist) {
+		if (user instanceof Gallery) {
 			return 2;
 		}
 
@@ -149,13 +149,13 @@ public class UserManagment implements UserManagmentRemote {
 
 	@Override
 	public void blockUser(User user) {
-
-		enableUser(user);
+		
+		disableUser(user);
 	}
 
 	@Override
 	public void unblockUser(User user) {
-		disableUser(user);
+		enableUser(user);
 	}
 
 	@Override

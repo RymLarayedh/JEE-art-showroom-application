@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.ImageInput?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.text.Font?>
+
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="applicationInes.MenuAdminController">
+   <children>
+      <AnchorPane fx:id="listCategories" prefHeight="800.0" prefWidth="800.0">
+         <children>
+            <JFXButton fx:id="ManageForum" buttonType="RAISED" layoutX="477.0" onAction="#ManageForum" prefHeight="55.0" prefWidth="81.0" text="Manage FORUM" textFill="#17052c" textOverrun="CLIP">
+               <font>
+                  <Font size="40.0" />
+               </font>
+               <effect>
+                  <ImageInput>
+                     <source>
+                        <Image url="file:/C:/Users/Ines/git/Eureka/ClientFanny/src/main/java/buttons/forum.png" />
+                     </source>
+                  </ImageInput>
+               </effect>
+            </JFXButton>
+            <Label layoutX="48.0" layoutY="320.0" text="Name" textOverrun="CLIP">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <TextField fx:id="addCategoryTF" layoutX="135.0" layoutY="320.0">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </TextField>
+            <JFXButton fx:id="addCategoryButton" layoutX="202.0" layoutY="359.0" onAction="#addCategory" text="Add ">
+               <effect>
+                  <ImageInput>
+                     <source>
+                        <Image url="file:/C:/Users/Ines/git/Eureka/ClientFanny/src/main/java/buttons/rsz_07_plus-128.png" />
+                     </source>
+                  </ImageInput>
+               </effect></JFXButton>
+            <TableView fx:id="table" layoutX="58.0" layoutY="94.0" onMouseClicked="#selectCategory" prefHeight="200.0" prefWidth="432.0">
+              <columns>
+                <TableColumn fx:id="name"  prefWidth="142.0" text="Category" />
+                <TableColumn fx:id="addedBy" prefWidth="141.0" text="Admin" />
+                  <TableColumn fx:id="addedAt" prefWidth="133.0" text="Creation Date " />
+              </columns>
+            </TableView>
+            <JFXButton fx:id="updateCategoryButton" layoutX="451.0" layoutY="323.0" onAction="#updateCategory">
+               <effect>
+                  <ImageInput>
+                     <source>
+                        <Image url="file:/C:/Users/Ines/git/Eureka/ClientFanny/src/main/java/buttons/update.png" />
+                     </source>
+                  </ImageInput>
+               </effect>
+            </JFXButton>
+            <JFXButton fx:id="deleteCategoryButton" layoutX="371.0" layoutY="323.0" onAction="#deleteCategory" prefHeight="36.0" prefWidth="35.0">
+               <effect>
+                  <ImageInput>
+                     <source>
+                        <Image url="file:/C:/Users/Ines/git/Eureka/ClientFanny/src/main/java/buttons/rsz_error-128.png" />
+                     </source>
+                  </ImageInput>
+               </effect>
+            </JFXButton>
+         </children>
+      </AnchorPane>
+   </children>
+</StackPane>

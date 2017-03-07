@@ -18,7 +18,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import org.controlsfx.control.Rating;
+//import org.controlsfx.control.Rating;
 
 /**
  * FXML Controller class
