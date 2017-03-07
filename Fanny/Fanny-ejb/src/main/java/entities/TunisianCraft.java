@@ -17,9 +17,7 @@ public class TunisianCraft extends Artwork implements Serializable {
 	
 	private String Type ;
 	private int Quantity ;
-	@Basic(fetch=FetchType.LAZY)
-	 @Lob @Column(name="PIC")
-	private byte[] picture;
+	
 	private static final long serialVersionUID = 1L; 
 	
 	public String getType() {
@@ -38,17 +36,11 @@ public class TunisianCraft extends Artwork implements Serializable {
 		Quantity = quantity;
 	}
 
-	public byte[] getPicture() {
-		return picture;
-	}
-
-	public void setPicture(byte[] picture) {
-		this.picture = picture;
-	}
+	
 
 	@Override
 	public String toString() {
-		return "TunisianCraft [Type=" + Type + ", Quantity=" + Quantity + ", picture=" + Arrays.toString(picture) + "]";
+		return "TunisianCraft [Type=" + Type + ", Quantity=" + Quantity + "]";
 	}
 
 	public TunisianCraft() {

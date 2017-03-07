@@ -26,7 +26,7 @@ public class Artwork implements Serializable {
 	private Date dateOfOublication;
 	private boolean state;
 	@Basic(fetch=FetchType.LAZY)
-	 @Lob @Column(name="PIC")
+	@Lob @Column(name="PIC")
 	private byte[] picture;
 	
 	private static final long serialVersionUID = 1L;
