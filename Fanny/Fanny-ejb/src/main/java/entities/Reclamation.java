@@ -18,6 +18,7 @@ public class Reclamation extends Feedback implements Serializable {
 	
 	private String body;
 	private Time time;
+	private Integer degree;
 	private static final long serialVersionUID = 1L;
 	
 	
@@ -25,6 +26,14 @@ public class Reclamation extends Feedback implements Serializable {
 		super();
 	}
 	
+	public Integer getDegree() {
+		return degree;
+	}
+
+	public void setDegree(Integer degree) {
+		this.degree = degree;
+	}
+
 	public String getBody() {
 		return body;
 	}
