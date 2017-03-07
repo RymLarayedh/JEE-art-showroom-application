@@ -9,7 +9,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
 
-
+//
 @Entity
 @DiscriminatorValue("VisualArt")
 public class VisualArt extends Artwork implements Serializable {
