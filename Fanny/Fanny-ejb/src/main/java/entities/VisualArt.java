@@ -8,7 +8,7 @@ import javax.persistence.OneToOne;
 
 
 public class VisualArt extends Artwork implements Serializable {
-	
+	//
 	
 	private int length;
 	private int width;
