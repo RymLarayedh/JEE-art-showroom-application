@@ -41,7 +41,17 @@ public class User implements Serializable {
 	private List <Feedback> listFeedback;
 	/*@OneToOne(mappedBy="user")
 	private Reclamation reclamation;*/
-	
+	/*manel*/
+	@OneToMany(mappedBy="user"/*,fetch=FetchType.EAGER*/)
+	private List<Artwork> listArtwork;
+
+	public List<Artwork> getListArtwork() {
+		return listArtwork;
+	}
+
+	public void setListArtwork(List<Artwork> listArtwork) {
+		this.listArtwork = listArtwork;
+	}
 
 	public User() {
 		super();
