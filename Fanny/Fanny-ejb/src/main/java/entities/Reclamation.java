@@ -15,7 +15,7 @@ import javax.persistence.OneToOne;
 @DiscriminatorValue("RECLAMATION")
 public class Reclamation extends Feedback implements Serializable {
 	
-	//rym
+	//rymr
 	private String body;
 	private Time time;
 	private Integer degree;
