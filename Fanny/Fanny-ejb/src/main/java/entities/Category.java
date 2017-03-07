@@ -9,6 +9,7 @@ import javax.persistence.*;
 
 import entities.Topic;
 
+
 /**
  * Entity implementation class for Entity: Category
  *
@@ -32,7 +33,9 @@ public class Category implements Serializable {
 	private static final long serialVersionUID = 1L;
 //	@OneToOne(mappedBy="category")
 //	private Artwork visualArt ;
-	
+	@OneToMany(mappedBy="category")//,cascade=CascadeType.PERSIST,fetch=FetchType.EAGER*/)
+	private List<VisualArt> listVisualArt;
+
 	public Category() {
 		super();
 	}   

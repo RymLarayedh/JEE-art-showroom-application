@@ -2,20 +2,26 @@ package entities;
 
 import java.io.Serializable;
 
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
 
 
+@Entity
+@DiscriminatorValue("VisualArt")
 public class VisualArt extends Artwork implements Serializable {
 	//
+	
 	
 	private int length;
 	private int width;
 	
 	private static final long serialVersionUID = 1L;
-	@OneToOne()
-	@JoinColumn(name="category_art")
+	
+	@ManyToOne()
 	private Category category;
 	public int getLength() {
 		return length;
@@ -37,6 +43,12 @@ public class VisualArt extends Artwork implements Serializable {
 	}
 	
 	
-
+	public VisualArt() {
+		super();
+	}
+	@Override
+	public String toString() {
+		return "VisualArt [length=" + length + ", width=" + width + ", category=" + category + "]";
+	}
 
 }
