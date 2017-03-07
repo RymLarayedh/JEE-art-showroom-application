@@ -14,12 +14,7 @@ import javax.persistence.OneToOne;
 @Entity
 @DiscriminatorValue("RECLAMATION")
 public class Reclamation extends Feedback implements Serializable {
-	@OneToOne
-	@JoinColumn(name="artwork_fk")
-	private Artwork artwork;
-	@OneToOne
-	@JoinColumn(name="userReported_fk")
-	private User user;
+	
 	
 	private String body;
 	private Time time;
@@ -29,18 +24,7 @@ public class Reclamation extends Feedback implements Serializable {
 	public Reclamation() {
 		super();
 	}
-	public Artwork getArtwork() {
-		return artwork;
-	}
-	public void setArtwork(Artwork artwork) {
-		this.artwork = artwork;
-	}
-	public User getUser() {
-		return user;
-	}
-	public void setUser(User user) {
-		this.user = user;
-	}
+	
 	public String getBody() {
 		return body;
 	}
