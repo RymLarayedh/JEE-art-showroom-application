@@ -30,7 +30,7 @@ public class Category implements Serializable {
 	//private List<Topic> listTopic;
 	
 	private static final long serialVersionUID = 1L;
-
+//manel
 //	@OneToOne(mappedBy="category")
 //	private Artwork visualArt ;
 	
