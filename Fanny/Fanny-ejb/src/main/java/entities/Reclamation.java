@@ -21,7 +21,7 @@ public class Reclamation extends Feedback implements Serializable {
 	private Integer degree;
 	private static final long serialVersionUID = 1L;
 	
-	
+	//master
 	public Reclamation() {
 		super();
 	}
