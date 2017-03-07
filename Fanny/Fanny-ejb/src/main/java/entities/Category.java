@@ -31,8 +31,8 @@ public class Category implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 
-	@OneToOne(mappedBy="category")
-	private Artwork visualArt ;
+//	@OneToOne(mappedBy="category")
+//	private Artwork visualArt ;
 	
 	public Category() {
 		super();
