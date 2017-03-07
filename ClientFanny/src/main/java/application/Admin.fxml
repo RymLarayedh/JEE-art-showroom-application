@@ -1,11 +1,78 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Accordion?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1">
-   <children>
-      <Label layoutX="62.0" layoutY="145.0" prefHeight="122.0" prefWidth="402.0" text="This is the Admin GUI" textFill="RED" />
-   </children>
-</AnchorPane>
+<ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="491.0" prefWidth="880.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.AdminController">
+   <content>
+      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="488.0" prefWidth="718.0">
+         <children>
+            <ImageView fx:id="profilePicture" fitHeight="79.0" fitWidth="86.0" layoutX="791.0" layoutY="32.0" onMouseClicked="#showProfile" pickOnBounds="true" preserveRatio="true" />
+            <Label fx:id="userLoggedInName" layoutX="776.0" layoutY="106.0" prefHeight="70.0" prefWidth="101.0" text="Label" textAlignment="CENTER" wrapText="true" />
+            <MenuBar layoutX="4.0" layoutY="2.0" prefHeight="25.0" prefWidth="875.0">
+               <menus>
+                  <Menu mnemonicParsing="false" text="File">
+                     <items>
+                        <MenuItem mnemonicParsing="false" onAction="#closeFanny" text="Close" />
+                     </items>
+                  </Menu>
+                  <Menu mnemonicParsing="false" text="Edit">
+                     <items>
+                        <MenuItem mnemonicParsing="false" onAction="#showSettingsScreen" text="Settings" />
+                     </items>
+                  </Menu>
+                  <Menu mnemonicParsing="false" text="Help">
+                     <items>
+                        <MenuItem mnemonicParsing="false" onAction="#showAboutFanny" text="About" />
+                     </items>
+                  </Menu>
+               </menus>
+            </MenuBar>
+            <SplitPane dividerPositions="0.2231686541737649" layoutX="-3.0" layoutY="84.0" prefHeight="400.0" prefWidth="754.0">
+              <items>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                     <children>
+                        <Accordion layoutY="-2.0" prefHeight="76.0" prefWidth="171.0">
+                          <panes>
+                            <TitledPane animated="false" prefHeight="123.0" prefWidth="171.0" text="Manage Users">
+                              <content>
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="91.0" prefWidth="169.0">
+                                       <children>
+                                          <JFXButton layoutX="14.0" layoutY="13.0" onAction="#ShowAllUsers" text="Show All Users" />
+                                       </children></AnchorPane>
+                              </content>
+                            </TitledPane>
+                          </panes>
+                        </Accordion>
+                     </children>
+                  </AnchorPane>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="398.0" prefWidth="477.0">
+                     <children>
+                        <TableView fx:id="AllUsersTable" onMouseClicked="#showPopup" prefHeight="397.0" prefWidth="581.0">
+                          <columns>
+                            <TableColumn fx:id="picture" prefWidth="71.0" text="picture" />
+                            <TableColumn fx:id="firstName" prefWidth="147.33331298828125" text="FirstName" />
+                              <TableColumn fx:id="LastName" prefWidth="104.66668701171875" text="LastName" />
+                              <TableColumn fx:id="mail" prefWidth="86.33331298828125" text="E-mail" />
+                              <TableColumn fx:id="username" prefWidth="109.66668701171875" text="Fanny-username" />
+                              <TableColumn fx:id="status" prefWidth="62.0" text="Status" />
+                          </columns>
+                        </TableView>
+                     </children></AnchorPane>
+              </items>
+            </SplitPane>
+         </children>
+      </AnchorPane>
+   </content>
+</ScrollPane>
