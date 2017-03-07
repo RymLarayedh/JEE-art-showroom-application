@@ -25,11 +25,15 @@ public class Artwork implements Serializable {
 	private float price;
 	private Date dateOfOublication;
 	private boolean state;
+	@Basic(fetch=FetchType.LAZY)
+	 @Lob @Column(name="PIC")
+	private byte[] picture;
+	
 	private static final long serialVersionUID = 1L;
 	@OneToMany(mappedBy="artwork")
 	private List<Feedback> listFeedback;
-	@OneToMany
-	private List<Picture> listPictures;
+//	@OneToOne
+//	private Picture pictArt;
 	@ManyToOne
 	private User user;
 
@@ -80,12 +84,19 @@ public class Artwork implements Serializable {
 	public void setListFeedback(List<Feedback> listFeedback) {
 		this.listFeedback = listFeedback;
 	}
-	public List<Picture> getListPictures() {
-		return listPictures;
+	
+public byte[] getPicture() {
+		return picture;
 	}
-	public void setListPictures(List<Picture> listPictures) {
-		this.listPictures = listPictures;
+	public void setPicture(byte[] picture) {
+		this.picture = picture;
 	}
+	//	public Picture getPictArt() {
+//		return pictArt;
+//	}
+//	public void setPictArt(Picture pictArt) {
+//		this.pictArt = pictArt;
+//	}
 	public User getUser() {
 		return user;
 	}

@@ -19,6 +19,7 @@ public class Picture implements Serializable {
 	private byte[] Photo;
 	@ManyToOne
 	private Gallery gallery;
+	
 	private static final long serialVersionUID = 1L;
 
 	public Picture() {
