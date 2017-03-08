@@ -13,7 +13,7 @@ import javax.persistence.*;
 @Entity
 
 public class Event implements Serializable {
-
+//rym
 	   
 	@Id
 	private int idEvent;
