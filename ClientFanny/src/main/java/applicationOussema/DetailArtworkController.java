@@ -39,10 +39,14 @@ import javafx.scene.image.ImageView;
 import javafx.scene.image.PixelWriter;
 import javafx.scene.image.WritableImage;
 import javafx.scene.layout.AnchorPane;
+<<<<<<< HEAD
 import services.ArtworkManagemetRemote;
 import services.UserManagmentRemote;
 
 import org.controlsfx.control.Rating;
+=======
+//import org.controlsfx.control.Rating;
+>>>>>>> branch 'master' of https://github.com/ElarbiMohamedAymen/Eureka.git
 
 /**
  * FXML Controller class

@@ -26,6 +26,10 @@ public class Entry {
 		object = ctx.lookup("/Fanny-ear/Fanny-ejb/ForumManagement!services.ForumManagementRemote");
 		ForumManagementRemote frmManagment = (ForumManagementRemote) object;
 		
+		User u = userManagment.findById(3);
+		userManagment.blockUser(u);
+		userManagment.unblockUser(u);
+		
 		//Category ctg = new Category(1,"aa");
 		
 		//frmManagment.addCategory(ctg);
@@ -67,8 +71,6 @@ public class Entry {
 			System.out.println(u.getUser());
 		}
 		*/
-		
-		
 		
 	}
 

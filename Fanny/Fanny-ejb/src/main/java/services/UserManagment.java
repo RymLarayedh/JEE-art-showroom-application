@@ -10,6 +10,7 @@ import java.util.regex.Pattern;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
+import javax.ejb.Asynchronous;
 import javax.ejb.Stateless;
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -106,7 +107,7 @@ public class UserManagment implements UserManagmentRemote {
 		if (user instanceof Artist) {
 			return 1;
 		}
-		if (user instanceof Artist) {
+		if (user instanceof Gallery) {
 			return 2;
 		}
 
@@ -149,13 +150,13 @@ public class UserManagment implements UserManagmentRemote {
 
 	@Override
 	public void blockUser(User user) {
-
-		enableUser(user);
+		
+		disableUser(user);
 	}
 
 	@Override
 	public void unblockUser(User user) {
-		disableUser(user);
+		enableUser(user);
 	}
 
 	@Override
@@ -209,7 +210,7 @@ public class UserManagment implements UserManagmentRemote {
 
 	@Resource(name = "java:jboss/mail/gmail")
 	private Session session;
-
+	@Asynchronous
 	public void sendMail(String Recipient, String text, String subject) throws AddressException, MessagingException {
 		// Recipient's email ID needs to be mentioned.
 		String to = Recipient;

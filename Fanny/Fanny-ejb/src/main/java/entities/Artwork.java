@@ -1,6 +1,7 @@
 package entities;
 
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -34,9 +35,16 @@ public class Artwork implements Serializable {
 	private List<Feedback> listFeedback;
 //	@OneToOne
 //	private Picture pictArt;
+	
 	@ManyToOne
 	private User user;
 
+	@Override
+	public String toString() {
+		return "Artwork [idArtwork=" + idArtwork + ", Description=" + Description + ", name=" + name + ", price="
+				+ price + ", dateOfOublication=" + dateOfOublication + ", state=" + state + ", picture="
+				+ Arrays.toString(picture) + ", listFeedback=" + listFeedback + ", user=" + user + "]";
+	}
 	public Artwork() {
 		super();
 	}   
