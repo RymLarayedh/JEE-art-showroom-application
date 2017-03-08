@@ -12,6 +12,11 @@ import entities.Fields;
 import entities.Gallery;
 import entities.Reclamation;
 import entities.User;
+/**
+ * 
+ * @author rymlarayedh
+ *
+ */
 
 @Remote
 public interface FeedbackManagmentRemote {
