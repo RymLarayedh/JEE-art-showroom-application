@@ -10,6 +10,14 @@ import services.FeedbackManagmentRemote;
 import services.UserManagmentRemote;
 
 import java.net.URL;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.util.Date;
 import java.util.ResourceBundle;
 
 import javax.naming.InitialContext;
@@ -30,8 +38,7 @@ public class ReclamationAddController implements Initializable {
 	    private AnchorPane step2;
 	    @FXML
 	    private JFXTextArea bodyTF;
-	    @FXML
-	    private JFXTextField titleTF;
+
 	    @FXML
 	    private AnchorPane step3;
 
@@ -89,21 +96,18 @@ public class ReclamationAddController implements Initializable {
 				r.setDegree(3);
 			}
 			r.setBody(bodyTF.getText());
-			
-			ctxU = new InitialContext();
-			Object objectU = ctxU.lookup("/Fanny-ear/Fanny-ejb/UserManagment!services.UserManagmentRemote");
-			UserManagmentRemote proxyU = (UserManagmentRemote) objectU;
-			//r.setUser(proxyU.findById(1));
-			
-			ctxA = new InitialContext();
-			Object objectA = ctxU.lookup("/Fanny-ear/Fanny-ejb/ArtworkManagemet!services.ArtworkManagemetRemote");
-			ArtworkManagemetRemote proxyA = (ArtworkManagemetRemote) objectA;
-			//r.setArtwork(proxyA.findArtworkByID(1));
-			
+			r.setHandle(0);
+			//Convert Date Now
+			DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+			LocalDateTime now = LocalDateTime.now();
+			Instant instant = now.atZone(ZoneId.systemDefault()).toInstant();
+			Date date = Date.from(instant);
+			//r.setDate(date);
 			FeedbackId feedbackId =new FeedbackId();
+			//*************************change*****************************
 			feedbackId.setArtworkId(1);
-			feedbackId.setUserId(2);
-			
+			feedbackId.setUserId(3);
+			//*************************change*****************************
 			r.setFeedbackId(feedbackId);
 			proxy.addReclamation(r);
 	    }
