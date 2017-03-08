@@ -133,6 +133,8 @@ public class DataExample {
 		r.setFeedbackId(feedbackId);
 		r.setBody("I don't like this");
 		r.setDegree(1);
+		r.setDate(d);
+		r.setHandle(0);
 		feedbackManagment.addReclamation(r);
 
 	}

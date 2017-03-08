@@ -98,7 +98,7 @@ public class AdminController implements Initializable {
 	@FXML
 	private TableColumn<Reclamation,String> body;
 	@FXML
-	private TableColumn<Reclamation,Time> date;
+	private TableColumn<Reclamation,Date> date;
 	@FXML
 	private TableColumn<Reclamation,Integer> degree;
 	
@@ -347,7 +347,7 @@ public class AdminController implements Initializable {
 
 		}); 
         body.setCellValueFactory(new PropertyValueFactory<Reclamation, String>("body"));
-        date.setCellValueFactory(new PropertyValueFactory<Reclamation, Time>("time"));
+        date.setCellValueFactory(new PropertyValueFactory<Reclamation, Date>("date"));
         degree.setCellValueFactory(new PropertyValueFactory<Reclamation, Integer>("degree"));
         tableReclamation.setItems(dataReclamation);
         System.out.println(proxy.getAllReclamation());
