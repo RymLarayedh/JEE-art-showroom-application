@@ -28,17 +28,20 @@ import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import services.ArtworkManagemetRemote;
 import services.EventManagmentRemote;
 import services.VisualArtworkEJBRemote;
+import utils.ConfirmBox;
 
 public class AddVisualController implements Initializable{
 
-	//
-	 @FXML
+	  @FXML
 	    private JFXComboBox<String> cat;
 	    @FXML
 	    private JFXTextField name;
@@ -50,10 +53,20 @@ public class AddVisualController implements Initializable{
 	    private JFXTextArea descr;
 	    @FXML
 	    private JFXButton btnpic;
-	    InitialContext ctx;
-	File picture ;
+	
 	    @FXML
 	    private JFXButton addVisual;
+	  
+	    @FXML
+	    private JFXTextField len;
+	    @FXML
+	    private JFXTextField wid;
+	    /**
+	     * Initializes the controller class.
+	     */
+	    
+	    InitialContext ctx;
+		File picture ;
 	    /**
 	     * Initializes the controller class.
 	     */
@@ -92,7 +105,9 @@ public class AddVisualController implements Initializable{
 				pict.setImage(image);
 			} catch (IOException ex) {
 			}
-	    	
+			
+				
+	        
 	    }
 
 	    @FXML
@@ -105,6 +120,10 @@ public class AddVisualController implements Initializable{
 			TunC = new VisualArt();
 			//TunC.setCategory(cat.getValue());
 			TunC.setName(name.getText());
+			int lo = Integer.parseInt(len.getText());
+			int la = Integer.parseInt(wid.getText());
+			TunC.setLength(lo);
+			TunC.setWidth(la);
 			TunC.setDescription(descr.getText());
 			int Q = Integer.parseInt(price.getText());
 			TunC.setPrice(Q);
@@ -118,7 +137,16 @@ public class AddVisualController implements Initializable{
 
 			} catch (Exception e) {
 			}
+			
+			Alert alert = new Alert(Alert.AlertType.ERROR);
+			alert.setTitle("Fanny");
+			alert.setHeaderText(null);
+			alert.setContentText("Add succes");
+			alert.showAndWait();
+			
+			
 			proxy.addVisualArt(TunC);
+			
 	    }
 	    
 //	@Override
