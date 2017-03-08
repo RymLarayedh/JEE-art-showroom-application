@@ -8,6 +8,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
+import entities.Event;
+import entities.Feedback;
 import entities.Reclamation;
 
 /**
@@ -36,5 +38,18 @@ public class FeedbackManagment implements FeedbackManagmentRemote {
 			return null;
 		}
 	}
+
+	@Override
+	public void addReclamation(Reclamation r) {
+		em.persist(r);
+		
+	}
+
+	@Override
+	public void updateReclamation(Reclamation r) {
+		em.merge(r);
+		
+	}
+	
 
 }

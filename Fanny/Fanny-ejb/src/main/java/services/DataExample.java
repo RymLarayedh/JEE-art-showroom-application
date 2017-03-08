@@ -12,9 +12,13 @@ import javax.persistence.PersistenceContext;
 
 import entities.Admin;
 import entities.Artist;
+import entities.Artwork;
 import entities.Fields;
 import entities.Gallery;
+import entities.Reclamation;
+import entities.TunisianCraft;
 import entities.User;
+import entities.VisualArt;
 
 /**
  * Session Bean implementation class DataExample
@@ -23,7 +27,9 @@ import entities.User;
 @Startup
 public class DataExample {
 
+	@EJB FeedbackManagmentRemote feedbackManagment;
 	@EJB UserManagmentRemote usrManagment;
+	@EJB ArtworkManagemetRemote artworkManagment;
 	
 	@PersistenceContext(unitName = "Fanny-ejb")
 	EntityManager em;
@@ -36,6 +42,7 @@ public class DataExample {
     
     @PostConstruct
 	public void addExamples() {
+    	//******************* Aymen
 
 		Admin u1 = new Admin();
 		u1.setUsername("aymen");
@@ -74,6 +81,25 @@ public class DataExample {
 		usrManagment.addUser(u12);
 		usrManagment.addUser(u13);
 
+		//************* Rym
+		TunisianCraft a = new TunisianCraft();
+		a.setPrice(20);
+		boolean test=true;
+		a.setState(test);
+		a.setDescription("Chachia Rouge");
+		a.setName("Chachia");
+		a.setType("Tissu");
+		a.setQuantity(2);
+		
+		
+		artworkManagment.addTunisianCraft(a);
+		
+		/*Reclamation r = new Reclamation();
+		r.setUser((User)u1);
+		r.setArtwork((Artwork)a);
+		r.setBody("a");
+		r.setDegree(1);
+		feedbackManagment.addReclamation(r);*/
 
 	}
 

@@ -8,6 +8,7 @@ import javax.mail.internet.AddressException;
 
 import entities.Admin;
 import entities.Artist;
+import entities.Feedback;
 import entities.Fields;
 import entities.Gallery;
 import entities.Reclamation;
@@ -30,6 +31,8 @@ public interface FeedbackManagmentRemote {
 	public List<Reclamation> getAllReclamation();
 	
 	
+	public void addReclamation(Reclamation r);
+	public void updateReclamation(Reclamation r);
 	
 	
 	
