@@ -69,7 +69,7 @@ public class AdminShowALLController implements Initializable {
 		}
 		System.out.println(data);
 		Name.setCellValueFactory(new PropertyValueFactory<Category, String>("Name"));
-		addedAt.setCellValueFactory(new PropertyValueFactory<Category, Date>("addedAt"));
+//		addedAt.setCellValueFactory(new PropertyValueFactory<Category, Date>("addedAt"));
 		/*addedBy.setCellValueFactory(new Callback<CellDataFeatures<Category, String>, ObservableValue<String>>() {
 
 			@Override
