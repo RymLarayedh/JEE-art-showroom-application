@@ -12,7 +12,7 @@ import javafx.fxml.FXMLLoader;
 public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
-		try {
+		try {//
 			Parent root = FXMLLoader.load(getClass().getResource("AddVisual.fxml"));
 			Scene scene = new Scene(root,600,600);
 			//scene.getStylesheets().add(getClass().getResource("Login.css").toExternalForm());
