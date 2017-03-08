@@ -33,6 +33,12 @@ public class Tests {
 			random +=Character.toString((char) ((char) x));
 		}
 		System.out.println(random);
+	
+		String x = "";
+		System.out.println("1 "+x.isEmpty());
+		String x1 = " ";
+		System.out.println("1 "+x1.trim().isEmpty());
+		
 	}
 
 }

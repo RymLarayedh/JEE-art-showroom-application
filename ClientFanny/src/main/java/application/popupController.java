@@ -24,10 +24,14 @@ import entities.User;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.PixelWriter;
 import javafx.scene.image.WritableImage;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Stop;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.Window;
@@ -54,14 +58,20 @@ public class popupController implements Initializable {
 	@FXML
 	private JFXButton disableButton;
 
+	@FXML
+	private AnchorPane popupAnchor;
+
 	static public User userChoosen;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		firstName.setDisable(true);
-		LastName.setDisable(true);
-		mailTf.setDisable(true);
-		usernameTF.setDisable(true);
+
+		//
+
+		firstName.setEditable(false);
+		LastName.setEditable(false);
+		mailTf.setEditable(false);
+		usernameTF.setEditable(false);
 		firstName.setText(userChoosen.getFirstName());
 		LastName.setText(userChoosen.getLastName());
 		mailTf.setText(userChoosen.getEmail());
@@ -151,6 +161,123 @@ public class popupController implements Initializable {
 				LoginController.userLogedIn = userChoosen;
 			}
 		}
+	}
+
+	@FXML
+	public void UpdateFirstName(MouseEvent event) {
+		boolean confirm = ConfirmBox.display("", "Do you want the change this value ?");
+		if (confirm) {
+			firstName.setEditable(true);
+			firstName.requestFocus();
+			// saveFile
+			Stage stage = (Stage) popupAnchor.getScene().getWindow();
+			stage.setOnCloseRequest(e -> {
+				if (isChanged()) {
+					userChoosen.setFirstName(firstName.getText());
+					userChoosen.setLastName(LastName.getText());
+					userChoosen.setUsername(usernameTF.getText());
+					userChoosen.setEmail(mailTf.getText());
+					LoginController.userManagment.updateUser(userChoosen);
+				}
+				stage.close();
+			});
+
+		} else {
+
+			firstName.setEditable(false);
+		}
+
+	}
+
+	@FXML
+	public void UpdateLastName(MouseEvent event) {
+		boolean confirm = ConfirmBox.display("", "Do you want the change this value ?");
+		if (confirm) {
+			LastName.setEditable(true);
+			LastName.requestFocus();
+			Stage stage = (Stage) popupAnchor.getScene().getWindow();
+			stage.setOnCloseRequest(e -> {
+				if (isChanged()) {
+					userChoosen.setFirstName(firstName.getText());
+					userChoosen.setLastName(LastName.getText());
+					userChoosen.setUsername(usernameTF.getText());
+					userChoosen.setEmail(mailTf.getText());
+					LoginController.userManagment.updateUser(userChoosen);
+
+				}
+				stage.close();
+			});
+		} else {
+			LastName.setEditable(false);
+		}
+	}
+
+	@FXML
+	public void UpdateMail(MouseEvent event) {
+		boolean confirm = ConfirmBox.display("", "Do you want the change this value ?");
+		if (confirm) {
+			mailTf.setEditable(true);
+			mailTf.requestFocus();
+			Stage stage = (Stage) popupAnchor.getScene().getWindow();
+			stage.setOnCloseRequest(e -> {
+				if (isChanged()) {
+					userChoosen.setFirstName(firstName.getText());
+					userChoosen.setLastName(LastName.getText());
+					userChoosen.setUsername(usernameTF.getText());
+					userChoosen.setEmail(mailTf.getText());
+					LoginController.userManagment.updateUser(userChoosen);
+
+				}
+				stage.close();
+			});
+		}
+
+		else {
+			mailTf.setEditable(false);
+		}
+	}
+
+	@FXML
+	public void UpdateUsername(MouseEvent event) {
+		boolean confirm = ConfirmBox.display("", "Do you want the change this value ?");
+		if (confirm) {
+			usernameTF.setEditable(true);
+			usernameTF.requestFocus();
+			Stage stage = (Stage) popupAnchor.getScene().getWindow();
+			stage.setOnCloseRequest(e -> {
+				if (isChanged()) {
+					userChoosen.setFirstName(firstName.getText());
+					userChoosen.setLastName(LastName.getText());
+					userChoosen.setUsername(usernameTF.getText());
+					userChoosen.setEmail(mailTf.getText());
+					LoginController.userManagment.updateUser(userChoosen);
+				}
+				stage.close();
+			});
+		} else {
+			usernameTF.setEditable(false);
+		}
+
+	}
+
+	boolean isChanged() {
+		if (usernameTF.getText().trim().isEmpty() || (mailTf.getText().trim().isEmpty())
+				|| (firstName.getText().trim().isEmpty()) || (LastName.getText().trim().isEmpty())) {
+			Alert alert = new Alert(Alert.AlertType.ERROR);
+			alert.setTitle("Fanny");
+			alert.setHeaderText(null);
+			alert.setContentText("Empty fields are not accepted chnages wont be saved");
+			alert.showAndWait();
+			return false;
+		} else {
+			if ((usernameTF.getText().equals(userChoosen.getUsername()))
+					|| (mailTf.getText().equals(userChoosen.getEmail()))
+					|| (LastName.getText().equals(userChoosen.getLastName()))
+					|| (firstName.getText().equals(userChoosen.getFirstName()))) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 }

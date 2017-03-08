@@ -12,8 +12,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.popupController">
+<AnchorPane fx:id="popupAnchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.popupController">
    <children>
       <TabPane prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <tabs>
@@ -48,10 +47,10 @@
                                           <Label prefHeight="17.0" prefWidth="97.0" text="  E-mail" GridPane.rowIndex="2" />
                                           <Label prefHeight="17.0" prefWidth="87.0" text="  Username" GridPane.rowIndex="3" />
                                           <Label prefHeight="17.0" prefWidth="88.0" text="  First Name" />
-                                          <JFXTextField fx:id="firstName" GridPane.columnIndex="1" />
-                                          <JFXTextField fx:id="LastName" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                          <JFXTextField fx:id="mailTf" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                                          <JFXTextField fx:id="usernameTF" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                          <JFXTextField fx:id="firstName" onMouseClicked="#UpdateFirstName" GridPane.columnIndex="1" />
+                                          <JFXTextField fx:id="LastName" onMouseClicked="#UpdateLastName" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                          <JFXTextField fx:id="mailTf" onMouseClicked="#UpdateMail" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                          <JFXTextField fx:id="usernameTF" onMouseClicked="#UpdateUsername" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                                           <JFXButton fx:id="disableButton" onAction="#DisableUsersAccount" prefHeight="25.0" prefWidth="334.0" text="Disable this user" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                                        </children>
                                     </GridPane>

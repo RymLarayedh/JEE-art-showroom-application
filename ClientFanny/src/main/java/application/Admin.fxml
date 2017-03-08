@@ -84,25 +84,20 @@
                         </AnchorPane>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="398.0" prefWidth="477.0">
                            <children>
-                              <AnchorPane fx:id="AymensPane" prefHeight="397.0" prefWidth="607.0">
+                              <AnchorPane fx:id="AymensPane" prefHeight="459.0" prefWidth="706.0">
                                  <children>
-                                    <TableView fx:id="AllUsersTable" editable="true" onMouseClicked="#showPopup" prefHeight="397.0" prefWidth="607.0">
+                                    <TableView fx:id="AllUsersTable" onMouseClicked="#showPopup" prefHeight="459.0" prefWidth="704.0">
                                       <columns>
-                                        <TableColumn fx:id="picture" prefWidth="85.0" text="picture" />
+                                        <TableColumn fx:id="picture" editable="false" prefWidth="85.0" sortable="false" text="picture" />
                                         <TableColumn fx:id="firstName" prefWidth="113.0" text="FirstName" />
                                           <TableColumn fx:id="LastName" prefWidth="88.0" text="LastName" />
-                                          <TableColumn fx:id="mail" prefWidth="85.33331298828125" text="E-mail" />
-                                          <TableColumn fx:id="username" prefWidth="121.0" text="Fanny-username" />
-                                          <TableColumn fx:id="status" prefWidth="113.0" text="Status" />
+                                          <TableColumn fx:id="mail" prefWidth="195.33331298828125" text="E-mail" />
+                                          <TableColumn fx:id="username" prefWidth="113.66668701171875" text="Fanny-username" />
+                                          <TableColumn fx:id="status" prefWidth="108.6666259765625" text="Status" />
                                       </columns>
                                     </TableView>
                                  </children>
                               </AnchorPane>
-                              <AnchorPane fx:id="RymsPane" prefHeight="380.0" prefWidth="608.0" />
-                              <AnchorPane fx:id="InessPane" prefHeight="401.0" prefWidth="611.0" />
-                              <AnchorPane fx:id="ManelsPane" prefHeight="401.0" prefWidth="607.0" />
-                              <AnchorPane fx:id="ImensPane" prefHeight="405.0" prefWidth="611.0" />
-                              <AnchorPane fx:id="OussamsPane" prefHeight="399.0" prefWidth="630.0" />
                            </children>
                         </AnchorPane>
                     </items>
@@ -115,7 +110,7 @@
                   </ImageView>
                   <Label layoutX="831.0" layoutY="78.0" prefWidth="56.0" text="Fanny" textFill="WHITE">
                      <font>
-                        <Font name="System Bold" size="12.0" />
+                        <Font name="Comic Sans MS Bold" size="14.0" />
                      </font>
                   </Label>
                   <ImageView fx:id="profilePicture" fitHeight="85.0" fitWidth="98.0" layoutX="1.0" layoutY="3.0" onMouseClicked="#showProfile" pickOnBounds="true" preserveRatio="true" />
