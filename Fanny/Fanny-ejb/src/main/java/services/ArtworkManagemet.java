@@ -35,6 +35,14 @@ public class ArtworkManagemet implements ArtworkManagemetRemote {
 			return null;
 		}
 	}
+	@Override
+	public Artwork findArtworkByID(int id) {
+		try {
+			return em.find(Artwork.class, id);
+		} catch (javax.persistence.NoResultException e) {
+			return null;
+		}	
+	}
 	}
 
 	
