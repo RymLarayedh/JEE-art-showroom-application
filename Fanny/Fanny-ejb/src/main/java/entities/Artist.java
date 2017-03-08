@@ -20,7 +20,7 @@ public class Artist extends User implements Serializable {
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "artist")
 	private Set<ArtistFollowers> Followers;
 	private static final long serialVersionUID = 1L;
-	@OneToMany
+	@OneToMany(cascade=CascadeType.ALL,fetch = FetchType.EAGER)
 	private List<Event>listEvent;
 
 	public Artist() {
