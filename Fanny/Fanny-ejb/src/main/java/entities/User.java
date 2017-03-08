@@ -44,6 +44,17 @@ public class User implements Serializable {
 	/*manel*/
 	@OneToMany(mappedBy="user"/*,fetch=FetchType.EAGER*/)
 	private List<Artwork> listArtwork;
+	@OneToMany(mappedBy="sender")
+	private List<Message> listMessages;
+	
+
+	public List<Message> getListMessages() {
+		return listMessages;
+	}
+
+	public void setListMessages(List<Message> listMessages) {
+		this.listMessages = listMessages;
+	}
 
 	public List<Artwork> getListArtwork() {
 		return listArtwork;
