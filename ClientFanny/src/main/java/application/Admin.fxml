@@ -11,68 +11,137 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
 
-<ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="491.0" prefWidth="880.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.AdminController">
-   <content>
-      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="488.0" prefWidth="718.0">
-         <children>
-            <ImageView fx:id="profilePicture" fitHeight="79.0" fitWidth="86.0" layoutX="791.0" layoutY="32.0" onMouseClicked="#showProfile" pickOnBounds="true" preserveRatio="true" />
-            <Label fx:id="userLoggedInName" layoutX="776.0" layoutY="106.0" prefHeight="70.0" prefWidth="101.0" text="Label" textAlignment="CENTER" wrapText="true" />
-            <MenuBar layoutX="4.0" layoutY="2.0" prefHeight="25.0" prefWidth="875.0">
-               <menus>
-                  <Menu mnemonicParsing="false" text="File">
-                     <items>
-                        <MenuItem mnemonicParsing="false" onAction="#closeFanny" text="Close" />
-                     </items>
-                  </Menu>
-                  <Menu mnemonicParsing="false" text="Edit">
-                     <items>
-                        <MenuItem mnemonicParsing="false" onAction="#showSettingsScreen" text="Settings" />
-                     </items>
-                  </Menu>
-                  <Menu mnemonicParsing="false" text="Help">
-                     <items>
-                        <MenuItem mnemonicParsing="false" onAction="#showAboutFanny" text="About" />
-                     </items>
-                  </Menu>
-               </menus>
-            </MenuBar>
-            <SplitPane dividerPositions="0.2231686541737649" layoutX="-3.0" layoutY="84.0" prefHeight="400.0" prefWidth="754.0">
-              <items>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
-                     <children>
-                        <Accordion layoutY="-2.0" prefHeight="76.0" prefWidth="171.0">
-                          <panes>
-                            <TitledPane animated="false" prefHeight="123.0" prefWidth="171.0" text="Manage Users">
-                              <content>
-                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="91.0" prefWidth="169.0">
-                                       <children>
-                                          <JFXButton layoutX="14.0" layoutY="13.0" onAction="#ShowAllUsers" text="Show All Users" />
-                                       </children></AnchorPane>
-                              </content>
-                            </TitledPane>
-                          </panes>
-                        </Accordion>
-                     </children>
-                  </AnchorPane>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="398.0" prefWidth="477.0">
-                     <children>
-                        <TableView fx:id="AllUsersTable" onMouseClicked="#showPopup" prefHeight="397.0" prefWidth="581.0">
-                          <columns>
-                            <TableColumn fx:id="picture" prefWidth="71.0" text="picture" />
-                            <TableColumn fx:id="firstName" prefWidth="147.33331298828125" text="FirstName" />
-                              <TableColumn fx:id="LastName" prefWidth="104.66668701171875" text="LastName" />
-                              <TableColumn fx:id="mail" prefWidth="86.33331298828125" text="E-mail" />
-                              <TableColumn fx:id="username" prefWidth="109.66668701171875" text="Fanny-username" />
-                              <TableColumn fx:id="status" prefWidth="62.0" text="Status" />
-                          </columns>
-                        </TableView>
-                     </children></AnchorPane>
-              </items>
-            </SplitPane>
-         </children>
-      </AnchorPane>
-   </content>
-</ScrollPane>
+<AnchorPane prefHeight="610.0" prefWidth="880.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.AdminController">
+   <children>
+      <ScrollPane layoutY="26.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="586.0" prefWidth="879.0">
+         <content>
+            <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="464.0" prefWidth="881.0">
+               <children>
+                  <SplitPane dividerPositions="0.19517795637198623" layoutX="-3.0" layoutY="112.0" prefHeight="459.0" prefWidth="881.0">
+                    <items>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="346.0" prefWidth="145.0">
+                           <children>
+                              <Accordion prefHeight="459.0" prefWidth="173.0">
+                                <panes>
+                                  <TitledPane animated="false" prefHeight="123.0" prefWidth="171.0" text="Manage Users">
+                                    <content>
+                                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="81.0" prefWidth="169.0">
+                                             <children>
+                                                <JFXButton layoutX="14.0" layoutY="13.0" onAction="#ShowAllUsers" text="Show All Users" />
+                                             </children>
+                                          </AnchorPane>
+                                    </content>
+                                  </TitledPane>
+                                  <TitledPane animated="false" prefHeight="99.0" prefWidth="165.0" text="Manage Artworks">
+                                    <content>
+                                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="81.0" prefWidth="163.0">
+                                             <children>
+                                                <JFXButton layoutX="14.0" layoutY="13.0" text="Visual Artwork" />
+                                                <JFXButton layoutX="14.0" layoutY="36.0" text="Tunisian Crafts" />
+                                                <JFXButton layoutX="14.0" layoutY="59.0" text="Music" />
+                                             </children>
+                                          </AnchorPane>
+                                    </content>
+                                  </TitledPane>
+                                  <TitledPane animated="false" prefHeight="34.0" prefWidth="165.0" text="Manage Events">
+                                    <content>
+                                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="135.0" prefWidth="163.0">
+                                             <children>
+                                                <JFXButton layoutX="14.0" layoutY="13.0" />
+                                             </children>
+                                          </AnchorPane>
+                                    </content>
+                                  </TitledPane>
+                                  <TitledPane animated="false" prefHeight="46.0" prefWidth="165.0" text="Manage Complains">
+                                    <content>
+                                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                                    </content>
+                                  </TitledPane>
+                                    <TitledPane animated="false" prefHeight="245.0" prefWidth="165.0" text="Manage Orders">
+                                       <content>
+                                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                                       </content>
+                                    </TitledPane>
+                                    <TitledPane animated="false" prefHeight="245.0" prefWidth="165.0" text="Manage Forum">
+                                       <content>
+                                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                                       </content>
+                                    </TitledPane>
+                                    <TitledPane animated="false" prefHeight="46.0" prefWidth="165.0" text="Statistics">
+                                       <content>
+                                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                                       </content>
+                                    </TitledPane>
+                                </panes>
+                              </Accordion>
+                           </children>
+                        </AnchorPane>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="398.0" prefWidth="477.0">
+                           <children>
+                              <AnchorPane fx:id="AymensPane" prefHeight="397.0" prefWidth="607.0">
+                                 <children>
+                                    <TableView fx:id="AllUsersTable" editable="true" onMouseClicked="#showPopup" prefHeight="397.0" prefWidth="607.0">
+                                      <columns>
+                                        <TableColumn fx:id="picture" prefWidth="85.0" text="picture" />
+                                        <TableColumn fx:id="firstName" prefWidth="113.0" text="FirstName" />
+                                          <TableColumn fx:id="LastName" prefWidth="88.0" text="LastName" />
+                                          <TableColumn fx:id="mail" prefWidth="85.33331298828125" text="E-mail" />
+                                          <TableColumn fx:id="username" prefWidth="121.0" text="Fanny-username" />
+                                          <TableColumn fx:id="status" prefWidth="113.0" text="Status" />
+                                      </columns>
+                                    </TableView>
+                                 </children>
+                              </AnchorPane>
+                              <AnchorPane fx:id="RymsPane" prefHeight="380.0" prefWidth="608.0" />
+                              <AnchorPane fx:id="InessPane" prefHeight="401.0" prefWidth="611.0" />
+                              <AnchorPane fx:id="ManelsPane" prefHeight="401.0" prefWidth="607.0" />
+                              <AnchorPane fx:id="ImensPane" prefHeight="405.0" prefWidth="611.0" />
+                              <AnchorPane fx:id="OussamsPane" prefHeight="399.0" prefWidth="630.0" />
+                           </children>
+                        </AnchorPane>
+                    </items>
+                  </SplitPane>
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#022646" height="112.0" opacity="0.76" stroke="BLACK" strokeType="INSIDE" width="880.0" />
+                  <ImageView fitHeight="96.0" fitWidth="71.0" layoutX="774.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../buttons/fanny%20.png" />
+                     </image>
+                  </ImageView>
+                  <Label layoutX="831.0" layoutY="78.0" prefWidth="56.0" text="Fanny" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <ImageView fx:id="profilePicture" fitHeight="85.0" fitWidth="98.0" layoutX="1.0" layoutY="3.0" onMouseClicked="#showProfile" pickOnBounds="true" preserveRatio="true" />
+                  <Label fx:id="userLoggedInName" layoutX="12.0" layoutY="84.0" prefHeight="33.0" prefWidth="145.0" text="Label" textAlignment="CENTER" textFill="#fcfafa" wrapText="true" />
+               </children>
+            </AnchorPane>
+         </content>
+      </ScrollPane>
+      <MenuBar prefHeight="25.0" prefWidth="875.0">
+         <menus>
+            <Menu mnemonicParsing="false" text="File">
+               <items>
+                  <MenuItem mnemonicParsing="false" onAction="#closeFanny" text="Close" />
+               </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Edit">
+               <items>
+                  <MenuItem mnemonicParsing="false" onAction="#showSettingsScreen" text="Settings" />
+               </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Help">
+               <items>
+                  <MenuItem mnemonicParsing="false" onAction="#showAboutFanny" text="About" />
+               </items>
+            </Menu>
+         </menus>
+      </MenuBar>
+   </children>
+</AnchorPane>
