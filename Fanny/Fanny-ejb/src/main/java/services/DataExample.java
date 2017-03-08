@@ -13,6 +13,7 @@ import javax.persistence.PersistenceContext;
 import entities.Admin;
 import entities.Artist;
 import entities.Artwork;
+import entities.FeedbackId;
 import entities.Fields;
 import entities.Gallery;
 import entities.Reclamation;
@@ -59,8 +60,8 @@ public class DataExample {
 		u12.setFirstName("ines");
 		
 		Gallery u13 = new Gallery();
-		u13.setUsername("g");
-		u13.setPassword("g");
+		u13.setUsername("gallery");
+		u13.setPassword("gallery");
 		u13.setActive(true);
 		u13.setEmail("zimouarbi@gmail.com");
 		u13.setFirstName("zimouarbi");
@@ -94,12 +95,16 @@ public class DataExample {
 		
 		artworkManagment.addTunisianCraft(a);
 		
-		/*Reclamation r = new Reclamation();
-		r.setUser((User)u1);
-		r.setArtwork((Artwork)a);
+		Reclamation r = new Reclamation();
+		//r.setUser((User)u1);
+		//r.setArtwork((Artwork)a);
+		FeedbackId feedbackId =new FeedbackId();
+		feedbackId.setArtworkId(1);
+		feedbackId.setArtworkId(1);
+		r.setFeedbackId(feedbackId);
 		r.setBody("a");
 		r.setDegree(1);
-		feedbackManagment.addReclamation(r);*/
+		//feedbackManagment.addReclamation(r);
 
 	}
 

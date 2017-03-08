@@ -13,6 +13,8 @@
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -65,7 +67,10 @@
                                   </TitledPane>
                                   <TitledPane animated="false" prefHeight="46.0" prefWidth="165.0" text="Manage Complains">
                                     <content>
-                                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                             <children>
+                                                <JFXButton layoutX="17.0" layoutY="14.0" onAction="#displayReclamation" text="Display Complains" />
+                                             </children></AnchorPane>
                                     </content>
                                   </TitledPane>
                                     <TitledPane animated="false" prefHeight="245.0" prefWidth="165.0" text="Manage Orders">
@@ -91,7 +96,7 @@
                            <children>
                               <AnchorPane fx:id="RymsPane" prefHeight="380.0" prefWidth="608.0">
                                  <children>
-                                    <AnchorPane fx:id="addEventPane" prefHeight="452.0" prefWidth="701.0">
+                                    <AnchorPane fx:id="addEventPane" opacity="0.0" prefHeight="452.0" prefWidth="701.0">
                                        <children>
                                           <JFXTextArea fx:id="description" layoutX="200.0" layoutY="79.0" maxWidth="354.0" minWidth="209.0" prefHeight="81.0" prefWidth="354.0" />
                                           <JFXTextField fx:id="title" layoutX="201.0" layoutY="50.0" />
@@ -111,6 +116,19 @@
                                           <Label layoutX="132.0" layoutY="283.0" text="Gallery :" />
                                           <Label layoutX="141.0" layoutY="321.0" text="Artist :" />
                                           <Label fx:id="details" layoutX="386.0" layoutY="272.0" prefHeight="121.0" prefWidth="214.0" />
+                                       </children>
+                                    </AnchorPane>
+                                    <AnchorPane fx:id="displayReclamation" prefHeight="450.0" prefWidth="578.0">
+                                       <children>
+                                          <TableView fx:id="tableReclamation" layoutX="1.0" layoutY="1.0" onMouseClicked="#selectReclamation" prefHeight="442.0" prefWidth="591.0">
+                                             <columns>
+                                                <TableColumn fx:id="artwork" prefWidth="111.0" text="Artwork" />
+                                                <TableColumn fx:id="user" prefWidth="90.0" text="User" />
+                                                <TableColumn fx:id="body" prefWidth="237.0" text="Body" />
+                                                <TableColumn fx:id="date" prefWidth="93.0" text="Date" />
+                                                <TableColumn fx:id="degree" prefWidth="59.0" text="Degree" />
+                                             </columns>
+                                          </TableView>
                                        </children>
                                     </AnchorPane>
                                  </children></AnchorPane>

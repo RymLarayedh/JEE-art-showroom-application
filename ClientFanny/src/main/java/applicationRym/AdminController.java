@@ -12,10 +12,12 @@ import com.jfoenix.controls.JFXTextField;
 import entities.Artist;
 import entities.Event;
 import entities.Gallery;
+import entities.Reclamation;
 import entities.User;
 
 import java.net.URL;
 import java.sql.Date;
+import java.sql.Time;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -27,6 +29,8 @@ import java.util.ResourceBundle;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -35,10 +39,16 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TableColumn.CellDataFeatures;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.util.Callback;
 import services.EventManagmentRemote;
+import services.FeedbackManagmentRemote;
 import services.UserManagmentRemote;
 
 /**
@@ -78,12 +88,30 @@ public class AdminController implements Initializable {
      */
     
     @FXML
+    private AnchorPane displayReclamation;
+    @FXML
+	private TableView<Reclamation> tableReclamation;
+	@FXML
+	private TableColumn<Reclamation,String> artwork;
+	@FXML
+	private TableColumn<Reclamation,String> user;
+	@FXML
+	private TableColumn<Reclamation,String> body;
+	@FXML
+	private TableColumn<Reclamation,Time> date;
+	@FXML
+	private TableColumn<Reclamation,Integer> degree;
+	
+	ObservableList<Reclamation> dataReclamation = FXCollections.observableArrayList();
+    
+    @FXML
     private AnchorPane displayEventPane;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
     	
     	addEventPane.setVisible(false);
+    	displayReclamation.setVisible(false);
     	
     	
     }   
@@ -274,6 +302,65 @@ public class AdminController implements Initializable {
     @FXML
     private void pastEvents(Event event) {
     }
+    
+
+    
+
+   
+
+    @FXML
+    private void displayReclamation(ActionEvent event) {
+    	
+    	displayReclamation.setVisible(true);
+    	remplirTableReclamation();
+    }
+    
+    private void remplirTableReclamation(){
+		try {
+			ctx = new InitialContext();
+		
+		Object objet = ctx.lookup("/Fanny-ear/Fanny-ejb/FeedbackManagment!services.FeedbackManagmentRemote");
+		FeedbackManagmentRemote proxy = (FeedbackManagmentRemote) objet;	
+		ObservableList<Reclamation> eventSelected, allRec;
+        allRec = tableReclamation.getItems();
+       // allRec.clear();
+        for (Reclamation e : proxy.getAllReclamation()) {
+            dataReclamation.add(e);
+           // System.out.println(data);
+        }
+        artwork.setCellValueFactory(new Callback<CellDataFeatures<Reclamation, String>, ObservableValue<String>>() {
+
+			@Override
+			public ObservableValue<String> call(CellDataFeatures<Reclamation, String> param) {
+				// TODO Auto-generated method stub
+				return new SimpleStringProperty(param.getValue().getArtwork().getName());
+			}
+
+		});  
+        user.setCellValueFactory(new Callback<CellDataFeatures<Reclamation, String>, ObservableValue<String>>() {
+
+			@Override
+			public ObservableValue<String> call(CellDataFeatures<Reclamation, String> param) {
+				// TODO Auto-generated method stub
+				return new SimpleStringProperty(param.getValue().getUser().getUsername());
+			}
+
+		}); 
+        body.setCellValueFactory(new PropertyValueFactory<Reclamation, String>("body"));
+        date.setCellValueFactory(new PropertyValueFactory<Reclamation, Time>("time"));
+        degree.setCellValueFactory(new PropertyValueFactory<Reclamation, Integer>("degree"));
+        tableReclamation.setItems(dataReclamation);
+        System.out.println(proxy.getAllReclamation());
+		} catch (NamingException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+	}
+
+    @FXML
+    private void selectReclamation(MouseEvent event) {
+    }
+
 
     
    
