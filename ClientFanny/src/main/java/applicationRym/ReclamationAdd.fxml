@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXTextArea?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="304.0" prefWidth="420.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="applicationRym.ReclamationAddController">
+    <children>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#a8aaab" height="3.0" layoutX="27.0" layoutY="253.0" stroke="TRANSPARENT" strokeType="INSIDE" width="366.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#4aafba" height="47.0" stroke="TRANSPARENT" strokeType="INSIDE" width="420.0" />
+      <Label layoutX="19.0" layoutY="15.0" text="Help us understand what is happening">
+         <font>
+            <Font name="AdobeKaitiStd-Regular" size="15.0" />
+         </font>
+      </Label>
+      <AnchorPane fx:id="step1" prefHeight="304.0" prefWidth="420.0">
+         <children>
+            <Label layoutX="37.0" layoutY="78.0" text="What is happening ?">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <RadioButton fx:id="hap1" layoutX="89.0" layoutY="122.0" mnemonicParsing="false" text="It is annoying or uninteresting" />
+            <RadioButton fx:id="hap2" layoutX="89.0" layoutY="161.0" mnemonicParsing="false" text="I think it has nothing to do on Facebook" />
+            <RadioButton fx:id="hap3" layoutX="89.0" layoutY="198.0" mnemonicParsing="false" text="This is undesirable content" />
+            <Button layoutX="305.0" layoutY="263.0" mnemonicParsing="false" onAction="#continue1Action" text="Continue" />
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="step3" prefHeight="304.0" prefWidth="420.0">
+         <children>
+            <Label layoutX="113.0" layoutY="140.0" text="This artwork has been reported" />
+            <Button layoutX="305.0" layoutY="263.0" mnemonicParsing="false" onAction="#FinishAction" prefHeight="27.0" prefWidth="74.0" text="Finish" />
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="step2" prefHeight="304.0" prefWidth="420.0">
+         <children>
+            <JFXTextArea fx:id="bodyTF" layoutX="47.0" layoutY="162.0" maxWidth="337.0" minWidth="233.0" prefHeight="73.0" prefWidth="337.0" />
+            <Button layoutX="305.0" layoutY="263.0" mnemonicParsing="false" onAction="#continue2Action" text="Continue" />
+            <Label layoutX="106.0" layoutY="76.0" text="What is the problem ?">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label layoutX="55.0" layoutY="135.0" text="Body :" />
+         </children>
+      </AnchorPane>
+   </children> 
+</AnchorPane>

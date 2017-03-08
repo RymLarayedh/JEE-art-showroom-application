@@ -13,14 +13,15 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-			Parent root = FXMLLoader.load(getClass().getResource("EventAdd.fxml"));
-			Scene scene = new Scene(root,600,600);
+			Parent root = FXMLLoader.load(getClass().getResource("ReclamationAdd.fxml"));
+			Scene scene = new Scene(root,900,600);
 			//scene.getStylesheets().add(getClass().getResource("Login.css").toExternalForm());
 			primaryStage.setScene(scene);
 			primaryStage.setTitle("FannyTUNISIA");
             primaryStage.setOnCloseRequest(e ->{
                 e.consume();
                 closeProgram(primaryStage);
+                //r
             });
             primaryStage.show();
 			

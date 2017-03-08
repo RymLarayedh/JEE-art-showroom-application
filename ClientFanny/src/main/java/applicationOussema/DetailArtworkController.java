@@ -39,12 +39,10 @@ import javafx.scene.image.ImageView;
 import javafx.scene.image.PixelWriter;
 import javafx.scene.image.WritableImage;
 import javafx.scene.layout.AnchorPane;
-
 import services.ArtworkManagemetRemote;
 import services.UserManagmentRemote;
 
 import org.controlsfx.control.Rating;
-
 
 /**
  * FXML Controller class

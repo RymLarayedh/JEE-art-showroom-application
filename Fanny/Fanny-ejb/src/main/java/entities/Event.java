@@ -13,9 +13,10 @@ import javax.persistence.*;
 @Entity
 
 public class Event implements Serializable {
-
+//rym//Aymen
 	   
 	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int idEvent;
 	private String title;
 	private String description;

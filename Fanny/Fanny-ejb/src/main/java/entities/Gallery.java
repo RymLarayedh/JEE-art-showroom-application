@@ -22,7 +22,7 @@ public class Gallery extends User implements Serializable {
 	@OneToMany(cascade={CascadeType.PERSIST,CascadeType.MERGE})
 	private Set<Picture> PhotoAlbum;
 	private static final long serialVersionUID = 1L;
-	@OneToMany
+	@OneToMany(cascade=CascadeType.ALL,fetch = FetchType.EAGER)
 	private List<Event>listEvent;
 
 	public Gallery() {

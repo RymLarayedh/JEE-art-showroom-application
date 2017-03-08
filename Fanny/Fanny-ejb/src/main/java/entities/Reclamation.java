@@ -2,6 +2,7 @@ package entities;
 
 import java.io.Serializable;
 import java.sql.Time;
+import java.util.Date;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
@@ -19,8 +20,9 @@ public class Reclamation extends Feedback implements Serializable {
 	//er
 	//eeeee
 	private String body;
-	private Time time;
+	private Date date;
 	private Integer degree;
+	private Integer handle;
 	private static final long serialVersionUID = 1L;
 	
 	//master
@@ -28,6 +30,14 @@ public class Reclamation extends Feedback implements Serializable {
 		super();
 	}
 	
+	public Integer getHandle() {
+		return handle;
+	}
+
+	public void setHandle(Integer handle) {
+		this.handle = handle;
+	}
+
 	public Integer getDegree() {
 		return degree;
 	}
@@ -42,11 +52,11 @@ public class Reclamation extends Feedback implements Serializable {
 	public void setBody(String body) {
 		this.body = body;
 	}
-	public Time getTime() {
-		return time;
+	public Date getDate() {
+		return date;
 	}
-	public void setTime(Time time) {
-		this.time = time;
+	public void setDate(Date date) {
+		this.date = date;
 	}
 	@Override
 	public int hashCode() {
@@ -60,7 +70,7 @@ public class Reclamation extends Feedback implements Serializable {
 	}
 	@Override
 	public String toString() {
-		return "Reclamation [body=" + body + ", time=" + time + "]";
+		return "Reclamation [body=" + body + ", time=" + date + "]";
 	}
 	
 	
