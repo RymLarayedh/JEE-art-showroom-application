@@ -27,7 +27,5 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/Oussamabh/Desktop/Ween/Lib/jfoenix.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Oussamabh/Desktop/Ween/Lib/controlsfx-8.40.12.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

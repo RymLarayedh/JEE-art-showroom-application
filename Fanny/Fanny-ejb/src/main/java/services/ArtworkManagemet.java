@@ -7,6 +7,7 @@ import javax.persistence.PersistenceContext;
 
 import entities.Artwork;
 import entities.TunisianCraft;
+import entities.User;
 
 /**
  * Session Bean implementation class ArtworkManagemet
@@ -21,13 +22,21 @@ public class ArtworkManagemet implements ArtworkManagemetRemote {
      * Default constructor. 
      */
     public ArtworkManagemet() {
-        // TODO Auto-generated constructor stub
     }
 	@Override
 	public void addTunisianCraft(TunisianCraft Tun) {
       em.persist(Tun);		
 	}
+	@Override
+	public TunisianCraft findById(int id) {
+		try {
+			return em.find(TunisianCraft.class, id);
+		} catch (javax.persistence.NoResultException e) {
+			return null;
+		}
+	}
+	}
 
 	
 
-}
+

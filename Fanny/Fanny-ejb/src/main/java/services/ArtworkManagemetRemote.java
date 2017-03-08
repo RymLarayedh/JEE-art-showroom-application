@@ -8,5 +8,5 @@ import entities.TunisianCraft;
 public interface ArtworkManagemetRemote {
 
 	public void addTunisianCraft(TunisianCraft Tun);
-
+	public TunisianCraft findById(int id);
 }

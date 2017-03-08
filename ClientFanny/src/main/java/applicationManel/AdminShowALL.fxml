@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <TableView fx:id="AllVisualArt" layoutX="24.0" layoutY="56.0" prefHeight="200.0" prefWidth="517.0">
+        <columns>
+          <TableColumn fx:id="Pict" prefWidth="32.0" text="Picture" />
+          <TableColumn fx:id="Name" prefWidth="34.0" text="NameProduct" />
+            <TableColumn fx:id="Price" minWidth="6.0" prefWidth="33.0" text="Price" />
+            <TableColumn fx:id="Category" prefWidth="36.0" text="Category" />
+            <TableColumn fx:id="length" prefWidth="37.0" text="length" />
+            <TableColumn fx:id="width" prefWidth="44.0" text="width" />
+            <TableColumn fx:id="dateOfOublication" prefWidth="43.0" text="dateOfOublication" />
+            <TableColumn fx:id="Description" prefWidth="37.0" text="Description" />
+            <TableColumn fx:id="State" prefWidth="46.0" text="State" />
+            <TableColumn fx:id="Delete" prefWidth="57.0" text="Delete" />
+        </columns>
+      </TableView>
+   </children>
+</AnchorPane>
