@@ -31,6 +31,7 @@ public class User implements Serializable {
 	private String email;
 	private boolean isActive;
 	private boolean isBlocked;
+	@Lob
 	private byte[] picture;
 	private static final long serialVersionUID = 1L;
 	@OneToMany(mappedBy="user")
