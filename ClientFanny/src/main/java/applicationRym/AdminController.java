@@ -61,6 +61,7 @@ public class AdminController implements Initializable {
 	static int idGa;
 	static int idAr;
 	InitialContext ctx;
+	//r
 	@FXML
     private AnchorPane RymsPane;
     @FXML
