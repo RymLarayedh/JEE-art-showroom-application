@@ -13,8 +13,8 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-			Parent root = FXMLLoader.load(getClass().getResource("TunisianCraft.fxml"));
-			Scene scene = new Scene(root,600,600);
+			Parent root = FXMLLoader.load(getClass().getResource("DetailArtwork.fxml"));
+			Scene scene = new Scene(root,950,970);
 
 			primaryStage.setScene(scene);
 			primaryStage.setTitle("FannyTUNISIA");
