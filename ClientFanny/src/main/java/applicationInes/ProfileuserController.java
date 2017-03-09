@@ -12,6 +12,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.TableView;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -55,6 +56,10 @@ public class ProfileuserController implements Initializable {
     private Button eventb;
     @FXML
     private Button tunisianc;
+	@FXML
+	private AnchorPane MusicPane;
+	@FXML
+	private TableView tableMusic;
     
 
     /**
@@ -201,9 +206,7 @@ public class ProfileuserController implements Initializable {
     private void visualart(ActionEvent event) {
     }
 
-    @FXML
-    private void music(ActionEvent event) {
-    }
+   
 
     @FXML
     private void Event(ActionEvent event) {
@@ -212,5 +215,10 @@ public class ProfileuserController implements Initializable {
     @FXML
     private void Tunisiancraft(ActionEvent event) {
     }
-
+    
+    /*******************************************************************************************************************/
+    /**********************************************************Ines ***************************************************/
+    @FXML
+    private void music(ActionEvent event) {
+    }
 }

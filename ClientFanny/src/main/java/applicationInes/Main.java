@@ -15,7 +15,8 @@ public class Main extends Application {
 		try {
 			Parent root = FXMLLoader.load(getClass().getResource("Profileuser.fxml"));
 			Scene scene = new Scene(root,1000,800);
-			//scene.getStylesheets().add(getClass().getResource("Login.css").toExternalForm());
+			scene.getStylesheets().add(getClass().getResource("tableView.css").toExternalForm());
+
 			primaryStage.setScene(scene);
 			primaryStage.setTitle("FannyTUNISIA");
 //            primaryStage.setOnCloseRequest(e ->{
