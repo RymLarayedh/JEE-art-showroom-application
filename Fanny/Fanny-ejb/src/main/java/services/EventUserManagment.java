@@ -12,6 +12,7 @@ import javax.persistence.TypedQuery;
 import entities.Artist;
 import entities.Event;
 import entities.EventUser;
+import entities.EventUserID;
 import entities.Gallery;
 import entities.User;
 
@@ -35,6 +36,28 @@ public class EventUserManagment implements EventUserManagmentRemote {
 	public void addEventUser(EventUser event) {
 		em.persist(event);
 		
+	}
+	/*@Override
+	public List<EventUser> findByEventId(EventUserID id) {
+		try {
+			TypedQuery<EventUser> q = em.createQuery("SELECT e FROM EventUser e WHERE e.eventUserID =:id", EventUser.class);
+			q.setParameter("id", id);
+			List<EventUser> eventUser = q.getResultList();
+			return eventUser;
+		} catch (javax.persistence.NoResultException E) {
+			return null;
+		}
+	}*/
+	@Override
+	public List<EventUser> findByEventId(int id) {
+		try {
+			TypedQuery<EventUser> q = em.createQuery("SELECT b from EventUser b JOIN b.eventUserID c where c.idEventPK = :id)", EventUser.class);
+			q.setParameter("id", id);
+			List<EventUser> eventUser = q.getResultList();
+			return eventUser;
+		} catch (javax.persistence.NoResultException E) {
+			return null;
+		}
 	}
 
 	

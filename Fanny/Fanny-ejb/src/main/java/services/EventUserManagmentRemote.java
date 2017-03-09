@@ -8,6 +8,7 @@ import javax.ejb.Remote;
 import entities.Artist;
 import entities.Event;
 import entities.EventUser;
+import entities.EventUserID;
 import entities.Gallery;
 import entities.User;
 
@@ -20,6 +21,7 @@ public interface EventUserManagmentRemote {
 	 * @param event
 	 */
 	public void addEventUser(EventUser event);
+	public List<EventUser> findByEventId(int id) ;
 	
 	
 	
