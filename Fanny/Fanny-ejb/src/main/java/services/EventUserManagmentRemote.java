@@ -21,7 +21,17 @@ public interface EventUserManagmentRemote {
 	 * @param event
 	 */
 	public void addEventUser(EventUser event);
+	/**
+	 * 
+	 * @param id
+	 * @return
+	 */
 	public List<EventUser> findByEventId(int id) ;
+	/**
+	 * 
+	 * @param e
+	 */
+	public void deleteEvent(EventUser e);
 	
 	
 	
