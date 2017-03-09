@@ -9,12 +9,18 @@ import com.jfoenix.controls.JFXTextArea;
 
 import entities.Artist;
 import entities.Artwork;
+import entities.Feedback;
+import entities.FeedbackId;
 import entities.Gallery;
+import entities.Like;
+import entities.TunisianCraft;
+import entities.User;
 
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -40,6 +46,7 @@ import javafx.scene.image.PixelWriter;
 import javafx.scene.image.WritableImage;
 import javafx.scene.layout.AnchorPane;
 import services.ArtworkManagemetRemote;
+import services.LikeManagementRemote;
 import services.UserManagmentRemote;
 
 import org.controlsfx.control.Rating;
@@ -83,6 +90,7 @@ public class DetailArtworkController implements Initializable {
     private Label artistn;
 	InitialContext ctx;
       int idartwork = 1 ;
+      int userconect = 1 ;
     /**
      * Initializes the controller class.
      */
@@ -94,7 +102,19 @@ public class DetailArtworkController implements Initializable {
 			ArtworkManagemetRemote proxy = (ArtworkManagemetRemote) objet;
 		 Artwork a = new Artwork ();
 			a= proxy.findById(idartwork);
-			System.out.println(a);
+			ctx = new InitialContext();
+User u =new User ();
+u.setIdUser(1);
+
+		/*	Object objet2 = ctx.lookup("/Fanny-ear/Fanny-ejb/LikeManagement!services.LikeManagementRemote");
+			LikeManagementRemote proxy2 = (LikeManagementRemote) objet2;
+		Like l = new Like();
+		FeedbackId feedbackId =new FeedbackId();
+		feedbackId.setArtworkId(1);
+		feedbackId.setUserId(3);
+		l.setFeedbackId(feedbackId);
+	*/
+			// proxy2.addLike(l);
         artnamet.setText(a.getName());
         String P = String.valueOf(a.getPrice());
         pricet.setText(P);
@@ -115,7 +135,6 @@ public class DetailArtworkController implements Initializable {
                }
            }
        }
-
        // ImageView imView = new ImageView(wr);
        img.setImage(wr);
 
@@ -143,8 +162,58 @@ public class DetailArtworkController implements Initializable {
     }
 
     @FXML
-    private void liked(ActionEvent event) {
+    private void liked(ActionEvent event) throws NamingException {
+    	
+    	int nbr;
+       
+		Object objet = ctx.lookup("/Fanny-ear/Fanny-ejb/LikeManagement!services.LikeManagementRemote");
+		LikeManagementRemote proxy = (LikeManagementRemote) objet;
+	 Like L = new Like ();
+	 Artwork A = new Artwork() ;
+	 A.setIdArtwork(2);
+	 User U = new User();
+	 U.setIdUser(1);
+	 L.setUser(U);
+	 L.setArtwork(A);
+	 if (proxy.checkexistance(userconect,2) )
+			 {tj.setText("Unlike");
+		 }
+
+     else {
+        tj.getText().equals("Like");
     }
+	 if (tj.getText().equals("Like")) {
+         tj.setText("Unlike");
+
+         proxy.addLike(L);;
+
+        // nbr = LDAO.nbrlike(L);
+         // nbr ++ ;
+       //  str = "" + nbr;
+
+        // nbrl.setText(str);
+     } else {
+
+         //L.setTripProgram(tc);
+     //    L.setUser(LoginController.abc);
+         proxy.deleteLike(L);
+         //nbr = LDAO.nbrlike(L);
+
+        // str = "" + nbr;
+
+        // nbrl.setText(str);
+         tj.setText("Like");
+     }
+
+ }
+	 
+	 
+
+    
+        
+		
+		
+      
 
     @FXML
     private void bookTrip(ActionEvent event) {

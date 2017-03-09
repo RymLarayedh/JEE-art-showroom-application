@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+
+<AnchorPane id="AnchorPane" prefHeight="388.0" prefWidth="543.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="applicationOussema.OwnpublicationController">
+   <children>
+      <Pane fx:id="affichepane" layoutX="20.0" layoutY="11.0" prefHeight="178.0" prefWidth="517.0">
+         <children>
+            <ImageView fx:id="imgall" fitHeight="157.0" fitWidth="209.0" layoutX="14.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true" />
+            <Label layoutX="347.0" layoutY="37.0" text="Artist Name" />
+            <Label layoutX="347.0" layoutY="64.0" text="Artwork Name" />
+            <Label layoutX="348.0" layoutY="109.0" prefHeight="17.0" prefWidth="37.0" text="Type :" />
+            <Label layoutX="347.0" layoutY="84.0" prefHeight="17.0" prefWidth="77.0" text="Publish On :" />
+            <Label fx:id="artnamet" layoutX="424.0" layoutY="37.0" prefHeight="17.0" prefWidth="56.0" />
+            <Label fx:id="artwnamet1" layoutX="424.0" layoutY="64.0" prefHeight="17.0" prefWidth="56.0" />
+            <Label fx:id="date1" layoutX="417.0" layoutY="84.0" prefHeight="17.0" prefWidth="56.0" />
+            <Label fx:id="type1" layoutX="396.0" layoutY="109.0" prefHeight="17.0" prefWidth="56.0" />
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>
