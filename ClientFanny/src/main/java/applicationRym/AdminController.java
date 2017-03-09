@@ -11,6 +11,8 @@ import com.jfoenix.controls.JFXTextField;
 
 import entities.Artist;
 import entities.Event;
+import entities.EventUser;
+import entities.EventUserID;
 import entities.Gallery;
 import entities.Reclamation;
 import entities.User;
@@ -48,6 +50,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Callback;
 import services.EventManagmentRemote;
+import services.EventUserManagmentRemote;
 import services.FeedbackManagmentRemote;
 import services.UserManagmentRemote;
 
@@ -126,12 +129,26 @@ public class AdminController implements Initializable {
     
 	ObservableList<Event> dataEvent = FXCollections.observableArrayList();
 	private Object id;
+	
+	//*********
+	@FXML
+    private AnchorPane participantPane;
+    @FXML
+    private TableView<EventUser> tableParticipant;
+    @FXML
+    private TableColumn<EventUser, String> usernameParticipant;
+    @FXML
+    private TableColumn<EventUser, String> emailParticipant;
+    ObservableList<EventUser> dataEventUser = FXCollections.observableArrayList();
+    
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
     	
     	addEventPane.setVisible(false);
     	displayReclamation.setVisible(false);
     	displayEventPane.setVisible(false);
+    	participantPane.setVisible(false);
     	
     	
     }   
@@ -384,14 +401,62 @@ public class AdminController implements Initializable {
 
     @FXML
     private void selectEvent(MouseEvent event) throws NamingException {
+    	participantPane.setVisible(true);
+    	
         Event PTP = tableEvent.getSelectionModel().getSelectedItem();
         if (PTP != null) {
             this.id = PTP.getIdEvent();
             this.selected = 1;
+            remplirTableEventUser(PTP);
+            System.out.println("Thank you god"+PTP.getIdEvent());
         } else {
             this.selected = 0;
         }
     }
+    
+    	
+	public void remplirTableEventUser(Event ptp){
+		Integer idEvent=ptp.getIdEvent();
+		try {
+		ctx = new InitialContext();
+		Object objet = ctx.lookup("/Fanny-ear/Fanny-ejb/EventUserManagment!services.EventUserManagmentRemote");
+    	EventUserManagmentRemote proxy = (EventUserManagmentRemote) objet;	
+		ObservableList<EventUser> eventUSelected, allEvent;
+        allEvent = tableParticipant.getItems();
+        allEvent.clear();
+        System.out.println(idEvent);
+        for (EventUser e : proxy.findByEventId(idEvent)) {
+            dataEventUser.add(e);
+        }
+        
+        usernameParticipant.setCellValueFactory(new Callback<CellDataFeatures<EventUser, String>, ObservableValue<String>>() {
+
+			@Override
+			public ObservableValue<String> call(CellDataFeatures<EventUser, String> param) {
+				// TODO Auto-generated method stub
+				return new SimpleStringProperty(param.getValue().getUser().getUsername());
+			}
+
+		});
+        emailParticipant.setCellValueFactory(new Callback<CellDataFeatures<EventUser, String>, ObservableValue<String>>() {
+
+			@Override
+			public ObservableValue<String> call(CellDataFeatures<EventUser, String> param) {
+				// TODO Auto-generated method stub
+				return new SimpleStringProperty(param.getValue().getUser().getEmail());
+			}
+
+		});
+
+        tableParticipant.setItems(dataEventUser);
+		
+		} catch (NamingException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+	}
+    
     
     private void remplirTableEvent(){
 		try {
@@ -472,6 +537,9 @@ public class AdminController implements Initializable {
         }
     }
 
+    @FXML
+    private void selectParticipant(MouseEvent event) {
+    }
 
     
    
