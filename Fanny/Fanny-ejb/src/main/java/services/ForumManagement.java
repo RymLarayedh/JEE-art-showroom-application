@@ -67,6 +67,72 @@ public class ForumManagement implements ForumManagementRemote {
 	}
 	
 	@Override
+	public Category findCategoryByName(String name) {
+		// TODO Auto-generated method stub
+		try {
+			TypedQuery<Category> c = em.createQuery("SELECT c FROM Category c where c.name =:name", Category.class);
+			c.setParameter("name", name);
+			Category category = c.getSingleResult();
+			return category;
+		} catch (javax.persistence.NoResultException E) {
+			return null;
+		}
+
+	}
+	
+	/********* Topic
+	 * 
+	 */
+	
+	@Override
+	public void addTopic(Topic T) {
+		// TODO Auto-generated method stub
+		em.persist(em.merge(T));
+		
+	}
+
+	@Override
+	public void updateTopoc(Topic T) {
+		// TODO Auto-generated method stub
+		em.merge(T);
+		
+	}
+
+	@Override
+	public void deleteTopic(Topic T) {
+		// TODO Auto-generated method stub
+		em.remove(em.merge(T));
+
+		
+	}
+
+	@Override
+	public List<Topic> findAllTopics() {
+		// TODO Auto-generated method stub
+		try {
+			TypedQuery<Topic> T = em.createQuery("SELECT t FROM Topic t", Topic.class);
+			List<Topic> ListTopics = T.getResultList();
+			return ListTopics;
+		} catch (javax.persistence.NoResultException e) {
+			return null;
+		}
+		
+	}
+
+	@Override
+	public Topic findById(int idTopic) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	
+
+
+/**** Music
+ * 
+ */
+	
+	@Override
 	public void addMusic(Music m) {
 		// TODO Auto-generated method stub
 		em.persist(em.merge(m));

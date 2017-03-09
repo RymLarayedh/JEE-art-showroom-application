@@ -1,6 +1,8 @@
 package entities;
 
 import java.io.Serializable;
+import java.util.Date;
+
 import javax.persistence.*;
 
 import entities.Category;
@@ -18,8 +20,13 @@ public class Topic implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int idTopic;
 	private String Title;
+	private Date AddedAt;
+	
 	@ManyToOne(targetEntity=Category.class)
 	private Category catgory;
+	@ManyToOne(targetEntity=User.class)
+	private User AddedBy;
+	private String Text;
 	private static final long serialVersionUID = 1L;
 
 	public Topic() {
@@ -50,6 +57,26 @@ public class Topic implements Serializable {
 		Title = title;
 		this.catgory = catgory;
 	}
+	public Date getAddedAt() {
+		return AddedAt;
+	}
+	public void setAddedAt(Date addedAt) {
+		AddedAt = addedAt;
+	}
+	public User getAddedBy() {
+		return AddedBy;
+	}
+	public void setAddedBy(User addedBy) {
+		AddedBy = addedBy;
+	}
+	public String getText() {
+		return Text;
+	}
+	public void setText(String text) {
+		Text = text;
+	}
+	
+	
 	
    
 }
