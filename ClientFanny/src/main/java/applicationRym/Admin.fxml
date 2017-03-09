@@ -154,6 +154,25 @@
                                                 </TableView>
                                              </children>
                                           </AnchorPane>
+                                          <Button layoutX="585.0" layoutY="56.0" mnemonicParsing="false" onAction="#updateEvent" prefHeight="29.0" prefWidth="120.0" text="Update" />
+                                          <AnchorPane fx:id="updateEventPane" prefHeight="452.0" prefWidth="583.0">
+                                             <children>
+                                                <JFXTextArea fx:id="description11" layoutX="216.0" layoutY="91.0" maxWidth="354.0" minWidth="209.0" prefHeight="81.0" prefWidth="354.0" />
+                                                <JFXTextField fx:id="title11" layoutX="216.0" layoutY="62.0" />
+                                                <Text layoutX="147.0" layoutY="83.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Title :" wrappingWidth="62.86328125" />
+                                                <Label layoutX="121.0" layoutY="155.0" text="Description :" />
+                                                <Button layoutX="240.0" layoutY="341.0" mnemonicParsing="false" onAction="#updateEventDone" text="Update Event" />
+                                                <JFXDatePicker fx:id="dateBegin11" layoutX="5.0" layoutY="213.0" />
+                                                <JFXDatePicker fx:id="dateEnd11" layoutX="210.0" layoutY="213.0" />
+                                                <Label layoutX="13.0" layoutY="196.0" text="Date Begining" />
+                                                <Label layoutX="216.0" layoutY="196.0" text="Date Ending" />
+                                                <ComboBox fx:id="galleryList1" layoutX="198.0" layoutY="279.0" onAction="#chooseGalleryUpdate" prefWidth="150.0" />
+                                                <ComboBox fx:id="artistList1" layoutX="32.0" layoutY="279.0" onAction="#chooseArtistUpdate" prefWidth="150.0" />
+                                                <Label layoutX="198.0" layoutY="254.0" text="Gallery :" />
+                                                <Label layoutX="35.0" layoutY="254.0" text="Artist :" />
+                                                <Label fx:id="details1" layoutX="456.0" layoutY="184.0" prefHeight="125.0" prefWidth="114.0" />
+                                             </children>
+                                          </AnchorPane>
                                        </children>
                                     </AnchorPane>
                                  </children></AnchorPane>
