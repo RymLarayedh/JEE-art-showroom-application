@@ -9,6 +9,7 @@ import javax.persistence.TypedQuery;
 
 import entities.Category;
 import entities.Gallery;
+import entities.Music;
 import entities.Topic;
 
 
@@ -64,5 +65,40 @@ public class ForumManagement implements ForumManagementRemote {
 		}
 
 	}
+	
+	@Override
+	public void addMusic(Music m) {
+		// TODO Auto-generated method stub
+		em.persist(em.merge(m));
+
+		
+	}
+
+	@Override
+	public void updateMusic(Music m) {
+		// TODO Auto-generated method stub
+		em.merge(m);
+
+		
+	}
+
+	@Override
+	public void deleteMusic(Music m) {
+		// TODO Auto-generated method stub
+		em.remove(m);
+	}
+
+	@Override
+	public List<Music> findAllMusic() {
+		// TODO Auto-generated method stub
+		try {
+			TypedQuery<Music> m = em.createQuery("SELECT m FROM Music m", Music.class);
+			List<Music> ListMusic = m.getResultList();
+			return ListMusic ;
+		} catch (javax.persistence.NoResultException e) {
+			return null;
+		}
+	}
+
 
 }
