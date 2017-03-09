@@ -18,13 +18,12 @@ import entities.Reclamation;
 import entities.User;
 
 import java.net.URL;
-import java.sql.Date;
-import java.sql.Time;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -61,8 +60,10 @@ import services.UserManagmentRemote;
  */
 
 public class AdminController implements Initializable {
+	static int idGa1;
 	static int idGa;
 	static int idAr;
+	static int idAr1;
 	InitialContext ctx;
 	private int selected;
 	//rrt
@@ -141,9 +142,28 @@ public class AdminController implements Initializable {
     private TableColumn<EventUser, String> emailParticipant;
     ObservableList<EventUser> dataEventUser = FXCollections.observableArrayList();
     
+    //***************
+    @FXML
+    private AnchorPane updateEventPane;
+    @FXML
+    private JFXTextArea description11;
+    @FXML
+    private JFXTextField title11;
+    @FXML
+    private JFXDatePicker dateBegin11;
+    @FXML
+    private JFXDatePicker dateEnd11;
+    @FXML
+    private ComboBox<String> galleryList1;
+    @FXML
+    private ComboBox<String> artistList1;
+    @FXML
+    private Label details1;
+    
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+    	updateEventPane.setVisible(false);
     	
     	addEventPane.setVisible(false);
     	displayReclamation.setVisible(false);
@@ -399,14 +419,27 @@ public class AdminController implements Initializable {
 	}
 
 
+    private LocalDate ConvertDateToLocal(Date date2){
+		 LocalDate date = date2.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+		 return date;
+	 }
+    
     @FXML
     private void selectEvent(MouseEvent event) throws NamingException {
     	participantPane.setVisible(true);
+    	remplirComboboxUpdate();
         Event PTP = tableEvent.getSelectionModel().getSelectedItem();
         if (PTP != null) {
             this.id = PTP.getIdEvent();
             this.selected = 1;
             remplirTableEventUser(PTP);
+            
+            title11.setText(PTP.getTitle());
+            description11.setText(PTP.getDescription());
+            dateBegin11.setValue(ConvertDateToLocal(PTP.getDateBegin()));
+            dateEnd11.setValue(ConvertDateToLocal(PTP.getDateEnd()));
+            galleryList1.setValue(PTP.getGallery().getUsername());
+            artistList1.setValue(PTP.getArtist().getUsername());
         } else {
             this.selected = 0;
         }
@@ -540,6 +573,130 @@ public class AdminController implements Initializable {
     private void selectParticipant(MouseEvent event) {
     	
     }
+    
+    @FXML
+    private void updateEvent(ActionEvent event) throws NamingException {
+    	updateEventPane.setVisible(true);
+    	participantPane.setVisible(false);
+    	tableEvent.setVisible(false);
+    	
+    	
+    }
+
+    @FXML
+    private void updateEventDone(ActionEvent event) throws NamingException {
+    	updateEventPane.setVisible(false);
+    	tableEvent.setVisible(true);
+    	
+    	ctx = new InitialContext();
+		Object objet = ctx.lookup("/Fanny-ear/Fanny-ejb/EventManagment!services.EventManagmentRemote");
+		EventManagmentRemote proxy = (EventManagmentRemote) objet;
+		ObservableList<Event> userSelected, allEvent;
+        allEvent = tableEvent.getItems();
+        userSelected = tableEvent.getSelectionModel().getSelectedItems();
+        Event e = tableEvent.getSelectionModel().getSelectedItem();
+		e.setTitle(title11.getText());
+		e.setDescription(description11.getText());
+		//insert gallery and Artist
+		Object object = ctx.lookup("/Fanny-ear/Fanny-ejb/UserManagment!services.UserManagmentRemote");
+		UserManagmentRemote proxyU = (UserManagmentRemote) object;
+		Gallery g =new Gallery();
+		g=(Gallery) proxyU.findById(idGa1);
+		e.setGallery(g);
+		Artist a =new Artist();
+		a=(Artist) proxyU.findById(idAr1);
+		e.setArtist(a);
+	  //Convert Local Date to Date Begin
+		LocalDate localDateBegin =dateBegin11.getValue();
+		Instant instant1 = Instant.from(localDateBegin.atStartOfDay(ZoneId.systemDefault()));
+		java.util.Date dateDateBegin = Date.from(instant1);
+	    e.setDateBegin(dateDateBegin);
+	  //Convert Local Date to Date End
+	    LocalDate localDateEnd =dateEnd11.getValue();
+		Instant instant2 = Instant.from(localDateEnd.atStartOfDay(ZoneId.systemDefault()));
+		java.util.Date dateDateEnd = Date.from(instant2);
+	    e.setDateEnd(dateDateEnd);
+	  //Convert Date Now
+	    LocalDate localNow = LocalDate.now();
+	    Instant instantb = Instant.from(localNow.atStartOfDay(ZoneId.systemDefault()));
+		java.util.Date dateNow = Date.from(instantb);
+	  //Condition chosen Date
+		if((dateNow.before(dateDateBegin))&&(dateDateBegin.before(dateDateEnd))){
+			proxy.updateEvent(e);
+			remplirTableEvent();
+		}
+		else{
+			Alert alert = new Alert(Alert.AlertType.ERROR);
+			alert.setTitle("Fanny");
+			alert.setHeaderText(null);
+			alert.setContentText("Please check the Begining Date and the End Date");
+			alert.showAndWait();	
+		}
+		
+    }
+
+    @FXML
+    private void chooseGalleryUpdate(ActionEvent event) {
+    	try {
+			ctx = new InitialContext();
+		
+		Object object = ctx.lookup("/Fanny-ear/Fanny-ejb/UserManagment!services.UserManagmentRemote");
+		UserManagmentRemote proxy = (UserManagmentRemote) object;
+    	String chosenGallery = galleryList1.getValue();
+        
+        Gallery Ga = new Gallery();
+        Ga = (Gallery) proxy.findByUsername(chosenGallery);
+        idGa1= Ga.getIdUser();
+
+        
+    	} catch (NamingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    }
+
+    @FXML
+    private void chooseArtistUpdate(ActionEvent event) {
+    	try {
+			ctx = new InitialContext();
+		
+		Object object = ctx.lookup("/Fanny-ear/Fanny-ejb/UserManagment!services.UserManagmentRemote");
+		UserManagmentRemote proxy = (UserManagmentRemote) object;
+    	String chosenArtist = artistList1.getValue();
+        
+        Artist Ar = new Artist();
+        Ar = (Artist) proxy.findByUsername(chosenArtist);
+        idAr1= Ar.getIdUser();
+
+    	} catch (NamingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    }
+    
+    private void remplirComboboxUpdate() throws NamingException{
+		 ctx = new InitialContext();
+			Object object = ctx.lookup("/Fanny-ear/Fanny-ejb/UserManagment!services.UserManagmentRemote");
+			UserManagmentRemote proxy = (UserManagmentRemote) object;
+			
+			//Remplir Combobox Gallery
+	    	ObservableList<String> LocG = FXCollections.observableArrayList();
+	    	List<Gallery> Lg = proxy.getAllGalleries();  
+	        for (Gallery X : Lg) {
+	        	String s=X.getUsername();
+	            LocG.add(s);
+	        }
+	        galleryList1.setItems(LocG);
+	        
+	        //Remplir Combobox Artist
+	        ObservableList<String> LocA = FXCollections.observableArrayList();
+	    	List<Artist> La = proxy.getAllArtists();
+	        for (Artist X : La) {
+	        	String s=X.getUsername();
+	            LocA.add(s);
+	        }
+	        artistList1.setItems(LocA);
+	 }
 
     
    
