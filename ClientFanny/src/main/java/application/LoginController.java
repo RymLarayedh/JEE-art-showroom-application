@@ -86,6 +86,7 @@ public class LoginController implements Initializable {
 			alert.showAndWait();
 			usernameTF.clear();
 			passwordTF.clear();
+			return ;
 		}
 
 	}
