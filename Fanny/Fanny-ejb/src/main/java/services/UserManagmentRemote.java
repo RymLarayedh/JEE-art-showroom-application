@@ -218,6 +218,8 @@ public interface UserManagmentRemote {
 	 */
 	public List<Artist> getAllFollowed(User user);
 	
+	public Fields findFieldsByName(String name);
+	
 	
 
 }
