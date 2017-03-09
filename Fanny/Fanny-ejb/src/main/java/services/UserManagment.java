@@ -54,7 +54,7 @@ public class UserManagment implements UserManagmentRemote {
 
 	@Override
 	public void addUser(User user) {
-		em.persist(user);
+		em.persist(em.merge(user));
 
 	}
 
@@ -409,6 +409,18 @@ public class UserManagment implements UserManagmentRemote {
 			q.setParameter("User", user);
 			List<Artist> Lartist = q.getResultList();
 			return Lartist;
+		} catch (javax.persistence.NoResultException e) {
+			return null;
+		}
+	}
+
+	@Override
+	public Fields findFieldsByName(String name) {
+		try {
+			TypedQuery<Fields> q = em.createQuery("SELECT f FROM Fields f where f.Libelle =:name", Fields.class);
+			q.setParameter("name", name);
+			Fields fields = q.getSingleResult();
+			return fields;
 		} catch (javax.persistence.NoResultException e) {
 			return null;
 		}

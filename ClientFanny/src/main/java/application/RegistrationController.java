@@ -2,9 +2,11 @@ package application;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
@@ -17,14 +19,20 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
 import java.util.ResourceBundle;
+import java.util.Set;
 
 import javax.imageio.ImageIO;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 
 import entities.Artist;
+import entities.Fields;
 import entities.Gallery;
 import entities.User;
 import javafx.embed.swing.SwingFXUtils;
@@ -32,7 +40,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 
 public class RegistrationController implements Initializable {
-	User newUser;
+	User newUser = new User();
 	File file;
 	@FXML
 	private JFXTextField firstNameRegistrationTF;
@@ -43,9 +51,9 @@ public class RegistrationController implements Initializable {
 	@FXML
 	private JFXTextField usernameRegistrationTF;
 	@FXML
-	private JFXTextField PasswordRegistrationTF;
+	private JFXPasswordField PasswordRegistrationTF;
 	@FXML
-	private JFXTextField rePasswordRegistrationTF;
+	private JFXPasswordField rePasswordRegistrationTF;
 	@FXML
 	private ImageView myImageView;
 	@FXML
@@ -74,10 +82,26 @@ public class RegistrationController implements Initializable {
 	private Button ArtistRegistration;
 	@FXML
 	private JFXButton stepsButtonRegistration;
+	@FXML
+	private JFXButton GalleryFinish;
+	@FXML
+	private JFXButton ArtistFinish;
+	@FXML
+	private ToggleButton musicField;
+	@FXML
+	private ToggleButton PaintingsField;
+	@FXML
+	private ToggleButton TcraftField;
+	@FXML
+	private ToggleButton photographyField;
+	@FXML
+	private ToggleButton scultureField;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub
+		ArtistFinish.setVisible(false);
+		GalleryFinish.setVisible(false);
 		mailRegistrationError.setVisible(false);
 		usernameRegistrationError.setVisible(false);
 		secondFrame.setVisible(false);
@@ -91,10 +115,50 @@ public class RegistrationController implements Initializable {
 	// Event Listener on JFXButton.onAction
 	@FXML
 	public void nextStepRegistration(ActionEvent event) throws IOException {
-		newUser = new User();
+		if ((firstNameRegistrationTF.getText().trim().isEmpty()) || (lastNameRegistrationTF.getText().trim().isEmpty())
+				|| (mailRegistrationTF.getText().trim().isEmpty())
+				|| (usernameRegistrationTF.getText().trim().isEmpty())
+				|| (PasswordRegistrationTF.getText().trim().isEmpty())
+				|| (rePasswordRegistrationTF.getText().trim().isEmpty())) {
+			Alert alert = new Alert(Alert.AlertType.ERROR);
+			alert.setTitle("Fanny");
+			alert.setHeaderText(null);
+			alert.setContentText("Empty fields ARE NOT ACCEPTED please fulfill all fields");
+			alert.showAndWait();
+			return;
+		}
+		if (!PasswordRegistrationTF.getText().equals(rePasswordRegistrationTF.getText())) {
+			Alert alert = new Alert(Alert.AlertType.ERROR);
+			alert.setTitle("Fanny");
+			alert.setHeaderText(null);
+			alert.setContentText("Passwords does not match");
+			alert.showAndWait();
+			return;
+		}
+		
+		if(mailRegistrationError.isVisible())
+		{
+			Alert alert = new Alert(Alert.AlertType.ERROR);
+			alert.setTitle("Fanny");
+			alert.setHeaderText(null);
+			alert.setContentText("E-mail already exist");
+			alert.showAndWait();
+			return;
+		}
+		
+		if(usernameRegistrationError.isVisible())
+		{
+			Alert alert = new Alert(Alert.AlertType.ERROR);
+			alert.setTitle("Fanny");
+			alert.setHeaderText(null);
+			alert.setContentText("Username already exist");
+			alert.showAndWait();
+			return;
+		}
 		newUser.setFirstName(firstNameRegistrationTF.getText());
 		newUser.setLastName(lastNameRegistrationTF.getText());
 		newUser.setEmail(mailRegistrationTF.getText());
+		newUser.setUsername(usernameRegistrationTF.getText());
 		newUser.setPassword(PasswordRegistrationTF.getText());
 		if (file == null) {
 			file = new File("./src/main/java/buttons/PasDePhotoDeProfil.png");
@@ -114,6 +178,8 @@ public class RegistrationController implements Initializable {
 		secondFrame.setVisible(true);
 		youare.setDisable(false);
 		stepsButtonRegistration.setVisible(false);
+		ArtistFinish.setVisible(false);
+		GalleryFinish.setVisible(false);
 
 		GalleryRegistration.setOnAction(new EventHandler<ActionEvent>() {
 
@@ -124,7 +190,18 @@ public class RegistrationController implements Initializable {
 				lastStep.setDisable(false);
 				secondFrame.setVisible(false);
 				thirdFrameGallery.setVisible(true);
-				stepsButtonRegistration.setText("Finish");
+				stepsButtonRegistration.setVisible(false);
+				GalleryFinish.setVisible(true);
+				ArtistFinish.setVisible(false);
+				GalleryFinish.setText("Finish");
+				GalleryFinish.setOnAction(new EventHandler<ActionEvent>() {
+
+					@Override
+					public void handle(ActionEvent event) {
+						// TODO Auto-generated method stub
+						System.out.println("Gallery Finish");
+					}
+				});
 
 			}
 		});
@@ -135,11 +212,46 @@ public class RegistrationController implements Initializable {
 			public void handle(ActionEvent event) {
 				stepsButtonRegistration.setVisible(true);
 				Artist artist = new Artist(newUser);
-				System.out.println(artist.getLastName());
+				List<Fields> Lf = new ArrayList<>();
 				lastStep.setDisable(false);
 				secondFrame.setVisible(false);
 				thirdFrameArtist.setVisible(true);
-				stepsButtonRegistration.setText("Finish");
+				stepsButtonRegistration.setVisible(false);
+				GalleryFinish.setVisible(false);
+				ArtistFinish.setVisible(true);
+				ArtistFinish.setText("Finish");
+				ArtistFinish.setOnAction(new EventHandler<ActionEvent>() {
+
+					@Override
+					public void handle(ActionEvent event) {
+						if (musicField.isSelected()) {
+							Fields music = LoginController.userManagment.findFieldsByName("Music");
+							Lf.add(music);
+						}
+						if (PaintingsField.isSelected()) {
+							Fields painting = LoginController.userManagment.findFieldsByName("Paintings");
+							Lf.add(painting);
+						}
+						if (photographyField.isSelected()) {
+							Fields photography = LoginController.userManagment.findFieldsByName("Photography");
+							Lf.add(photography);
+						}
+						if (TcraftField.isSelected()) {
+							Fields TC = LoginController.userManagment.findFieldsByName("Tunisian Craft");
+							Lf.add(TC);
+						}
+						if (scultureField.isSelected()) {
+							Fields sculpture = LoginController.userManagment.findFieldsByName("Sculpture");
+							Lf.add(sculpture);
+						}
+						LoginController.userManagment.addUser(artist);
+						for (Fields f : Lf) {
+							LoginController.userManagment.addFields(f,
+									LoginController.userManagment.findByUsername(artist.getUsername()));
+						}
+
+					}
+				});
 
 			}
 		});
@@ -152,7 +264,7 @@ public class RegistrationController implements Initializable {
 
 			@Override
 			public void run() {
-				if (!LoginController.userManagment.checkMailExistance(mailRegistrationTF.getText())) {
+				if ((!LoginController.userManagment.checkMailExistance(mailRegistrationTF.getText()))|| (!LoginController.userManagment.verifyMail(mailRegistrationTF.getText()))) {
 					mailRegistrationError.setVisible(true);
 				} else {
 					mailRegistrationError.setVisible(false);
@@ -206,6 +318,8 @@ public class RegistrationController implements Initializable {
 		secondFrame.setVisible(true);
 		lastStep.setDisable(true);
 		stepsButtonRegistration.setVisible(false);
+		ArtistFinish.setVisible(false);
+		GalleryFinish.setVisible(false);
 
 		GalleryRegistration.setOnAction(new EventHandler<ActionEvent>() {
 
@@ -217,6 +331,18 @@ public class RegistrationController implements Initializable {
 				secondFrame.setVisible(false);
 				thirdFrameGallery.setVisible(true);
 				stepsButtonRegistration.setText("Finish");
+				stepsButtonRegistration.setVisible(false);
+				ArtistFinish.setVisible(false);
+				GalleryFinish.setVisible(true);
+				GalleryFinish.setText("Finish");
+				GalleryFinish.setOnAction(new EventHandler<ActionEvent>() {
+
+					@Override
+					public void handle(ActionEvent event) {
+						// TODO Auto-generated method stub
+						System.out.println("Gallery Finish");
+					}
+				});
 
 			}
 		});
@@ -227,11 +353,46 @@ public class RegistrationController implements Initializable {
 			public void handle(ActionEvent event) {
 				stepsButtonRegistration.setVisible(true);
 				Artist artist = new Artist(newUser);
-				System.out.println(artist.getLastName());
+				List<Fields> Lf = new ArrayList<>();
 				lastStep.setDisable(false);
 				secondFrame.setVisible(false);
 				thirdFrameArtist.setVisible(true);
-				stepsButtonRegistration.setText("Finish");
+				stepsButtonRegistration.setVisible(false);
+				ArtistFinish.setVisible(true);
+				GalleryFinish.setVisible(false);
+				ArtistFinish.setText("Finish");
+				ArtistFinish.setOnAction(new EventHandler<ActionEvent>() {
+
+					@Override
+					public void handle(ActionEvent event) {
+						if (musicField.isSelected()) {
+							Fields music = LoginController.userManagment.findFieldsByName("Music");
+							Lf.add(music);
+						}
+						if (PaintingsField.isSelected()) {
+							Fields painting = LoginController.userManagment.findFieldsByName("Paintings");
+							Lf.add(painting);
+						}
+						if (photographyField.isSelected()) {
+							Fields photography = LoginController.userManagment.findFieldsByName("Photography");
+							Lf.add(photography);
+						}
+						if (TcraftField.isSelected()) {
+							Fields TC = LoginController.userManagment.findFieldsByName("Tunisian Craft");
+							Lf.add(TC);
+						}
+						if (scultureField.isSelected()) {
+							Fields sculpture = LoginController.userManagment.findFieldsByName("Sculpture");
+							Lf.add(sculpture);
+						}
+						LoginController.userManagment.addUser(artist);
+						for (Fields f : Lf) {
+							LoginController.userManagment.addFields(f,
+									LoginController.userManagment.findByUsername(artist.getUsername()));
+						}
+
+					}
+				});
 
 			}
 		});
@@ -246,6 +407,8 @@ public class RegistrationController implements Initializable {
 		firstFrame.setVisible(true);
 		lastStep.setDisable(true);
 		youare.setDisable(true);
+		ArtistFinish.setVisible(false);
+		GalleryFinish.setVisible(false);
 		stepsButtonRegistration.setVisible(true);
 		stepsButtonRegistration.setText("Next");
 

@@ -74,9 +74,10 @@ public class DataExample {
 		
 		List<Fields> Lf = new ArrayList();
 		Lf.add(new Fields("Music"));
-		Lf.add(new Fields("Arts"));
-		Lf.add(new Fields("Visual Arts"));
+		Lf.add(new Fields("Paintings"));
+		Lf.add(new Fields("Photography"));
 		Lf.add(new Fields("Tunisian Craft"));
+		Lf.add(new Fields("Sculpture"));
 		
 		for(Fields f:Lf)
 		{

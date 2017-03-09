@@ -31,7 +31,7 @@ public class FeedbackManagment implements FeedbackManagmentRemote {
 	@Override
 	public List<Reclamation> getAllReclamation() {
 		try {
-			TypedQuery<Reclamation> q = em.createQuery("SELECT a FROM Reclamation a", Reclamation.class);
+			TypedQuery<Reclamation> q = em.createQuery("SELECT a FROM Reclamation a WHERE a.handle = 0", Reclamation.class);
 			List<Reclamation> Lrec = q.getResultList();
 			return Lrec;
 		} catch (javax.persistence.NoResultException e) {
@@ -50,6 +50,7 @@ public class FeedbackManagment implements FeedbackManagmentRemote {
 		em.merge(r);
 		
 	}
+	
 	
 
 }

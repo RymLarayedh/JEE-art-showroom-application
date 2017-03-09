@@ -118,20 +118,7 @@
                                           <Label fx:id="details" layoutX="386.0" layoutY="272.0" prefHeight="121.0" prefWidth="214.0" />
                                        </children>
                                     </AnchorPane>
-                                    <AnchorPane fx:id="displayReclamation" opacity="0.0" prefHeight="450.0" prefWidth="578.0">
-                                       <children>
-                                          <TableView fx:id="tableReclamation" layoutX="1.0" layoutY="1.0" onMouseClicked="#selectReclamation" prefHeight="442.0" prefWidth="591.0">
-                                             <columns>
-                                                <TableColumn fx:id="artwork" prefWidth="111.0" text="Artwork" />
-                                                <TableColumn fx:id="user" prefWidth="90.0" text="User" />
-                                                <TableColumn fx:id="body" prefWidth="237.0" text="Body" />
-                                                <TableColumn fx:id="date" prefWidth="93.0" text="Date" />
-                                                <TableColumn fx:id="degree" prefWidth="59.0" text="Degree" />
-                                             </columns>
-                                          </TableView>
-                                       </children>
-                                    </AnchorPane>
-                                    <AnchorPane fx:id="displayEventPane" prefHeight="452.0" prefWidth="702.0">
+                                    <AnchorPane fx:id="displayEventPane" opacity="0.0" prefHeight="452.0" prefWidth="702.0">
                                        <children>
                                           <Button fx:id="delete" layoutX="587.0" layoutY="27.0" mnemonicParsing="false" onAction="#deleteEvent" prefHeight="29.0" prefWidth="116.0" text="Delete" />
                                           <TableView fx:id="tableEvent" layoutY="1.0" onMouseClicked="#selectEvent" prefHeight="225.0" prefWidth="586.0">
@@ -173,6 +160,20 @@
                                                 <Label fx:id="details1" layoutX="456.0" layoutY="184.0" prefHeight="125.0" prefWidth="114.0" />
                                              </children>
                                           </AnchorPane>
+                                       </children>
+                                    </AnchorPane>
+                                    <AnchorPane fx:id="displayReclamation" prefHeight="450.0" prefWidth="704.0">
+                                       <children>
+                                          <Button layoutX="592.0" layoutY="25.0" mnemonicParsing="false" onAction="#handle" prefHeight="131.0" prefWidth="112.0" text="Handle" />
+                                          <TableView fx:id="tableReclamation" layoutX="1.0" layoutY="1.0" onMouseClicked="#selectReclamation" prefHeight="442.0" prefWidth="591.0">
+                                             <columns>
+                                                <TableColumn fx:id="artwork" prefWidth="111.0" text="Artwork" />
+                                                <TableColumn fx:id="user" prefWidth="90.0" text="User" />
+                                                <TableColumn fx:id="body" prefWidth="237.0" text="Body" />
+                                                <TableColumn fx:id="date" prefWidth="93.0" text="Date" />
+                                                <TableColumn fx:id="degree" prefWidth="59.0" text="Degree" />
+                                             </columns>
+                                          </TableView>
                                        </children>
                                     </AnchorPane>
                                  </children></AnchorPane>

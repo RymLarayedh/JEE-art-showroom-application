@@ -86,6 +86,7 @@ public class User implements Serializable {
 		this.username = user.getUsername();
 		this.password = user.getPassword();
 		this.email = user.getEmail();
+		this.picture = user.getPicture();
 		this.isActive = false;
 		this.isBlocked = false;
 	}

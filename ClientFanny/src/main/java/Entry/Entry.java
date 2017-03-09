@@ -65,7 +65,7 @@ public class Entry {
 		}*/
 
 		//userManagment.addFollower(userManagment.findById(1), userManagment.findById(2));
-		Artist x = (Artist) userManagment.findById(2);
+		/*Artist x = (Artist) userManagment.findById(2);
 		for(ArtistFollowers u :x.getFollowers())
 		{
 			System.out.println(u.getUser());
@@ -76,7 +76,16 @@ public class Entry {
 		for(Artist u : LA)
 		{
 			System.out.println(u);
-		}
+		}*/
+		User u = new User();
+		u.setEmail("zaza@hotmail.com");
+		u.setUsername("zaza");
+		u.setPassword("zzaz");
+		//userManagment.addUser(user);
+		Artist at = new Artist(u);
+		//at.setIdUser(5);
+		System.out.println(at);
+		userManagment.addUser(at);
 		
 	}
 

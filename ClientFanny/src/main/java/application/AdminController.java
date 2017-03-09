@@ -151,7 +151,7 @@ public class AdminController implements Initializable {
 
 	@FXML
 	public void ShowAllUsers(ActionEvent event) {
-		popupController.fromWhere="Active";
+		popupController.fromWhere = "Active";
 		DisplayUsers("Active");
 	}
 
@@ -171,13 +171,13 @@ public class AdminController implements Initializable {
 
 	@FXML
 	public void ShowWaitList(ActionEvent event) {
-		popupController.fromWhere="Wating";
+		popupController.fromWhere = "Wating";
 		DisplayUsers("Wating");
 	}
 
 	@FXML
 	public void ShowBlockedUsers(ActionEvent event) {
-		popupController.fromWhere="Blocked";
+		popupController.fromWhere = "Blocked";
 		DisplayUsers("Blocked");
 	}
 
@@ -247,20 +247,22 @@ public class AdminController implements Initializable {
 		List<User> ListUsers = LoginController.userManagment.getAllUsers();
 		for (User u : ListUsers) {
 			if (etat.equals("Active")) {
-				if (u.isActive()&& (!u.isBlocked())) {
-					UsersData.add(u);
+				if (u.isActive() && (!u.isBlocked())) {
+					if (u.getIdUser() == LoginController.userLogedIn.getIdUser()) {
+
+					} else {
+						UsersData.add(u);
+					}
+
 				}
 
 			}
-			
-			else if (etat.equals("Wating"))
-			{
+
+			else if (etat.equals("Wating")) {
 				if (!u.isActive()) {
 					UsersData.add(u);
 				}
-			}
-			else if (etat.equals("Blocked"))
-			{
+			} else if (etat.equals("Blocked")) {
 				if (u.isBlocked()) {
 					UsersData.add(u);
 				}
@@ -272,14 +274,12 @@ public class AdminController implements Initializable {
 		username.setCellValueFactory(new PropertyValueFactory<User, String>("username"));
 		status.setCellValueFactory(User -> {
 			boolean isActive = User.getValue().isActive();
-			String isActiveAsString="";
+			String isActiveAsString = "";
 			if (isActive && !User.getValue().isBlocked()) {
 				isActiveAsString = "Active";
 			} else if (!isActive) {
 				isActiveAsString = "Not Active";
-			}
-			else if (User.getValue().isBlocked())
-			{
+			} else if (User.getValue().isBlocked()) {
 				isActiveAsString = "Blocked";
 			}
 			return new ReadOnlyStringWrapper(isActiveAsString);
