@@ -134,7 +134,7 @@
                                     <AnchorPane fx:id="displayEventPane" prefHeight="452.0" prefWidth="702.0">
                                        <children>
                                           <Button fx:id="delete" layoutX="587.0" layoutY="27.0" mnemonicParsing="false" onAction="#deleteEvent" prefHeight="29.0" prefWidth="116.0" text="Delete" />
-                                          <TableView fx:id="tableEvent" layoutY="1.0" onMouseClicked="#selectEvent" prefHeight="452.0" prefWidth="586.0">
+                                          <TableView fx:id="tableEvent" layoutY="1.0" onMouseClicked="#selectEvent" prefHeight="225.0" prefWidth="586.0">
                                              <columns>
                                                 <TableColumn fx:id="title1" prefWidth="104.0" text="Title" />
                                                 <TableColumn fx:id="description1" prefWidth="113.0" text="Description" />
@@ -144,6 +144,16 @@
                                                 <TableColumn fx:id="artist" prefWidth="76.0" text="Artist" />
                                              </columns>
                                           </TableView>
+                                          <AnchorPane fx:id="participantPane" layoutX="1.0" layoutY="226.0" prefHeight="224.0" prefWidth="584.0">
+                                             <children>
+                                                <TableView fx:id="tableParticipant" onMouseClicked="#selectParticipant" prefHeight="225.0" prefWidth="583.0">
+                                                  <columns>
+                                                    <TableColumn fx:id="usernameParticipant" prefWidth="96.0" text="Participant" />
+                                                    <TableColumn fx:id="emailParticipant" prefWidth="157.0" text="Email" />
+                                                  </columns>
+                                                </TableView>
+                                             </children>
+                                          </AnchorPane>
                                        </children>
                                     </AnchorPane>
                                  </children></AnchorPane>
