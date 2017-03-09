@@ -27,7 +27,7 @@ public interface ForumManagementRemote {
 	public Topic findById(int idTopic);
 	
 	
-	/*****Music***/
+	/*****Music*****/
 	public void addMusic(Music m );
 	public void updateMusic(Music m );
 	public void deleteMusic ( Music m);
