@@ -76,6 +76,7 @@ public class AdminController implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub
+		AllUsersTable.setEditable(true);
 		AllUsersTable.setVisible(false);
 		userLoggedInName
 				.setText(LoginController.userLogedIn.getFirstName() + " " + LoginController.userLogedIn.getLastName());
@@ -156,9 +157,9 @@ public class AdminController implements Initializable {
 
 	}
 
-	public void DisplayUsers()
-	{
-		AllUsersTable.getItems().clear();
+	public void DisplayUsers() {
+		UsersData.removeAll(UsersData);
+		AllUsersTable.refresh();
 		picture.setResizable(false);
 		picture.setSortable(false);
 		picture.setCellValueFactory(new PropertyValueFactory<User, byte[]>("picture"));
@@ -219,7 +220,6 @@ public class AdminController implements Initializable {
 		});
 
 		/**************************************************************/
-		AllUsersTable.getItems().clear();
 		List<User> ListUsers = LoginController.userManagment.getAllUsers();
 		for (User u : ListUsers) {
 			UsersData.add(u);
@@ -241,5 +241,9 @@ public class AdminController implements Initializable {
 		AllUsersTable.setItems(UsersData);
 		AllUsersTable.setVisible(true);
 
+	}
+	
+	public void setTable(List<User> Users)
+	{		AllUsersTable.getItems().setAll(Users);
 	}
 }

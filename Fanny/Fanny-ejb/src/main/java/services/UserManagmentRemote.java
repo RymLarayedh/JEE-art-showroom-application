@@ -211,6 +211,13 @@ public interface UserManagmentRemote {
 	 */
 	public boolean checkUsernameExistance(String username);
 	
+	/**
+	 * this method returns all artist followed by user
+	 * @param user
+	 * @return
+	 */
+	public List<Artist> getAllFollowed(User user);
+	
 	
 
 }

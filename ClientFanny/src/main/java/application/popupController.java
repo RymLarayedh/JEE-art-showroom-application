@@ -178,6 +178,13 @@ public class popupController implements Initializable {
 					userChoosen.setUsername(usernameTF.getText());
 					userChoosen.setEmail(mailTf.getText());
 					LoginController.userManagment.updateUser(userChoosen);
+					FXMLLoader loader = new FXMLLoader(this.getClass().getResource("Admin.fxml"));
+					try {
+						Parent root = (Parent) loader.load();
+					} catch (Exception e1) {
+					}
+					AdminController controller = loader.getController();
+					controller.DisplayUsers();
 				}
 				stage.close();
 			});
@@ -203,9 +210,17 @@ public class popupController implements Initializable {
 					userChoosen.setUsername(usernameTF.getText());
 					userChoosen.setEmail(mailTf.getText());
 					LoginController.userManagment.updateUser(userChoosen);
+					stage.close();
+					FXMLLoader loader = new FXMLLoader(this.getClass().getResource("Admin.fxml"));
+					try {
+						Parent root = (Parent) loader.load();
+					} catch (Exception e1) {
+					}
+					AdminController controller = loader.getController();				
+					controller.setTable(LoginController.userManagment.getAllUsers());
 
 				}
-				stage.close();
+
 			});
 		} else {
 			LastName.setEditable(false);
@@ -226,6 +241,13 @@ public class popupController implements Initializable {
 					userChoosen.setUsername(usernameTF.getText());
 					userChoosen.setEmail(mailTf.getText());
 					LoginController.userManagment.updateUser(userChoosen);
+					FXMLLoader loader = new FXMLLoader(this.getClass().getResource("Admin.fxml"));
+					try {
+						Parent root = (Parent) loader.load();
+					} catch (Exception e1) {
+					}
+					AdminController controller = loader.getController();
+					controller.DisplayUsers();
 
 				}
 				stage.close();
@@ -251,6 +273,13 @@ public class popupController implements Initializable {
 					userChoosen.setUsername(usernameTF.getText());
 					userChoosen.setEmail(mailTf.getText());
 					LoginController.userManagment.updateUser(userChoosen);
+					FXMLLoader loader = new FXMLLoader(this.getClass().getResource("Admin.fxml"));
+					try {
+						Parent root = (Parent) loader.load();
+					} catch (Exception e1) {
+					}
+					AdminController controller = loader.getController();
+					controller.DisplayUsers();
 				}
 				stage.close();
 			});

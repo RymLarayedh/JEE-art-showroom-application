@@ -26,9 +26,9 @@ public class Entry {
 		object = ctx.lookup("/Fanny-ear/Fanny-ejb/ForumManagement!services.ForumManagementRemote");
 		ForumManagementRemote frmManagment = (ForumManagementRemote) object;
 		
-		User u = userManagment.findById(3);
+		/*User u = userManagment.findById(3);
 		userManagment.blockUser(u);
-		userManagment.unblockUser(u);
+		userManagment.unblockUser(u);*/
 		
 		//Category ctg = new Category(1,"aa");
 		
@@ -64,13 +64,19 @@ public class Entry {
 			
 		}*/
 
-	//	userManagment.addFollower(userManagment.findById(1), userManagment.findById(2));
-		/*Artist x = (Artist) userManagment.findById(2);
+		userManagment.addFollower(userManagment.findById(1), userManagment.findById(2));
+		Artist x = (Artist) userManagment.findById(2);
 		for(ArtistFollowers u :x.getFollowers())
 		{
 			System.out.println(u.getUser());
 		}
-		*/
+		
+		List<Artist> LA = userManagment.getAllFollowed(userManagment.findById(1));
+		
+		for(Artist u : LA)
+		{
+			System.out.println(u);
+		}
 		
 	}
 

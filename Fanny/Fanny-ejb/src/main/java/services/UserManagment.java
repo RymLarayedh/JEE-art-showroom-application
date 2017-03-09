@@ -150,7 +150,7 @@ public class UserManagment implements UserManagmentRemote {
 
 	@Override
 	public void blockUser(User user) {
-		
+
 		disableUser(user);
 	}
 
@@ -210,6 +210,7 @@ public class UserManagment implements UserManagmentRemote {
 
 	@Resource(name = "java:jboss/mail/gmail")
 	private Session session;
+
 	@Asynchronous
 	public void sendMail(String Recipient, String text, String subject) throws AddressException, MessagingException {
 		// Recipient's email ID needs to be mentioned.
@@ -384,8 +385,7 @@ public class UserManagment implements UserManagmentRemote {
 
 	@Override
 	public boolean checkMailExistance(String mail) {
-		if(findByEmail(mail)== null)
-		{
+		if (findByEmail(mail) == null) {
 			return true;
 		}
 		return false;
@@ -393,12 +393,23 @@ public class UserManagment implements UserManagmentRemote {
 
 	@Override
 	public boolean checkUsernameExistance(String username) {
-		if(findByUsername(username) == null)
-		{
+		if (findByUsername(username) == null) {
 			return true;
 		}
-		
+
 		return false;
+	}
+
+	@Override
+	public List<Artist> getAllFollowed(User user) {
+		try {
+			TypedQuery<Artist> q = em.createQuery("SELECT a FROM Artist a join a.Followers af where af.user=:User", Artist.class);
+			q.setParameter("User", user);
+			List<Artist> Lartist = q.getResultList();
+			return Lartist;
+		} catch (javax.persistence.NoResultException e) {
+			return null;
+		}
 	}
 
 }
