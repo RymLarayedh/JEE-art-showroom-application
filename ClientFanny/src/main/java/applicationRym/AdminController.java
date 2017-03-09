@@ -402,13 +402,11 @@ public class AdminController implements Initializable {
     @FXML
     private void selectEvent(MouseEvent event) throws NamingException {
     	participantPane.setVisible(true);
-    	
         Event PTP = tableEvent.getSelectionModel().getSelectedItem();
         if (PTP != null) {
             this.id = PTP.getIdEvent();
             this.selected = 1;
             remplirTableEventUser(PTP);
-            System.out.println("Thank you god"+PTP.getIdEvent());
         } else {
             this.selected = 0;
         }
@@ -508,6 +506,7 @@ public class AdminController implements Initializable {
     }
     @FXML
     private void deleteEvent(ActionEvent event) throws NamingException {
+    	participantPane.setVisible(false);
         if (this.selected == 1) {
             ObservableList<Event> userSelected, allUser;
             allUser = tableEvent.getItems();
@@ -539,6 +538,14 @@ public class AdminController implements Initializable {
 
     @FXML
     private void selectParticipant(MouseEvent event) {
+    	
+        EventUser PTP = tableParticipant.getSelectionModel().getSelectedItem();
+        if (PTP != null) {
+            this.id = PTP.getEtudiantCoursID();
+            this.selected = 1;
+        } else {
+            this.selected = 0;
+        }
     }
 
     
