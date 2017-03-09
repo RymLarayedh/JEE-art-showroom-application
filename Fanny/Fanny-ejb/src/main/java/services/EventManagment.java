@@ -121,6 +121,11 @@ public class EventManagment implements EventManagmentRemote {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	@Override
+	public void deleteEvent(Event e) {
+		em.remove(em.merge(e));
+		
+	}
 
 	
 

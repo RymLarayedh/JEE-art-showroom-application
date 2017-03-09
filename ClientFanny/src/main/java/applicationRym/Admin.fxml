@@ -133,7 +133,8 @@
                                     </AnchorPane>
                                     <AnchorPane fx:id="displayEventPane" prefHeight="452.0" prefWidth="702.0">
                                        <children>
-                                          <TableView fx:id="tableEvent" layoutX="10.0" layoutY="60.0" onMouseClicked="#selectEvent" prefHeight="200.0" prefWidth="591.0">
+                                          <Button fx:id="delete" layoutX="587.0" layoutY="27.0" mnemonicParsing="false" onAction="#deleteEvent" prefHeight="29.0" prefWidth="116.0" text="Delete" />
+                                          <TableView fx:id="tableEvent" layoutY="1.0" onMouseClicked="#selectEvent" prefHeight="452.0" prefWidth="586.0">
                                              <columns>
                                                 <TableColumn fx:id="title1" prefWidth="104.0" text="Title" />
                                                 <TableColumn fx:id="description1" prefWidth="113.0" text="Description" />

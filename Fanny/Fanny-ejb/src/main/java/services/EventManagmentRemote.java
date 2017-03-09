@@ -97,6 +97,12 @@ public interface EventManagmentRemote {
 	 * @return
 	 */
 	public Event findByDate(Artist artist);
+	
+	/**
+	 * 
+	 * @param e
+	 */
+	public void deleteEvent(Event e);
 
 	
 		

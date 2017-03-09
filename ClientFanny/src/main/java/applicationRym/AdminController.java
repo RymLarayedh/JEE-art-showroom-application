@@ -61,6 +61,7 @@ public class AdminController implements Initializable {
 	static int idGa;
 	static int idAr;
 	InitialContext ctx;
+	private int selected;
 	//rrt
 	@FXML
     private AnchorPane RymsPane;
@@ -124,6 +125,7 @@ public class AdminController implements Initializable {
 	private TableColumn<Event, String> artist;
     
 	ObservableList<Event> dataEvent = FXCollections.observableArrayList();
+	private Object id;
     @Override
     public void initialize(URL url, ResourceBundle rb) {
     	
@@ -381,7 +383,14 @@ public class AdminController implements Initializable {
 
 
     @FXML
-    private void selectEvent(MouseEvent event) {
+    private void selectEvent(MouseEvent event) throws NamingException {
+        Event PTP = tableEvent.getSelectionModel().getSelectedItem();
+        if (PTP != null) {
+            this.id = PTP.getIdEvent();
+            this.selected = 1;
+        } else {
+            this.selected = 0;
+        }
     }
     
     private void remplirTableEvent(){
@@ -431,6 +440,36 @@ public class AdminController implements Initializable {
 
     @FXML
     private void selectReclamation(MouseEvent event) {
+    }
+    @FXML
+    private void deleteEvent(ActionEvent event) throws NamingException {
+        if (this.selected == 1) {
+            ObservableList<Event> userSelected, allUser;
+            allUser = tableEvent.getItems();
+            userSelected = tableEvent.getSelectionModel().getSelectedItems();
+            Event ptp = tableEvent.getSelectionModel().getSelectedItem();
+            userSelected.forEach(allUser::remove);
+
+            ctx = new InitialContext();
+    		
+    		Object objet = ctx.lookup("/Fanny-ear/Fanny-ejb/EventManagment!services.EventManagmentRemote");
+    		EventManagmentRemote proxy = (EventManagmentRemote) objet;
+            proxy.deleteEvent(ptp);
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Information Dialog");
+            alert.setHeaderText(null);
+            alert.setContentText("Event details has been deleted.");
+            alert.showAndWait();
+            remplirTableEvent();
+           
+        } else {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Information Dialog");
+            alert.setHeaderText(null);
+            alert.setContentText("No Event selected");
+            alert.showAndWait();
+
+        }
     }
 
 
