@@ -35,10 +35,12 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -547,17 +549,45 @@ public class AdminController implements Initializable {
             Event ptp = tableEvent.getSelectionModel().getSelectedItem();
             userSelected.forEach(allUser::remove);
 
+            //**********
             ctx = new InitialContext();
-    		
-    		Object objet = ctx.lookup("/Fanny-ear/Fanny-ejb/EventManagment!services.EventManagmentRemote");
-    		EventManagmentRemote proxy = (EventManagmentRemote) objet;
-            proxy.deleteEvent(ptp);
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Information Dialog");
-            alert.setHeaderText(null);
-            alert.setContentText("Event details has been deleted.");
-            alert.showAndWait();
-            remplirTableEvent();
+    		Object objetEU = ctx.lookup("/Fanny-ear/Fanny-ejb/EventUserManagment!services.EventUserManagmentRemote");
+        	EventUserManagmentRemote proxyEU = (EventUserManagmentRemote) objetEU;
+        	List<EventUser> checkParticipant=proxyEU.findByEventId(ptp.getIdEvent());
+        	//*************
+        	
+        	if(checkParticipant==null){
+        		System.out.println("Liste vide");
+        		ctx = new InitialContext();
+        		Object objet = ctx.lookup("/Fanny-ear/Fanny-ejb/EventManagment!services.EventManagmentRemote");
+        		EventManagmentRemote proxy = (EventManagmentRemote) objet;
+                proxy.deleteEvent(ptp);
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Information Dialog");
+                alert.setHeaderText(null);
+                alert.setContentText("Event details has been deleted.");
+                alert.showAndWait();
+                remplirTableEvent();
+        	}
+        	else{
+        		
+        		for (EventUser eventUser : checkParticipant) {
+					proxyEU.deleteEvent(eventUser);
+				}
+        		ctx = new InitialContext();
+        		Object objet = ctx.lookup("/Fanny-ear/Fanny-ejb/EventManagment!services.EventManagmentRemote");
+        		EventManagmentRemote proxy = (EventManagmentRemote) objet;
+                proxy.deleteEvent(ptp);
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Information Dialog");
+                alert.setHeaderText("Event with Participant");
+                alert.setContentText("Event details has been deleted.");
+                alert.showAndWait();
+                remplirTableEvent();
+        		
+        	}
+            //**********
+            
            
         } else {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
