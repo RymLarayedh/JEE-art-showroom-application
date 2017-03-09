@@ -105,14 +105,31 @@ public class AdminController implements Initializable {
 	
 	ObservableList<Reclamation> dataReclamation = FXCollections.observableArrayList();
     
+    //******
     @FXML
     private AnchorPane displayEventPane;
+    @FXML
+	private TableView<Event> tableEvent;
+	@FXML
+	private TableColumn<Event,String> title1;
+	@FXML
+	private TableColumn<Event,String> description1;
+	@FXML
+	private TableColumn<Event, Date> dateBegin1;
+	@FXML
+	private TableColumn<Event, Date> dateEnd1;
+	@FXML
+	private TableColumn<Event, String> gallery;
+	@FXML
+	private TableColumn<Event, String> artist;
     
+	ObservableList<Event> dataEvent = FXCollections.observableArrayList();
     @Override
     public void initialize(URL url, ResourceBundle rb) {
     	
     	addEventPane.setVisible(false);
     	displayReclamation.setVisible(false);
+    	displayEventPane.setVisible(false);
     	
     	
     }   
@@ -122,6 +139,10 @@ public class AdminController implements Initializable {
 
     @FXML
     private void displayEvents(ActionEvent event) {
+    	displayEventPane.setVisible(true);
+    	addEventPane.setVisible(false);
+    	displayReclamation.setVisible(false);
+    	remplirTableEvent();
     	
     }
 
@@ -356,6 +377,56 @@ public class AdminController implements Initializable {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
+	}
+
+
+    @FXML
+    private void selectEvent(MouseEvent event) {
+    }
+    
+    private void remplirTableEvent(){
+		try {
+			ctx = new InitialContext();
+		
+		Object objet = ctx.lookup("/Fanny-ear/Fanny-ejb/EventManagment!services.EventManagmentRemote");
+		EventManagmentRemote proxy = (EventManagmentRemote) objet;	
+		ObservableList<Event> eventSelected, allEvent;
+        allEvent = tableEvent.getItems();
+        allEvent.clear();
+        for (Event e : proxy.getAllEvents()) {
+            dataEvent.add(e);
+        }
+        title1.setCellValueFactory(new PropertyValueFactory<Event, String>("title"));
+        description1.setCellValueFactory(new PropertyValueFactory<Event, String>("description"));
+        dateBegin1.setCellValueFactory(new PropertyValueFactory<Event, Date>("dateBegin"));
+        dateEnd1.setCellValueFactory(new PropertyValueFactory<Event, Date>("dateEnd"));
+        gallery.setCellValueFactory(new Callback<CellDataFeatures<Event, String>, ObservableValue<String>>() {
+
+			@Override
+			public ObservableValue<String> call(CellDataFeatures<Event, String> param) {
+				// TODO Auto-generated method stub
+				return new SimpleStringProperty(param.getValue().getGallery().getUsername());
+			}
+
+		});
+        artist.setCellValueFactory(new Callback<CellDataFeatures<Event, String>, ObservableValue<String>>() {
+
+			@Override
+			public ObservableValue<String> call(CellDataFeatures<Event, String> param) {
+				// TODO Auto-generated method stub
+				return new SimpleStringProperty(param.getValue().getArtist().getUsername());
+			}
+
+		});
+
+        tableEvent.setItems(dataEvent);
+		
+		} catch (NamingException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		
 	}
 
     @FXML
