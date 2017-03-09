@@ -258,6 +258,12 @@ public class LoginController implements Initializable {
 		scene.getStylesheets().add(getClass().getResource("Admin.css").toExternalForm());
 		Stage Sc = new Stage();
 		Sc.setScene(scene);
+		Sc.setTitle("FannyTUNISIA");
+		Sc.setOnCloseRequest(e ->{
+            e.consume();
+            Main.closeProgram(Sc);
+        });
+
 		Sc.show();
 		final Node source = (Node) event.getSource();
 		final Stage stage = (Stage) source.getScene().getWindow();

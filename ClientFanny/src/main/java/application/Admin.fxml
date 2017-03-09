@@ -33,7 +33,9 @@
                                     <content>
                                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="81.0" prefWidth="169.0">
                                              <children>
-                                                <JFXButton layoutX="14.0" layoutY="13.0" onAction="#ShowAllUsers" text="Show All Users" />
+                                                <JFXButton layoutX="14.0" layoutY="36.0" onAction="#ShowBlockedUsers" text="Manage Blocked Users" />
+                                                <JFXButton layoutX="14.0" layoutY="13.0" onAction="#ShowAllUsers" text="Manage Active Users" />
+                                                <JFXButton layoutX="14.0" layoutY="59.0" onAction="#ShowWaitList" text="Manage Wait List" />
                                              </children>
                                           </AnchorPane>
                                     </content>

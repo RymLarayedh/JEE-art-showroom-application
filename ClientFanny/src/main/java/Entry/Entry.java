@@ -64,14 +64,14 @@ public class Entry {
 			
 		}*/
 
-		userManagment.addFollower(userManagment.findById(1), userManagment.findById(2));
+		//userManagment.addFollower(userManagment.findById(1), userManagment.findById(2));
 		Artist x = (Artist) userManagment.findById(2);
 		for(ArtistFollowers u :x.getFollowers())
 		{
 			System.out.println(u.getUser());
 		}
 		
-		List<Artist> LA = userManagment.getAllFollowed(userManagment.findById(1));
+		List<Artist> LA = userManagment.getAllFollowed(userManagment.findById(2));
 		
 		for(Artist u : LA)
 		{

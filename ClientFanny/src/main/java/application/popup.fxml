@@ -62,9 +62,17 @@
                   </AnchorPane>
             </content>
           </Tab>
-          <Tab text="Untitled Tab 2">
+          <Tab fx:id="titleTab" text="Artist Followed by ">
             <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <SplitPane dividerPositions="0.19517795637198623" prefHeight="373.0" prefWidth="601.0">
+                           <items>
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="346.0" prefWidth="145.0" />
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="329.0" prefWidth="396.0" />
+                           </items>
+                        </SplitPane>
+                     </children></AnchorPane>
             </content>
           </Tab>
         </tabs>

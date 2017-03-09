@@ -25,6 +25,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Tab;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.PixelWriter;
@@ -61,17 +62,21 @@ public class popupController implements Initializable {
 	@FXML
 	private AnchorPane popupAnchor;
 
+	@FXML
+	private Tab titleTab;
+
 	static public User userChoosen;
+	static public String fromWhere = "";
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 
 		//
-
 		firstName.setEditable(false);
 		LastName.setEditable(false);
 		mailTf.setEditable(false);
 		usernameTF.setEditable(false);
+		titleTab.setText("Artist Followed by " + userChoosen.getFirstName());
 		firstName.setText(userChoosen.getFirstName());
 		LastName.setText(userChoosen.getLastName());
 		mailTf.setText(userChoosen.getEmail());
@@ -105,24 +110,28 @@ public class popupController implements Initializable {
 				profileAdmin.setImage(wr);
 			} catch (IOException e) {
 			}
-
 		}
-		if (userChoosen.isActive()) {
-			disableButton.setText("Disable this user");
+		if (fromWhere.equals("Active")) {
+			disableButton.setText("Block this user");
+		} else if (fromWhere.equals("Wating")) {
+			disableButton.setText("Approve this user");
 		} else {
-			disableButton.setText("Enable this user");
+			disableButton.setText("Unblock this user");
 		}
 
 	}
 
 	@FXML
 	void DisableUsersAccount(ActionEvent event) {
-		if (disableButton.getText().equals("Disable this user")) {
+		if (disableButton.getText().equals("Block this user")) {
 			LoginController.userManagment.blockUser(userChoosen);
-			disableButton.setText("Enable this user");
+			disableButton.setDisable(true);
+		} else if (disableButton.getText().equals("Approve this user")) {
+			LoginController.userManagment.enableUser(userChoosen);
+			disableButton.setDisable(true);
 		} else {
 			LoginController.userManagment.unblockUser(userChoosen);
-			disableButton.setText("Disable this user");
+			disableButton.setDisable(true);
 		}
 
 	}
@@ -184,7 +193,7 @@ public class popupController implements Initializable {
 					} catch (Exception e1) {
 					}
 					AdminController controller = loader.getController();
-					controller.DisplayUsers();
+					// controller.DisplayUsers();
 				}
 				stage.close();
 			});
@@ -216,7 +225,7 @@ public class popupController implements Initializable {
 						Parent root = (Parent) loader.load();
 					} catch (Exception e1) {
 					}
-					AdminController controller = loader.getController();				
+					AdminController controller = loader.getController();
 					controller.setTable(LoginController.userManagment.getAllUsers());
 
 				}
@@ -247,7 +256,7 @@ public class popupController implements Initializable {
 					} catch (Exception e1) {
 					}
 					AdminController controller = loader.getController();
-					controller.DisplayUsers();
+					// controller.DisplayUsers();
 
 				}
 				stage.close();
@@ -279,7 +288,7 @@ public class popupController implements Initializable {
 					} catch (Exception e1) {
 					}
 					AdminController controller = loader.getController();
-					controller.DisplayUsers();
+					// controller.DisplayUsers();
 				}
 				stage.close();
 			});

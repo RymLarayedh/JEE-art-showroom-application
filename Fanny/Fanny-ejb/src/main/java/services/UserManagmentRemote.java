@@ -84,13 +84,13 @@ public interface UserManagmentRemote {
 	public User findByEmail(String email);
 	
 	/**
-	 * this method allowed you to block a user ; set his isActive value to false
+	 * this method allowed you to block a user ; set his isBlock value to true
 	 * @param user
 	 */
 	public void blockUser(User user);
 	
 	/**
-	 * this method allowed you to unblock a user ; set his isActive value to true
+	 * this method allowed you to unblock a user ; set his isBlock value to false
 	 * @param user
 	 */
 	public void unblockUser(User user);

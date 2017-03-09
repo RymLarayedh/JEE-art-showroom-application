@@ -76,6 +76,7 @@ public class User implements Serializable {
 		this.password = password;
 		this.email = email;
 		this.isActive = false;
+		this.isBlocked = false;
 	}
 	
 	public User(User user)
@@ -86,6 +87,7 @@ public class User implements Serializable {
 		this.password = user.getPassword();
 		this.email = user.getEmail();
 		this.isActive = false;
+		this.isBlocked = false;
 	}
 
 

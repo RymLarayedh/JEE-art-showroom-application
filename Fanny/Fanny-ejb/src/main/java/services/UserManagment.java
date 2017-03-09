@@ -91,7 +91,7 @@ public class UserManagment implements UserManagmentRemote {
 		if (user == null) {
 			return false;
 		} else if (user.getPassword().equals(password)) {
-			if (user.isActive()) {
+			if (user.isActive()&& (!user.isBlocked())) {
 				return true;
 			}
 			return false;
@@ -151,12 +151,14 @@ public class UserManagment implements UserManagmentRemote {
 	@Override
 	public void blockUser(User user) {
 
-		disableUser(user);
+		user.setBlocked(true);
+		updateUser(user);
 	}
 
 	@Override
 	public void unblockUser(User user) {
-		enableUser(user);
+		user.setBlocked(false);
+		updateUser(user);
 	}
 
 	@Override

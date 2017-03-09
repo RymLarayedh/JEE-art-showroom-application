@@ -22,7 +22,6 @@ public class Main extends Application {
                 e.consume();
                 closeProgram(primaryStage);
             });
-            primaryStage.show();
 			primaryStage.show();
 		} catch(Exception e) {
 			e.printStackTrace();
