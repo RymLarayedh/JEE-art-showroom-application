@@ -539,13 +539,6 @@ public class AdminController implements Initializable {
     @FXML
     private void selectParticipant(MouseEvent event) {
     	
-        EventUser PTP = tableParticipant.getSelectionModel().getSelectedItem();
-        if (PTP != null) {
-            this.id = PTP.getEtudiantCoursID();
-            this.selected = 1;
-        } else {
-            this.selected = 0;
-        }
     }
 
     
