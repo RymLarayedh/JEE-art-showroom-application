@@ -727,6 +727,20 @@ public class AdminController implements Initializable {
 	        }
 	        artistList1.setItems(LocA);
 	 }
+    
+    @FXML
+    private void handle(ActionEvent event) throws NamingException {
+    	ObservableList<Reclamation> userSelected, allRec;
+        allRec = tableReclamation.getItems();
+        userSelected = tableReclamation.getSelectionModel().getSelectedItems();
+        Reclamation ptp = tableReclamation.getSelectionModel().getSelectedItem();
+        userSelected.forEach(allRec::remove);
+        Object objet = ctx.lookup("/Fanny-ear/Fanny-ejb/FeedbackManagment!services.FeedbackManagmentRemote");
+		FeedbackManagmentRemote proxyF = (FeedbackManagmentRemote) objet;	
+		ptp.setHandle(1);
+		proxyF.updateReclamation(ptp);
+		
+    }
 
     
    
