@@ -279,7 +279,7 @@ public class ProfileuserController implements Initializable {
     @FXML
     private void Event(ActionEvent event) throws NamingException {
     	remplirEvents();
-    	//remplirEvents1();
+    	remplirEvents1();
     }
     public void remplirEvents() throws NamingException{
     	InitialContext ctx = new InitialContext();
@@ -306,7 +306,8 @@ public class ProfileuserController implements Initializable {
     		ObservableList<EventUser> eventUSelected, allEvent;
             allEvent = eventsPane1.getItems();
             allEvent.clear();
-            for (EventUser e : proxy.findByUserId(userLogedIn.getIdUser())) {
+            //******************************change***************************
+            for (EventUser e : proxy.findByUserId(1) ){
                 dataEvent1.add(e);
             }
             
