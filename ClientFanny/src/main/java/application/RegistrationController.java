@@ -197,6 +197,17 @@ public class RegistrationController implements Initializable {
     			alert.showAndWait();
     			return;
         }
+        
+		if(PasswordRegistrationTF.getText().length() < 6)
+		{
+			Alert alert = new Alert(Alert.AlertType.ERROR);
+			alert.setTitle("Fanny");
+			alert.setHeaderText(null);
+			alert.setContentText("Password must have at least 6 digits");
+			alert.showAndWait();
+			return;
+		}
+        
 		newUser.setFirstName(firstNameRegistrationTF.getText());
 		newUser.setLastName(lastNameRegistrationTF.getText());
 		newUser.setEmail(mailRegistrationTF.getText());
