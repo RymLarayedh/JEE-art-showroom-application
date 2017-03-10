@@ -1,22 +1,13 @@
 
 
 #tableMusic {
-    -fx-base: #1d1d1d;
+    -fx-base:  transparent;
     -fx-control-inner-background: transparent;
     -fx-background-color: transparent;
-    -fx-table-cell-border-color: #1d1d1d;
-    -fx-table-header-border-color: #1d1d1d;
+    -fx-table-cell-border-color: transparent;
+    -fx-table-header-border-color: transparent;
     -fx-padding: 5;
+    -fx-text-color:#1d1d1d;
 }
 
 
-#scroll{
-	
- -fx-base: #1d1d1d;
-    -fx-control-inner-background: transparent;
-    -fx-background-color: transparent;
-    -fx-table-cell-border-color: #1d1d1d;
-    -fx-table-header-border-color: #1d1d1d;
-    -fx-padding: 5;	
-	
-}

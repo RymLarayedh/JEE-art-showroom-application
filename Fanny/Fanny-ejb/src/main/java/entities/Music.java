@@ -13,6 +13,7 @@ import javax.persistence.*;
 public class Music extends Artwork implements Serializable {
 	
 	private float duration;
+	private String path;
 
 	
 	private static final long serialVersionUID = 1L;
@@ -28,6 +29,16 @@ public class Music extends Artwork implements Serializable {
 	public void setDuration(float duration) {
 		this.duration = duration;
 	}
+
+	public String getPath() {
+		return path;
+	}
+
+	public void setPath(String path) {
+		this.path = path;
+	}
+	
+	
 	
 	
    
