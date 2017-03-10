@@ -1,6 +1,5 @@
 package services;
 
-import java.sql.Date;
 import java.util.List;
 
 import javax.ejb.Remote;
@@ -32,6 +31,7 @@ public interface EventUserManagmentRemote {
 	 * @param e
 	 */
 	public void deleteEvent(EventUser e);
+	public List<EventUser> findByUserId(int id);
 	
 	
 	
