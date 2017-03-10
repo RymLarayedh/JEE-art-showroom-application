@@ -91,6 +91,13 @@ public class popupController implements Initializable {
 
 	@FXML
 	private JFXComboBox<String> FieldsCombo;
+	
+	@FXML
+	private JFXButton FollowersBTN;
+	
+	@FXML
+	private JFXButton ArtworksBTN;
+	
 	static public User userChoosen;
 	static public String fromWhere = "";
 
@@ -101,12 +108,16 @@ public class popupController implements Initializable {
 		if (userChoosen instanceof Gallery) {
 			GalleryThing.setVisible(true);
 			ArtistThing.setVisible(false);
+			FollowersBTN.setVisible(false);
+			ArtworksBTN.setVisible(false);
 			surfaceTF.setText(String.valueOf(((Gallery) userChoosen).getSurface()));
 			AddressTF.setText(((Gallery) userChoosen).getAddress());
 			DescriptionTF.setText(((Gallery) userChoosen).getDescription());
 		}
 
 		if (userChoosen instanceof Artist) {
+			FollowersBTN.setVisible(true);
+			ArtworksBTN.setVisible(true);
 			FieldsCombo.getItems().add("----------------------");
 			GalleryThing.setVisible(false);
 			ArtistThing.setVisible(true);
@@ -422,6 +433,18 @@ public class popupController implements Initializable {
 			}
 		}
 		return false;
+	}
+
+	@FXML
+	public void ShowFollowers(ActionEvent event){
+		FollowersBTN.setDisable(true);
+		
+	}
+	
+	@FXML
+	public void ShowArtworks(ActionEvent event){
+		ArtworksBTN.setDisable(true);
+		
 	}
 
 }
