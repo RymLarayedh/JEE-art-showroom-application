@@ -8,8 +8,12 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
+import entities.Artwork;
 import entities.Category;
+import entities.Comment;
+import entities.User;
 import entities.VisualArt;
+import relation.Client;
 
 
 /**
@@ -40,29 +44,67 @@ public class VisualArtworkEJB implements VisualArtworkEJBRemote {
 	}
 
 	@Override
-	public void deleteVisualArt(VisualArt VA) {
+	public void deleteVisualArt(Artwork VA) {
 		em.remove(em.merge(VA));
 		
 	}
 
 	@Override
-	public VisualArt findVisualArtById(int IdVisualArt) {
+	public Artwork findVisualArtById(int IdVisualArt) {
 		// TODO Auto-generated method stub
-		return  em.find(VisualArt.class,IdVisualArt );
+		return  em.find(Artwork.class,IdVisualArt );
 	}
 
 	@Override
-	public List<VisualArt> findAllVisualArt() {
-		// TODO Auto-generated method stub
-				try {
-					TypedQuery<VisualArt> c = em.createQuery("SELECT c FROM VisualArt c", VisualArt.class);
-					List<VisualArt> ListAllVisualArt = c.getResultList();
-					return ListAllVisualArt;
-				} catch (javax.persistence.NoResultException e) {
-					return null;
-				}
+	public List<Artwork> findAllVisualArt() {
+		TypedQuery<Artwork> q = em.createQuery("SELECT a FROM Artwork a", Artwork.class);
+		List<Artwork> Lart = q.getResultList();
+		return Lart;
 
-			}
-	
+	}
+
+	@Override
+	public void addVisualComment(Comment VC) {
+		em.persist(VC);
+		
+	}
+
+	@Override
+	public void upadateVisualComment(Comment VC) {
+		// TODO Auto-generated method stub
+		em.merge(VC);	
+	}
+
+	@Override
+	public void deleteVisualComment(Comment VC) {
+		// TODO Auto-generated method stub
+		em.remove(em.merge(VC));
+	}
+
+	@Override
+	public Comment findVisualCommentById(int IdVisualComment) {
+		// TODO Auto-generated method stub
+		return  em.find(Comment.class,IdVisualComment );
+	}
+
+	@Override
+	public List<Comment> findAllVisualComment() {
+		TypedQuery<Comment> qc = em.createQuery("SELECT c FROM Artwork c", Comment.class);
+		List<Comment> Lcomment = qc.getResultList();
+		return Lcomment;
+	}
+
+	@Override
+	public List<VisualArt> findMyVisualArt(int idUser) {
+		// TODO Auto-generated method stub
+		return (List<VisualArt>) em.createQuery("select c from VisualArt c where c.user_idUser=:pid",VisualArt.class)
+				.setParameter("pid", idUser).getSingleResult();
+	}
+
+	@Override
+	public List<Comment> findMyVisualComment(int idUser, int idVisualart) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }
