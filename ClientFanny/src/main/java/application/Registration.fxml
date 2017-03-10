@@ -128,7 +128,7 @@
                   <Font size="18.0" />
                </font>
             </Label>
-            <JFXTextArea layoutX="150.0" layoutY="248.0" maxWidth="419.0" minWidth="419.0" prefHeight="137.0" prefWidth="419.0" />
+            <JFXTextArea fx:id="bioTextArea" layoutX="150.0" layoutY="248.0" maxWidth="419.0" minWidth="419.0" prefHeight="137.0" prefWidth="419.0" />
             <ToggleButton fx:id="PaintingsField" layoutX="202.0" layoutY="66.0" mnemonicParsing="false" text="Painting" />
             <ToggleButton fx:id="TcraftField" layoutX="202.0" layoutY="108.0" mnemonicParsing="false" text="Tunisian Craft" />
             <ToggleButton fx:id="photographyField" layoutX="335.0" layoutY="108.0" mnemonicParsing="false" text="Photography" />
@@ -137,12 +137,12 @@
       </AnchorPane>
       <AnchorPane fx:id="thirdFrameGallery" layoutX="25.0" layoutY="149.0" prefHeight="385.0" prefWidth="558.0">
          <children>
-            <JFXTextField layoutX="157.0" layoutY="34.0" />
+            <JFXTextField fx:id="surfaceRegistrationTF" layoutX="157.0" layoutY="34.0" />
             <Label layoutX="28.0" layoutY="254.0" text="Description" />
             <Label layoutX="28.0" layoutY="100.0" text="Address" />
             <Label layoutX="28.0" layoutY="41.0" text="Surface" />
-            <JFXTextField layoutX="157.0" layoutY="93.0" />
-            <JFXTextArea layoutX="157.0" layoutY="206.0" maxWidth="387.0" minWidth="387.0" prefHeight="112.0" prefWidth="387.0" />
+            <JFXTextField fx:id="addressRegistrationTF" layoutX="157.0" layoutY="93.0" />
+            <JFXTextArea fx:id="DescriptionRegistrationTA" layoutX="157.0" layoutY="206.0" maxWidth="387.0" minWidth="387.0" prefHeight="112.0" prefWidth="387.0" />
             <Label layoutX="331.0" layoutY="41.0" text="m²" />
          </children>
       </AnchorPane>

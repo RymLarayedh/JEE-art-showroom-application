@@ -9,6 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.image.Image;
@@ -34,6 +35,7 @@ import javax.imageio.ImageIO;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
+import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 
 import entities.Artist;
@@ -101,6 +103,14 @@ public class RegistrationController implements Initializable {
 	private ToggleButton photographyField;
 	@FXML
 	private ToggleButton scultureField;
+	@FXML
+	private JFXTextArea bioTextArea;
+	@FXML
+	private JFXTextField addressRegistrationTF;
+	@FXML
+	private JFXTextField surfaceRegistrationTF;
+	@FXML
+	private JFXTextArea DescriptionRegistrationTA;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -140,9 +150,8 @@ public class RegistrationController implements Initializable {
 			alert.showAndWait();
 			return;
 		}
-		
-		if(mailRegistrationError.isVisible())
-		{
+
+		if (mailRegistrationError.isVisible()) {
 			Alert alert = new Alert(Alert.AlertType.ERROR);
 			alert.setTitle("Fanny");
 			alert.setHeaderText(null);
@@ -150,9 +159,8 @@ public class RegistrationController implements Initializable {
 			alert.showAndWait();
 			return;
 		}
-		
-		if(usernameRegistrationError.isVisible())
-		{
+
+		if (usernameRegistrationError.isVisible()) {
 			Alert alert = new Alert(Alert.AlertType.ERROR);
 			alert.setTitle("Fanny");
 			alert.setHeaderText(null);
@@ -204,10 +212,29 @@ public class RegistrationController implements Initializable {
 					@Override
 					public void handle(ActionEvent event) {
 						// TODO Auto-generated method stub
-						System.out.println("Gallery Finish");
+						gallery.setDescription(DescriptionRegistrationTA.getText());
+						try {
+							gallery.setSurface(Float.valueOf(surfaceRegistrationTF.getText()));
+
+						} catch (NumberFormatException E) {
+							Alert alert = new Alert(Alert.AlertType.ERROR);
+							alert.setTitle("Information Dialog");
+							alert.setHeaderText(null);
+							alert.setContentText("Surface is NUMERIC only ");
+							alert.showAndWait();
+							surfaceRegistrationTF.requestFocus();
+							return;
+						}
+						gallery.setAddress(addressRegistrationTF.getText());
+						LoginController.userManagment.addUser(gallery);
+						try {
+							FinalAlert();
+						} catch (IOException e) {
+							// TODO Auto-generated catch block
+						}
 					}
 				});
-
+	
 			}
 		});
 
@@ -249,15 +276,20 @@ public class RegistrationController implements Initializable {
 							Fields sculpture = LoginController.userManagment.findFieldsByName("Sculpture");
 							Lf.add(sculpture);
 						}
+						artist.setBio(bioTextArea.getText());
 						LoginController.userManagment.addUser(artist);
 						for (Fields f : Lf) {
 							LoginController.userManagment.addFields(f,
 									LoginController.userManagment.findByUsername(artist.getUsername()));
 						}
+						try {
+							FinalAlert();
+						} catch (IOException e) {
+							// TODO Auto-generated catch block
+						}
 
 					}
 				});
-
 			}
 		});
 
@@ -269,7 +301,8 @@ public class RegistrationController implements Initializable {
 
 			@Override
 			public void run() {
-				if ((!LoginController.userManagment.checkMailExistance(mailRegistrationTF.getText()))|| (!LoginController.userManagment.verifyMail(mailRegistrationTF.getText()))) {
+				if ((!LoginController.userManagment.checkMailExistance(mailRegistrationTF.getText()))
+						|| (!LoginController.userManagment.verifyMail(mailRegistrationTF.getText()))) {
 					mailRegistrationError.setVisible(true);
 				} else {
 					mailRegistrationError.setVisible(false);
@@ -345,7 +378,26 @@ public class RegistrationController implements Initializable {
 					@Override
 					public void handle(ActionEvent event) {
 						// TODO Auto-generated method stub
-						System.out.println("Gallery Finish");
+						gallery.setDescription(DescriptionRegistrationTA.getText());
+						try {
+							gallery.setSurface(Float.valueOf(surfaceRegistrationTF.getText()));
+
+						} catch (NumberFormatException E) {
+							Alert alert = new Alert(Alert.AlertType.ERROR);
+							alert.setTitle("Information Dialog");
+							alert.setHeaderText(null);
+							alert.setContentText("Surface is NUMERIC only ");
+							alert.showAndWait();
+							surfaceRegistrationTF.requestFocus();
+							return;
+						}
+						gallery.setAddress(addressRegistrationTF.getText());
+						LoginController.userManagment.addUser(gallery);
+						try {
+							FinalAlert();
+						} catch (IOException e) {
+							// TODO Auto-generated catch block
+						}
 					}
 				});
 
@@ -390,10 +442,16 @@ public class RegistrationController implements Initializable {
 							Fields sculpture = LoginController.userManagment.findFieldsByName("Sculpture");
 							Lf.add(sculpture);
 						}
+						artist.setBio(bioTextArea.getText());
 						LoginController.userManagment.addUser(artist);
 						for (Fields f : Lf) {
 							LoginController.userManagment.addFields(f,
 									LoginController.userManagment.findByUsername(artist.getUsername()));
+						}
+						try {
+							FinalAlert();
+						} catch (IOException e) {
+							// TODO Auto-generated catch block
 						}
 
 					}
@@ -434,23 +492,47 @@ public class RegistrationController implements Initializable {
 			ChooseWhoYouAre(ae);
 		}
 	}
-	
+
 	@FXML
 	public void goBack(ActionEvent event) throws IOException {
 		Parent adminScene = FXMLLoader.load(getClass().getResource("Login.fxml"));
-		Scene scene = new Scene(adminScene,600,600);
+		Scene scene = new Scene(adminScene, 600, 600);
 		scene.getStylesheets().add(getClass().getResource("Login.css").toExternalForm());
 		Stage Sc = new Stage();
 		Sc.setScene(scene);
 		Sc.setTitle("FannyTUNISIA");
-		Sc.setOnCloseRequest(e ->{
-            e.consume();
-            Main.closeProgram(Sc);
-        });
+		Sc.setOnCloseRequest(e -> {
+			e.consume();
+			Main.closeProgram(Sc);
+		});
 
 		Sc.show();
 		final Node source = (Node) event.getSource();
 		final Stage stage = (Stage) source.getScene().getWindow();
+		stage.close();
+
+	}
+
+	void FinalAlert() throws IOException {
+		Alert alert = new Alert(Alert.AlertType.INFORMATION);
+		alert.setTitle("FannyTUNISIA");
+		alert.setHeaderText(null);
+		alert.setContentText(
+				"THANK you for choosing our application you will get an approval e-mail from our contact service announcing the activation of your account");
+		alert.showAndWait();
+		Parent adminScene = FXMLLoader.load(getClass().getResource("Login.fxml"));
+		Scene scene = new Scene(adminScene, 600, 600);
+		scene.getStylesheets().add(getClass().getResource("Login.css").toExternalForm());
+		Stage Sc = new Stage();
+		Sc.setScene(scene);
+		Sc.setTitle("FannyTUNISIA");
+		Sc.setOnCloseRequest(e -> {
+			e.consume();
+			Main.closeProgram(Sc);
+		});
+
+		Sc.show();
+		final Stage stage = (Stage) firstFrame.getScene().getWindow();
 		stage.close();
 
 	}
