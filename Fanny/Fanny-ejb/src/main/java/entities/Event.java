@@ -27,7 +27,7 @@ public class Event implements Serializable {
 	private Gallery gallery;
 	@ManyToOne
 	private Artist artist;
-	@OneToMany(mappedBy="event")
+	@OneToMany(mappedBy="event",cascade=CascadeType.ALL,fetch = FetchType.EAGER)
 	private List<EventUser>listEventUser;
 
 	public Event() {

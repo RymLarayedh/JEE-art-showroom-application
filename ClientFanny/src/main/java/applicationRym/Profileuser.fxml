@@ -216,7 +216,7 @@
                     <tabs>
                       <Tab text="Events">
                            <content>
-                              <TableView fx:id="eventsPane" prefHeight="200.0" prefWidth="200.0">
+                              <TableView fx:id="eventsPane" onMouseClicked="#detailsEvents" prefHeight="200.0" prefWidth="200.0">
                                 <columns>
                                   <TableColumn fx:id="DateBeginEvents" prefWidth="75.0" text="Date Begin" />
                                   <TableColumn fx:id="TitleEvents" prefWidth="162.0" text="Title" />
@@ -245,6 +245,11 @@
                       <TableColumn prefWidth="75.0" text="C2" />
                     </columns>
                   </TableView>
+                  <Label layoutX="28.0" layoutY="45.0" text="Artist" />
+                  <Label layoutX="166.0" layoutY="45.0" text="Gallery" />
+                  <Label fx:id="nbrParticipant" layoutX="411.0" layoutY="14.0" prefHeight="35.0" prefWidth="46.0" />
+                  <Label fx:id="usernameArtist" layoutX="23.0" layoutY="113.0" prefHeight="23.0" prefWidth="78.0" />
+                  <Label fx:id="usernameGallery" layoutX="149.0" layoutY="113.0" prefHeight="23.0" prefWidth="78.0" />
                </children>
             </AnchorPane>
         </items>
