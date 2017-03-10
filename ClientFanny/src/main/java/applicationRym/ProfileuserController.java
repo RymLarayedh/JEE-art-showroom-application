@@ -110,6 +110,20 @@ public class ProfileuserController implements Initializable {
     private Label usernameGallery;
     //***
 	private int selected;
+	//*****
+	@FXML
+    private TableView<EventUser> tableP;
+    @FXML
+    private TableColumn<EventUser, String> usernameP;
+    @FXML
+    private TableColumn<EventUser, String> firstNameP;
+    @FXML
+    private TableColumn<EventUser, String> lastNameP;
+    @FXML
+    private TableColumn<EventUser, String> emailP;
+    ObservableList<EventUser> dataEventUser = FXCollections.observableArrayList();
+
+	//*****
 	
     
 
@@ -343,7 +357,7 @@ public class ProfileuserController implements Initializable {
     	Event PTP = eventsPane.getSelectionModel().getSelectedItem();
         if (PTP != null) {
             this.selected = 1;
-            remplirTableParticipant();
+            remplirTableParticipant(PTP);
             usernameArtist.setText(PTP.getArtist().getUsername());
             usernameGallery.setText(PTP.getGallery().getUsername());
             Integer d=PTP.getListEventUser().size(); 
@@ -352,7 +366,64 @@ public class ProfileuserController implements Initializable {
             this.selected = 0;
         }
     }
-    public void remplirTableParticipant(){
+    public void remplirTableParticipant(Event ptp){
+    		Integer idEvent=ptp.getIdEvent();
+    		try {
+    		InitialContext ctx = new InitialContext();
+    		Object objet = ctx.lookup("/Fanny-ear/Fanny-ejb/EventUserManagment!services.EventUserManagmentRemote");
+        	EventUserManagmentRemote proxy = (EventUserManagmentRemote) objet;	
+    		ObservableList<EventUser> eventUSelected, allEvent;
+            allEvent = tableP.getItems();
+            allEvent.clear();
+            for (EventUser e : proxy.findByEventId(idEvent)) {
+                dataEventUser.add(e);
+            }
+            
+            usernameP.setCellValueFactory(new Callback<CellDataFeatures<EventUser, String>, ObservableValue<String>>() {
+
+    			@Override
+    			public ObservableValue<String> call(CellDataFeatures<EventUser, String> param) {
+    				// TODO Auto-generated method stub
+    				return new SimpleStringProperty(param.getValue().getUser().getUsername());
+    			}
+
+    		});
+            firstNameP.setCellValueFactory(new Callback<CellDataFeatures<EventUser, String>, ObservableValue<String>>() {
+
+    			@Override
+    			public ObservableValue<String> call(CellDataFeatures<EventUser, String> param) {
+    				// TODO Auto-generated method stub
+    				return new SimpleStringProperty(param.getValue().getUser().getFirstName());
+    			}
+
+    		});
+            lastNameP.setCellValueFactory(new Callback<CellDataFeatures<EventUser, String>, ObservableValue<String>>() {
+
+    			@Override
+    			public ObservableValue<String> call(CellDataFeatures<EventUser, String> param) {
+    				// TODO Auto-generated method stub
+    				return new SimpleStringProperty(param.getValue().getUser().getLastName());
+    			}
+
+    		});
+            emailP.setCellValueFactory(new Callback<CellDataFeatures<EventUser, String>, ObservableValue<String>>() {
+
+    			@Override
+    			public ObservableValue<String> call(CellDataFeatures<EventUser, String> param) {
+    				// TODO Auto-generated method stub
+    				return new SimpleStringProperty(param.getValue().getUser().getEmail());
+    			}
+
+    		});
+
+            tableP.setItems(dataEventUser);
+    		
+    		} catch (NamingException e1) {
+    			// TODO Auto-generated catch block
+    			e1.printStackTrace();
+    		}
+    		
+    	
     	
     }
 
