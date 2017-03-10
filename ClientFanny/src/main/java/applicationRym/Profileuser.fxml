@@ -226,7 +226,7 @@
                         </Tab>
                       <Tab text="My Events">
                            <content>
-                              <TableView fx:id="eventsPane1" prefHeight="200.0" prefWidth="200.0">
+                              <TableView fx:id="eventsPane1" onMouseClicked="#detailsMyEvents" prefHeight="200.0" prefWidth="200.0">
                                  <columns>
                                     <TableColumn fx:id="DateBeginEvents1" prefWidth="75.0" text="Date Begin" />
                                     <TableColumn fx:id="TitleEvents1" prefWidth="162.0" text="Title" />

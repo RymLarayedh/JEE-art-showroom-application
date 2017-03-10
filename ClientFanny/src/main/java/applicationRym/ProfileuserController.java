@@ -354,6 +354,20 @@ public class ProfileuserController implements Initializable {
 		Sc.show();
     }
     @FXML
+    private void detailsMyEvents(MouseEvent event) {
+    	EventUser PTP = eventsPane1.getSelectionModel().getSelectedItem();
+        if (PTP != null) {
+            this.selected = 1;
+            //remplirTableParticipant(PTP);
+            usernameArtist.setText(PTP.getEvent().getArtist().getUsername());
+            usernameGallery.setText(PTP.getEvent().getGallery().getUsername());
+            Integer d=PTP.getEvent().getListEventUser().size(); 
+            nbrParticipant.setText(d.toString());
+        } else {
+            this.selected = 0;
+        }
+    }
+    @FXML
     private void detailsEvents(MouseEvent event) {
     	Event PTP = eventsPane.getSelectionModel().getSelectedItem();
         if (PTP != null) {
@@ -422,9 +436,7 @@ public class ProfileuserController implements Initializable {
     		} catch (NamingException e1) {
     			// TODO Auto-generated catch block
     			e1.printStackTrace();
-    		}
-    		
-    	
+    		}	
     	
     }
 
