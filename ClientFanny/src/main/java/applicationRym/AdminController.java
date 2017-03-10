@@ -744,7 +744,7 @@ public class AdminController implements Initializable {
 		proxyF.updateReclamation(ptp);
 		
     }
-    @FXML
+    /*@FXML
     private void imprimer(ActionEvent event) {
         try {
             utilprojet u = new utilprojet();
@@ -753,7 +753,7 @@ public class AdminController implements Initializable {
             Logger.getLogger(PdfController.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-    }
+    }*/
 
     
    

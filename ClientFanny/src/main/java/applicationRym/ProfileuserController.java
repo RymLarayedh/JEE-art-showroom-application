@@ -27,6 +27,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TableColumn.CellDataFeatures;
@@ -101,6 +102,14 @@ public class ProfileuserController implements Initializable {
     private TableColumn<EventUser, String> TitleEvents1;
     ObservableList<EventUser> dataEvent1 = FXCollections.observableArrayList();
 	//***
+    @FXML
+    private Label nbrParticipant;
+    @FXML
+    private Label usernameArtist;
+    @FXML
+    private Label usernameGallery;
+    //***
+	private int selected;
 	
     
 
@@ -256,7 +265,7 @@ public class ProfileuserController implements Initializable {
     @FXML
     private void Event(ActionEvent event) throws NamingException {
     	remplirEvents();
-    	remplirEvents1();
+    	//remplirEvents1();
     }
     public void remplirEvents() throws NamingException{
     	InitialContext ctx = new InitialContext();
@@ -328,9 +337,23 @@ public class ProfileuserController implements Initializable {
 		Stage Sc = new Stage();
 		Sc.setScene(scene);
 		Sc.show();
-//		final Node source = (Node) event.getSource();
-//		final Stage stage = (Stage) source.getScene().getWindow();
-//		stage.close();
+    }
+    @FXML
+    private void detailsEvents(MouseEvent event) {
+    	Event PTP = eventsPane.getSelectionModel().getSelectedItem();
+        if (PTP != null) {
+            this.selected = 1;
+            remplirTableParticipant();
+            usernameArtist.setText(PTP.getArtist().getUsername());
+            usernameGallery.setText(PTP.getGallery().getUsername());
+            Integer d=PTP.getListEventUser().size(); 
+            nbrParticipant.setText(d.toString());
+        } else {
+            this.selected = 0;
+        }
+    }
+    public void remplirTableParticipant(){
+    	
     }
 
 }
