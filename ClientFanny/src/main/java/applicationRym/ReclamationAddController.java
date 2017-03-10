@@ -2,9 +2,11 @@ package applicationRym;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 import services.ArtworkManagemetRemote;
 import services.FeedbackManagmentRemote;
 import services.UserManagmentRemote;
@@ -114,6 +116,9 @@ public class ReclamationAddController implements Initializable {
 
 	    @FXML
 	    private void FinishAction(ActionEvent event) {
+	    	final Node source = (Node) event.getSource();
+			final Stage stage = (Stage) source.getScene().getWindow();
+			stage.close();
 	    }
 	
 	
