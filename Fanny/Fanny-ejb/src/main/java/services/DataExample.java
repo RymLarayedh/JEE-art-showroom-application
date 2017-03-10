@@ -20,6 +20,7 @@ import entities.EventUserID;
 import entities.FeedbackId;
 import entities.Fields;
 import entities.Gallery;
+import entities.Music;
 import entities.Reclamation;
 import entities.TunisianCraft;
 import entities.User;
@@ -37,6 +38,7 @@ public class DataExample {
 	@EJB ArtworkManagemetRemote artworkManagment;
 	@EJB EventManagmentRemote eventManagment;
 	@EJB EventUserManagmentRemote eventUserManagment;
+	@EJB ForumManagementRemote forumManagement;
 	
 	@PersistenceContext(unitName = "Fanny-ejb")
 	EntityManager em;
@@ -137,6 +139,13 @@ public class DataExample {
 		r.setDate(d);
 		r.setHandle(0);
 		feedbackManagment.addReclamation(r);
+		
+		/********Ines
+		 * 
+		 */
+		Music m = new Music();
+		m.setName("sia");
+		forumManagement.addMusic(m);
 
 	}
 
