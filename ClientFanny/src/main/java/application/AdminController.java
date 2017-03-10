@@ -292,4 +292,23 @@ public class AdminController implements Initializable {
 	public void setTable(List<User> Users) {
 		AllUsersTable.getItems().setAll(Users);
 	}
+
+	@FXML
+	public void Disconnect(ActionEvent event) throws IOException {
+		LoginController.userLogedIn = null;
+		Parent adminScene = FXMLLoader.load(getClass().getResource("Login.fxml"));
+		Scene scene = new Scene(adminScene,600,600);
+		scene.getStylesheets().add(getClass().getResource("Login.css").toExternalForm());
+		Stage Sc = new Stage();
+		Sc.setScene(scene);
+		Sc.setTitle("FannyTUNISIA");
+		Sc.setOnCloseRequest(e ->{
+            e.consume();
+            Main.closeProgram(Sc);
+        });
+		Sc.show();
+		final Stage stage = (Stage) AymensPane.getScene().getWindow();
+		stage.close();
+	}
+
 }

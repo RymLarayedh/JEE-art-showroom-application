@@ -57,6 +57,7 @@ public class DataExample {
 		u1.setActive(true);
 		u1.setEmail("mohamedaymen.elarbi@esprit.tn");
 		u1.setFirstName("Aymen");
+		u1.setLastName("Elarbi");
 		
 		Artist u12 = new Artist();
 		u12.setUsername("ines");
@@ -64,6 +65,7 @@ public class DataExample {
 		u12.setActive(true);
 		u12.setEmail("ines.wannen@esprit.tn");
 		u12.setFirstName("ines");
+		u12.setLastName("Wannen");
 		
 		Gallery u13 = new Gallery();
 		u13.setUsername("gallery");
@@ -71,6 +73,7 @@ public class DataExample {
 		u13.setActive(true);
 		u13.setEmail("zimouarbi@gmail.com");
 		u13.setFirstName("zimouarbi");
+		u13.setLastName("EUREKA");
 		
 		List<Fields> Lf = new ArrayList();
 		Lf.add(new Fields("Music"));

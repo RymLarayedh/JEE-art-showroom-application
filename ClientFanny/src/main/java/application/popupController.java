@@ -16,6 +16,8 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import javax.imageio.ImageIO;
+import javax.mail.MessagingException;
+import javax.mail.internet.AddressException;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
@@ -76,7 +78,7 @@ public class popupController implements Initializable {
 		LastName.setEditable(false);
 		mailTf.setEditable(false);
 		usernameTF.setEditable(false);
-		titleTab.setText("Artist Followed by " + userChoosen.getFirstName());
+		titleTab.setText("Artist Followed by " + userChoosen.getLastName());
 		firstName.setText(userChoosen.getFirstName());
 		LastName.setText(userChoosen.getLastName());
 		mailTf.setText(userChoosen.getEmail());
@@ -122,15 +124,75 @@ public class popupController implements Initializable {
 	}
 
 	@FXML
-	void DisableUsersAccount(ActionEvent event) {
+	void DisableUsersAccount(ActionEvent event) throws AddressException, MessagingException {
 		if (disableButton.getText().equals("Block this user")) {
 			LoginController.userManagment.blockUser(userChoosen);
+			Runnable mailing = new Runnable() {
+
+				@Override
+				public void run() {
+					try {
+						LoginController.userManagment.sendMail(userChoosen.getEmail(),
+								"FannyTUNISIA is sorry to announce that we blocked your account for the moment",
+								"Something went wrong");
+					} catch (MessagingException e) {
+					}
+
+				}
+
+			};
+			new Thread(mailing).start();
+			Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+			alert.setTitle("Fanny");
+			alert.setHeaderText(null);
+			alert.setContentText("User Blocked");
+			alert.showAndWait();
 			disableButton.setDisable(true);
 		} else if (disableButton.getText().equals("Approve this user")) {
 			LoginController.userManagment.enableUser(userChoosen);
+			Runnable mailing = new Runnable() {
+
+				@Override
+				public void run() {
+					try {
+						LoginController.userManagment.sendMail(userChoosen.getEmail(),
+								"FannyTUNISIA is so glad to have you again in our community welcome aboard again",
+								"Welcome again");
+					} catch (MessagingException e) {
+					}
+
+				}
+
+			};
+			new Thread(mailing).start();
+			Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+			alert.setTitle("Fanny");
+			alert.setHeaderText(null);
+			alert.setContentText("User Approved");
+			alert.showAndWait();
 			disableButton.setDisable(true);
 		} else {
 			LoginController.userManagment.unblockUser(userChoosen);
+			Runnable mailing = new Runnable() {
+
+				@Override
+				public void run() {
+					try {
+						LoginController.userManagment.sendMail(userChoosen.getEmail(),
+								"FannyTUNISIA is so glad to have you in our community so please behave and respect other members",
+								"Welcome aboard");
+					} catch (MessagingException e) {
+					}
+
+				}
+
+			};
+			new Thread(mailing).start();
+			Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+			alert.setTitle("Fanny");
+			alert.setHeaderText(null);
+			alert.setContentText("User Unblocked");
+			alert.showAndWait();
 			disableButton.setDisable(true);
 		}
 
