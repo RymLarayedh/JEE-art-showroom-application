@@ -14,7 +14,13 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URL;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -28,6 +34,7 @@ import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
@@ -50,10 +57,18 @@ public class AddVisualController implements Initializable{
 	    private JFXTextArea descr;
 	    @FXML
 	    private JFXButton btnpic;
-	    InitialContext ctx;
-	File picture ;
+
 	    @FXML
 	    private JFXButton addVisual;
+	    @FXML
+	    private JFXTextField len;
+	    @FXML
+	    private JFXTextField wid;
+	    @FXML
+	    private ImageView pict1;
+	    InitialContext ctx;
+		File picture ;
+	 
 	    /**
 	     * Initializes the controller class.
 	     */
@@ -71,7 +86,7 @@ public class AddVisualController implements Initializable{
 	        
 	        
 	        
-	        
+	       
 	        
 	        
 	        }    
@@ -92,7 +107,9 @@ public class AddVisualController implements Initializable{
 				pict.setImage(image);
 			} catch (IOException ex) {
 			}
-	    	
+			
+				
+	        
 	    }
 
 	    @FXML
@@ -103,12 +120,22 @@ public class AddVisualController implements Initializable{
 		    VisualArt TunC = new VisualArt() ;
 
 			TunC = new VisualArt();
-			//TunC.setCategory(cat.getValue());
+			
+			String selectedCategory = cat.getValue();
+			TunC.setCategory(selectedCategory);
 			TunC.setName(name.getText());
+			int lo = Integer.parseInt(len.getText());
+			int la = Integer.parseInt(wid.getText());
+			TunC.setLength(lo);
+			TunC.setWidth(la);
 			TunC.setDescription(descr.getText());
 			int Q = Integer.parseInt(price.getText());
 			TunC.setPrice(Q);
-			
+			DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+			LocalDateTime now = LocalDateTime.now();
+			Instant instant = now.atZone(ZoneId.systemDefault()).toInstant();
+			Date date = Date.from(instant);
+			TunC.setDateOfOublication(date);
 			byte[] bFile = new byte[(int) picture.length()];
 			try {
 				FileInputStream fileInputStream = new FileInputStream(picture);
@@ -118,8 +145,18 @@ public class AddVisualController implements Initializable{
 
 			} catch (Exception e) {
 			}
+			
+			Alert alert = new Alert(Alert.AlertType.ERROR);
+			alert.setTitle("Fanny");
+			alert.setHeaderText(null);
+			alert.setContentText("Add succes");
+			alert.showAndWait();
+			
+			
 			proxy.addVisualArt(TunC);
+			
 	    }
+	    
 	    
 //	@Override
 //	public void initialize(URL location, ResourceBundle resources) {

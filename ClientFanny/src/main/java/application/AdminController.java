@@ -241,5 +241,7 @@ public class AdminController implements Initializable {
 		AllUsersTable.setItems(UsersData);
 		AllUsersTable.setVisible(true);
 
+		
+		
 	}
 }

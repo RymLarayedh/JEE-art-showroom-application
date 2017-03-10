@@ -7,6 +7,7 @@ import java.util.ResourceBundle;
 
 import javax.naming.InitialContext;
 
+import entities.Artwork;
 import entities.Category;
 import entities.VisualArt;
 import javafx.beans.property.SimpleStringProperty;
@@ -61,25 +62,25 @@ public class AdminShowALLController implements Initializable {
 		
 		
 	}
-	public void displayAllArtwork() {
-		AllVisualArt.getItems().clear();
-		List<VisualArt> ListAllVisualArt = proxy.findAllVisualArt();
-		for (VisualArt c : ListAllVisualArt) {
-			data.add(c);
-		}
-		System.out.println(data);
-		Name.setCellValueFactory(new PropertyValueFactory<Category, String>("Name"));
-//		addedAt.setCellValueFactory(new PropertyValueFactory<Category, Date>("addedAt"));
-		/*addedBy.setCellValueFactory(new Callback<CellDataFeatures<Category, String>, ObservableValue<String>>() {
-
-			@Override
-			public ObservableValue<String> call(CellDataFeatures<Category, String> param) {
-				// TODO Auto-generated method stub
-				return new SimpleStringProperty(param.getValue().getAddedBy().getUsername());
-			}
-
-		});*/
-		AllVisualArt.setItems(data);
-	}
+//	public void displayAllArtwork() {
+//		AllVisualArt.getItems().clear();
+//		List<Artwork> ListAllVisualArt = proxy.findAllVisualArt();
+//		for (Artwork c : ListAllVisualArt) {
+//			data.add(c);
+//		}
+//		System.out.println(data);
+//		Name.setCellValueFactory(new PropertyValueFactory<Category, String>("Name"));
+////		addedAt.setCellValueFactory(new PropertyValueFactory<Category, Date>("addedAt"));
+//		/*addedBy.setCellValueFactory(new Callback<CellDataFeatures<Category, String>, ObservableValue<String>>() {
+//
+//			@Override
+//			public ObservableValue<String> call(CellDataFeatures<Category, String> param) {
+//				// TODO Auto-generated method stub
+//				return new SimpleStringProperty(param.getValue().getAddedBy().getUsername());
+//			}
+//
+//		});*/
+//		AllVisualArt.setItems(data);
+//	}
 
 }

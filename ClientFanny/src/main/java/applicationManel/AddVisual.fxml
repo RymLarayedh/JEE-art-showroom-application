@@ -8,19 +8,24 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="applicationManel.AddVisualController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="652.0" prefWidth="952.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="applicationManel.AddVisualController">
    <children>
-      <JFXComboBox fx:id="cat" layoutX="160.0" layoutY="135.0" prefHeight="31.0" prefWidth="160.0" />
-      <Label layoutX="67.0" layoutY="60.0" text="Name" />
-      <Label layoutX="70.0" layoutY="103.0" text="Price" />
-      <Label layoutX="66.0" layoutY="150.0" text="Category" />
-      <Label layoutX="58.0" layoutY="229.0" text="Description" />
-      <Label layoutX="64.0" layoutY="306.0" text="Picture" />
-      <JFXButton fx:id="addVisual" layoutX="236.0" layoutY="360.0" onAction="#addVisualAction" prefHeight="31.0" prefWidth="169.0" text="Add" />
-      <JFXTextField fx:id="name" layoutX="146.0" layoutY="41.0" />
-      <JFXTextField fx:id="price" layoutX="146.0" layoutY="85.0" />
-      <ImageView fx:id="pict" fitHeight="187.0" fitWidth="200.0" layoutX="398.0" layoutY="84.0" pickOnBounds="true" preserveRatio="true" />
-      <JFXTextArea fx:id="descr" layoutX="160.0" layoutY="211.0" maxWidth="200.0" minWidth="200.0" prefHeight="37.0" prefWidth="200.0" />
-      <JFXButton fx:id="btnpic" layoutX="160.0" layoutY="301.0" onAction="#btnpicAction" prefHeight="31.0" prefWidth="143.0" text="Add picture" />
+      <JFXComboBox fx:id="cat" layoutX="168.0" layoutY="158.0" prefHeight="31.0" prefWidth="214.0" />
+      <Label layoutX="79.0" layoutY="83.0" text="Name" />
+      <Label layoutX="82.0" layoutY="126.0" text="Price" />
+      <Label layoutX="78.0" layoutY="173.0" text="Category" />
+      <Label layoutX="61.0" layoutY="365.0" text="Description" />
+      <Label layoutX="58.0" layoutY="489.0" text="Picture" />
+      <JFXButton fx:id="addVisual" layoutX="346.0" layoutY="520.0" onAction="#addVisualAction" prefHeight="31.0" prefWidth="169.0" text="Add" />
+      <JFXTextField fx:id="name" layoutX="158.0" layoutY="64.0" maxWidth="223.0" minWidth="223.0" prefHeight="37.0" prefWidth="223.0" />
+      <JFXTextField fx:id="price" layoutX="158.0" layoutY="108.0" maxWidth="223.0" minWidth="223.0" prefHeight="37.0" prefWidth="223.0" />
+      <ImageView fx:id="pict" fitHeight="313.0" fitWidth="247.0" layoutX="496.0" layoutY="115.0" pickOnBounds="true" preserveRatio="true" />
+      <JFXTextArea fx:id="descr" layoutX="153.0" layoutY="347.0" maxWidth="231.0" minWidth="200.0" prefHeight="82.0" prefWidth="231.0" />
+      <JFXButton fx:id="btnpic" layoutX="197.0" layoutY="489.0" onAction="#btnpicAction" prefHeight="31.0" prefWidth="143.0" text="Add picture" />
+      <Label layoutX="81.0" layoutY="218.0" prefHeight="37.0" prefWidth="76.0" text="length" />
+      <Label layoutX="81.0" layoutY="271.0" prefHeight="31.0" prefWidth="76.0" text="width" />
+      <JFXTextField fx:id="len" layoutX="159.0" layoutY="209.0" maxWidth="223.0" minWidth="223.0" prefHeight="37.0" prefWidth="223.0" />
+      <JFXTextField fx:id="wid" layoutX="159.0" layoutY="268.0" maxWidth="231.0" minWidth="231.0" prefHeight="37.0" prefWidth="231.0" />
+      <ImageView fx:id="pict1" fitHeight="313.0" fitWidth="247.0" layoutX="506.0" layoutY="125.0" pickOnBounds="true" preserveRatio="true" />
    </children>
 </AnchorPane>
