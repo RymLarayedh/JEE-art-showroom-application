@@ -35,12 +35,12 @@ public class Entry {
 		//frmManagment.addCategory(ctg);
 		
 		//System.out.println(userManagment.getAllArtists());
-		/*Fields music = new Fields();
-		music.setIdField(2);
-		Fields music1 = new Fields();
-		music1.setIdField(1);
-		userManagment.addFields(music, userManagment.findById(2));
-		userManagment.addFields(music1, userManagment.findById(2));
+		//Fields music = new Fields();
+		//music.setIdField(2);
+		//Fields music1 = new Fields();
+		//music1.setIdField(1);
+		userManagment.addFields(userManagment.findFieldsByName("Music"), userManagment.findById(2));
+		userManagment.addFields(userManagment.findFieldsByName("Paintings"), userManagment.findById(2));
 		List<Artist> LA = userManagment.getAllArtists();
 		for(Artist i : LA)
 		{
@@ -52,7 +52,7 @@ public class Entry {
 			
 		}
 		
-		userManagment.removeFields(music, userManagment.findById(2));
+	/*	userManagment.removeFields(music, userManagment.findById(2));
 		LA = userManagment.getAllArtists();
 		for(Artist i : LA)
 		{
