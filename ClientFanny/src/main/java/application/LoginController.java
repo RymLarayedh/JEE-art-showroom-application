@@ -190,11 +190,11 @@ public class LoginController implements Initializable {
 							informNewPassword.setMinWidth(300);
 							informNewPassword.setTranslateX(100);
 							informNewPassword.setTranslateY(70);
-							TextField newPassword = new TextField();
+							PasswordField newPassword = new PasswordField();
 							newPassword.setMaxWidth(100);
 							newPassword.setTranslateX(10);
 							newPassword.setTranslateY(120);
-							TextField reNewPassword = new TextField();
+							PasswordField reNewPassword = new PasswordField();
 							reNewPassword.setMaxWidth(100);
 							reNewPassword.setTranslateX(10);
 							reNewPassword.setTranslateY(160);
@@ -206,6 +206,27 @@ public class LoginController implements Initializable {
 
 								@Override
 								public void handle(ActionEvent event) {
+									if(!reNewPassword.getText().equals(newPassword.getText()))
+									{
+										Alert alert = new Alert(Alert.AlertType.ERROR);
+										alert.setTitle("Fanny");
+										alert.setHeaderText(null);
+										alert.setContentText("Passwords does not match");
+										alert.showAndWait();
+										return;
+									}
+									if(newPassword.getText().length() < 6)
+									{
+										Alert alert = new Alert(Alert.AlertType.ERROR);
+										alert.setTitle("Fanny");
+										alert.setHeaderText(null);
+										alert.setContentText("Password must have at least 6 digits");
+										alert.showAndWait();
+										return;
+									}
+								User u = userManagment.findByEmail(mailTextField.getText().trim());
+								u.setPassword(newPassword.getText());
+								userManagment.updateUser(u);
 									Alert alert = new Alert(Alert.AlertType.INFORMATION);
 									alert.setTitle("Fanny");
 									alert.setHeaderText(null);
