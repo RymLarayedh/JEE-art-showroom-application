@@ -83,8 +83,9 @@ public class AdminController implements Initializable {
 	@FXML
 	private JFXComboBox<String> nature;
 
-	/*@FXML
-	private JFXComboBox<String> byFollowers;*/
+	/*
+	 * @FXML private JFXComboBox<String> byFollowers;
+	 */
 
 	@FXML
 	private Label sortLabel;
@@ -97,9 +98,10 @@ public class AdminController implements Initializable {
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub
 		nature.setVisible(false);
-		//byFollowers.setVisible(false);
+		// byFollowers.setVisible(false);
 		sortLabel.setVisible(false);
-		//byFollowers.getItems().addAll("LESS FOLLOWED", "MOST FOLLOWED", "NEITHER");
+		// byFollowers.getItems().addAll("LESS FOLLOWED", "MOST FOLLOWED",
+		// "NEITHER");
 		nature.getItems().addAll("ARTISTS", "GALLERIES", nature.getPromptText());
 		AllUsersTable.setEditable(true);
 		AllUsersTable.setVisible(false);
@@ -171,14 +173,33 @@ public class AdminController implements Initializable {
 	@FXML
 	public void ShowAllUsers(ActionEvent event) {
 		nature.setVisible(true);
-		//byFollowers.setVisible(true);
+		// byFollowers.setVisible(true);
 		sortLabel.setVisible(true);
 		popupController.fromWhere = "Active";
-		DisplayUsers("Active");
+		if(nature.getValue() == null)
+		{
+			nature.setValue("Artist & Galleries");
+		}
+
+		if (nature.getValue().equals("Artist & Galleries")) {
+
+			DisplayUsersByFilter(popupController.fromWhere, "Artist & Galleries");
+		}
+
+		if (nature.getValue().equals("GALLERIES")) {
+			DisplayUsersByFilter(popupController.fromWhere, "GALLERIES");
+		}
+		if (nature.getValue().equals("ARTISTS")) {
+			DisplayUsersByFilter(popupController.fromWhere, "ARTISTS");
+		}
 	}
 
 	@FXML
 	public void showPopup(MouseEvent event) throws IOException {
+		if(popupController.userChoosen == AllUsersTable.getSelectionModel().getSelectedItem())
+		{
+			return ;
+		}
 		popupController.userChoosen = AllUsersTable.getSelectionModel().getSelectedItem();
 		Parent adminScene = FXMLLoader.load(getClass().getResource("popup.fxml"));
 		Scene scene = new Scene(adminScene);
@@ -186,27 +207,53 @@ public class AdminController implements Initializable {
 		Sc.setScene(scene);
 		Sc.setScene(scene);
 		Sc.setTitle("FannyTUNISIA");
-		Sc.show();
-		popupController.userChoosen = AllUsersTable.getSelectionModel().getSelectedItem();
+		Sc.showAndWait();
+
 
 	}
 
 	@FXML
 	public void ShowWaitList(ActionEvent event) {
 		nature.setVisible(true);
-		//byFollowers.setVisible(true);
+		// byFollowers.setVisible(true);
 		sortLabel.setVisible(true);
 		popupController.fromWhere = "Wating";
-		DisplayUsers("Wating");
+		if(nature.getValue() == null)
+		{
+			nature.setValue("Artist & Galleries");
+		}
+		if (nature.getValue().equals("GALLERIES")) {
+			DisplayUsersByFilter(popupController.fromWhere, "GALLERIES");
+		}
+		if (nature.getValue().equals("Artist & Galleries")) {
+
+			DisplayUsersByFilter(popupController.fromWhere, "Artist & Galleries");
+		}
+		if (nature.getValue().equals("ARTISTS")) {
+			DisplayUsersByFilter(popupController.fromWhere, "ARTISTS");
+		}
 	}
 
 	@FXML
 	public void ShowBlockedUsers(ActionEvent event) {
 		nature.setVisible(true);
-		//byFollowers.setVisible(true);
+		// byFollowers.setVisible(true);
 		sortLabel.setVisible(true);
 		popupController.fromWhere = "Blocked";
-		DisplayUsers("Blocked");
+		if(nature.getValue() == null)
+		{
+			nature.setValue("Artist & Galleries");
+		}
+		if (nature.getValue().equals("GALLERIES")) {
+			DisplayUsersByFilter(popupController.fromWhere, "GALLERIES");
+		}
+		if (nature.getValue().equals("Artist & Galleries")) {
+
+			DisplayUsersByFilter(popupController.fromWhere, "Artist & Galleries");
+		}
+		if (nature.getValue().equals("ARTISTS")) {
+			DisplayUsersByFilter(popupController.fromWhere, "ARTISTS");
+		}
 	}
 
 	public void DisplayUsers(String etat) {
@@ -342,7 +389,7 @@ public class AdminController implements Initializable {
 	@FXML
 	public void filterType(Event event) {
 		String filterType = nature.getValue();
-		//String filterType2 = byFollowers.getValue();
+		// String filterType2 = byFollowers.getValue();
 		if (filterType.equals("GALLERIES")) {
 			DisplayUsersByFilter(popupController.fromWhere, "GALLERIES");
 		}

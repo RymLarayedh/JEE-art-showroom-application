@@ -20,13 +20,18 @@ import javax.mail.MessagingException;
 import javax.mail.internet.AddressException;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
 
+import entities.Artist;
+import entities.ArtistFields;
+import entities.Gallery;
 import entities.User;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -67,18 +72,57 @@ public class popupController implements Initializable {
 	@FXML
 	private Tab titleTab;
 
+	@FXML
+	private Label DescriptionTF;
+
+	@FXML
+	private Label AddressTF;
+
+	@FXML
+	private Label surfaceTF;
+
+	@FXML
+	private AnchorPane GalleryThing;
+	@FXML
+	private AnchorPane ArtistThing;
+
+	@FXML
+	private Label BioLabel;
+
+	@FXML
+	private JFXComboBox<String> FieldsCombo;
 	static public User userChoosen;
 	static public String fromWhere = "";
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 
+		// the more about section
+		if (userChoosen instanceof Gallery) {
+			GalleryThing.setVisible(true);
+			ArtistThing.setVisible(false);
+			surfaceTF.setText(String.valueOf(((Gallery) userChoosen).getSurface()));
+			AddressTF.setText(((Gallery) userChoosen).getAddress());
+			DescriptionTF.setText(((Gallery) userChoosen).getDescription());
+		}
+
+		if (userChoosen instanceof Artist) {
+			FieldsCombo.getItems().add("----------------------");
+			GalleryThing.setVisible(false);
+			ArtistThing.setVisible(true);
+			BioLabel.setText(((Artist) userChoosen).getBio());
+			for(ArtistFields af:((Artist) userChoosen).getLfields())
+			{
+				FieldsCombo.getItems().add(af.getField().getLibelle());
+			}
+		}
+
 		//
 		firstName.setEditable(false);
 		LastName.setEditable(false);
 		mailTf.setEditable(false);
 		usernameTF.setEditable(false);
-		titleTab.setText("Artist Followed by " + userChoosen.getLastName());
+		titleTab.setText("More about " + userChoosen.getFirstName() + " " + userChoosen.getLastName());
 		firstName.setText(userChoosen.getFirstName());
 		LastName.setText(userChoosen.getLastName());
 		mailTf.setText(userChoosen.getEmail());
