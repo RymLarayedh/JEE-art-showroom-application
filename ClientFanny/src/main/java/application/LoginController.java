@@ -293,9 +293,10 @@ public class LoginController implements Initializable {
 
 	void gotoArtist(ActionEvent event) throws IOException {
 
-		Parent artistScene = FXMLLoader.load(getClass().getResource("Artist.fxml"));
+		Parent artistScene = FXMLLoader.load(getClass().getResource("Profileuser.fxml"));
 		Scene scene = new Scene(artistScene);
-		scene.getStylesheets().add(getClass().getResource("Artist.css").toExternalForm());
+		//scene.getStylesheets().add(getClass().getResource("Artist.css").toExternalForm());
+		scene.getStylesheets().add(getClass().getResource("tableView.css").toExternalForm());
 		Stage Sc = new Stage();
 		Sc.setScene(scene);
 		Sc.show();

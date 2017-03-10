@@ -1,0 +1,407 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package application;
+
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
+
+import javax.imageio.ImageIO;
+
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXTextArea;
+import com.jfoenix.controls.JFXTextField;
+
+import entities.Artist;
+import javafx.animation.PathTransition;
+import javafx.application.Platform;
+import javafx.embed.swing.SwingFXUtils;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
+import javafx.scene.control.TabPane;
+import javafx.scene.control.TableView;
+import javafx.scene.control.Tooltip;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.image.PixelWriter;
+import javafx.scene.image.WritableImage;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.shape.Polyline;
+import javafx.scene.text.Text;
+import javafx.stage.FileChooser;
+import javafx.util.Duration;
+import utils.ConfirmBox;
+
+/**
+ * FXML Controller class
+ *
+ * @author Oussamabhhh
+ */
+public class ProfileuserController implements Initializable {
+
+	@FXML
+	private AnchorPane magicbar;
+	@FXML
+	private ImageView myimage;
+	@FXML
+	private ImageView magic2;
+	@FXML
+	private Text myname;
+	@FXML
+	private Text mylastname;
+	@FXML
+	private Button profil;
+	@FXML
+	private Button message;
+	@FXML
+	private ImageView magic;
+	@FXML
+	private Button home;
+
+	@FXML
+	private Button ownspace;
+	@FXML
+	private Button visuala;
+	@FXML
+	private Button musicb;
+	@FXML
+	private Button eventb;
+	@FXML
+	private Button tunisianc;
+	@FXML
+	private AnchorPane MusicPane;
+	@FXML
+	private TableView tableMusic;
+
+	/* DEBUT AYMEN */
+	@FXML
+	private AnchorPane AymensPane;
+	@FXML
+	private TabPane OwnProfile;
+	MouseEvent mEvent;
+
+	@FXML
+	private Button mailEDIT;
+	@FXML
+	private Button bioEDIT;
+	@FXML
+	private ImageView imageViewProfile;
+	@FXML
+	private JFXTextArea BIOTF;
+	@FXML
+	private JFXTextField FirstNameTF;
+	@FXML
+	private JFXTextField LastNameTF;
+	@FXML
+	private JFXTextField mailTF;
+	@FXML
+	private JFXButton SaveButton;
+	boolean isChanged = false ;
+
+	/**
+	 * Initializes the controller class.
+	 */
+	@Override
+	public void initialize(URL url, ResourceBundle rb) {
+		bioEDIT.setVisible(false);
+		mailEDIT.setVisible(false);
+		AymensPane.setVisible(false);
+		magicbar.setVisible(false);
+
+	}
+
+	@FXML
+	private void message(ActionEvent event) {
+	}
+
+	@FXML
+	private void home(ActionEvent event) {
+	}
+
+	public void affichermagicbar() {
+		Polyline polyline = new Polyline();
+		polyline.getPoints()
+				.addAll(new Double[] { -85.0, 320.0, 85.0, 320.0, 75.0, 320.0, 85.0, 320.0, 80.0, 320.0, 85.0, 320.0 });
+		PathTransition transation = new PathTransition();
+		transation.setNode(magicbar);
+		transation.setDuration(Duration.seconds(2));
+		transation.setPath(polyline);
+		transation.play();
+	}
+
+	public void cachermagicbar() {
+		Polyline polyline = new Polyline();
+		polyline.getPoints().addAll(new Double[] { 85.0, 320.0, -85.0, 320.0, });
+		PathTransition transation = new PathTransition();
+		transation.setNode(magicbar);
+		transation.setDuration(Duration.seconds(2));
+		transation.setPath(polyline);
+		transation.play();
+	}
+
+	public void afficherbouton(Button x, Button y, Button z) {
+		Polyline polyline = new Polyline();
+		polyline.getPoints().addAll(new Double[] { 100.0, 30.0, 100.0, 52.0 });
+
+		PathTransition transation = new PathTransition();
+		transation.setNode(x);
+		transation.setDuration(Duration.seconds(2));
+		transation.setPath(polyline);
+		transation.play();
+
+		Polyline polyline2 = new Polyline();
+		polyline2.getPoints().addAll(new Double[] { 100.0, 30.0, 100.0, 92.0, });
+		PathTransition transation2 = new PathTransition();
+		transation2.setNode(y);
+		transation2.setDuration(Duration.seconds(2));
+		transation2.setPath(polyline2);
+		transation2.play();
+
+		Polyline polyline3 = new Polyline();
+		polyline3.getPoints().addAll(new Double[] { 100.0, 30.0, 100.0, 132.0, });
+		PathTransition transation3 = new PathTransition();
+		transation3.setNode(z);
+		transation3.setDuration(Duration.seconds(2));
+		transation3.setPath(polyline3);
+		transation3.play();
+
+	}
+
+	public void cacherbouton(Button x, Button y, Button z) {
+		Polyline polyline = new Polyline();
+		polyline.getPoints().addAll(new Double[] { 100.0, 52.0, 100.0, 20.0 });
+
+		PathTransition transation = new PathTransition();
+		transation.setNode(x);
+		transation.setDuration(Duration.seconds(2));
+		transation.setPath(polyline);
+		transation.play();
+
+		Polyline polyline2 = new Polyline();
+		polyline2.getPoints().addAll(new Double[] { 100.0, 92.0, 100.0, 20.0, });
+		PathTransition transation2 = new PathTransition();
+		transation2.setNode(y);
+		transation2.setDuration(Duration.seconds(2));
+		transation2.setPath(polyline2);
+		transation2.play();
+
+		Polyline polyline3 = new Polyline();
+		polyline3.getPoints().addAll(new Double[] { 100.0, 132.0, 100.0, 20.0, });
+		PathTransition transation3 = new PathTransition();
+		transation3.setNode(z);
+		transation3.setDuration(Duration.seconds(2));
+		transation3.setPath(polyline3);
+		transation3.play();
+	}
+
+	@FXML
+	private void magic(MouseEvent event) {
+		magicbar.setVisible(true);
+		affichermagicbar();
+		magic.setVisible(false);
+	}
+
+	@FXML
+	private void magic2(MouseEvent event) {
+		mEvent = event;
+		magic.setVisible(false);
+		cachermagicbar();
+		magic.setVisible(true);
+	}
+
+	@FXML
+	private void Myownspace(ActionEvent event) {
+	}
+
+	@FXML
+	private void visualart(ActionEvent event) {
+	}
+
+	@FXML
+	private void Event(ActionEvent event) {
+	}
+
+	@FXML
+	private void Tunisiancraft(ActionEvent event) {
+	}
+
+	/*******************************************************************************************************************/
+	/********************************************************** Ines ***************************************************/
+	@FXML
+	private void music(ActionEvent event) {
+	}
+
+	/*******************************************************************************************/
+	/**************************************************** AYMENE *******************************/
+	/*******************************************************************************************/
+
+	@FXML
+	public void showProfile(MouseEvent event) {
+		ActionEvent ae = new ActionEvent(event.getSource(), event.getTarget());
+		showProfileBTN(ae);
+	}
+
+	@FXML
+	public void showProfileBTN(ActionEvent event) {
+		AymensPane.setVisible(true);
+		OwnProfile.setVisible(true);
+		mailTF.setEditable(false);
+		BIOTF.setEditable(false);
+		FirstNameTF.setEditable(false);
+		LastNameTF.setEditable(false);
+		SaveButton.setVisible(false);
+		FirstNameTF.setTooltip(new Tooltip("Click To Edit"));
+		LastNameTF.setTooltip(new Tooltip("Click To Edit"));
+		FirstNameTF.setText(LoginController.userLogedIn.getFirstName());
+		LastNameTF.setText(LoginController.userLogedIn.getLastName());
+		mailTF.setText(LoginController.userLogedIn.getEmail());
+		BIOTF.setText(((Artist) LoginController.userLogedIn).getBio());
+		if (LoginController.userLogedIn.getPicture() == null) {
+			File file = new File("./src/main/java/buttons/PasDePhotoDeProfil.png");
+			BufferedImage bufferedImage;
+			try {
+				bufferedImage = ImageIO.read(file);
+				Image image = SwingFXUtils.toFXImage(bufferedImage, null);
+				imageViewProfile.setImage(image);
+			} catch (IOException e) {
+			}
+
+		} else {
+			try {
+				byte[] b = LoginController.userLogedIn.getPicture();
+				BufferedImage imgbf = null;
+
+				imgbf = ImageIO.read(new ByteArrayInputStream(b));
+				WritableImage wr = null;
+				if (imgbf != null) {
+					wr = new WritableImage(imgbf.getWidth(), imgbf.getHeight());
+					PixelWriter pw = wr.getPixelWriter();
+					for (int x = 0; x < imgbf.getWidth(); x++) {
+						for (int y = 0; y < imgbf.getHeight(); y++) {
+							pw.setArgb(x, y, imgbf.getRGB(x, y));
+						}
+					}
+				}
+				imageViewProfile.setImage(wr);
+			} catch (IOException e) {
+			}
+
+		}
+		magic2(mEvent);
+
+	}
+
+	@FXML
+	private void mailEDITPERFORM(ActionEvent event) {
+		mailTF.setEditable(true);
+		mailTF.requestFocus();
+		BIOTF.setEditable(false);
+		isChanged = true;
+		SaveButton.setVisible(true);
+	}
+
+	@FXML
+	private void bioEDITPERFORM(ActionEvent event) {
+		BIOTF.setEditable(true);
+		BIOTF.requestFocus();
+		mailTF.setEditable(false);
+		isChanged = true;
+		SaveButton.setVisible(true);
+	}
+
+	@FXML
+	private void ChangeProfilePIC(MouseEvent event) {
+		Image image = null;
+		FileChooser fileChooser = new FileChooser();
+		FileChooser.ExtensionFilter extFilterJPG = new FileChooser.ExtensionFilter("JPG files (*.jpg)", "*.JPG");
+		FileChooser.ExtensionFilter extFilterPNG = new FileChooser.ExtensionFilter("PNG files (*.png)", "*.PNG");
+		fileChooser.getExtensionFilters().addAll(extFilterJPG, extFilterPNG);
+		File file = fileChooser.showOpenDialog(null);
+		if (file == null) {
+			return;
+		}
+		try {
+			BufferedImage bufferedImage = ImageIO.read(file);
+			image = SwingFXUtils.toFXImage(bufferedImage, null);
+		} catch (IOException ex) {
+		}
+		byte[] bFile = new byte[(int) file.length()];
+		try {
+			FileInputStream fileInputStream = new FileInputStream(file);
+			fileInputStream.read(bFile);
+			fileInputStream.close();
+		} catch (Exception e) {
+		}
+
+		boolean confirm = ConfirmBox.display("", "Do you confirm this change ?");
+
+		if (confirm) {
+			imageViewProfile.setImage(image);
+			LoginController.userLogedIn.setPicture(bFile);
+			isChanged = true;
+			SaveButton.setVisible(true);
+		}
+
+	}
+
+	@FXML
+	private void EmailEDIT(MouseEvent event) {
+		mailEDIT.setVisible(true);
+		bioEDIT.setVisible(false);
+	}
+
+	@FXML
+	private void BIOEDIT(MouseEvent event) {
+		mailEDIT.setVisible(false);
+		bioEDIT.setVisible(true);
+	}
+
+	@FXML
+	private void FirstNameEDIT(MouseEvent event) {
+		mailEDIT.setVisible(false);
+		bioEDIT.setVisible(false);
+		mailTF.setEditable(false);
+		BIOTF.setEditable(false);
+		FirstNameTF.setEditable(true);
+		LastNameTF.setEditable(false);
+		FirstNameTF.requestFocus();
+		isChanged = true;
+		SaveButton.setVisible(true);
+	}
+
+	@FXML
+	private void LastNameEDIT(MouseEvent event) {
+		mailEDIT.setVisible(false);
+		bioEDIT.setVisible(false);
+		mailTF.setEditable(false);
+		BIOTF.setEditable(false);
+		LastNameTF.setEditable(true);
+		FirstNameTF.setEditable(false);
+		LastNameTF.requestFocus();
+		isChanged = true;
+		SaveButton.setVisible(true);
+	}
+
+	@FXML
+	private void SaveChanges(ActionEvent event) {
+		if(isChanged)
+		{
+			LoginController.userLogedIn.setFirstName(FirstNameTF.getText());
+			LoginController.userLogedIn.setLastName(LastNameTF.getText());
+			LoginController.userLogedIn.setEmail(mailTF.getText());
+			((Artist)LoginController.userLogedIn).setBio(BIOTF.getText());
+			LoginController.userManagment.updateUser((Artist)LoginController.userLogedIn);
+		}
+	}
+
+}

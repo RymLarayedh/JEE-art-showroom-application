@@ -77,7 +77,7 @@ public class Entry {
 		{
 			System.out.println(u);
 		}*/
-		User u = new User();
+	/*	User u = new User();
 		u.setEmail("zaza@hotmail.com");
 		u.setUsername("zaza");
 		u.setPassword("zzaz");
@@ -85,7 +85,7 @@ public class Entry {
 		Artist at = new Artist(u);
 		//at.setIdUser(5);
 		System.out.println(at);
-		userManagment.addUser(at);
+		userManagment.addUser(at);*/
 		
 	}
 
