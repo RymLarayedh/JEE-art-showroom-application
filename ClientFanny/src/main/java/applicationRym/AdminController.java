@@ -55,6 +55,9 @@ import services.EventUserManagmentRemote;
 import services.FeedbackManagmentRemote;
 import services.UserManagmentRemote;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  * FXML Controller class
  *
@@ -740,6 +743,16 @@ public class AdminController implements Initializable {
 		ptp.setHandle(1);
 		proxyF.updateReclamation(ptp);
 		
+    }
+    @FXML
+    private void imprimer(ActionEvent event) {
+        try {
+            utilprojet u = new utilprojet();
+            u.DownloadDocuemntProjet();
+        } catch (Exception ex) {
+            Logger.getLogger(PdfController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }
 
     

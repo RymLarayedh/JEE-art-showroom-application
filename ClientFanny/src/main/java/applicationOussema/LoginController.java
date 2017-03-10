@@ -1,4 +1,4 @@
-package applicationRym;
+package applicationOussema;
 
 import java.io.IOException;
 import java.net.URL;
@@ -86,6 +86,7 @@ public class LoginController implements Initializable {
 			alert.showAndWait();
 			usernameTF.clear();
 			passwordTF.clear();
+			return ;
 		}
 
 	}
@@ -254,7 +255,7 @@ public class LoginController implements Initializable {
 	void gotoAdmin(ActionEvent event) throws IOException {
 		Parent adminScene = FXMLLoader.load(getClass().getResource("Admin.fxml"));
 		Scene scene = new Scene(adminScene);
-		//scene.getStylesheets().add(getClass().getResource("Admin.css").toExternalForm());
+		scene.getStylesheets().add(getClass().getResource("Admin.css").toExternalForm());
 		Stage Sc = new Stage();
 		Sc.setScene(scene);
 		Sc.show();
@@ -265,9 +266,9 @@ public class LoginController implements Initializable {
 
 	void gotoArtist(ActionEvent event) throws IOException {
 
-		Parent artistScene = FXMLLoader.load(getClass().getResource("Profileuser.fxml"));
+		Parent artistScene = FXMLLoader.load(getClass().getResource("Artist.fxml"));
 		Scene scene = new Scene(artistScene);
-		//scene.getStylesheets().add(getClass().getResource("Artist.css").toExternalForm());
+		scene.getStylesheets().add(getClass().getResource("Artist.css").toExternalForm());
 		Stage Sc = new Stage();
 		Sc.setScene(scene);
 		Sc.show();

@@ -160,6 +160,7 @@
                                                 <Label fx:id="details1" layoutX="456.0" layoutY="184.0" prefHeight="125.0" prefWidth="114.0" />
                                              </children>
                                           </AnchorPane>
+                                          <Button layoutX="600.0" layoutY="140.0" mnemonicParsing="false" onAction="#imprimer" prefHeight="62.0" prefWidth="82.0" text="imprimer" />
                                        </children>
                                     </AnchorPane>
                                     <AnchorPane fx:id="displayReclamation" prefHeight="450.0" prefWidth="704.0">
