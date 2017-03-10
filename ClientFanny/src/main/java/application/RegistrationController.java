@@ -168,6 +168,35 @@ public class RegistrationController implements Initializable {
 			alert.showAndWait();
 			return;
 		}
+        try {
+            for (int i = 0; i < firstNameRegistrationTF.getText().trim().length(); i++) {
+                if ((firstNameRegistrationTF.getText().trim().toUpperCase().charAt(i) > 90 )||(firstNameRegistrationTF.getText().trim().toUpperCase().charAt(i) < 65 )) {
+                    throw new NumberFormatException();
+                }
+            }
+            }catch (NumberFormatException E) {
+    			Alert alert = new Alert(Alert.AlertType.ERROR);
+    			alert.setTitle("Fanny");
+    			alert.setHeaderText(null);
+    			alert.setContentText("First Name must Contains only characters");
+    			alert.showAndWait();
+    			return;
+        }
+        
+        try {
+            for (int i = 0; i < lastNameRegistrationTF.getText().trim().length(); i++) {
+                if ((lastNameRegistrationTF.getText().trim().toUpperCase().charAt(i) > 90 )||(lastNameRegistrationTF.getText().trim().toUpperCase().charAt(i) < 65 )) {
+                    throw new NumberFormatException();
+                }
+            }
+            }catch (NumberFormatException E) {
+    			Alert alert = new Alert(Alert.AlertType.ERROR);
+    			alert.setTitle("Fanny");
+    			alert.setHeaderText(null);
+    			alert.setContentText("Last Name must Contains only characters");
+    			alert.showAndWait();
+    			return;
+        }
 		newUser.setFirstName(firstNameRegistrationTF.getText());
 		newUser.setLastName(lastNameRegistrationTF.getText());
 		newUser.setEmail(mailRegistrationTF.getText());
@@ -212,6 +241,15 @@ public class RegistrationController implements Initializable {
 					@Override
 					public void handle(ActionEvent event) {
 						// TODO Auto-generated method stub
+						if(DescriptionRegistrationTA.getText().trim().length() < 15)
+						{
+			    			Alert alert = new Alert(Alert.AlertType.ERROR);
+			    			alert.setTitle("Fanny");
+			    			alert.setHeaderText(null);
+			    			alert.setContentText("Description must have at least 15 caracters");
+			    			alert.showAndWait();
+			    			return;
+						}
 						gallery.setDescription(DescriptionRegistrationTA.getText());
 						try {
 							gallery.setSurface(Float.valueOf(surfaceRegistrationTF.getText()));
@@ -275,6 +313,15 @@ public class RegistrationController implements Initializable {
 						if (scultureField.isSelected()) {
 							Fields sculpture = LoginController.userManagment.findFieldsByName("Sculpture");
 							Lf.add(sculpture);
+						}
+						if(bioTextArea.getText().trim().length() < 15)
+						{
+			    			Alert alert = new Alert(Alert.AlertType.ERROR);
+			    			alert.setTitle("Fanny");
+			    			alert.setHeaderText(null);
+			    			alert.setContentText("Bio must have at least 15 caracters");
+			    			alert.showAndWait();
+			    			return;
 						}
 						artist.setBio(bioTextArea.getText());
 						LoginController.userManagment.addUser(artist);
@@ -378,6 +425,15 @@ public class RegistrationController implements Initializable {
 					@Override
 					public void handle(ActionEvent event) {
 						// TODO Auto-generated method stub
+						if(DescriptionRegistrationTA.getText().trim().length() < 15)
+						{
+			    			Alert alert = new Alert(Alert.AlertType.ERROR);
+			    			alert.setTitle("Fanny");
+			    			alert.setHeaderText(null);
+			    			alert.setContentText("Description must have at least 15 caracters");
+			    			alert.showAndWait();
+			    			return;
+						}
 						gallery.setDescription(DescriptionRegistrationTA.getText());
 						try {
 							gallery.setSurface(Float.valueOf(surfaceRegistrationTF.getText()));
@@ -441,6 +497,15 @@ public class RegistrationController implements Initializable {
 						if (scultureField.isSelected()) {
 							Fields sculpture = LoginController.userManagment.findFieldsByName("Sculpture");
 							Lf.add(sculpture);
+						}
+						if(bioTextArea.getText().trim().length() < 15)
+						{
+			    			Alert alert = new Alert(Alert.AlertType.ERROR);
+			    			alert.setTitle("Fanny");
+			    			alert.setHeaderText(null);
+			    			alert.setContentText("Bio must have at least 15 caracters");
+			    			alert.showAndWait();
+			    			return;
 						}
 						artist.setBio(bioTextArea.getText());
 						LoginController.userManagment.addUser(artist);
