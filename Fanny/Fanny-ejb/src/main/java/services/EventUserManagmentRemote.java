@@ -32,6 +32,10 @@ public interface EventUserManagmentRemote {
 	 */
 	public void deleteEvent(EventUser e);
 	public List<EventUser> findByUserId(int id);
+	public EventUser findByUserEventId(int idU, int idE);
+	public void deleteEventUser(Event e, User u);
+	public void updateEventUser(EventUser event);
+	
 	
 	
 	
