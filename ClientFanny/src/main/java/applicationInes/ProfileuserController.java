@@ -6,19 +6,41 @@
 package applicationInes;
 
 import java.net.URL;
+import java.util.Date;
+import java.util.List;
 import java.util.ResourceBundle;
+
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+
+import entities.Category;
+import entities.Music;
+import entities.User;
 import javafx.animation.PathTransition;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.TableCell;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TableColumn.CellDataFeatures;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.shape.Polyline;
 import javafx.scene.text.Text;
+import javafx.util.Callback;
 import javafx.util.Duration;
+import services.ForumManagementRemote;
+import services.UserManagmentRemote;
 
 /**
  * FXML Controller class
@@ -59,7 +81,22 @@ public class ProfileuserController implements Initializable {
 	@FXML
 	private AnchorPane MusicPane;
 	@FXML
-	private TableView tableMusic;
+	private TableView<Music> tableMusic;
+
+	@FXML
+	private TableColumn<Music, byte[]> picture;
+	@FXML
+	private TableColumn<Music,String> user;
+	@FXML
+	private TableColumn<Music,String> name;
+	
+	ObservableList<Music> dataMusic = FXCollections.observableArrayList();
+
+	
+
+	InitialContext ctx;
+	public static ForumManagementRemote forumManagement;
+	public static UserManagmentRemote userManagement;
     
 
     /**
@@ -68,6 +105,20 @@ public class ProfileuserController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         magicbar.setVisible(false);
+        MusicPane.setVisible(false);
+        
+    	try {
+			ctx = new InitialContext();
+			forumManagement = (ForumManagementRemote) ctx
+					.lookup("/Fanny-ear/Fanny-ejb/ForumManagement!services.ForumManagementRemote");
+			userManagement = (UserManagmentRemote) ctx
+					.lookup("/Fanny-ear/Fanny-ejb/UserManagment!services.UserManagmentRemote");
+			Category p = new Category();
+
+		} catch (NamingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
        
     }    
 
@@ -220,5 +271,76 @@ public class ProfileuserController implements Initializable {
     /**********************************************************Ines ***************************************************/
     @FXML
     private void music(ActionEvent event) {
+        MusicPane.setVisible(true);
+        displayMusic();
+
+    }
+    
+    public void displayMusic()
+    {
+    	tableMusic.getItems().clear();
+		List<Music> listMusic = forumManagement.findAllMusic();
+		for (Music m : listMusic) {
+			dataMusic.add(m);
+		}
+		//System.out.println(dataMusic);
+		//picture.setCellValueFactory(new PropertyValueFactory<User, byte[]>("picutre"));
+		
+//		picture.setCellValueFactory(new Callback<CellDataFeatures<Music, byte[]>, ObservableValue<String>>() {
+//
+//			@Override
+//			public ObservableValue<String> call(CellDataFeatures<Music, byte[]> param) {
+//				// TODO Auto-generated method stub
+//				return null;
+//			}
+//			
+//		});
+		
+		
+//		  picture.setCellValueFactory(new PropertyValueFactory("album"));
+//	        picture.setPrefWidth(200); 
+//	        picture.setCellFactory(new Callback<TableColumn<Music,byte[]>,TableCell<Music,byte[]>>(){        
+//	            @Override
+//	            public TableCell<Music, byte[]> call(TableColumn<Music, byte[]> param) {                
+//	                TableCell<Music, byte[]> cell = new TableCell<Music, byte[]>(){
+//	                    @Override
+//	                    public void updateItem(byte[] item, boolean empty) {                        
+//	                        if(item!=null){                            
+//	                            HBox box= new HBox();
+//	                            box.setSpacing(10) ;
+//	                            VBox vbox = new VBox();
+//	                            vbox.getChildren().add(new Label(item.getArtist()));
+//	                            vbox.getChildren().add(new Label(item.getAlbum())); 
+//
+//	                            ImageView imageview = new ImageView();
+//	                            imageview.setFitHeight(50);
+//	                            imageview.setFitWidth(50);
+//	                            imageview.setImage(new Image(MusicTable.class.getResource("img").toString()+"/"+item.getFilename())); 
+//
+//	                            box.getChildren().addAll(imageview,vbox); 
+//	                            //SETTING ALL THE GRAPHICS COMPONENT FOR CELL
+//	                            setGraphic(box);
+//	                        }
+//	                    }
+//	                };
+//	                System.out.println(cell.getIndex());               
+//	                return cell;
+//	            }
+//	            
+//	        }); 
+	        
+		
+		name.setCellValueFactory(new PropertyValueFactory<Music, String>("name"));
+		user.setCellValueFactory(new Callback<CellDataFeatures<Music, String>, ObservableValue<String>>() {
+
+			@Override
+			public ObservableValue<String> call(CellDataFeatures<Music, String> param) {
+				// TODO Auto-generated method stub
+				return new SimpleStringProperty(param.getValue().getUser().getUsername());
+			}
+
+		});
+		tableMusic.setItems(dataMusic);
+    	
     }
 }

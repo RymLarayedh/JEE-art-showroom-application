@@ -7,3 +7,12 @@
     -fx-o-background-size: cover;
     -fx-background-size: cover;
 }
+
+#scroll{
+    -fx-background-image: url("../buttons/loginBackground.jpg");
+    -fx-webkit-background-size: cover;
+    -fx-moz-background-size: cover;
+    -fx-o-background-size: cover;
+    -fx-background-size: cover;
+}
+
