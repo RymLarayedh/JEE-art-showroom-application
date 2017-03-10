@@ -358,7 +358,7 @@ public class ProfileuserController implements Initializable {
     	EventUser PTP = eventsPane1.getSelectionModel().getSelectedItem();
         if (PTP != null) {
             this.selected = 1;
-            //remplirTableParticipant(PTP);
+            remplirTableParticipant(PTP.getEvent());
             usernameArtist.setText(PTP.getEvent().getArtist().getUsername());
             usernameGallery.setText(PTP.getEvent().getGallery().getUsername());
             Integer d=PTP.getEvent().getListEventUser().size(); 
