@@ -207,7 +207,7 @@
             <Button layoutX="14.0" layoutY="22.0" mnemonicParsing="false" onAction="#complain" text="Complain" />
          </children>
       </AnchorPane>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#eee7e8d9" height="118.0" layoutX="212.0" layoutY="94.0" stroke="BLACK" strokeType="INSIDE" width="237.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#eee7e8d9" height="90.0" layoutX="212.0" layoutY="142.0" stroke="#b2aaaa" strokeType="INSIDE" width="220.0" />
       <SplitPane dividerPositions="0.3365921787709497" layoutX="211.0" layoutY="232.0" prefHeight="315.0" prefWidth="718.0">
         <items>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="241.0" prefWidth="150.0">
@@ -247,16 +247,54 @@
                         <TableColumn fx:id="emailP" prefWidth="220.0" text="Email" />
                     </columns>
                   </TableView>
-                  <Label layoutX="28.0" layoutY="45.0" text="Artist" />
-                  <Label layoutX="166.0" layoutY="45.0" text="Gallery" />
-                  <Label fx:id="nbrParticipant" layoutX="411.0" layoutY="14.0" prefHeight="35.0" prefWidth="46.0" />
-                  <Label fx:id="usernameArtist" layoutX="23.0" layoutY="113.0" prefHeight="23.0" prefWidth="78.0" />
-                  <Label fx:id="usernameGallery" layoutX="149.0" layoutY="113.0" prefHeight="23.0" prefWidth="78.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="70.0" layoutY="28.0" stroke="BLACK" strokeType="INSIDE" width="220.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="70.0" layoutX="235.0" layoutY="28.0" stroke="BLACK" strokeType="INSIDE" width="220.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="29.0" stroke="BLACK" strokeType="INSIDE" width="99.0" />
+                  <Label layoutX="33.0" layoutY="6.0" text="Artist" />
+                  <Label fx:id="nbrParticipant" layoutX="7.0" layoutY="121.0" prefHeight="27.0" prefWidth="192.0" textFill="#808080" />
+                  <Label fx:id="usernameArtist" layoutX="330.0" layoutY="33.0" prefHeight="63.0" prefWidth="113.0" />
+                  <Label fx:id="usernameGallery" layoutX="81.0" layoutY="32.0" prefHeight="63.0" prefWidth="131.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="26.0" layoutY="97.0" stroke="BLACK" strokeType="INSIDE" width="471.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="29.0" layoutX="236.0" stroke="BLACK" strokeType="INSIDE" width="99.0" />
+                  <Label layoutX="266.0" layoutY="7.0" text="Gallery" />
+                  <ImageView fx:id="yes" fitHeight="27.0" fitWidth="23.0" layoutX="341.0" layoutY="124.0" onMouseClicked="#noParticipate" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../buttons/1.png" />
+                     </image>
+                  </ImageView>
+                  <Label fx:id="yesLabel" layoutX="370.0" layoutY="127.0" text="I will participate" />
+                  <ImageView fx:id="no" fitHeight="27.0" fitWidth="23.0" layoutX="341.0" layoutY="124.0" onMouseClicked="#yesParticipate" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../buttons/2.png" />
+                     </image>
+                  </ImageView>
+                  <Label fx:id="noLabel" layoutX="369.0" layoutY="128.0" prefHeight="17.0" prefWidth="110.0" text="Not interessted" />
                </children>
             </AnchorPane>
         </items>
       </SplitPane>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#eee7e8d9" height="118.0" layoutX="458.0" layoutY="94.0" stroke="BLACK" strokeType="INSIDE" width="237.0" />
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#eee7e8d9" height="118.0" layoutX="704.0" layoutY="94.0" stroke="BLACK" strokeType="INSIDE" width="237.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#eee7e8d9" height="90.0" layoutX="459.0" layoutY="142.0" stroke="#b2aaaa" strokeType="INSIDE" width="220.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#eee7e8d9" height="90.0" layoutX="709.0" layoutY="142.0" stroke="#b2aaaa" strokeType="INSIDE" width="220.0" />
+      <Label fx:id="eventMax1" layoutX="290.0" layoutY="128.0" prefHeight="90.0" prefWidth="142.0" />
+      <Label fx:id="eventMax2" layoutX="540.0" layoutY="136.0" prefHeight="81.0" prefWidth="123.0" />
+      <Label fx:id="eventMax3" layoutX="788.0" layoutY="140.0" prefHeight="81.0" prefWidth="123.0" />
+      <ImageView fx:id="imgMax1" fitHeight="81.0" fitWidth="90.0" layoutX="214.0" layoutY="142.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../buttons/generic-award.png" />
+         </image>
+      </ImageView>
+      <Label fx:id="nbrMax1" layoutX="246.0" layoutY="151.0" prefHeight="26.0" prefWidth="34.0" />
+      <ImageView fx:id="imgMax3" fitHeight="81.0" fitWidth="90.0" layoutX="709.0" layoutY="142.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../buttons/generic-award.png" />
+         </image>
+      </ImageView>
+      <Label fx:id="nbrMax3" layoutX="741.0" layoutY="155.0" prefHeight="26.0" prefWidth="34.0" />
+      <ImageView fx:id="imgMax2" fitHeight="81.0" fitWidth="90.0" layoutX="459.0" layoutY="142.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../buttons/generic-award.png" />
+         </image>
+      </ImageView>
+      <Label fx:id="nbrMax2" layoutX="491.0" layoutY="151.0" prefHeight="26.0" prefWidth="34.0" />
    </children>
 </AnchorPane>
