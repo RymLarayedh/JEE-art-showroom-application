@@ -14,6 +14,8 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
 import javafx.animation.PathTransition;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -38,7 +40,10 @@ import javafx.stage.Stage;
 import javafx.util.Callback;
 import javafx.util.Duration;
 import services.EventManagmentRemote;
+import services.EventUserManagmentRemote;
 import entities.Event;
+import entities.EventUser;
+import entities.User;
 
 /**
  * FXML Controller class
@@ -87,13 +92,14 @@ public class ProfileuserController implements Initializable {
 	ObservableList<Event> dataEvent = FXCollections.observableArrayList();
 
     //***
+	public static User userLogedIn;
 	@FXML
-    private TableView<Event> eventsPane1;
+    private TableView<EventUser> eventsPane1;
     @FXML
-    private TableColumn<Event, Date> DateBeginEvents1;
+    private TableColumn<EventUser, Date> DateBeginEvents1;
     @FXML
-    private TableColumn<Event, String> TitleEvents1;
-    ObservableList<Event> dataEvent1 = FXCollections.observableArrayList();
+    private TableColumn<EventUser, String> TitleEvents1;
+    ObservableList<EventUser> dataEvent1 = FXCollections.observableArrayList();
 	//***
 	
     
@@ -269,21 +275,47 @@ public class ProfileuserController implements Initializable {
     	
     }
     public void remplirEvents1() throws NamingException{
-    	InitialContext ctx = new InitialContext();
-		Object objet = ctx.lookup("/Fanny-ear/Fanny-ejb/EventManagment!services.EventManagmentRemote");
-		EventManagmentRemote proxy = (EventManagmentRemote) objet;
-		ObservableList<Event> eventSelected, allEvent;
-        allEvent = eventsPane1.getItems();
-        allEvent.clear();
-        for (Event e : proxy.getAllEvents()) {
-            dataEvent1.add(e);
-        }
-        DateBeginEvents1.setCellValueFactory(new PropertyValueFactory<Event, Date>("dateBegin"));
-        TitleEvents1.setCellValueFactory(new PropertyValueFactory<Event, String>("title"));
-       
-        	eventsPane1.setItems(dataEvent1);
+    		
+    		try {
+    		InitialContext ctx = new InitialContext();
+    		Object objet = ctx.lookup("/Fanny-ear/Fanny-ejb/EventUserManagment!services.EventUserManagmentRemote");
+        	EventUserManagmentRemote proxy = (EventUserManagmentRemote) objet;	
+    		ObservableList<EventUser> eventUSelected, allEvent;
+            allEvent = eventsPane1.getItems();
+            allEvent.clear();
+            for (EventUser e : proxy.findByUserId(userLogedIn.getIdUser())) {
+                dataEvent1.add(e);
+            }
+            
+            DateBeginEvents1.setCellValueFactory(new Callback<CellDataFeatures<EventUser, Date>, ObservableValue<Date>>() {
+
+    			@Override
+    			public ObservableValue<Date> call(CellDataFeatures<EventUser, Date> param) {
+    				// TODO Auto-generated method stub
+    				return new SimpleObjectProperty<Date>(param.getValue().getEvent().getDateBegin());
+    			}
+
+    		});
+            TitleEvents1.setCellValueFactory(new Callback<CellDataFeatures<EventUser, String>, ObservableValue<String>>() {
+
+    			@Override
+    			public ObservableValue<String> call(CellDataFeatures<EventUser, String> param) {
+    				// TODO Auto-generated method stub
+    				return new SimpleStringProperty(param.getValue().getEvent().getTitle());
+    			}
+
+    		});
+
+            eventsPane1.setItems(dataEvent1);
+    		
+    		} catch (NamingException e1) {
+    			// TODO Auto-generated catch block
+    			e1.printStackTrace();
+    		}
+    		
+    	}
     	
-    }
+    
 
     @FXML
     private void Tunisiancraft(ActionEvent event) {

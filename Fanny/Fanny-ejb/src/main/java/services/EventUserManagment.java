@@ -49,6 +49,17 @@ public class EventUserManagment implements EventUserManagmentRemote {
 		}
 	}
 	@Override
+	public List<EventUser> findByUserId(int id) {
+		try {
+			TypedQuery<EventUser> q = em.createQuery("SELECT b from EventUser b JOIN b.eventUserID c where c.idUserPK = :id)", EventUser.class);
+			q.setParameter("id", id);
+			List<EventUser> eventUser = q.getResultList();
+			return eventUser;
+		} catch (javax.persistence.NoResultException E) {
+			return null;
+		}
+	}
+	@Override
 	public void deleteEvent(EventUser e) {
 		em.remove(em.merge(e));
 		
