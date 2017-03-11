@@ -361,19 +361,53 @@ public class ProfileuserController implements Initializable {
     	//********************
     	List<Event> EventBySize =new ArrayList<Event>();
     	List<EventUser> Leu = new ArrayList<EventUser>();
-        for (Event e : au ){
-        	Leu = proxyEU.findByEventId(e.getIdEvent());
-        }
-        for (EventUser eventUser : Leu) {
-			if(eventUser.getStatus()==1){		
-				EventBySize.add(proxy.findEventById(eventUser.getEvent().getIdEvent()));
-			}
-		}    
+    	List<Event> EventBySize2 = new ArrayList<Event>();
+//        for (Event e : au ){
+//        	Leu = proxyEU.findByEventId(e.getIdEvent());
+//        	for (EventUser eventUser : Leu) {
+//    			if(eventUser.getStatus()==1){
+//    				EventBySize.add(e);
+//    				//EventBySize.add(proxy.findEventById(eventUser.getEvent().getIdEvent()));
+//    			}
+//    		}  
+//        }
+//        
+//        System.out.println(EventBySize.get(1).getIdEvent());
+    	EventBySize2=proxy.getAllEvents();
+    	
+          for (Event event : EventBySize2) {
+        	  int t=0;
+			Leu=event.getListEventUser();
+			for (EventUser eventUser : Leu) {
+				if(eventUser.getStatus()==1){
+					
+					t=t+1;
+				}
+		}
+			System.out.println(t);
+			EventBySize.add(event);
+			System.out.println();
+          
+		}
         //************************
+       
+        //*************************
         
 		Collections.sort(EventBySize, new Comparator<Event>() {
 	        public int compare(Event o1, Event o2) {
-	            return o2.getListEventUser().size() - o1.getListEventUser().size();
+	        	List<EventUser> aaa = new ArrayList<EventUser>();
+	        	for (EventUser eu : o2.getListEventUser()) {
+					if(eu.getStatus()==1){
+						aaa.add(eu);
+					}
+				}
+	        	List<EventUser> aaa2 = new ArrayList<EventUser>();
+	        	for (EventUser eu : o1.getListEventUser()) {
+					if(eu.getStatus()==1){
+						aaa2.add(eu);
+					}
+				}
+	            return aaa.size() - aaa2.size();
 	        }
 	    });
 		if(EventBySize.size()>=3)
@@ -388,11 +422,33 @@ public class ProfileuserController implements Initializable {
 			eventMax3.setText("Title = "+EventBySize.get(2).getTitle()+"\nArtist = "
 				      +EventBySize.get(2).getArtist().getUsername()+"\nGallery="
 							+EventBySize.get(2).getGallery().getUsername());
-			Integer i1=EventBySize.get(0).getListEventUser().size();
+			
+			List<EventUser> aaab = new ArrayList<EventUser>();
+        	for (EventUser eu : EventBySize.get(0).getListEventUser()) {
+				if(eu.getStatus()==1){
+					aaab.add(eu);
+				}
+			}
+        	
+        	List<EventUser> aaab2 = new ArrayList<EventUser>();
+        	for (EventUser eu : EventBySize.get(1).getListEventUser()) {
+				if(eu.getStatus()==1){
+					aaab2.add(eu);
+				}
+			}
+        	
+        	List<EventUser> aaab3 = new ArrayList<EventUser>();
+        	for (EventUser eu : EventBySize.get(2).getListEventUser()) {
+				if(eu.getStatus()==1){
+					aaab3.add(eu);
+				}
+			}
+        	
+			Integer i1=aaab.size();
 			nbrMax1.setText(i1.toString());
-			Integer i2=EventBySize.get(1).getListEventUser().size();
+			Integer i2=aaab2.size();
 			nbrMax2.setText(i2.toString());
-			Integer i3=EventBySize.get(2).getListEventUser().size();
+			Integer i3=aaab3.size();
 			nbrMax3.setText(i3.toString());
 		}
 		if(EventBySize.size()==2)
