@@ -16,15 +16,23 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import javax.imageio.ImageIO;
+import javax.mail.MessagingException;
+import javax.mail.internet.AddressException;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
 
+import entities.Artist;
+import entities.ArtistFields;
+import entities.Gallery;
 import entities.User;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Label;
+import javafx.scene.control.Tab;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.PixelWriter;
@@ -61,17 +69,71 @@ public class popupController implements Initializable {
 	@FXML
 	private AnchorPane popupAnchor;
 
+	@FXML
+	private Tab titleTab;
+
+	@FXML
+	private Label DescriptionTF;
+
+	@FXML
+	private Label AddressTF;
+
+	@FXML
+	private Label surfaceTF;
+
+	@FXML
+	private AnchorPane GalleryThing;
+	@FXML
+	private AnchorPane ArtistThing;
+
+	@FXML
+	private Label BioLabel;
+
+	@FXML
+	private JFXComboBox<String> FieldsCombo;
+	
+	@FXML
+	private JFXButton FollowersBTN;
+	
+	@FXML
+	private JFXButton ArtworksBTN;
+	
 	static public User userChoosen;
+	static public String fromWhere = "";
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 
-		//
+		// the more about section
+		if (userChoosen instanceof Gallery) {
+			GalleryThing.setVisible(true);
+			ArtistThing.setVisible(false);
+			FollowersBTN.setVisible(false);
+			ArtworksBTN.setVisible(false);
+			surfaceTF.setText(String.valueOf(((Gallery) userChoosen).getSurface()));
+			AddressTF.setText(((Gallery) userChoosen).getAddress());
+			DescriptionTF.setText(((Gallery) userChoosen).getDescription());
+		}
 
+		if (userChoosen instanceof Artist) {
+			FollowersBTN.setVisible(true);
+			ArtworksBTN.setVisible(true);
+			FieldsCombo.getItems().add("----------------------");
+			GalleryThing.setVisible(false);
+			ArtistThing.setVisible(true);
+			BioLabel.setText(((Artist) userChoosen).getBio());
+			for(ArtistFields af:((Artist) userChoosen).getLfields())
+			{
+				FieldsCombo.getItems().add(af.getField().getLibelle());
+			}
+		}
+
+		//
 		firstName.setEditable(false);
 		LastName.setEditable(false);
 		mailTf.setEditable(false);
 		usernameTF.setEditable(false);
+		titleTab.setText("More about " + userChoosen.getFirstName() + " " + userChoosen.getLastName());
 		firstName.setText(userChoosen.getFirstName());
 		LastName.setText(userChoosen.getLastName());
 		mailTf.setText(userChoosen.getEmail());
@@ -105,24 +167,88 @@ public class popupController implements Initializable {
 				profileAdmin.setImage(wr);
 			} catch (IOException e) {
 			}
-
 		}
-		if (userChoosen.isActive()) {
-			disableButton.setText("Disable this user");
+		if (fromWhere.equals("Active")) {
+			disableButton.setText("Block this user");
+		} else if (fromWhere.equals("Wating")) {
+			disableButton.setText("Approve this user");
 		} else {
-			disableButton.setText("Enable this user");
+			disableButton.setText("Unblock this user");
 		}
 
 	}
 
 	@FXML
-	void DisableUsersAccount(ActionEvent event) {
-		if (disableButton.getText().equals("Disable this user")) {
+	void DisableUsersAccount(ActionEvent event) throws AddressException, MessagingException {
+		if (disableButton.getText().equals("Block this user")) {
 			LoginController.userManagment.blockUser(userChoosen);
-			disableButton.setText("Enable this user");
+			Runnable mailing = new Runnable() {
+
+				@Override
+				public void run() {
+					try {
+						LoginController.userManagment.sendMail(userChoosen.getEmail(),
+								"FannyTUNISIA is sorry to announce that we blocked your account for the moment",
+								"Something went wrong");
+					} catch (MessagingException e) {
+					}
+
+				}
+
+			};
+			new Thread(mailing).start();
+			Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+			alert.setTitle("Fanny");
+			alert.setHeaderText(null);
+			alert.setContentText("User Blocked");
+			alert.showAndWait();
+			disableButton.setDisable(true);
+		} else if (disableButton.getText().equals("Approve this user")) {
+			LoginController.userManagment.enableUser(userChoosen);
+			Runnable mailing = new Runnable() {
+
+				@Override
+				public void run() {
+					try {
+						LoginController.userManagment.sendMail(userChoosen.getEmail(),
+								"FannyTUNISIA is so glad to have you again in our community welcome aboard again",
+								"Welcome again");
+					} catch (MessagingException e) {
+					}
+
+				}
+
+			};
+			new Thread(mailing).start();
+			Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+			alert.setTitle("Fanny");
+			alert.setHeaderText(null);
+			alert.setContentText("User Approved");
+			alert.showAndWait();
+			disableButton.setDisable(true);
 		} else {
 			LoginController.userManagment.unblockUser(userChoosen);
-			disableButton.setText("Disable this user");
+			Runnable mailing = new Runnable() {
+
+				@Override
+				public void run() {
+					try {
+						LoginController.userManagment.sendMail(userChoosen.getEmail(),
+								"FannyTUNISIA is so glad to have you in our community so please behave and respect other members",
+								"Welcome aboard");
+					} catch (MessagingException e) {
+					}
+
+				}
+
+			};
+			new Thread(mailing).start();
+			Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+			alert.setTitle("Fanny");
+			alert.setHeaderText(null);
+			alert.setContentText("User Unblocked");
+			alert.showAndWait();
+			disableButton.setDisable(true);
 		}
 
 	}
@@ -178,6 +304,13 @@ public class popupController implements Initializable {
 					userChoosen.setUsername(usernameTF.getText());
 					userChoosen.setEmail(mailTf.getText());
 					LoginController.userManagment.updateUser(userChoosen);
+					FXMLLoader loader = new FXMLLoader(this.getClass().getResource("Admin.fxml"));
+					try {
+						Parent root = (Parent) loader.load();
+					} catch (Exception e1) {
+					}
+					AdminController controller = loader.getController();
+					// controller.DisplayUsers();
 				}
 				stage.close();
 			});
@@ -203,9 +336,17 @@ public class popupController implements Initializable {
 					userChoosen.setUsername(usernameTF.getText());
 					userChoosen.setEmail(mailTf.getText());
 					LoginController.userManagment.updateUser(userChoosen);
+					stage.close();
+					FXMLLoader loader = new FXMLLoader(this.getClass().getResource("Admin.fxml"));
+					try {
+						Parent root = (Parent) loader.load();
+					} catch (Exception e1) {
+					}
+					AdminController controller = loader.getController();
+					controller.setTable(LoginController.userManagment.getAllUsers());
 
 				}
-				stage.close();
+
 			});
 		} else {
 			LastName.setEditable(false);
@@ -226,6 +367,13 @@ public class popupController implements Initializable {
 					userChoosen.setUsername(usernameTF.getText());
 					userChoosen.setEmail(mailTf.getText());
 					LoginController.userManagment.updateUser(userChoosen);
+					FXMLLoader loader = new FXMLLoader(this.getClass().getResource("Admin.fxml"));
+					try {
+						Parent root = (Parent) loader.load();
+					} catch (Exception e1) {
+					}
+					AdminController controller = loader.getController();
+					// controller.DisplayUsers();
 
 				}
 				stage.close();
@@ -251,6 +399,13 @@ public class popupController implements Initializable {
 					userChoosen.setUsername(usernameTF.getText());
 					userChoosen.setEmail(mailTf.getText());
 					LoginController.userManagment.updateUser(userChoosen);
+					FXMLLoader loader = new FXMLLoader(this.getClass().getResource("Admin.fxml"));
+					try {
+						Parent root = (Parent) loader.load();
+					} catch (Exception e1) {
+					}
+					AdminController controller = loader.getController();
+					// controller.DisplayUsers();
 				}
 				stage.close();
 			});
@@ -278,6 +433,18 @@ public class popupController implements Initializable {
 			}
 		}
 		return false;
+	}
+
+	@FXML
+	public void ShowFollowers(ActionEvent event){
+		FollowersBTN.setDisable(true);
+		
+	}
+	
+	@FXML
+	public void ShowArtworks(ActionEvent event){
+		ArtworksBTN.setDisable(true);
+		
 	}
 
 }

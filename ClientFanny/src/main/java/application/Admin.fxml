@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
 <?import javafx.scene.control.Accordion?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
@@ -33,7 +34,9 @@
                                     <content>
                                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="81.0" prefWidth="169.0">
                                              <children>
-                                                <JFXButton layoutX="14.0" layoutY="13.0" onAction="#ShowAllUsers" text="Show All Users" />
+                                                <JFXButton layoutX="14.0" layoutY="36.0" onAction="#ShowBlockedUsers" text="Manage Blocked Users" />
+                                                <JFXButton layoutX="14.0" layoutY="13.0" onAction="#ShowAllUsers" text="Manage Active Users" />
+                                                <JFXButton layoutX="14.0" layoutY="59.0" onAction="#ShowWaitList" text="Manage Wait List" />
                                              </children>
                                           </AnchorPane>
                                     </content>
@@ -86,7 +89,7 @@
                            <children>
                               <AnchorPane fx:id="AymensPane" prefHeight="459.0" prefWidth="706.0">
                                  <children>
-                                    <TableView fx:id="AllUsersTable" onMouseClicked="#showPopup" prefHeight="459.0" prefWidth="704.0">
+                                    <TableView fx:id="AllUsersTable" layoutY="93.0" onMouseClicked="#showPopup" prefHeight="366.0" prefWidth="704.0">
                                       <columns>
                                         <TableColumn fx:id="picture" editable="false" prefWidth="85.0" sortable="false" text="picture" />
                                         <TableColumn fx:id="firstName" prefWidth="113.0" text="FirstName" />
@@ -96,6 +99,8 @@
                                           <TableColumn fx:id="status" prefWidth="108.6666259765625" text="Status" />
                                       </columns>
                                     </TableView>
+                                    <Label fx:id="sortLabel" layoutX="31.0" layoutY="34.0" text="Sort by" />
+                                    <JFXComboBox fx:id="nature" layoutX="146.0" layoutY="28.0" onHiding="#filterType" prefHeight="25.0" prefWidth="149.0" promptText="Artist &amp; Galleries" />
                                  </children>
                               </AnchorPane>
                            </children>
@@ -123,6 +128,7 @@
          <menus>
             <Menu mnemonicParsing="false" text="File">
                <items>
+                  <MenuItem mnemonicParsing="false" onAction="#Disconnect" text="Disconnect" />
                   <MenuItem mnemonicParsing="false" onAction="#closeFanny" text="Close" />
                </items>
             </Menu>

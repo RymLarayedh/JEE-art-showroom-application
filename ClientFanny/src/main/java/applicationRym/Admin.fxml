@@ -96,7 +96,7 @@
                            <children>
                               <AnchorPane fx:id="RymsPane" prefHeight="380.0" prefWidth="608.0">
                                  <children>
-                                    <AnchorPane fx:id="addEventPane" opacity="0.0" prefHeight="452.0" prefWidth="701.0">
+                                    <AnchorPane fx:id="addEventPane" prefHeight="452.0" prefWidth="701.0">
                                        <children>
                                           <JFXTextArea fx:id="description" layoutX="200.0" layoutY="79.0" maxWidth="354.0" minWidth="209.0" prefHeight="81.0" prefWidth="354.0" />
                                           <JFXTextField fx:id="title" layoutX="201.0" layoutY="50.0" />
@@ -118,23 +118,10 @@
                                           <Label fx:id="details" layoutX="386.0" layoutY="272.0" prefHeight="121.0" prefWidth="214.0" />
                                        </children>
                                     </AnchorPane>
-                                    <AnchorPane fx:id="displayReclamation" opacity="0.0" prefHeight="450.0" prefWidth="578.0">
-                                       <children>
-                                          <TableView fx:id="tableReclamation" layoutX="1.0" layoutY="1.0" onMouseClicked="#selectReclamation" prefHeight="442.0" prefWidth="591.0">
-                                             <columns>
-                                                <TableColumn fx:id="artwork" prefWidth="111.0" text="Artwork" />
-                                                <TableColumn fx:id="user" prefWidth="90.0" text="User" />
-                                                <TableColumn fx:id="body" prefWidth="237.0" text="Body" />
-                                                <TableColumn fx:id="date" prefWidth="93.0" text="Date" />
-                                                <TableColumn fx:id="degree" prefWidth="59.0" text="Degree" />
-                                             </columns>
-                                          </TableView>
-                                       </children>
-                                    </AnchorPane>
                                     <AnchorPane fx:id="displayEventPane" prefHeight="452.0" prefWidth="702.0">
                                        <children>
                                           <Button fx:id="delete" layoutX="587.0" layoutY="27.0" mnemonicParsing="false" onAction="#deleteEvent" prefHeight="29.0" prefWidth="116.0" text="Delete" />
-                                          <TableView fx:id="tableEvent" layoutY="1.0" onMouseClicked="#selectEvent" prefHeight="452.0" prefWidth="586.0">
+                                          <TableView fx:id="tableEvent" layoutY="1.0" onMouseClicked="#selectEvent" prefHeight="225.0" prefWidth="586.0">
                                              <columns>
                                                 <TableColumn fx:id="title1" prefWidth="104.0" text="Title" />
                                                 <TableColumn fx:id="description1" prefWidth="113.0" text="Description" />
@@ -142,6 +129,50 @@
                                                 <TableColumn fx:id="dateEnd1" prefWidth="117.0" text="Date End" />
                                                 <TableColumn fx:id="gallery" prefWidth="77.0" text="Gallery" />
                                                 <TableColumn fx:id="artist" prefWidth="76.0" text="Artist" />
+                                             </columns>
+                                          </TableView>
+                                          <AnchorPane fx:id="participantPane" layoutX="1.0" layoutY="226.0" prefHeight="224.0" prefWidth="584.0">
+                                             <children>
+                                                <TableView fx:id="tableParticipant" onMouseClicked="#selectParticipant" prefHeight="225.0" prefWidth="583.0">
+                                                  <columns>
+                                                    <TableColumn fx:id="usernameParticipant" prefWidth="96.0" text="Participant" />
+                                                    <TableColumn fx:id="emailParticipant" prefWidth="157.0" text="Email" />
+                                                  </columns>
+                                                </TableView>
+                                             </children>
+                                          </AnchorPane>
+                                          <Button layoutX="585.0" layoutY="56.0" mnemonicParsing="false" onAction="#updateEvent" prefHeight="29.0" prefWidth="120.0" text="Update" />
+                                          <AnchorPane fx:id="updateEventPane" prefHeight="452.0" prefWidth="583.0">
+                                             <children>
+                                                <JFXTextArea fx:id="description11" layoutX="216.0" layoutY="91.0" maxWidth="354.0" minWidth="209.0" prefHeight="81.0" prefWidth="354.0" />
+                                                <JFXTextField fx:id="title11" layoutX="216.0" layoutY="62.0" />
+                                                <Text layoutX="147.0" layoutY="83.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Title :" wrappingWidth="62.86328125" />
+                                                <Label layoutX="121.0" layoutY="155.0" text="Description :" />
+                                                <Button layoutX="240.0" layoutY="341.0" mnemonicParsing="false" onAction="#updateEventDone" text="Update Event" />
+                                                <JFXDatePicker fx:id="dateBegin11" layoutX="5.0" layoutY="213.0" />
+                                                <JFXDatePicker fx:id="dateEnd11" layoutX="210.0" layoutY="213.0" />
+                                                <Label layoutX="13.0" layoutY="196.0" text="Date Begining" />
+                                                <Label layoutX="216.0" layoutY="196.0" text="Date Ending" />
+                                                <ComboBox fx:id="galleryList1" layoutX="198.0" layoutY="279.0" onAction="#chooseGalleryUpdate" prefWidth="150.0" />
+                                                <ComboBox fx:id="artistList1" layoutX="32.0" layoutY="279.0" onAction="#chooseArtistUpdate" prefWidth="150.0" />
+                                                <Label layoutX="198.0" layoutY="254.0" text="Gallery :" />
+                                                <Label layoutX="35.0" layoutY="254.0" text="Artist :" />
+                                                <Label fx:id="details1" layoutX="456.0" layoutY="184.0" prefHeight="125.0" prefWidth="114.0" />
+                                             </children>
+                                          </AnchorPane>
+                                          <Button layoutX="600.0" layoutY="140.0" mnemonicParsing="false" onAction="#imprimer" prefHeight="62.0" prefWidth="82.0" text="imprimer" />
+                                       </children>
+                                    </AnchorPane>
+                                    <AnchorPane fx:id="displayReclamation" prefHeight="450.0" prefWidth="704.0">
+                                       <children>
+                                          <Button layoutX="592.0" layoutY="25.0" mnemonicParsing="false" onAction="#handle" prefHeight="131.0" prefWidth="112.0" text="Handle" />
+                                          <TableView fx:id="tableReclamation" layoutX="1.0" layoutY="1.0" onMouseClicked="#selectReclamation" prefHeight="442.0" prefWidth="591.0">
+                                             <columns>
+                                                <TableColumn fx:id="artwork" prefWidth="111.0" text="Artwork" />
+                                                <TableColumn fx:id="user" prefWidth="90.0" text="User" />
+                                                <TableColumn fx:id="body" prefWidth="237.0" text="Body" />
+                                                <TableColumn fx:id="date" prefWidth="93.0" text="Date" />
+                                                <TableColumn fx:id="degree" prefWidth="59.0" text="Degree" />
                                              </columns>
                                           </TableView>
                                        </children>

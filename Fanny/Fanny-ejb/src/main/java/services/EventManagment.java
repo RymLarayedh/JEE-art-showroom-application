@@ -74,6 +74,9 @@ public class EventManagment implements EventManagmentRemote {
 		List<Event> Levent = q.getResultList();
 		return Levent;
 	}
+	
+	
+	
 
 	@Override
 	public Event findEventById(int id) {

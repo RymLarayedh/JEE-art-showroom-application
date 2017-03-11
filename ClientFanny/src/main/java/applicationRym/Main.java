@@ -21,7 +21,6 @@ public class Main extends Application {
             primaryStage.setOnCloseRequest(e ->{
                 e.consume();
                 closeProgram(primaryStage);
-                //r
             });
             primaryStage.show();
 			
@@ -42,4 +41,5 @@ public class Main extends Application {
         }
         
     }
+    
 }

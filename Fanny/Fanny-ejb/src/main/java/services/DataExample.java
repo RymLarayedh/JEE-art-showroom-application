@@ -14,12 +14,15 @@ import javax.persistence.PersistenceContext;
 import entities.Admin;
 import entities.Artist;
 import entities.Artwork;
+import entities.Cart;
+import entities.CartId;
 import entities.Event;
 import entities.EventUser;
 import entities.EventUserID;
 import entities.FeedbackId;
 import entities.Fields;
 import entities.Gallery;
+import entities.Music;
 import entities.Reclamation;
 import entities.TunisianCraft;
 import entities.User;
@@ -37,6 +40,8 @@ public class DataExample {
 	@EJB ArtworkManagemetRemote artworkManagment;
 	@EJB EventManagmentRemote eventManagment;
 	@EJB EventUserManagmentRemote eventUserManagment;
+	@EJB ForumManagementRemote forumManagement;
+	@EJB CartEJBRemote cartManagement;
 	
 	@PersistenceContext(unitName = "Fanny-ejb")
 	EntityManager em;
@@ -57,6 +62,7 @@ public class DataExample {
 		u1.setActive(true);
 		u1.setEmail("mohamedaymen.elarbi@esprit.tn");
 		u1.setFirstName("Aymen");
+		u1.setLastName("Elarbi");
 		
 		Artist u12 = new Artist();
 		u12.setUsername("ines");
@@ -64,6 +70,7 @@ public class DataExample {
 		u12.setActive(true);
 		u12.setEmail("ines.wannen@esprit.tn");
 		u12.setFirstName("ines");
+		u12.setLastName("Wannen");
 		
 		Gallery u13 = new Gallery();
 		u13.setUsername("gallery");
@@ -71,12 +78,14 @@ public class DataExample {
 		u13.setActive(true);
 		u13.setEmail("zimouarbi@gmail.com");
 		u13.setFirstName("zimouarbi");
+		u13.setLastName("EUREKA");
 		
 		List<Fields> Lf = new ArrayList();
 		Lf.add(new Fields("Music"));
-		Lf.add(new Fields("Arts"));
-		Lf.add(new Fields("Visual Arts"));
+		Lf.add(new Fields("Paintings"));
+		Lf.add(new Fields("Photography"));
 		Lf.add(new Fields("Tunisian Craft"));
+		Lf.add(new Fields("Sculpture"));
 		
 		for(Fields f:Lf)
 		{
@@ -136,6 +145,29 @@ public class DataExample {
 		r.setDate(d);
 		r.setHandle(0);
 		feedbackManagment.addReclamation(r);
+		
+		/********Ines
+		 * 
+		 */
+		Music m = new Music();
+		m.setName("sia");
+		forumManagement.addMusic(m);
+		
+
+		/****
+		 * 
+		 */
+		
+		Cart c1= new Cart();
+		CartId cId= new CartId();
+		cId.setArtworkId(1);
+		cId.setBuyerId(2);
+		c1.setIdCart(cId);
+		c1.setDate("12/12/12");
+		c1.setPrice(20014);
+		c1.setQuantity(1);
+		c1.setStatus(1);
+		cartManagement.addCart(c1);
 
 	}
 

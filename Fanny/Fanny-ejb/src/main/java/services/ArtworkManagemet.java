@@ -54,14 +54,14 @@ public class ArtworkManagemet implements ArtworkManagemetRemote {
 	
 	@Override
 	public List<TunisianCraft> getAllTunisianCraft() {
-		TypedQuery<TunisianCraft> T = em.createQuery("SELECT t FROM Artwok t", TunisianCraft.class);
+		TypedQuery<TunisianCraft> T = em.createQuery("SELECT t FROM TunisianCraft t", TunisianCraft.class);
 		List<TunisianCraft> Tcraft = T.getResultList();
 		return Tcraft;	}
 	@Override
 	public List<TunisianCraft> findByType(String type) {
 		try {
 
-			TypedQuery<TunisianCraft> T = em.createQuery("SELECT t FROM Artwork t where t.type =:type ", TunisianCraft.class);
+			TypedQuery<TunisianCraft> T = em.createQuery("SELECT t FROM TunisianCraft t where t.Type =:type ", TunisianCraft.class);
 			T.setParameter("type", type);
 			List<TunisianCraft> TcraftType = T.getResultList();
 			return TcraftType;

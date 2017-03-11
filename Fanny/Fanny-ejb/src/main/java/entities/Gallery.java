@@ -19,6 +19,7 @@ public class Gallery extends User implements Serializable {
 
 	private float Surface;
 	private String Description;
+	private String Address;
 	@OneToMany(cascade={CascadeType.PERSIST,CascadeType.MERGE})
 	private Set<Picture> PhotoAlbum;
 	private static final long serialVersionUID = 1L;
@@ -57,6 +58,15 @@ public class Gallery extends User implements Serializable {
 		PhotoAlbum = photoAlbum;
 	}
 
+	public String getAddress() {
+		return Address;
+	}
+
+	public void setAddress(String address) {
+		Address = address;
+	}
+
+	
 
 
 

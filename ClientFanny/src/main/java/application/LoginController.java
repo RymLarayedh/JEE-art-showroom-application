@@ -190,11 +190,11 @@ public class LoginController implements Initializable {
 							informNewPassword.setMinWidth(300);
 							informNewPassword.setTranslateX(100);
 							informNewPassword.setTranslateY(70);
-							TextField newPassword = new TextField();
+							PasswordField newPassword = new PasswordField();
 							newPassword.setMaxWidth(100);
 							newPassword.setTranslateX(10);
 							newPassword.setTranslateY(120);
-							TextField reNewPassword = new TextField();
+							PasswordField reNewPassword = new PasswordField();
 							reNewPassword.setMaxWidth(100);
 							reNewPassword.setTranslateX(10);
 							reNewPassword.setTranslateY(160);
@@ -206,6 +206,27 @@ public class LoginController implements Initializable {
 
 								@Override
 								public void handle(ActionEvent event) {
+									if(!reNewPassword.getText().equals(newPassword.getText()))
+									{
+										Alert alert = new Alert(Alert.AlertType.ERROR);
+										alert.setTitle("Fanny");
+										alert.setHeaderText(null);
+										alert.setContentText("Passwords does not match");
+										alert.showAndWait();
+										return;
+									}
+									if(newPassword.getText().length() < 6)
+									{
+										Alert alert = new Alert(Alert.AlertType.ERROR);
+										alert.setTitle("Fanny");
+										alert.setHeaderText(null);
+										alert.setContentText("Password must have at least 6 digits");
+										alert.showAndWait();
+										return;
+									}
+								User u = userManagment.findByEmail(mailTextField.getText().trim());
+								u.setPassword(newPassword.getText());
+								userManagment.updateUser(u);
 									Alert alert = new Alert(Alert.AlertType.INFORMATION);
 									alert.setTitle("Fanny");
 									alert.setHeaderText(null);
@@ -258,6 +279,12 @@ public class LoginController implements Initializable {
 		scene.getStylesheets().add(getClass().getResource("Admin.css").toExternalForm());
 		Stage Sc = new Stage();
 		Sc.setScene(scene);
+		Sc.setTitle("FannyTUNISIA");
+		Sc.setOnCloseRequest(e ->{
+            e.consume();
+            Main.closeProgram(Sc);
+        });
+
 		Sc.show();
 		final Node source = (Node) event.getSource();
 		final Stage stage = (Stage) source.getScene().getWindow();
@@ -266,9 +293,10 @@ public class LoginController implements Initializable {
 
 	void gotoArtist(ActionEvent event) throws IOException {
 
-		Parent artistScene = FXMLLoader.load(getClass().getResource("Artist.fxml"));
+		Parent artistScene = FXMLLoader.load(getClass().getResource("Profileuser.fxml"));
 		Scene scene = new Scene(artistScene);
-		scene.getStylesheets().add(getClass().getResource("Artist.css").toExternalForm());
+		//scene.getStylesheets().add(getClass().getResource("Artist.css").toExternalForm());
+		scene.getStylesheets().add(getClass().getResource("tableView.css").toExternalForm());
 		Stage Sc = new Stage();
 		Sc.setScene(scene);
 		Sc.show();
@@ -279,9 +307,10 @@ public class LoginController implements Initializable {
 	}
 
 	void gotoGallery(ActionEvent event) throws IOException {
-		Parent galleryScene = FXMLLoader.load(getClass().getResource("Gallery.fxml"));
-		Scene scene = new Scene(galleryScene);
-		scene.getStylesheets().add(getClass().getResource("Gallery.css").toExternalForm());
+		Parent artistScene = FXMLLoader.load(getClass().getResource("Profileuser.fxml"));
+		Scene scene = new Scene(artistScene);
+		//scene.getStylesheets().add(getClass().getResource("Artist.css").toExternalForm());
+		scene.getStylesheets().add(getClass().getResource("tableView.css").toExternalForm());
 		Stage Sc = new Stage();
 		Sc.setScene(scene);
 		Sc.show();

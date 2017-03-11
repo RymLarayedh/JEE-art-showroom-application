@@ -46,15 +46,27 @@ public class User implements Serializable {
 	@OneToMany(mappedBy="user"/*,fetch=FetchType.EAGER*/)
 	private List<Artwork> listArtwork;
 	@OneToMany(mappedBy="sender")
-	private List<Message> listMessages;
+	private Set<Message> listMessages;
+	@OneToMany(mappedBy="user")
+	private Set<Cart> listCart;
 	
 
-	public List<Message> getListMessages() {
+	
+
+	public Set<Message> getListMessages() {
 		return listMessages;
 	}
 
-	public void setListMessages(List<Message> listMessages) {
+	public void setListMessages(Set<Message> listMessages) {
 		this.listMessages = listMessages;
+	}
+
+	public Set<Cart> getListCart() {
+		return listCart;
+	}
+
+	public void setListCart(Set<Cart> listCart) {
+		this.listCart = listCart;
 	}
 
 	public List<Artwork> getListArtwork() {
@@ -76,6 +88,7 @@ public class User implements Serializable {
 		this.password = password;
 		this.email = email;
 		this.isActive = false;
+		this.isBlocked = false;
 	}
 	
 	public User(User user)
@@ -85,7 +98,9 @@ public class User implements Serializable {
 		this.username = user.getUsername();
 		this.password = user.getPassword();
 		this.email = user.getEmail();
+		this.picture = user.getPicture();
 		this.isActive = false;
+		this.isBlocked = false;
 	}
 
 
@@ -170,6 +185,29 @@ public class User implements Serializable {
 				+ username + ", password=" + password + ", email=" + email + ", isActive=" + isActive
 				+ "]";
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + idUser;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		User other = (User) obj;
+		if (idUser != other.idUser)
+			return false;
+		return true;
+	}
+	
 	
 	
    

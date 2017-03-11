@@ -9,15 +9,27 @@ import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 
+import entities.Artist;
+import entities.Gallery;
 import entities.TunisianCraft;
 import entities.User;
 
+import java.awt.Label;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -36,6 +48,7 @@ import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import services.ArtworkManagemetRemote;
 import services.EventManagmentRemote;
+import services.UserManagmentRemote;
 
 /**
  * FXML Controller class
@@ -52,6 +65,12 @@ public class TunisianCraftController implements Initializable {
     private JFXTextField QuantityT;
     @FXML
     private ImageView ImageT;
+    
+    @FXML
+    private JFXTextField  pricet;
+    @FXML
+    private JFXTextField namet;
+    int idar = 1 ;  
 	InitialContext ctx;
 
     File picture ;
@@ -70,6 +89,7 @@ public class TunisianCraftController implements Initializable {
         Types.add("Traditional Clothing");
         Types.add("Other");
     	TypeT.setItems(Types);
+    	
         }    
 
     @FXML
@@ -97,14 +117,28 @@ public class TunisianCraftController implements Initializable {
 		Object objet = ctx.lookup("/Fanny-ear/Fanny-ejb/ArtworkManagemet!services.ArtworkManagemetRemote");
 		ArtworkManagemetRemote proxy = (ArtworkManagemetRemote) objet;	
 	    TunisianCraft TunC = new TunisianCraft() ;
-
-		TunC = new TunisianCraft();
+	    DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        LocalDateTime now = LocalDateTime.now();
+        Instant instant = now.atZone(ZoneId.systemDefault()).toInstant();     
+		java.util.Date date = Date.from(instant);
+		TunC.setDateOfOublication(date);
+	    TunC = new TunisianCraft();
 		TunC.setType(TypeT.getValue());
-		
 		TunC.setDescription(DescT.getText());
+		TunC.setName(namet.getText());
+		float f = Float.parseFloat(pricet.getText());
+		
+
+		TunC.setPrice(f);
 		int Q = Integer.parseInt(QuantityT.getText());
 		TunC.setQuantity(Q);
 		
+		Object object = ctx.lookup("/Fanny-ear/Fanny-ejb/UserManagment!services.UserManagmentRemote");
+		UserManagmentRemote proxyU = (UserManagmentRemote) object;
+		User U =new Artist();
+		U= proxyU.findById(idar);
+		System.out.println(U);
+		TunC.setUser(U);
 		byte[] bFile = new byte[(int) picture.length()];
 		try {
 			FileInputStream fileInputStream = new FileInputStream(picture);

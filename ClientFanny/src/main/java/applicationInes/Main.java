@@ -13,9 +13,10 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-			Parent root = FXMLLoader.load(getClass().getResource("Login.fxml"));
-			Scene scene = new Scene(root,600,600);
-			//scene.getStylesheets().add(getClass().getResource("Login.css").toExternalForm());
+			Parent root = FXMLLoader.load(getClass().getResource("Profileuser.fxml"));
+			Scene scene = new Scene(root,1000,800);
+			scene.getStylesheets().add(getClass().getResource("tableView.css").toExternalForm());
+
 			primaryStage.setScene(scene);
 			primaryStage.setTitle("FannyTUNISIA");
 //            primaryStage.setOnCloseRequest(e ->{

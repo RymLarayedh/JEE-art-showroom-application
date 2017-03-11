@@ -54,7 +54,7 @@ public class UserManagment implements UserManagmentRemote {
 
 	@Override
 	public void addUser(User user) {
-		em.persist(user);
+		em.persist(em.merge(user));
 
 	}
 
@@ -91,7 +91,7 @@ public class UserManagment implements UserManagmentRemote {
 		if (user == null) {
 			return false;
 		} else if (user.getPassword().equals(password)) {
-			if (user.isActive()) {
+			if (user.isActive() && (!user.isBlocked())) {
 				return true;
 			}
 			return false;
@@ -150,13 +150,15 @@ public class UserManagment implements UserManagmentRemote {
 
 	@Override
 	public void blockUser(User user) {
-		
-		disableUser(user);
+
+		user.setBlocked(true);
+		updateUser(user);
 	}
 
 	@Override
 	public void unblockUser(User user) {
-		enableUser(user);
+		user.setBlocked(false);
+		updateUser(user);
 	}
 
 	@Override
@@ -210,6 +212,7 @@ public class UserManagment implements UserManagmentRemote {
 
 	@Resource(name = "java:jboss/mail/gmail")
 	private Session session;
+
 	@Asynchronous
 	public void sendMail(String Recipient, String text, String subject) throws AddressException, MessagingException {
 		// Recipient's email ID needs to be mentioned.
@@ -384,8 +387,7 @@ public class UserManagment implements UserManagmentRemote {
 
 	@Override
 	public boolean checkMailExistance(String mail) {
-		if(findByEmail(mail)== null)
-		{
+		if (findByEmail(mail) == null) {
 			return true;
 		}
 		return false;
@@ -393,12 +395,49 @@ public class UserManagment implements UserManagmentRemote {
 
 	@Override
 	public boolean checkUsernameExistance(String username) {
-		if(findByUsername(username) == null)
-		{
+		if (findByUsername(username) == null) {
 			return true;
 		}
-		
+
 		return false;
+	}
+
+	@Override
+	public List<Artist> getAllFollowed(User user) {
+		try {
+			TypedQuery<Artist> q = em.createQuery("SELECT a FROM Artist a join a.Followers af where af.user=:User",
+					Artist.class);
+			q.setParameter("User", user);
+			List<Artist> Lartist = q.getResultList();
+			return Lartist;
+		} catch (javax.persistence.NoResultException e) {
+			return null;
+		}
+	}
+
+	@Override
+	public Fields findFieldsByName(String name) {
+		try {
+			TypedQuery<Fields> q = em.createQuery("SELECT f FROM Fields f where f.Libelle =:name", Fields.class);
+			q.setParameter("name", name);
+			Fields fields = q.getSingleResult();
+			return fields;
+		} catch (javax.persistence.NoResultException e) {
+			return null;
+		}
+	}
+
+	@Override
+	public List<User> filterLastNameAndLastName(String name) {
+		try {
+			TypedQuery<User> q = em
+					.createQuery("SELECT u FROM User u where u.firstName LIKE :ln or u.lastName LIKE :ln ", User.class);
+			q.setParameter("ln", '%' + name + '%');
+			List<User> Luser = q.getResultList();
+			return Luser;
+		} catch (javax.persistence.NoResultException E) {
+			return null;
+		}
 	}
 
 }
