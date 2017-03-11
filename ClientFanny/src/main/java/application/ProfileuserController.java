@@ -148,6 +148,26 @@ public class ProfileuserController implements Initializable {
 	ObservableList<User> UsersData = FXCollections.observableArrayList();
 	List<User> LrecherchFN = new ArrayList<>();
 	List<User> Lremove = new ArrayList<>();
+	@FXML
+	private JFXTextField mailTFGallery;
+	@FXML
+	private Button mailEDITGallery;
+	@FXML
+	private Button descriptionEDIT;
+	@FXML
+	private JFXTextArea description;
+	@FXML
+	private Button addressEDITGallery;
+	@FXML
+	private JFXTextField AddressTFGallery;
+	@FXML
+	private ImageView imageViewProfileG;
+	@FXML
+	private JFXTextField FirstNameTFG;
+	@FXML
+	private JFXTextField LastNameTFG;
+	@FXML
+	private JFXButton SaveGalleryButton;
 
 	/**
 	 * Initializes the controller class.
@@ -157,10 +177,41 @@ public class ProfileuserController implements Initializable {
 		OwnProfileArtist.setVisible(false);
 		OwnProfileGallery.setVisible(false);
 		searchTable.setVisible(false);
-		bioEDIT.setVisible(false);
-		mailEDIT.setVisible(false);
 		AymensPane.setVisible(true);
 		magicbar.setVisible(false);
+
+		// aymen//
+		if (LoginController.userLogedIn.getPicture() == null) {
+			File file = new File("./src/main/java/buttons/PasDePhotoDeProfil.png");
+			BufferedImage bufferedImage;
+			try {
+				bufferedImage = ImageIO.read(file);
+				Image image = SwingFXUtils.toFXImage(bufferedImage, null);
+				myimage.setImage(image);
+			} catch (IOException e) {
+			}
+
+		} else {
+			try {
+				byte[] b = LoginController.userLogedIn.getPicture();
+				BufferedImage imgbf = null;
+
+				imgbf = ImageIO.read(new ByteArrayInputStream(b));
+				WritableImage wr = null;
+				if (imgbf != null) {
+					wr = new WritableImage(imgbf.getWidth(), imgbf.getHeight());
+					PixelWriter pw = wr.getPixelWriter();
+					for (int x = 0; x < imgbf.getWidth(); x++) {
+						for (int y = 0; y < imgbf.getHeight(); y++) {
+							pw.setArgb(x, y, imgbf.getRGB(x, y));
+						}
+					}
+				}
+				myimage.setImage(wr);
+			} catch (IOException e) {
+			}
+		}
+		// endAymen//
 
 	}
 
@@ -299,49 +350,120 @@ public class ProfileuserController implements Initializable {
 	public void showProfileBTN(ActionEvent event) {
 		searchTable.setVisible(false);
 		AymensPane.setVisible(true);
-		OwnProfileArtist.setVisible(true);
-		mailTF.setEditable(false);
-		BIOTF.setEditable(false);
-		FirstNameTF.setEditable(false);
-		LastNameTF.setEditable(false);
-		SaveButton.setVisible(false);
-		FirstNameTF.setTooltip(new Tooltip("Click To Edit"));
-		LastNameTF.setTooltip(new Tooltip("Click To Edit"));
-		FirstNameTF.setText(LoginController.userLogedIn.getFirstName());
-		LastNameTF.setText(LoginController.userLogedIn.getLastName());
-		mailTF.setText(LoginController.userLogedIn.getEmail());
-		BIOTF.setText(((Artist) LoginController.userLogedIn).getBio());
-		if (LoginController.userLogedIn.getPicture() == null) {
-			File file = new File("./src/main/java/buttons/PasDePhotoDeProfil.png");
-			BufferedImage bufferedImage;
-			try {
-				bufferedImage = ImageIO.read(file);
-				Image image = SwingFXUtils.toFXImage(bufferedImage, null);
-				imageViewProfile.setImage(image);
-			} catch (IOException e) {
-			}
+		if (LoginController.userLogedIn instanceof Artist) {
+			OwnProfileArtist.setVisible(true);
+			OwnProfileGallery.setVisible(false);
+			bioEDIT.setVisible(false);
+			mailEDIT.setVisible(false);
+			mailEDITGallery.setVisible(false);
+			addressEDITGallery.setVisible(false);
+			descriptionEDIT.setVisible(false);
+			mailTF.setEditable(false);
+			BIOTF.setEditable(false);
+			FirstNameTF.setEditable(false);
+			LastNameTF.setEditable(false);
+			SaveButton.setVisible(false);
+			FirstNameTFG.setEditable(false);
+			LastNameTFG.setEditable(false);
+			mailTFGallery.setEditable(false);
+			description.setEditable(false);
+			AddressTFGallery.setEditable(false);
+			FirstNameTF.setTooltip(new Tooltip("Click To Edit"));
+			LastNameTF.setTooltip(new Tooltip("Click To Edit"));
+			FirstNameTF.setText(LoginController.userLogedIn.getFirstName());
+			LastNameTF.setText(LoginController.userLogedIn.getLastName());
+			mailTF.setText(LoginController.userLogedIn.getEmail());
+			BIOTF.setText(((Artist) LoginController.userLogedIn).getBio());
+			if (LoginController.userLogedIn.getPicture() == null) {
+				File file = new File("./src/main/java/buttons/PasDePhotoDeProfil.png");
+				BufferedImage bufferedImage;
+				try {
+					bufferedImage = ImageIO.read(file);
+					Image image = SwingFXUtils.toFXImage(bufferedImage, null);
+					imageViewProfile.setImage(image);
+				} catch (IOException e) {
+				}
 
-		} else {
-			try {
-				byte[] b = LoginController.userLogedIn.getPicture();
-				BufferedImage imgbf = null;
+			} else {
+				try {
+					byte[] b = LoginController.userLogedIn.getPicture();
+					BufferedImage imgbf = null;
 
-				imgbf = ImageIO.read(new ByteArrayInputStream(b));
-				WritableImage wr = null;
-				if (imgbf != null) {
-					wr = new WritableImage(imgbf.getWidth(), imgbf.getHeight());
-					PixelWriter pw = wr.getPixelWriter();
-					for (int x = 0; x < imgbf.getWidth(); x++) {
-						for (int y = 0; y < imgbf.getHeight(); y++) {
-							pw.setArgb(x, y, imgbf.getRGB(x, y));
+					imgbf = ImageIO.read(new ByteArrayInputStream(b));
+					WritableImage wr = null;
+					if (imgbf != null) {
+						wr = new WritableImage(imgbf.getWidth(), imgbf.getHeight());
+						PixelWriter pw = wr.getPixelWriter();
+						for (int x = 0; x < imgbf.getWidth(); x++) {
+							for (int y = 0; y < imgbf.getHeight(); y++) {
+								pw.setArgb(x, y, imgbf.getRGB(x, y));
+							}
 						}
 					}
+					imageViewProfile.setImage(wr);
+				} catch (IOException e) {
 				}
-				imageViewProfile.setImage(wr);
-			} catch (IOException e) {
+
+			}
+		} else {
+			OwnProfileArtist.setVisible(false);
+			OwnProfileGallery.setVisible(true);
+			bioEDIT.setVisible(false);
+			mailEDIT.setVisible(false);
+			mailEDITGallery.setVisible(false);
+			addressEDITGallery.setVisible(false);
+			descriptionEDIT.setVisible(false);
+			mailTF.setEditable(false);
+			BIOTF.setEditable(false);
+			FirstNameTF.setEditable(false);
+			LastNameTF.setEditable(false);
+			SaveButton.setVisible(false);
+			FirstNameTFG.setEditable(false);
+			LastNameTFG.setEditable(false);
+			mailTFGallery.setEditable(false);
+			description.setEditable(false);
+			AddressTFGallery.setEditable(false);
+			FirstNameTFG.setTooltip(new Tooltip("Click To Edit"));
+			LastNameTFG.setTooltip(new Tooltip("Click To Edit"));
+			FirstNameTFG.setText(LoginController.userLogedIn.getFirstName());
+			LastNameTFG.setText(LoginController.userLogedIn.getLastName());
+			mailTFGallery.setText(LoginController.userLogedIn.getEmail());
+			description.setText(((Gallery)LoginController.userLogedIn).getDescription());
+			AddressTFGallery.setText(((Gallery)LoginController.userLogedIn).getAddress());
+			if (LoginController.userLogedIn.getPicture() == null) {
+				File file = new File("./src/main/java/buttons/PasDePhotoDeProfil.png");
+				BufferedImage bufferedImage;
+				try {
+					bufferedImage = ImageIO.read(file);
+					Image image = SwingFXUtils.toFXImage(bufferedImage, null);
+					imageViewProfileG.setImage(image);
+				} catch (IOException e) {
+				}
+
+			} else {
+				try {
+					byte[] b = LoginController.userLogedIn.getPicture();
+					BufferedImage imgbf = null;
+
+					imgbf = ImageIO.read(new ByteArrayInputStream(b));
+					WritableImage wr = null;
+					if (imgbf != null) {
+						wr = new WritableImage(imgbf.getWidth(), imgbf.getHeight());
+						PixelWriter pw = wr.getPixelWriter();
+						for (int x = 0; x < imgbf.getWidth(); x++) {
+							for (int y = 0; y < imgbf.getHeight(); y++) {
+								pw.setArgb(x, y, imgbf.getRGB(x, y));
+							}
+						}
+					}
+					imageViewProfileG.setImage(wr);
+				} catch (IOException e) {
+				}
+
 			}
 
 		}
+
 		magic2(mEvent);
 
 	}
@@ -456,7 +578,7 @@ public class ProfileuserController implements Initializable {
 	}
 
 	@FXML
-	public void findUsers(KeyEvent event) throws IOException  {
+	public void findUsers(KeyEvent event) throws IOException {
 		LrecherchFN.clear();
 		Lremove.clear();
 		UsersData.clear();
@@ -589,10 +711,14 @@ public class ProfileuserController implements Initializable {
 					}
 				};
 
-	Action.setCellFactory(cellFactory);
+		Action.setCellFactory(cellFactory);
 
-	/**************************************************************/
-	UsersData.addAll(LrecherchFN);FirstName.setCellValueFactory(new PropertyValueFactory<User,String>("firstName"));LastName.setCellValueFactory(new PropertyValueFactory<User,String>("lastName"));searchTable.setItems(UsersData);searchTable.setVisible(true);
+		/**************************************************************/
+		UsersData.addAll(LrecherchFN);
+		FirstName.setCellValueFactory(new PropertyValueFactory<User, String>("firstName"));
+		LastName.setCellValueFactory(new PropertyValueFactory<User, String>("lastName"));
+		searchTable.setItems(UsersData);
+		searchTable.setVisible(true);
 
 	}
 
@@ -609,6 +735,110 @@ public class ProfileuserController implements Initializable {
 		Sc.setScene(scene);
 		Sc.setTitle("FannyTUNISIA");
 		Sc.showAndWait();
+
+	}
+
+	@FXML
+	private void EmailEDITGallery(MouseEvent event) {
+		mailEDITGallery.setVisible(true);
+		descriptionEDIT.setVisible(false);
+		addressEDITGallery.setVisible(false);
+	}
+
+	@FXML
+	private void gallerymailEDITPERFORM(ActionEvent event) {
+		mailTFGallery.setEditable(true);
+		mailTFGallery.requestFocus();
+		AddressTFGallery.setEditable(false);
+		description.setEditable(false);
+		isChanged = true;
+		SaveGalleryButton.setVisible(true);
+	}
+
+	@FXML
+	private void descriptionEDITPERFORM(ActionEvent event) {
+		description.setEditable(true);
+		description.requestFocus();
+		AddressTFGallery.setEditable(false);
+		mailTFGallery.setEditable(false);
+		isChanged = true;
+		SaveGalleryButton.setVisible(true);
+	}
+
+	@FXML
+	private void DescriptionEDIT(MouseEvent event) {
+		mailEDITGallery.setVisible(false);
+		descriptionEDIT.setVisible(true);
+		addressEDITGallery.setVisible(false);
+	}
+
+	@FXML
+	private void galleryaddressEDITPERFORM(ActionEvent event) {
+		AddressTFGallery.setEditable(true);
+		AddressTFGallery.requestFocus();
+		description.setEditable(false);
+		mailTFGallery.setEditable(false);
+		isChanged = true;
+		SaveGalleryButton.setVisible(true);
+	}
+
+	@FXML
+	private void AddressEDITGallery(MouseEvent event) {
+		mailEDITGallery.setVisible(false);
+		descriptionEDIT.setVisible(false);
+		addressEDITGallery.setVisible(true);
+	}
+
+	@FXML
+	private void SaveChangesGallery(ActionEvent event) {
+		if (isChanged) {
+			LoginController.userLogedIn.setFirstName(FirstNameTFG.getText());
+			LoginController.userLogedIn.setLastName(LastNameTFG.getText());
+			if (!LoginController.userLogedIn.getEmail().equals(mailTFGallery.getText())) {
+				if (!LoginController.userManagment.checkMailExistance(mailTFGallery.getText())) {
+					Alert alert = new Alert(Alert.AlertType.ERROR);
+					alert.setTitle("Fanny");
+					alert.setHeaderText(null);
+					alert.setContentText("Mail entered exist in our database please try another one");
+					alert.showAndWait();
+					mailTFGallery.requestFocus();
+					return;
+				}
+			}
+			LoginController.userLogedIn.setEmail(mailTFGallery.getText());
+			((Gallery) LoginController.userLogedIn).setDescription(description.getText());
+			((Gallery) LoginController.userLogedIn).setAddress(AddressTFGallery.getText());
+			LoginController.userManagment.updateUser((Gallery) LoginController.userLogedIn);
+		}
+	}
+	
+	@FXML
+	private void ChangeProfilePICG(MouseEvent event) {
+		Image image = null;
+		FileChooser fileChooser = new FileChooser();
+		FileChooser.ExtensionFilter extFilterJPG = new FileChooser.ExtensionFilter("JPG files (*.jpg)", "*.JPG");
+		FileChooser.ExtensionFilter extFilterPNG = new FileChooser.ExtensionFilter("PNG files (*.png)", "*.PNG");
+		fileChooser.getExtensionFilters().addAll(extFilterJPG, extFilterPNG);
+		File file = fileChooser.showOpenDialog(null);
+		if (file == null) {
+			return;
+		}
+		byte[] bFile = new byte[(int) file.length()];
+		try {
+			FileInputStream fileInputStream = new FileInputStream(file);
+			fileInputStream.read(bFile);
+			fileInputStream.close();
+		} catch (Exception e) {
+		}
+
+		boolean confirm = ConfirmBox.display("", "Do you confirm this change ?");
+
+		if (confirm) {
+			imageViewProfile.setImage(image);
+			LoginController.userLogedIn.setPicture(bFile);
+			isChanged = true;
+			SaveGalleryButton.setVisible(true);
+		}
 
 	}
 

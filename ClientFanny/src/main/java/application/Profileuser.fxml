@@ -308,12 +308,13 @@
                                              <rowConstraints>
                                                 <RowConstraints maxHeight="227.0" minHeight="10.0" prefHeight="209.0" vgrow="SOMETIMES" />
                                                 <RowConstraints maxHeight="310.0" minHeight="10.0" prefHeight="264.0" vgrow="SOMETIMES" />
+                                                <RowConstraints maxHeight="310.0" minHeight="10.0" prefHeight="264.0" vgrow="SOMETIMES" />
                                              </rowConstraints>
                                              <children>
                                                 <Label text="E-mail" />
-                                                <Label text="Bio" GridPane.rowIndex="1" />
-                                                <JFXTextField fx:id="mailTF1" onMouseMoved="#EmailEDIT" GridPane.columnIndex="1" />
-                                                <Button fx:id="mailEDIT1" mnemonicParsing="false" onAction="#mailEDITPERFORM" prefHeight="35.0" prefWidth="34.0" text="Button" GridPane.columnIndex="2">
+                                                <Label text="Description" GridPane.rowIndex="2" />
+                                                <JFXTextField fx:id="mailTFGallery" onMouseMoved="#EmailEDITGallery" GridPane.columnIndex="1" />
+                                                <Button fx:id="mailEDITGallery" mnemonicParsing="false" onAction="#gallerymailEDITPERFORM" prefHeight="35.0" prefWidth="34.0" text="Button" GridPane.columnIndex="2">
                                                    <effect>
                                                       <ImageInput>
                                                          <source>
@@ -322,7 +323,7 @@
                                                       </ImageInput>
                                                    </effect>
                                                 </Button>
-                                                <Button fx:id="bioEDIT1" mnemonicParsing="false" onAction="#bioEDITPERFORM" prefHeight="35.0" prefWidth="30.0" text="Button" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                                                <Button fx:id="descriptionEDIT" mnemonicParsing="false" onAction="#descriptionEDITPERFORM" prefHeight="35.0" prefWidth="30.0" text="Button" GridPane.columnIndex="2" GridPane.rowIndex="2">
                                                    <effect>
                                                       <ImageInput>
                                                          <source>
@@ -331,13 +332,24 @@
                                                       </ImageInput>
                                                    </effect>
                                                 </Button>
-                                                <JFXTextArea fx:id="BIOTF1" onMouseMoved="#BIOEDIT" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                                <JFXTextArea fx:id="description" onMouseMoved="#DescriptionEDIT" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                                <Button fx:id="addressEDITGallery" mnemonicParsing="false" onAction="#galleryaddressEDITPERFORM" prefHeight="35.0" prefWidth="34.0" text="Button" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                                                   <effect>
+                                                      <ImageInput>
+                                                         <source>
+                                                            <Image url="file:/C:/Users/ElarbiMohamedAymen/git/Eureka/ClientFanny/src/main/java/buttons/rsz_1rsz_edit-new-icon-22.png" />
+                                                         </source>
+                                                      </ImageInput>
+                                                   </effect>
+                                                </Button>
+                                                <Label text="Address" GridPane.rowIndex="1" />
+                                                <JFXTextField fx:id="AddressTFGallery" onMouseMoved="#AddressEDITGallery" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                                              </children>
                                           </GridPane>
-                                          <ImageView fx:id="imageViewProfile1" fitHeight="150.0" fitWidth="162.0" onMouseClicked="#ChangeProfilePIC" pickOnBounds="true" preserveRatio="true" />
-                                          <JFXTextField fx:id="FirstNameTF1" layoutX="2.0" layoutY="166.0" onMouseClicked="#FirstNameEDIT" />
-                                          <JFXTextField fx:id="LastNameTF1" layoutX="1.0" layoutY="225.0" onMouseClicked="#LastNameEDIT" />
-                                          <JFXButton fx:id="SaveButton1" layoutX="650.0" layoutY="615.0" onAction="#SaveChanges" text="Save" />
+                                          <ImageView fx:id="imageViewProfileG" fitHeight="150.0" fitWidth="162.0" onMouseClicked="#ChangeProfilePICG" pickOnBounds="true" preserveRatio="true" />
+                                          <JFXTextField fx:id="FirstNameTFG" layoutX="2.0" layoutY="166.0" onMouseClicked="#FirstNameEDIT" />
+                                          <JFXTextField fx:id="LastNameTFG" layoutX="1.0" layoutY="225.0" onMouseClicked="#LastNameEDIT" />
+                                          <JFXButton fx:id="SaveGalleryButton" layoutX="650.0" layoutY="615.0" onAction="#SaveChangesGallery" text="Save" />
                                        </children>
                                     </AnchorPane>
                                  </content>

@@ -307,9 +307,10 @@ public class LoginController implements Initializable {
 	}
 
 	void gotoGallery(ActionEvent event) throws IOException {
-		Parent galleryScene = FXMLLoader.load(getClass().getResource("Gallery.fxml"));
-		Scene scene = new Scene(galleryScene);
-		scene.getStylesheets().add(getClass().getResource("Gallery.css").toExternalForm());
+		Parent artistScene = FXMLLoader.load(getClass().getResource("Profileuser.fxml"));
+		Scene scene = new Scene(artistScene);
+		//scene.getStylesheets().add(getClass().getResource("Artist.css").toExternalForm());
+		scene.getStylesheets().add(getClass().getResource("tableView.css").toExternalForm());
 		Stage Sc = new Stage();
 		Sc.setScene(scene);
 		Sc.show();
