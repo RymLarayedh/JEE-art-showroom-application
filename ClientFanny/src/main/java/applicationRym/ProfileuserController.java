@@ -554,12 +554,14 @@ public class ProfileuserController implements Initializable {
     }
     @FXML
     private void detailsMyEvents(MouseEvent event) {
-    	yes.setVisible(true);
-    	yesLabel.setVisible(true);
-    	no.setVisible(false);
-    	noLabel.setVisible(false);
+    	
     	EventUser PTP = eventsPane1.getSelectionModel().getSelectedItem();
         if (PTP != null) {
+        	yes.setVisible(true);
+        	yesLabel.setVisible(true);
+        	no.setVisible(false);
+        	noLabel.setVisible(false);
+        	
             this.selected = 1;
             remplirTableParticipant(PTP.getEvent());
             usernameArtist.setText(PTP.getEvent().getArtist().getUsername());
@@ -577,6 +579,10 @@ public class ProfileuserController implements Initializable {
             //*****************************************************
         } else {
             this.selected = 0;
+            yes.setVisible(false);
+        	yesLabel.setVisible(false);
+        	no.setVisible(false);
+        	noLabel.setVisible(false);
         }
     }
     @FXML
@@ -771,6 +777,7 @@ public class ProfileuserController implements Initializable {
     	no.setVisible(true);
     	noLabel.setVisible(true);
     	Event PTP = eventsPane.getSelectionModel().getSelectedItem();
+    	 if (PTP != null) {
     	InitialContext ctx = new InitialContext();
 		Object objet = ctx.lookup("/Fanny-ear/Fanny-ejb/EventUserManagment!services.EventUserManagmentRemote");
     	EventUserManagmentRemote proxy = (EventUserManagmentRemote) objet;
@@ -788,8 +795,34 @@ public class ProfileuserController implements Initializable {
     	remplirEvents1();
     	updateMaxEvents();
     	updatenbrParticipant();
+    	 } 
     	
+    	 else {
+    	 this.selected = 0;
+     		}
+    	 EventUser PTP2 = eventsPane1.getSelectionModel().getSelectedItem();
+    	 if (PTP2 != null) {
+    	InitialContext ctx = new InitialContext();
+		Object objet = ctx.lookup("/Fanny-ear/Fanny-ejb/EventUserManagment!services.EventUserManagmentRemote");
+    	EventUserManagmentRemote proxy = (EventUserManagmentRemote) objet;
+    	//********change
+    	
+    	PTP2.setStatus(9);
+    	proxy.updateEventUser(PTP2);
+//    	ObservableList<Event> eventSelected, allEvent;
+//        allEvent = eventsPane.getItems();
+//        allEvent.clear();
+    	remplirEvents();
+//    	ObservableList<EventUser> eventSelected1, allEvent1;
+//        allEvent1 = eventsPane1.getItems();
+//        allEvent1.clear();
+    	remplirEvents1();
+    	updateMaxEvents();
+    	updatenbrParticipant();
+    	 } 
+    	
+    	 else {
+    	 this.selected = 0;
+     		}
     }
-
-
 }
