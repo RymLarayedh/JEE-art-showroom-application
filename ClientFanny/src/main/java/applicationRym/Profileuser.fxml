@@ -257,7 +257,7 @@
                         <Label layoutX="266.0" layoutY="7.0" text="Gallery" />
                         <ImageView fx:id="yes" fitHeight="27.0" fitWidth="23.0" layoutX="341.0" layoutY="124.0" onMouseClicked="#noParticipate" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../buttons/1.png" />
+                              <Image url="@../buttons/participateEvent.png" />
                            </image>
                         </ImageView>
                         <Label fx:id="yesLabel" layoutX="370.0" layoutY="127.0" text="I will participate" />
