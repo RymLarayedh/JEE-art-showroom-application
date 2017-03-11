@@ -119,6 +119,7 @@ public class ReclamationAddController implements Initializable {
 	    	final Node source = (Node) event.getSource();
 			final Stage stage = (Stage) source.getScene().getWindow();
 			stage.close();
+			
 	    }
 	
 	

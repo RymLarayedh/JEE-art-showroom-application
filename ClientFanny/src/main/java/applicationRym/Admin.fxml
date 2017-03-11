@@ -96,7 +96,7 @@
                            <children>
                               <AnchorPane fx:id="RymsPane" prefHeight="380.0" prefWidth="608.0">
                                  <children>
-                                    <AnchorPane fx:id="addEventPane" opacity="0.0" prefHeight="452.0" prefWidth="701.0">
+                                    <AnchorPane fx:id="addEventPane" prefHeight="452.0" prefWidth="701.0">
                                        <children>
                                           <JFXTextArea fx:id="description" layoutX="200.0" layoutY="79.0" maxWidth="354.0" minWidth="209.0" prefHeight="81.0" prefWidth="354.0" />
                                           <JFXTextField fx:id="title" layoutX="201.0" layoutY="50.0" />
@@ -118,7 +118,7 @@
                                           <Label fx:id="details" layoutX="386.0" layoutY="272.0" prefHeight="121.0" prefWidth="214.0" />
                                        </children>
                                     </AnchorPane>
-                                    <AnchorPane fx:id="displayEventPane" opacity="0.0" prefHeight="452.0" prefWidth="702.0">
+                                    <AnchorPane fx:id="displayEventPane" prefHeight="452.0" prefWidth="702.0">
                                        <children>
                                           <Button fx:id="delete" layoutX="587.0" layoutY="27.0" mnemonicParsing="false" onAction="#deleteEvent" prefHeight="29.0" prefWidth="116.0" text="Delete" />
                                           <TableView fx:id="tableEvent" layoutY="1.0" onMouseClicked="#selectEvent" prefHeight="225.0" prefWidth="586.0">

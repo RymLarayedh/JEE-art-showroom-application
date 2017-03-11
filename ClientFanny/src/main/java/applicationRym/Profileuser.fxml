@@ -12,6 +12,7 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Line?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
@@ -204,8 +205,8 @@
       </Label>
       <AnchorPane fx:id="EventsPane" layoutX="190.0" prefHeight="617.0" prefWidth="865.0">
          <children>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#eee7e8d9" height="90.0" layoutX="32.0" layoutY="138.0" stroke="#b2aaaa" strokeType="INSIDE" width="220.0" />
-            <SplitPane dividerPositions="0.3365921787709497" layoutX="31.0" layoutY="238.0" prefHeight="315.0" prefWidth="718.0">
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#222020d9" height="90.0" layoutX="32.0" layoutY="138.0" stroke="#b2aaaa" strokeType="INSIDE" width="220.0" />
+            <SplitPane dividerPositions="0.3365921787709497" layoutX="31.0" layoutY="238.0" prefHeight="363.0" prefWidth="718.0">
                <items>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="241.0" prefWidth="150.0">
                      <children>
@@ -213,7 +214,7 @@
                            <tabs>
                               <Tab text="Events">
                                  <content>
-                                    <TableView fx:id="eventsPane" onMouseClicked="#detailsEvents" prefHeight="200.0" prefWidth="200.0">
+                                    <TableView fx:id="eventsPane" onMouseClicked="#detailsEvents" prefHeight="327.0" prefWidth="237.0">
                                        <columns>
                                           <TableColumn fx:id="DateBeginEvents" prefWidth="75.0" text="Date Begin" />
                                           <TableColumn fx:id="TitleEvents" prefWidth="162.0" text="Title" />
@@ -237,7 +238,7 @@
                   </AnchorPane>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                      <children>
-                        <TableView fx:id="tableP" layoutY="147.0" prefHeight="183.0" prefWidth="471.0">
+                        <TableView fx:id="tableP" layoutY="199.0" prefHeight="165.0" prefWidth="471.0">
                            <columns>
                               <TableColumn fx:id="usernameP" prefWidth="75.0" text="User Name" />
                               <TableColumn fx:id="firstNameP" prefWidth="81.0" text="First Name" />
@@ -245,55 +246,112 @@
                               <TableColumn fx:id="emailP" prefWidth="220.0" text="Email" />
                            </columns>
                         </TableView>
-                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="70.0" layoutY="28.0" stroke="BLACK" strokeType="INSIDE" width="220.0" />
-                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="70.0" layoutX="235.0" layoutY="28.0" stroke="BLACK" strokeType="INSIDE" width="220.0" />
-                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="29.0" stroke="BLACK" strokeType="INSIDE" width="99.0" />
-                        <Label layoutX="33.0" layoutY="6.0" text="Artist" />
-                        <Label fx:id="nbrParticipant" layoutX="7.0" layoutY="121.0" prefHeight="27.0" prefWidth="192.0" textFill="#808080" />
-                        <Label fx:id="usernameArtist" layoutX="330.0" layoutY="33.0" prefHeight="63.0" prefWidth="113.0" />
-                        <Label fx:id="usernameGallery" layoutX="81.0" layoutY="32.0" prefHeight="63.0" prefWidth="131.0" />
-                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="26.0" layoutY="97.0" stroke="BLACK" strokeType="INSIDE" width="471.0" />
-                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="29.0" layoutX="236.0" stroke="BLACK" strokeType="INSIDE" width="99.0" />
-                        <Label layoutX="266.0" layoutY="7.0" text="Gallery" />
-                        <ImageView fx:id="yes" fitHeight="27.0" fitWidth="23.0" layoutX="341.0" layoutY="124.0" onMouseClicked="#noParticipate" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="97.0" fitWidth="204.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../buttons/art-69727_1280.jpg" />
+                           </image>
+                        </ImageView>
+                        <Label fx:id="nbrParticipant" layoutX="4.0" layoutY="170.0" prefHeight="27.0" prefWidth="192.0" textFill="#808080" />
+                        <Label fx:id="usernameArtist" layoutX="242.0" layoutY="53.0" prefHeight="33.0" prefWidth="59.0" />
+                        <Label fx:id="usernameGallery" layoutX="159.0" layoutY="49.0" prefHeight="33.0" prefWidth="59.0" />
+                        <ImageView fx:id="yes" fitHeight="27.0" fitWidth="23.0" layoutX="334.0" layoutY="172.0" onMouseClicked="#noParticipate" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../buttons/participateEvent.png" />
                            </image>
                         </ImageView>
-                        <Label fx:id="yesLabel" layoutX="370.0" layoutY="127.0" text="I will participate" />
-                        <ImageView fx:id="no" fitHeight="27.0" fitWidth="23.0" layoutX="341.0" layoutY="124.0" onMouseClicked="#yesParticipate" pickOnBounds="true" preserveRatio="true">
+                        <Label fx:id="yesLabel" layoutX="363.0" layoutY="175.0" text="I will participate" />
+                        <ImageView fx:id="no" fitHeight="27.0" fitWidth="23.0" layoutX="334.0" layoutY="172.0" onMouseClicked="#yesParticipate" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../buttons/2.png" />
                            </image>
                         </ImageView>
-                        <Label fx:id="noLabel" layoutX="369.0" layoutY="128.0" prefHeight="17.0" prefWidth="110.0" text="Not interessted" />
+                        <Label fx:id="noLabel" layoutX="362.0" layoutY="176.0" prefHeight="17.0" prefWidth="110.0" text="Not interessted" />
+                        <ImageView fitHeight="111.0" fitWidth="96.0" layoutX="141.0" layoutY="-7.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../buttons/8f787018.gif" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="111.0" fitWidth="96.0" layoutX="225.0" layoutY="-7.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../buttons/8f787018.gif" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="36.0" fitWidth="34.0" layoutX="172.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../buttons/1.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="36.0" fitWidth="34.0" layoutX="255.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../buttons/reserve-bank.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="109.0" fitWidth="157.0" layoutX="315.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../buttons/art-69727_1280.jpg" />
+                           </image>
+                        </ImageView>
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#393b3c" height="9.0" layoutY="97.0" stroke="BLACK" strokeType="INSIDE" width="471.0" />
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#393b3c" height="9.0" layoutY="162.0" stroke="BLACK" strokeType="INSIDE" width="471.0" />
+                        <Label fx:id="dateBeginLabel" layoutX="66.0" layoutY="114.0" prefHeight="22.0" prefWidth="113.0" textFill="#bf0404" />
+                        <Label fx:id="dateBeginLabel1" layoutX="66.0" layoutY="134.0" prefHeight="22.0" prefWidth="113.0" textFill="#c30d0d" />
+                        <ImageView fitHeight="26.0" fitWidth="48.0" layoutX="27.0" layoutY="110.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../buttons/6-128.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="26.0" fitWidth="48.0" layoutX="27.0" layoutY="135.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../buttons/6-128.png" />
+                           </image>
+                        </ImageView>
+                        <Label layoutX="203.0" layoutY="110.0" prefHeight="26.0" prefWidth="262.0" text="Description:">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="bodyLabel" layoutX="196.0" layoutY="135.0" prefHeight="26.0" prefWidth="262.0">
+                           <font>
+                              <Font size="19.0" />
+                           </font>
+                        </Label>
+                        <Line endX="100.0" layoutX="289.0" layoutY="134.0" startX="-100.0" />
                      </children>
                   </AnchorPane>
                </items>
             </SplitPane>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#eee7e8d9" height="90.0" layoutX="277.0" layoutY="138.0" stroke="#b2aaaa" strokeType="INSIDE" width="220.0" />
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#eee7e8d9" height="90.0" layoutX="526.0" layoutY="138.0" stroke="#b2aaaa" strokeType="INSIDE" width="220.0" />
-            <Label fx:id="eventMax1" layoutX="106.0" layoutY="129.0" prefHeight="90.0" prefWidth="142.0" />
-            <Label fx:id="eventMax2" layoutX="356.0" layoutY="137.0" prefHeight="81.0" prefWidth="123.0" />
-            <Label fx:id="eventMax3" layoutX="604.0" layoutY="141.0" prefHeight="81.0" prefWidth="123.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#222020d9" height="90.0" layoutX="277.0" layoutY="138.0" stroke="#b2aaaa" strokeType="INSIDE" width="220.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#222020d9" height="90.0" layoutX="526.0" layoutY="138.0" stroke="#b2aaaa" strokeType="INSIDE" width="220.0" />
+            <Label fx:id="eventMax1" layoutX="106.0" layoutY="129.0" prefHeight="90.0" prefWidth="157.0" textFill="WHITE" />
+            <Label fx:id="eventMax2" layoutX="356.0" layoutY="128.0" prefHeight="90.0" prefWidth="146.0" textFill="WHITE" />
+            <Label fx:id="eventMax3" layoutX="604.0" layoutY="125.0" prefHeight="97.0" prefWidth="146.0" textFill="WHITE" />
             <ImageView fx:id="imgMax1" fitHeight="81.0" fitWidth="90.0" layoutX="30.0" layoutY="143.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../buttons/generic-award.png" />
                </image>
             </ImageView>
-            <Label fx:id="nbrMax1" layoutX="62.0" layoutY="152.0" prefHeight="26.0" prefWidth="34.0" />
+            <Label fx:id="nbrMax1" layoutX="66.0" layoutY="156.0" prefHeight="26.0" prefWidth="34.0" textFill="#8a5c5c">
+               <font>
+                  <Font size="17.0" />
+               </font></Label>
             <ImageView fx:id="imgMax3" fitHeight="81.0" fitWidth="90.0" layoutX="525.0" layoutY="143.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../buttons/generic-award.png" />
                </image>
             </ImageView>
-            <Label fx:id="nbrMax3" layoutX="557.0" layoutY="156.0" prefHeight="26.0" prefWidth="34.0" />
+            <Label fx:id="nbrMax3" layoutX="562.0" layoutY="157.0" prefHeight="26.0" prefWidth="34.0">
+               <font>
+                  <Font size="17.0" />
+               </font></Label>
             <ImageView fx:id="imgMax2" fitHeight="81.0" fitWidth="90.0" layoutX="275.0" layoutY="143.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../buttons/generic-award.png" />
                </image>
             </ImageView>
-            <Label fx:id="nbrMax2" layoutX="307.0" layoutY="152.0" prefHeight="26.0" prefWidth="34.0" />
+            <Label fx:id="nbrMax2" layoutX="312.0" layoutY="156.0" prefHeight="26.0" prefWidth="34.0">
+               <font>
+                  <Font size="17.0" />
+               </font></Label>
          </children>
       </AnchorPane>
       <AnchorPane fx:id="ReclamationArtworkPane" layoutX="9.0" layoutY="532.0" prefHeight="70.0" prefWidth="122.0">

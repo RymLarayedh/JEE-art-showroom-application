@@ -192,6 +192,8 @@ public class AdminController implements Initializable {
 
     @FXML
     private void addEvents(ActionEvent event) {
+    	displayReclamation.setVisible(false);
+    	displayEventPane.setVisible(false);
     	addEventPane.setVisible(true);
     	try {
 			ctx = new InitialContext();
@@ -246,7 +248,8 @@ public class AdminController implements Initializable {
 
     @FXML
     private void addEvent(ActionEvent event) throws NamingException {
-    	addEventPane.setVisible(true);
+    	displayReclamation.setVisible(false);
+    	
     	ctx = new InitialContext();
 		Object objet = ctx.lookup("/Fanny-ear/Fanny-ejb/EventManagment!services.EventManagmentRemote");
 		EventManagmentRemote proxy = (EventManagmentRemote) objet;	
@@ -282,6 +285,10 @@ public class AdminController implements Initializable {
 	  //Condition chosen Date
 		if((dateNow.before(dateDateBegin))&&(dateDateBegin.before(dateDateEnd))){
 			proxy.addEvent(e);
+			addEventPane.setVisible(false);
+			displayEventPane.setVisible(true);
+			remplirTableEvent();
+			
 		}
 		else{
 			Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -376,6 +383,8 @@ public class AdminController implements Initializable {
 
     @FXML
     private void displayReclamation(ActionEvent event) {
+    	displayEventPane.setVisible(false);
+    	updateEventPane.setVisible(false);
     	
     	displayReclamation.setVisible(true);
     	remplirTableReclamation();
@@ -612,6 +621,7 @@ public class AdminController implements Initializable {
     	updateEventPane.setVisible(true);
     	participantPane.setVisible(false);
     	tableEvent.setVisible(false);
+    	displayReclamation.setVisible(false);
     	
     	
     }
@@ -744,7 +754,7 @@ public class AdminController implements Initializable {
 		proxyF.updateReclamation(ptp);
 		
     }
-    /*@FXML
+    @FXML
     private void imprimer(ActionEvent event) {
         try {
             utilprojet u = new utilprojet();
@@ -753,7 +763,7 @@ public class AdminController implements Initializable {
             Logger.getLogger(PdfController.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-    }*/
+    }
 
     
    

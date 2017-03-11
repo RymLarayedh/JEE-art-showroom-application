@@ -168,6 +168,14 @@ public class ProfileuserController implements Initializable {
     @FXML
     private AnchorPane EventsPane;
     private static Event GlobalPTP;
+    
+    //***
+    @FXML
+    private Label bodyLabel;
+    @FXML
+    private Label dateBeginLabel;
+    @FXML
+    private Label dateBeginLabel1;
 	
     
 
@@ -459,6 +467,8 @@ public class ProfileuserController implements Initializable {
 			eventMax2.setText("Title = "+EventBySize.get(1).getTitle()+"\nArtist = "
 				      +EventBySize.get(1).getArtist().getUsername()+"\nGallery="
 							+EventBySize.get(1).getGallery().getUsername());
+			eventMax3.setText("");
+			
 			Integer i1=EventBySize.get(0).getListEventUser().size();
 			nbrMax1.setText(i1.toString());
 			Integer i2=EventBySize.get(1).getListEventUser().size();
@@ -469,6 +479,8 @@ public class ProfileuserController implements Initializable {
 			eventMax1.setText("Title = "+EventBySize.get(0).getTitle()+"\nArtist = "
 				      +EventBySize.get(0).getArtist().getUsername()+"\nGallery="
 							+EventBySize.get(0).getGallery().getUsername());
+			eventMax2.setText("");
+			eventMax3.setText("");
 			Integer i1=EventBySize.get(0).getListEventUser().size();
 			nbrMax1.setText(i1.toString());
 		}	
@@ -617,7 +629,12 @@ public class ProfileuserController implements Initializable {
             this.selected = 1;
             
             usernameArtist.setText(PTP.getArtist().getUsername());
-            usernameGallery.setText(PTP.getGallery().getUsername());
+            usernameGallery.setText(PTP.getGallery().getUsername()+"\n"+PTP.getGallery().getAddress());
+            
+            dateBeginLabel.setText(PTP.getDateBegin().toString());
+            dateBeginLabel1.setText(PTP.getDateEnd().toString());
+            bodyLabel.setText(PTP.getDescription());
+            
 //            Integer d=PTP.getListEventUser().size(); 
 //            nbrParticipant.setText(d.toString());
             
@@ -771,6 +788,9 @@ public class ProfileuserController implements Initializable {
     }
     @FXML
     private void noParticipate(MouseEvent event) throws NamingException {
+//    	eventMax1.setText("");
+//    	eventMax2.setText("");
+//    	eventMax3.setText("");
     	
     	yes.setVisible(false);
     	yesLabel.setVisible(false);
