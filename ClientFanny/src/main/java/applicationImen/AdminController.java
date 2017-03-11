@@ -1,6 +1,7 @@
 package applicationImen;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
@@ -8,10 +9,13 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
-
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 import javafx.util.Callback;
 import services.CartEJBRemote;
 import services.UserManagmentRemote;
@@ -36,6 +40,7 @@ import javax.imageio.ImageIO;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 
 import application.LoginController;
@@ -91,6 +96,8 @@ public class AdminController implements Initializable {
 	private ImageView profilePicture;
 	@FXML
 	private Label userLoggedInName;
+	@FXML
+	private JFXButton msg;
 	InitialContext ctx;
 	public static CartEJBRemote cartManagement;
 
@@ -243,6 +250,21 @@ public class AdminController implements Initializable {
     	//Client.setCellValueFactory(new PropertyValueFactory<Cart, String>("i"));
     		System.out.println(CartsData);
     	OrdersTable.setItems(CartsData);
+
+    }
+    
+    @FXML
+    void OpenInbox(ActionEvent event) throws IOException {
+    	Parent msgScene = FXMLLoader.load(getClass().getResource("Messages.fxml"));
+		Scene scene = new Scene(msgScene);
+		//scene.getStylesheets().add(getClass().getResource("Artist.css").toExternalForm());
+		Stage Sc = new Stage();
+		Sc.setScene(scene);
+		Sc.show();
+		/*final Node source = (Node) event.getSource();
+		final Stage stage = (Stage) source.getScene().getWindow();
+		stage.close();*/
+    	
 
     }
 }

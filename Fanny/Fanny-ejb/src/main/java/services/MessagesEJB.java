@@ -44,7 +44,7 @@ public class MessagesEJB implements MessagesEJBRemote {
 		Set<User> contacts= new HashSet<>();
 		for( Message m: UserMessages)
 		{
-			if(m.getSender()==u)
+			if(m.getSender()!=u)
 				contacts.add(m.getReceiver());
 			else
 				contacts.add(m.getSender());
