@@ -13,7 +13,20 @@
         <tabs>
           <Tab text="All Artwork">
             <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <AnchorPane layoutX="-7.0" layoutY="40.0" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <TableView fx:id="allart" layoutX="92.0" layoutY="66.0" prefHeight="393.0" prefWidth="705.0">
+                                 <columns>
+                                    <TableColumn fx:id="pitart" prefWidth="337.0" />
+                                    <TableColumn fx:id="nameart" minWidth="0.0" prefWidth="366.0" />
+                                 </columns>
+                              </TableView>
+                              <Button layoutX="358.0" layoutY="516.0" mnemonicParsing="false" onAction="#showArtsDetail" prefHeight="31.0" prefWidth="187.0" text="Show it" />
+                           </children>
+                        </AnchorPane>
+                     </children></AnchorPane>
             </content>
           </Tab>
           <Tab text="My Artwork">

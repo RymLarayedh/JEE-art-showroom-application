@@ -22,8 +22,7 @@ import com.jfoenix.controls.JFXButton;
 
 
 import entities.Artwork;
-
-
+import entities.VisualArt;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
@@ -83,9 +82,9 @@ public class AdminShowArtController implements Initializable{
 	private AnchorPane ManelsPane;
 	
 	@FXML
-	private TableView<Artwork> AllArtworkTable1;
+	private TableView<VisualArt> AllArtworkTable1;
 	@FXML
-	private TableColumn<Artwork, byte[]> picture1;
+	private TableColumn<VisualArt, byte[]> picture1;
 	@FXML
 	private TableColumn name1;
 	@FXML
@@ -111,8 +110,8 @@ public class AdminShowArtController implements Initializable{
 	@FXML
 	private Label userLoggedInName;
 
-
-	ObservableList<Artwork> artdata = FXCollections.observableArrayList();
+	public static VisualArt chosenArtworkAdmin;
+	ObservableList<VisualArt> artdata = FXCollections.observableArrayList();
 
 	InitialContext ctx;
 	public static VisualArtworkEJBRemote proxy;
@@ -124,12 +123,7 @@ public class AdminShowArtController implements Initializable{
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-	//	/Fanny-ear/Fanny-ejb/VisualArtworkEJB!services.VisualArtworkEJBRemote
-		// TODO Auto-generated method stub
-		// TODO Auto-generated method stub
-//		deleteCategoryButton.setVisible(false);
-//		updateCategoryButton.setVisible(false);
-//
+
 		try {
 			ctx = new InitialContext();
 			proxy = (VisualArtworkEJBRemote) ctx
@@ -197,11 +191,11 @@ public class AdminShowArtController implements Initializable{
 		AllArtworkTable1.getItems().clear();
 		picture1.setResizable(false);
 		picture1.setSortable(false);
-		picture1.setCellValueFactory(new PropertyValueFactory<Artwork, byte[]>("picture"));
-		picture1.setCellFactory(new Callback<TableColumn<Artwork, byte[]>, TableCell<Artwork, byte[]>>() {
+		picture1.setCellValueFactory(new PropertyValueFactory<VisualArt, byte[]>("picture"));
+		picture1.setCellFactory(new Callback<TableColumn<VisualArt, byte[]>, TableCell<VisualArt, byte[]>>() {
 			@Override
-			public TableCell<Artwork, byte[]> call(TableColumn<Artwork, byte[]> param) {
-				TableCell<Artwork, byte[]> cell = new TableCell<Artwork, byte[]>() {
+			public TableCell<VisualArt, byte[]> call(TableColumn<VisualArt, byte[]> param) {
+				TableCell<VisualArt, byte[]> cell = new TableCell<VisualArt, byte[]>() {
 					@Override
 					public void updateItem(byte[] item, boolean empty) {
 						if (item != null) {
@@ -256,8 +250,8 @@ public class AdminShowArtController implements Initializable{
 
 		/**************************************************************/
 		AllArtworkTable1.getItems().clear();
-		List<Artwork> ListArtworks = proxy.findAllVisualArt();
-		for (Artwork a : ListArtworks) {
+		List<VisualArt> ListArtworks = proxy.findAllVisualArt2();
+		for (VisualArt a : ListArtworks) {
 			artdata.add(a);
 		}
 		
@@ -313,7 +307,7 @@ public class AdminShowArtController implements Initializable{
 	// Event Listener on TableView[#AllVisualArtTable].onMouseClicked
 	@FXML
 	public void showPopupp(MouseEvent event) throws IOException {
-		///
+		
 
 		AllArtworkTable1.getSelectionModel().selectedItemProperty().addListener(new ChangeListener() {
         
@@ -339,31 +333,33 @@ public class AdminShowArtController implements Initializable{
 				
 			}});
 		
-//		
-//		////
-//		AdminUpdDetController.ArtworkChoosen = AllArtworkTable1.getSelectionModel().getSelectedItem();
-//		Parent root=FXMLLoader.load(getClass().getResource("AdminUpdDel.fxml"));
-//        Scene scene=new Scene(root);
-//        Stage Sc=new Stage();
-//        Sc.setScene(scene);
-//        Sc.show();
-//        final Node source =(Node) event.getSource();
-//        final Stage stage=(Stage) source.getScene().getWindow();
-//        stage.close();
+
 	}
 	
 	// Event Listener on TableView[#AllArtworkTable1].onMouseClicked
 	@FXML
 	public void showPopuppp(MouseEvent event) throws IOException {
-		AdminUpdDetController.ArtworkChoosen = AllArtworkTable1.getSelectionModel().getSelectedItem();
-		Parent root=FXMLLoader.load(getClass().getResource("AdminUpdDel.fxml"));
-      Scene scene=new Scene(root);
-      Stage Sc=new Stage();
-      Sc.setScene(scene);
-      Sc.show();
-      final Node source =(Node) event.getSource();
-      final Stage stage=(Stage) source.getScene().getWindow();
-      stage.close();
+		
+		
+		chosenArtworkAdmin = AllArtworkTable1.getSelectionModel().getSelectedItem();
+		Parent adminScene = FXMLLoader.load(getClass().getResource("MyArtworlDetail.fxml"));
+		Scene scene = new Scene(adminScene);
+		Stage Sc = new Stage();
+		Sc.setScene(scene);
+		Sc.setScene(scene);
+		Sc.setTitle("FannyTUNISIA");
+		Sc.show();	
+		///////////////prec
+//		AdminUpdDetController.ArtworkChoosen = AllArtworkTable1.getSelectionModel().getSelectedItem();
+//		Parent root=FXMLLoader.load(getClass().getResource("AdminUpdDel.fxml"));
+//      Scene scene=new Scene(root);
+//      Stage Sc=new Stage();
+//      Sc.setScene(scene);
+//      Sc.show();
+//      final Node source =(Node) event.getSource();
+//      final Stage stage=(Stage) source.getScene().getWindow();
+//      stage.close();
+      ///////////////////
 //		AllArtworkTable1.setRowFactory(tv -> {
 //            TableRow<Artwork> row = new TableRow<>();
 //            row.setOnMouseClicked(event1 -> {
