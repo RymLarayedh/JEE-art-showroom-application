@@ -26,6 +26,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.image.PixelWriter;
 import javafx.scene.image.WritableImage;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import services.ArtworkManagemetRemote;
 
 /**
@@ -47,6 +48,9 @@ public class OwnpublicationController implements Initializable {
     private Label date1;
     @FXML
     private Label type1;
+	@FXML
+	private VBox vbox;
+
 	InitialContext ctx;
 int i =0 ;
     /**
@@ -62,61 +66,46 @@ int i =0 ;
 			lst= proxy.getAllTunisianCraft();
 			for (  i =0 ; i< lst.size();i++);
 			{
-			AfficherTn();	
-			}
+			
+		        artnamet.setText(lst.get(i).getUser().getUsername());
+		        type1.setText(lst.get(i).getType());
+		       artwnamet1.setText(lst.get(i).getName());
+		       BufferedImage imgbf = null;
+		       byte[] b = lst.get(i).getPicture();
 
-         
-    	} catch (NamingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} 
+		       imgbf = ImageIO.read(new ByteArrayInputStream(b));
+
+		       WritableImage wr = null;
+		       if (imgbf != null) {
+		           wr = new WritableImage(imgbf.getWidth(), imgbf.getHeight());
+		           PixelWriter pw = wr.getPixelWriter();
+		           for (int x = 0; x < imgbf.getWidth(); x++) {
+		               for (int y = 0; y < imgbf.getHeight(); y++) {
+		                   pw.setArgb(x, y, imgbf.getRGB(x, y));
+		               }
+		           }
+		       }
+
+		       // ImageView imView = new ImageView(wr);
+		       imgall.setImage(wr);
+
+		         
+			}}
+			catch (NamingException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} 
+				
+		    	
+				
+			
+			
+
     	
     }    
     
     
-    public void AfficherTn()
-	{
-		try {
-			ctx = new InitialContext();
-			Object objet = ctx.lookup("/Fanny-ear/Fanny-ejb/ArtworkManagemet!services.ArtworkManagemetRemote");
-			ArtworkManagemetRemote proxy = (ArtworkManagemetRemote) objet;
-			List <TunisianCraft> lst= new ArrayList<>();
-			lst= proxy.getAllTunisianCraft();
-			
-			
-			System.out.println(lst);
-        artnamet.setText(lst.get(i).getUser().getUsername());
-        type1.setText(lst.get(i).getType());
-       artwnamet1.setText(lst.get(i).getName());
-       BufferedImage imgbf = null;
-       byte[] b = lst.get(i).getPicture();
-
-       imgbf = ImageIO.read(new ByteArrayInputStream(b));
-
-       WritableImage wr = null;
-       if (imgbf != null) {
-           wr = new WritableImage(imgbf.getWidth(), imgbf.getHeight());
-           PixelWriter pw = wr.getPixelWriter();
-           for (int x = 0; x < imgbf.getWidth(); x++) {
-               for (int y = 0; y < imgbf.getHeight(); y++) {
-                   pw.setArgb(x, y, imgbf.getRGB(x, y));
-               }
-           }
-       }
-
-       // ImageView imView = new ImageView(wr);
-       imgall.setImage(wr);
-
-         
-    	} catch (NamingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} 
-		
-    	
-		
-	}
 }

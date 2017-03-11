@@ -6,6 +6,7 @@
 package applicationOussema;
 
 import com.jfoenix.controls.JFXTextArea;
+import javafx.scene.input.MouseEvent;
 
 import entities.Artist;
 import entities.Artwork;
@@ -16,6 +17,7 @@ import entities.Like;
 import entities.TunisianCraft;
 import entities.User;
 
+import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -57,7 +59,7 @@ import org.controlsfx.control.Rating;
  * @author Oussamabh
  */
 public class DetailArtworkController implements Initializable {
-
+    
     @FXML
     private AnchorPane Trip;
     @FXML
@@ -88,9 +90,14 @@ public class DetailArtworkController implements Initializable {
     private Label artnamet;
     @FXML
     private Label artistn;
+    @FXML
+    private  Rating ratingg;
 	InitialContext ctx;
-      int idartwork = 1 ;
+      int idartwork = 2 ;
       int userconect = 1 ;
+      long nbr ;
+      Double note ;
+      String str ;
     /**
      * Initializes the controller class.
      */
@@ -101,21 +108,9 @@ public class DetailArtworkController implements Initializable {
 			Object objet = ctx.lookup("/Fanny-ear/Fanny-ejb/ArtworkManagemet!services.ArtworkManagemetRemote");
 			ArtworkManagemetRemote proxy = (ArtworkManagemetRemote) objet;
 		 Artwork a = new Artwork ();
-			a= proxy.findById(idartwork);
-			ctx = new InitialContext();
-User u =new User ();
-u.setIdUser(1);
-
-		/*	Object objet2 = ctx.lookup("/Fanny-ear/Fanny-ejb/LikeManagement!services.LikeManagementRemote");
-			LikeManagementRemote proxy2 = (LikeManagementRemote) objet2;
-		Like l = new Like();
-		FeedbackId feedbackId =new FeedbackId();
-		feedbackId.setArtworkId(1);
-		feedbackId.setUserId(3);
-		l.setFeedbackId(feedbackId);
-	*/
-			// proxy2.addLike(l);
-        artnamet.setText(a.getName());
+			a= proxy.findById(idartwork);	
+			
+			artnamet.setText(a.getName());
         String P = String.valueOf(a.getPrice());
         pricet.setText(P);
        artistn.setText(a.getUser().getUsername());
@@ -135,10 +130,32 @@ u.setIdUser(1);
                }
            }
        }
+       
        // ImageView imView = new ImageView(wr);
-       img.setImage(wr);
+      img.setImage(wr);
+       /******************************lIKE******************************/ 
+       Object objet2 = ctx.lookup("/Fanny-ear/Fanny-ejb/LikeManagement!services.LikeManagementRemote");
+		LikeManagementRemote proxy2 = (LikeManagementRemote) objet2;
+		nbr = proxy2.nbrlike(2);
+        str = "" + nbr;
+		nbrl.setText(str);
+		if (proxy2.checkexistance(1,2) )
+		 {tj.setText("Unlike");
+		 tj.setRotate(-180);
+		
+		
+	 }
 
-         
+else {
+   tj.setText("Like");
+   tj.setRotate(360);
+}
+/********************************Rating*****************************************/
+		Object objet3 = ctx.lookup("/Fanny-ear/Fanny-ejb/LikeManagement!services.LikeManagementRemote");
+		LikeManagementRemote proxy3 = (LikeManagementRemote) objet3;
+		//note= proxy3.findByUserartIDR(1, 2).getNote() ;	
+		//ratingg.setRating(note);
+		
     	} catch (NamingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -146,6 +163,7 @@ u.setIdUser(1);
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} 
+    	
     	
     }    
 
@@ -164,7 +182,6 @@ u.setIdUser(1);
     @FXML
     private void liked(ActionEvent event) throws NamingException {
     	
-    	int nbr;
        
 		Object objet = ctx.lookup("/Fanny-ear/Fanny-ejb/LikeManagement!services.LikeManagementRemote");
 		LikeManagementRemote proxy = (LikeManagementRemote) objet;
@@ -173,36 +190,49 @@ u.setIdUser(1);
 	 A.setIdArtwork(2);
 	 User U = new User();
 	 U.setIdUser(1);
-	 L.setUser(U);
-	 L.setArtwork(A);
-	 if (proxy.checkexistance(userconect,2) )
+	 FeedbackId feedbackId =new FeedbackId();
+		feedbackId.setArtworkId(2);
+		feedbackId.setUserId(1);
+		L.setFeedbackId(feedbackId);
+
+       
+	 if (proxy.checkexistance(1,2) )
 			 {tj.setText("Unlike");
+			 tj.setRotate(-180);
+             
+			
+			
 		 }
 
      else {
-        tj.getText().equals("Like");
+        tj.setText("Like");
+        tj.setRotate(360);
     }
 	 if (tj.getText().equals("Like")) {
          tj.setText("Unlike");
+         tj.setRotate(-180);
+		
 
-         proxy.addLike(L);;
+         proxy.addLike(L);
 
-        // nbr = LDAO.nbrlike(L);
-         // nbr ++ ;
-       //  str = "" + nbr;
+        nbr = proxy.nbrlike(2);
+         str = "" + nbr;
 
-        // nbrl.setText(str);
-     } else {
+         nbrl.setText(str);
+     } 
+	 else {
 
-         //L.setTripProgram(tc);
-     //    L.setUser(LoginController.abc);
+        
          proxy.deleteLike(L);
-         //nbr = LDAO.nbrlike(L);
+         nbr = proxy.nbrlike(2);
 
-        // str = "" + nbr;
+         str = "" + nbr;
 
-        // nbrl.setText(str);
+         nbrl.setText(str);
          tj.setText("Like");
+         tj.setRotate(360);
+
+
      }
 
  }
@@ -217,6 +247,28 @@ u.setIdUser(1);
 
     @FXML
     private void bookTrip(ActionEvent event) {
+    }
+    @FXML
+	public void Rate(MouseEvent event) throws NamingException {
+    	Object objet = ctx.lookup("/Fanny-ear/Fanny-ejb/LikeManagement!services.LikeManagementRemote");
+		LikeManagementRemote proxy = (LikeManagementRemote) objet;  
+		 FeedbackId feedbackId =new FeedbackId();
+		entities.Rating R = new entities.Rating();	
+		 feedbackId.setArtworkId(2);
+			feedbackId.setUserId(1);
+			R.setFeedbackId(feedbackId);
+			R.setNote(ratingg.getRating());
+			if (proxy.checkexistanceR(1,2) )
+			 {
+				proxy.addRating(R);
+			 }
+            
+			
+
+    else {
+    	R.setNote(ratingg.getRating());
+    	proxy.upadateRating(R);
+    }
     }
     
 }
