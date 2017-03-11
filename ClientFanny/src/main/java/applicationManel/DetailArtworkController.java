@@ -154,9 +154,6 @@ public class DetailArtworkController implements Initializable {
 			ctx = new InitialContext();
 			proxy = (VisualArtworkEJBRemote) ctx
 					.lookup("/Fanny-ear/Fanny-ejb/VisualArtworkEJB!services.VisualArtworkEJBRemote");
-//			VisualArtwork = (VisualArtworkEJBRemote) ctx
-//					.lookup("/Fanny-ear/Fanny-ejb/VisualArtworkEJB!services.VisualArtworkEJBRemote");
-		//	Artwork aa = new Artwork();
 
 		} catch (NamingException e) {
 			// TODO Auto-generated catch block
