@@ -207,6 +207,11 @@ public class AdminController implements Initializable {
 		Sc.setScene(scene);
 		Sc.setScene(scene);
 		Sc.setTitle("FannyTUNISIA");
+		Sc.setOnCloseRequest(e ->{
+            e.consume();
+            Main.closeProgram(Sc);
+            popupController.userChoosen = null ;
+		});
 		Sc.showAndWait();
 
 

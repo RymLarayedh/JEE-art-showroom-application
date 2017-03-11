@@ -735,6 +735,11 @@ public class ProfileuserController implements Initializable {
 		Sc.setScene(scene);
 		Sc.setScene(scene);
 		Sc.setTitle("FannyTUNISIA");
+		Sc.setOnCloseRequest(e ->{
+            e.consume();
+            Sc.close();
+            PopupUserController.userChoosen = null ;
+		});
 		Sc.showAndWait();
 
 	}
