@@ -50,12 +50,12 @@ public class MessagesController implements Initializable {
     	msg=MsgTextArea.getText();
     	MsgTextArea.clear();
     	Label lab=new Label();
-    	lab.setText(msg);
+    	lab.setText("hh");
     	//Discussion.setTopAnchor(lab, (double) 10);
     	lab.setTranslateY(14);
     	lab.setTranslateX(21);
     	Discussion.getChildren().add(lab);
-    	//ConvoList.setItems(value);
+    	
     	k+=30;
     	
     }

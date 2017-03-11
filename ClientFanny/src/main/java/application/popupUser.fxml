@@ -7,6 +7,8 @@
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -66,9 +68,13 @@
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <SplitPane dividerPositions="0.19517795637198623" prefHeight="373.0" prefWidth="601.0">
+                        <SplitPane dividerPositions="0.19198664440734559" prefHeight="373.0" prefWidth="601.0">
                            <items>
-                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="346.0" prefWidth="145.0" />
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="371.0" prefWidth="71.0">
+                                 <children>
+                                    <JFXButton fx:id="FollowersBTN" layoutX="6.0" layoutY="33.0" onAction="#ShowFollowers" text="eli itabaa fihom" />
+                                    <JFXButton fx:id="followedBTN" layoutX="6.0" layoutY="66.0" onAction="#showFollowed" text="Show Followers" />
+                                 </children></AnchorPane>
                               <AnchorPane>
                                  <children>
                                     <AnchorPane fx:id="GalleryThing" minHeight="0.0" minWidth="0.0" prefHeight="369.0" prefWidth="480.0">
@@ -114,6 +120,14 @@
                                           </GridPane>
                                        </children>
                                     </AnchorPane>
+                                    <TableView fx:id="Follow" onMouseClicked="#MoreInformation" prefHeight="278.0" prefWidth="479.0">
+                                      <columns>
+                                        <TableColumn fx:id="PictureTV" prefWidth="129.0" text="Picture" />
+                                        <TableColumn fx:id="FirstNameTV" prefWidth="131.0" text="First Name" />
+                                          <TableColumn fx:id="LastNameTV" prefWidth="105.0" text="Last Name" />
+                                          <TableColumn fx:id="ActionTV" prefWidth="112.0" text="Action" />
+                                      </columns>
+                                    </TableView>
                                  </children>
                               </AnchorPane>
                            </items>
