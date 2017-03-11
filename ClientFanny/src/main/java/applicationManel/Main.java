@@ -14,7 +14,7 @@ public class Main extends Application {
 	public void start(Stage primaryStage) {
 		try {//
 			//	Parent root = FXMLLoader.load(getClass().getResource("AddVisual.fxml"));
-			Parent root = FXMLLoader.load(getClass().getResource("UserArt.fxml"));
+			Parent root = FXMLLoader.load(getClass().getResource("AdminShowArt.fxml"));
 
 				Scene scene = new Scene(root,800,800);
 				//scene.getStylesheets().add(getClass().getResource("AddVisual/UserArt/AdminShowArt.css").toExternalForm());
