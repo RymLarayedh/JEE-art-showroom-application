@@ -47,11 +47,18 @@ public class User implements Serializable {
 	private List<Artwork> listArtwork;
 	@OneToMany(mappedBy="sender")
 	private Set<Message> listMessages;
+	@OneToMany(mappedBy="receiver")
+	private Set<Message> listMes;
+	
 	@OneToMany(mappedBy="user")
 	private Set<Cart> listCart;
 	
-
 	
+	
+
+	public Set<Cart> getListCart() {
+		return listCart;
+	}
 
 	public Set<Message> getListMessages() {
 		return listMessages;
@@ -61,8 +68,12 @@ public class User implements Serializable {
 		this.listMessages = listMessages;
 	}
 
-	public Set<Cart> getListCart() {
-		return listCart;
+	public Set<Message> getListMes() {
+		return listMes;
+	}
+
+	public void setListMes(Set<Message> listMes) {
+		this.listMes = listMes;
 	}
 
 	public void setListCart(Set<Cart> listCart) {

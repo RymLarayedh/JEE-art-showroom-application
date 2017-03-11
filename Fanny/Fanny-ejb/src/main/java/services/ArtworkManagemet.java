@@ -9,6 +9,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
 import entities.Artwork;
+import entities.Topic;
 import entities.TunisianCraft;
 import entities.User;
 
@@ -66,6 +67,17 @@ public class ArtworkManagemet implements ArtworkManagemetRemote {
 			List<TunisianCraft> TcraftType = T.getResultList();
 			return TcraftType;
 		} catch (javax.persistence.NoResultException E) {
+			return null;
+		}
+	}
+	@Override
+	public List<Artwork> findAllArtworks() {
+		// TODO Auto-generated method stub
+		try {
+			TypedQuery<Artwork> A = em.createQuery("SELECT a FROM Artwork a", Artwork.class);
+			List<Artwork> ListArtworks = A.getResultList();
+			return ListArtworks;
+		} catch (javax.persistence.NoResultException e) {
 			return null;
 		}
 	}

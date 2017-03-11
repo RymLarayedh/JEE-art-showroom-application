@@ -179,9 +179,9 @@ public class ProfileuserController implements Initializable {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		MusicPane.setVisible(false);
-		musicBarAnchor.setDisable(true);
-		magicbar.setVisible(false);
+		//MusicPane.setVisible(false);
+		//musicBarAnchor.setDisable(true);
+		//magicbar.setVisible(false);
 
 	}
 

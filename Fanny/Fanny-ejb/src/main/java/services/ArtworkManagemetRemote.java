@@ -17,4 +17,8 @@ public interface ArtworkManagemetRemote {
 	public TunisianCraft findByArtist(String name);
 	public List<TunisianCraft> findByType(String type);
 	public List<TunisianCraft> getAllTunisianCraft();
+	
+	/**Ines**/
+	public List<Artwork> findAllArtworks();
+	
 }
