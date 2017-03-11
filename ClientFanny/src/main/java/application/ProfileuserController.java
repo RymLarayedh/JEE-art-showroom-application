@@ -11,6 +11,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import javax.imageio.ImageIO;
@@ -20,12 +21,14 @@ import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 
 import entities.Artist;
+import entities.User;
 import javafx.animation.PathTransition;
 import javafx.application.Platform;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TableView;
@@ -34,6 +37,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.PixelWriter;
 import javafx.scene.image.WritableImage;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Polyline;
@@ -106,7 +110,9 @@ public class ProfileuserController implements Initializable {
 	private JFXTextField mailTF;
 	@FXML
 	private JFXButton SaveButton;
-	boolean isChanged = false ;
+	boolean isChanged = false;
+	@FXML
+	private JFXTextField searchTF;	
 
 	/**
 	 * Initializes the controller class.
@@ -330,11 +336,6 @@ public class ProfileuserController implements Initializable {
 		if (file == null) {
 			return;
 		}
-		try {
-			BufferedImage bufferedImage = ImageIO.read(file);
-			image = SwingFXUtils.toFXImage(bufferedImage, null);
-		} catch (IOException ex) {
-		}
 		byte[] bFile = new byte[(int) file.length()];
 		try {
 			FileInputStream fileInputStream = new FileInputStream(file);
@@ -394,14 +395,45 @@ public class ProfileuserController implements Initializable {
 
 	@FXML
 	private void SaveChanges(ActionEvent event) {
-		if(isChanged)
-		{
+		if (isChanged) {
 			LoginController.userLogedIn.setFirstName(FirstNameTF.getText());
 			LoginController.userLogedIn.setLastName(LastNameTF.getText());
+			if (!LoginController.userLogedIn.getEmail().equals(mailTF.getText())) {
+				if (!LoginController.userManagment.checkMailExistance(mailTF.getText())) {
+					Alert alert = new Alert(Alert.AlertType.ERROR);
+					alert.setTitle("Fanny");
+					alert.setHeaderText(null);
+					alert.setContentText("Mail entered exist in our database please try another one");
+					alert.showAndWait();
+					mailTF.requestFocus();
+					return;
+				}
+			}
+
 			LoginController.userLogedIn.setEmail(mailTF.getText());
-			((Artist)LoginController.userLogedIn).setBio(BIOTF.getText());
-			LoginController.userManagment.updateUser((Artist)LoginController.userLogedIn);
+			((Artist) LoginController.userLogedIn).setBio(BIOTF.getText());
+			LoginController.userManagment.updateUser((Artist) LoginController.userLogedIn);
 		}
+	}
+	
+	@FXML
+	public void findUsers(KeyEvent event)
+	{
+		OwnProfile.setVisible(false);
+		List<User> LrecherchFN = LoginController.userManagment.filterFirstName(searchTF.getText());
+		List<User> LrecherchLN = LoginController.userManagment.filterLastName(searchTF.getText());
+		for (User user : LrecherchLN) {
+			if(LrecherchFN.contains(user))
+			{
+				
+			}
+			else
+			{
+				LrecherchFN.add(user);
+			}
+		}
+		LrecherchLN.clear();
+		
 	}
 
 }
