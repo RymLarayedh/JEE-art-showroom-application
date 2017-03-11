@@ -410,7 +410,7 @@ public class ProfileuserController implements Initializable {
 
 
 		selectedSong = tableMusic.getSelectionModel().getSelectedItem().getPath();
-		hit = new Media(new File(selectedSong).toURI().toString());
+		hit = new Media(new File("src/main/java/music/shape.mp4").toURI().toString());
 		mediaPlayer = new MediaPlayer(hit);
 		
 	
