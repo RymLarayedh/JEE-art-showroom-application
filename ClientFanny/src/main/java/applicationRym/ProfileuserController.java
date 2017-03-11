@@ -165,6 +165,9 @@ public class ProfileuserController implements Initializable {
     private ImageView imgMax3;
     
     //*****
+    @FXML
+    private AnchorPane EventsPane;
+    private static Event GlobalPTP;
 	
     
 
@@ -175,16 +178,23 @@ public class ProfileuserController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         magicbar.setVisible(false);
+        EventsPane.setVisible(false);
+        yes.setVisible(false);
+        yesLabel.setVisible(false);
+        no.setVisible(false);
+        noLabel.setVisible(false);
        
     }    
 
   
     @FXML
     private void profil(ActionEvent event) {
+    	EventsPane.setVisible(false);
     }
 
     @FXML
     private void message(ActionEvent event) {
+    	EventsPane.setVisible(false);
     }
 
 
@@ -307,29 +317,60 @@ public class ProfileuserController implements Initializable {
 
     @FXML
     private void Myownspace(ActionEvent event) {
+    	EventsPane.setVisible(false);
     }
 
     @FXML
     private void visualart(ActionEvent event) {
+    	EventsPane.setVisible(false);
     }
 
     @FXML
     private void music(ActionEvent event) {
+    	EventsPane.setVisible(false);
     }
 
     @FXML
     private void Event(ActionEvent event) throws NamingException {
+    	yes.setVisible(false);
+        yesLabel.setVisible(false);
+        no.setVisible(false);
+        noLabel.setVisible(false);
+    	EventsPane.setVisible(true);
     	remplirEvents();
     	remplirEvents1();
+    	updateMaxEvents();
+    	
+    }
+    public void updateMaxEvents() throws NamingException{
+    	eventMax1.setText("");
+    	eventMax2.setText("");
+    	eventMax3.setText("");
+    	nbrMax1.setText("");
+    	nbrMax2.setText("");
+    	nbrMax3.setText("");
+    	
     	InitialContext ctx = new InitialContext();
     	Object objet = ctx.lookup("/Fanny-ear/Fanny-ejb/EventManagment!services.EventManagmentRemote");
 		EventManagmentRemote proxy = (EventManagmentRemote) objet;
-		int max=0;
-		
-		
-		List<Event> EventBySize = proxy.getAllEvents();
-		
-		
+		List<Event> au = proxy.getAllEvents();	
+		InitialContext ctxEU = new InitialContext();
+		Object objetEU = ctxEU.lookup("/Fanny-ear/Fanny-ejb/EventUserManagment!services.EventUserManagmentRemote");
+    	EventUserManagmentRemote proxyEU = (EventUserManagmentRemote) objetEU;	
+    	
+    	//********************
+    	List<Event> EventBySize =new ArrayList<Event>();
+    	List<EventUser> Leu = new ArrayList<EventUser>();
+        for (Event e : au ){
+        	Leu = proxyEU.findByEventId(e.getIdEvent());
+        }
+        for (EventUser eventUser : Leu) {
+			if(eventUser.getStatus()==1){		
+				EventBySize.add(proxy.findEventById(eventUser.getEvent().getIdEvent()));
+			}
+		}    
+        //************************
+        
 		Collections.sort(EventBySize, new Comparator<Event>() {
 	        public int compare(Event o1, Event o2) {
 	            return o2.getListEventUser().size() - o1.getListEventUser().size();
@@ -366,8 +407,6 @@ public class ProfileuserController implements Initializable {
 			nbrMax1.setText(i1.toString());
 			Integer i2=EventBySize.get(1).getListEventUser().size();
 			nbrMax2.setText(i2.toString());
-			
-			
 		}
 		if(EventBySize.size()==1)
 		{
@@ -376,19 +415,7 @@ public class ProfileuserController implements Initializable {
 							+EventBySize.get(0).getGallery().getUsername());
 			Integer i1=EventBySize.get(0).getListEventUser().size();
 			nbrMax1.setText(i1.toString());
-			
-			
-		}
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+		}	
     }
     public void remplirEvents() throws NamingException{
     	InitialContext ctx = new InitialContext();
@@ -481,16 +508,29 @@ public class ProfileuserController implements Initializable {
             remplirTableParticipant(PTP.getEvent());
             usernameArtist.setText(PTP.getEvent().getArtist().getUsername());
             usernameGallery.setText(PTP.getEvent().getGallery().getUsername());
-            Integer d=PTP.getEvent().getListEventUser().size(); 
-            nbrParticipant.setText(d.toString());
+            //*****************NBR Participant********************
+            List<EventUser> dFinal = new ArrayList<EventUser>();
+            List<EventUser> d=PTP.getEvent().getListEventUser(); 
+            for (EventUser eventUser : d) {
+				if(eventUser.getStatus()==1){
+					dFinal.add(eventUser);
+				}
+			}
+            Integer iFinal= dFinal.size();
+            nbrParticipant.setText(iFinal.toString()+" participants");
+            //*****************************************************
         } else {
             this.selected = 0;
         }
     }
     @FXML
     private void detailsEvents(MouseEvent event) {
+		ObservableList<EventUser> eventUSelected, allEvent;
+        allEvent = tableP.getItems();
+        allEvent.clear();
     	Event PTP = eventsPane.getSelectionModel().getSelectedItem();
         if (PTP != null) {
+        	remplirTableParticipant(PTP);
         	Boolean test =false;
         	
         	
@@ -513,11 +553,23 @@ public class ProfileuserController implements Initializable {
             	noLabel.setVisible(true);
         	}
             this.selected = 1;
-            remplirTableParticipant(PTP);
+            
             usernameArtist.setText(PTP.getArtist().getUsername());
             usernameGallery.setText(PTP.getGallery().getUsername());
-            Integer d=PTP.getListEventUser().size(); 
-            nbrParticipant.setText(d.toString());
+//            Integer d=PTP.getListEventUser().size(); 
+//            nbrParticipant.setText(d.toString());
+            
+        	//********* NBR Participant ******************
+            List<EventUser> dFinal = new ArrayList<EventUser>();
+            List<EventUser> d=PTP.getListEventUser(); 
+            for (EventUser eventUser : d) {
+    			if(eventUser.getStatus()==1){
+    				dFinal.add(eventUser);
+    			}
+    		}
+            Integer iFinal= dFinal.size();
+            nbrParticipant.setText(iFinal.toString()+" participants");
+            GlobalPTP=PTP;
         } else {
             this.selected = 0;
         }
@@ -531,7 +583,13 @@ public class ProfileuserController implements Initializable {
     		ObservableList<EventUser> eventUSelected, allEvent;
             allEvent = tableP.getItems();
             allEvent.clear();
-            for (EventUser e : proxy.findByEventId(idEvent)) {
+            List<EventUser> aEU = new ArrayList<EventUser>();
+            for (EventUser eventUser : proxy.findByEventId(idEvent)) {
+            	if(eventUser.getStatus()==1){
+            		aEU.add(eventUser);
+            	}	
+			}
+            for (EventUser e : aEU) {
                 dataEventUser.add(e);
             }
             
@@ -580,9 +638,26 @@ public class ProfileuserController implements Initializable {
     		}	
     	
     }
+    public void updatenbrParticipant(){
+    	//*******ryyym
+    	
+    	//********* NBR Participant ******************
+        List<EventUser> dFinal = new ArrayList<EventUser>();
+        System.out.println("********"+GlobalPTP.getIdEvent());
+        List<EventUser> d=GlobalPTP.getListEventUser(); 
+        for (EventUser eventUser : d) {
+			if(eventUser.getStatus()==1){
+				dFinal.add(eventUser);
+			}
+		}
+        Integer iFinal= dFinal.size();
+        nbrParticipant.setText(iFinal.toString()+" participants");
+        //***********************************
+    	
+    }
     @FXML
     private void yesParticipate(MouseEvent event) throws NamingException {
-    	System.out.println("twali zar9a");
+    	
     	Event PTP = eventsPane.getSelectionModel().getSelectedItem();
         if (PTP != null) {
             this.selected = 1;
@@ -608,74 +683,33 @@ public class ProfileuserController implements Initializable {
             	eu.setStatus(1);
             	proxy.addEventUser(eu);
         	}
+        	
         	else{
-        		EventUser eu = proxy.findByUserEventId(1, 1);
+        		//************change********
+        		EventUser eu = proxy.findByUserEventId(1, PTP.getIdEvent());
             	eu.setStatus(1);
             	proxy.updateEventUser(eu);
         			
-        	}
-        	
-        		
-        	
-        	
+        	}       	
         	//************************************
         	
         	yes.setVisible(true);
         	yesLabel.setVisible(true);
         	no.setVisible(false);
         	noLabel.setVisible(false);
+        	remplirEvents();
+        	remplirEvents1();
+        	updateMaxEvents();
+        	updatenbrParticipant();
         } else {
             this.selected = 0;
         }
+        
     	
     }
-
-   /* @FXML
-    private void noParticipate(MouseEvent event) throws NamingException {
-    	System.out.println("twali gris");
-    	Event PTP = eventsPane.getSelectionModel().getSelectedItem();
-        if (PTP != null) {
-            this.selected = 1;
-            InitialContext ctx = new InitialContext();
-    		Object objet = ctx.lookup("/Fanny-ear/Fanny-ejb/EventUserManagment!services.EventUserManagmentRemote");
-        	EventUserManagmentRemote proxy = (EventUserManagmentRemote) objet;
-        	
-        	//*************
-//        	InitialContext ctxU = new InitialContext();	
-//    		Object objectU = ctxU.lookup("/Fanny-ear/Fanny-ejb/UserManagment!services.UserManagmentRemote");
-//    		UserManagmentRemote proxyU = (UserManagmentRemote) objectU;
-//    		User u = proxyU.findById(1);
-        	//eu.setEvent(PTP);
-        	//*******************change*********
-        	//eu.setUser(u);
-        	//************************************
-    		/*EventUserID euID = new EventUserID();
-        	euID.setIdEventPK(PTP.getIdEvent());
-        	euID.setIdUserPK(1);
-        	eu.setEtudiantCoursID(euID);*/
-        	//EventUser eu=proxy.findByUserEventId(1, PTP.getIdEvent());
-    		//System.out.println(eu.getStatus()+" "+eu.getEvent().getIdEvent()+" "+eu.getUser().getUsername());
-        	//proxy.deleteEventUser(PTP, u);
-    		/*List<EventUser> Participant=proxy.findByEventId(PTP.getIdEvent());
-        	for (EventUser r : Participant) {
-        		if(r.getUser().getIdUser()==1){
-        			//proxy.deleteEvent(r);
-        			System.out.println("found");
-        		}
-			}
-    		
-        	
-        	yes.setVisible(false);
-        	yesLabel.setVisible(false);
-        	no.setVisible(true);
-        	noLabel.setVisible(true);
-        } else {
-            this.selected = 0;
-        }
-    	
-    }*/
     @FXML
     private void noParticipate(MouseEvent event) throws NamingException {
+    	
     	yes.setVisible(false);
     	yesLabel.setVisible(false);
     	no.setVisible(true);
@@ -688,6 +722,16 @@ public class ProfileuserController implements Initializable {
     	EventUser eu = proxy.findByUserEventId(1, PTP.getIdEvent());
     	eu.setStatus(9);
     	proxy.updateEventUser(eu);
+//    	ObservableList<Event> eventSelected, allEvent;
+//        allEvent = eventsPane.getItems();
+//        allEvent.clear();
+    	remplirEvents();
+//    	ObservableList<EventUser> eventSelected1, allEvent1;
+//        allEvent1 = eventsPane1.getItems();
+//        allEvent1.clear();
+    	remplirEvents1();
+    	updateMaxEvents();
+    	updatenbrParticipant();
     	
     }
 
