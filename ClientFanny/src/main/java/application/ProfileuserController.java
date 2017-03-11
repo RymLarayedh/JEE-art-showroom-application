@@ -584,6 +584,7 @@ public class ProfileuserController implements Initializable {
 		UsersData.clear();
 		searchTable.setVisible(true);
 		OwnProfileArtist.setVisible(false);
+		OwnProfileGallery.setVisible(false);
 		if (searchTF.getText().trim().isEmpty()) {
 			searchTable.setVisible(false);
 			return;
