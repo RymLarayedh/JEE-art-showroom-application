@@ -1,5 +1,6 @@
 package services;
 
+import java.util.List;
 import java.util.Set;
 
 import javax.ejb.Remote;
@@ -21,7 +22,7 @@ public interface MessagesEJBRemote {
 	 * this method return list of conversations
 	 * @param message
 	 */
-	public Set<User> ConversationList (Message message);
+	public Set <User> ConversationList (User u);
 	
 	
 
