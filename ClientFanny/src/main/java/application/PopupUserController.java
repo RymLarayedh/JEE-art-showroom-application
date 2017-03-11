@@ -104,8 +104,8 @@ public class PopupUserController implements Initializable {
 	@FXML
 	private TableColumn<User, String> ActionTV;
 	ObservableList<User> UsersData = FXCollections.observableArrayList();
-	List<User>LrecherchFN = new ArrayList<>();
-	List<Artist>LrecherchArt = new ArrayList<>();
+	List<User> LrecherchFN = new ArrayList<>();
+	List<Artist> LrecherchArt = new ArrayList<>();
 	@FXML
 	private JFXButton FollowersBTN;
 	@FXML
@@ -197,11 +197,10 @@ public class PopupUserController implements Initializable {
 			FollowUnfollow.setText("Follow");
 		}
 	}
-	
+
 	@FXML
-	private void ShowFollowers(ActionEvent event)
-	{		
-		//eli houwa itaba3 fihom
+	private void ShowFollowers(ActionEvent event) {
+		// eli houwa itaba3 fihom
 		Follow.setVisible(true);
 		GalleryThing.setVisible(false);
 		ArtistThing.setVisible(false);
@@ -280,7 +279,19 @@ public class PopupUserController implements Initializable {
 									setGraphic(null);
 									setText(null);
 								} else {
-									btn.setText("More Information");
+									if (LoginController.userManagment.getAllFollowed(userChoosen)
+											.contains(getTableView().getItems().get(getIndex()))) {
+										btn.setText("UnFollow");
+										btn.setOnAction((ActionEvent event) -> {
+											User person = getTableView().getItems().get(getIndex());
+											LoginController.userManagment.removeFollower(userChoosen,
+													person);
+											Follow.refresh();
+										});
+									} else {
+										btn.setText("More Information");
+									}
+
 									setGraphic(btn);
 									setText(null);
 								}
@@ -293,26 +304,24 @@ public class PopupUserController implements Initializable {
 		ActionTV.setCellFactory(cellFactory);
 
 		/**************************************************************/
-		UsersData.addAll(LrecherchFN);
+		UsersData.addAll(LrecherchArt);
 		FirstNameTV.setCellValueFactory(new PropertyValueFactory<User, String>("firstName"));
 		LastNameTV.setCellValueFactory(new PropertyValueFactory<User, String>("lastName"));
 		Follow.setItems(UsersData);
-		
+
 	}
-	
+
 	@FXML
-	private void showFollowed(ActionEvent event)
-	{
-		//eli houma itab3ou fih
-		//followUnfollow
+	private void showFollowed(ActionEvent event) {
+		// eli houma itab3ou fih
+		// followUnfollow
 		LrecherchFN.clear();
 		UsersData.clear();
 		Follow.setVisible(true);
 		GalleryThing.setVisible(false);
 		ArtistThing.setVisible(false);
 
-		for(ArtistFollowers u :((Artist)userChoosen).getFollowers())
-		{
+		for (ArtistFollowers u : ((Artist) userChoosen).getFollowers()) {
 			LrecherchFN.add(u.getUser());
 		}
 		PictureTV.setCellValueFactory(new PropertyValueFactory<User, byte[]>("Picture"));
@@ -404,9 +413,9 @@ public class PopupUserController implements Initializable {
 		FirstNameTV.setCellValueFactory(new PropertyValueFactory<User, String>("firstName"));
 		LastNameTV.setCellValueFactory(new PropertyValueFactory<User, String>("lastName"));
 		Follow.setItems(UsersData);
-		
+
 	}
-	
+
 	@FXML
 	public void MoreInformation(MouseEvent event) throws IOException {
 		if (PopupUserController.userChoosen == Follow.getSelectionModel().getSelectedItem()) {
@@ -418,6 +427,11 @@ public class PopupUserController implements Initializable {
 		Stage Sc = new Stage();
 		Sc.setScene(scene);
 		Sc.setScene(scene);
+		Sc.setOnCloseRequest(e ->{
+            e.consume();
+            Sc.close();
+            userChoosen = null ;
+		});
 		Sc.setTitle("FannyTUNISIA");
 		Sc.showAndWait();
 
