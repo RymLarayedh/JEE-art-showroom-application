@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.*;
 
@@ -38,6 +39,8 @@ public class Artwork implements Serializable {
 	
 	@ManyToOne
 	private User user;
+	@OneToMany(mappedBy="artwork")
+	private Set<Cart> listCart;
 
 	@Override
 	public String toString() {

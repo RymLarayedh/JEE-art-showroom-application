@@ -46,15 +46,27 @@ public class User implements Serializable {
 	@OneToMany(mappedBy="user"/*,fetch=FetchType.EAGER*/)
 	private List<Artwork> listArtwork;
 	@OneToMany(mappedBy="sender")
-	private List<Message> listMessages;
+	private Set<Message> listMessages;
+	@OneToMany(mappedBy="user")
+	private Set<Cart> listCart;
 	
 
-	public List<Message> getListMessages() {
+	
+
+	public Set<Message> getListMessages() {
 		return listMessages;
 	}
 
-	public void setListMessages(List<Message> listMessages) {
+	public void setListMessages(Set<Message> listMessages) {
 		this.listMessages = listMessages;
+	}
+
+	public Set<Cart> getListCart() {
+		return listCart;
+	}
+
+	public void setListCart(Set<Cart> listCart) {
+		this.listCart = listCart;
 	}
 
 	public List<Artwork> getListArtwork() {

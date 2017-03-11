@@ -14,6 +14,8 @@ import javax.persistence.PersistenceContext;
 import entities.Admin;
 import entities.Artist;
 import entities.Artwork;
+import entities.Cart;
+import entities.CartId;
 import entities.Event;
 import entities.EventUser;
 import entities.EventUserID;
@@ -39,6 +41,7 @@ public class DataExample {
 	@EJB EventManagmentRemote eventManagment;
 	@EJB EventUserManagmentRemote eventUserManagment;
 	@EJB ForumManagementRemote forumManagement;
+	@EJB CartEJBRemote cartManagement;
 	
 	@PersistenceContext(unitName = "Fanny-ejb")
 	EntityManager em;
@@ -149,6 +152,22 @@ public class DataExample {
 		Music m = new Music();
 		m.setName("sia");
 		forumManagement.addMusic(m);
+		
+
+		/****
+		 * 
+		 */
+		
+		Cart c1= new Cart();
+		CartId cId= new CartId();
+		cId.setArtworkId(1);
+		cId.setBuyerId(2);
+		c1.setIdCart(cId);
+		c1.setDate("12/12/12");
+		c1.setPrice(20014);
+		c1.setQuantity(1);
+		c1.setStatus(1);
+		cartManagement.addCart(c1);
 
 	}
 
