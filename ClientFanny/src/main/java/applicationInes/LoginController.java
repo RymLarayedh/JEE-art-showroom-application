@@ -252,7 +252,7 @@ public class LoginController implements Initializable {
 	}
 
 	void gotoAdmin(ActionEvent event) throws IOException {
-		Parent adminScene = FXMLLoader.load(getClass().getResource("MenuAdmin.fxml"));
+		Parent adminScene = FXMLLoader.load(getClass().getResource("Admin.fxml"));
 		Scene scene = new Scene(adminScene);
 		//scene.getStylesheets().add(getClass().getResource("Admin.css").toExternalForm());
 		Stage Sc = new Stage();
