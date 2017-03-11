@@ -23,6 +23,7 @@ import com.jfoenix.controls.JFXTextField;
 
 import entities.Admin;
 import entities.Artist;
+import entities.Gallery;
 import entities.User;
 import javafx.animation.PathTransition;
 import javafx.application.Platform;
@@ -32,7 +33,10 @@ import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TabPane;
@@ -53,6 +57,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.shape.Polyline;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import javafx.util.Callback;
 import javafx.util.Duration;
 import utils.ConfirmBox;
@@ -102,7 +107,7 @@ public class ProfileuserController implements Initializable {
 	@FXML
 	private AnchorPane AymensPane;
 	@FXML
-	private TabPane OwnProfile;
+	private TabPane OwnProfileArtist;
 	MouseEvent mEvent;
 
 	@FXML
@@ -138,6 +143,8 @@ public class ProfileuserController implements Initializable {
 
 	@FXML
 	private TableColumn<User, String> Action;
+	@FXML
+	private TabPane OwnProfileGallery;
 	ObservableList<User> UsersData = FXCollections.observableArrayList();
 	List<User> LrecherchFN = new ArrayList<>();
 	List<User> Lremove = new ArrayList<>();
@@ -147,9 +154,12 @@ public class ProfileuserController implements Initializable {
 	 */
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
+		OwnProfileArtist.setVisible(false);
+		OwnProfileGallery.setVisible(false);
+		searchTable.setVisible(false);
 		bioEDIT.setVisible(false);
 		mailEDIT.setVisible(false);
-		AymensPane.setVisible(false);
+		AymensPane.setVisible(true);
 		magicbar.setVisible(false);
 
 	}
@@ -289,7 +299,7 @@ public class ProfileuserController implements Initializable {
 	public void showProfileBTN(ActionEvent event) {
 		searchTable.setVisible(false);
 		AymensPane.setVisible(true);
-		OwnProfile.setVisible(true);
+		OwnProfileArtist.setVisible(true);
 		mailTF.setEditable(false);
 		BIOTF.setEditable(false);
 		FirstNameTF.setEditable(false);
@@ -446,28 +456,32 @@ public class ProfileuserController implements Initializable {
 	}
 
 	@FXML
-	public void findUsers(KeyEvent event) {
+	public void findUsers(KeyEvent event) throws IOException  {
 		LrecherchFN.clear();
 		Lremove.clear();
+		UsersData.clear();
 		searchTable.setVisible(true);
-		OwnProfile.setVisible(false);
-		if(searchTF.getText().trim().length() < 1)
-		{
-			return ;
-		}
-		LrecherchFN = LoginController.userManagment.filterLastNameAndLastName(searchTF.getText());
-		if(LrecherchFN == null || LrecherchFN.equals(UsersData))
-		{
+		OwnProfileArtist.setVisible(false);
+		if (searchTF.getText().trim().isEmpty()) {
+			searchTable.setVisible(false);
 			return;
 		}
-		
-			for (User user : LrecherchFN) {
-			if (user.isBlocked() || (!user.isActive()) || (user.equals(LoginController.userLogedIn)) || (user instanceof Admin)) {
+		if (searchTF.getText().trim().length() < 1) {
+			searchTable.setVisible(false);
+			return;
+		}
+		LrecherchFN = LoginController.userManagment.filterLastNameAndLastName(searchTF.getText());
+		if (LrecherchFN == null || LrecherchFN.equals(UsersData)) {
+			return;
+		}
+
+		for (User user : LrecherchFN) {
+			if (user.isBlocked() || (!user.isActive()) || (user.equals(LoginController.userLogedIn))
+					|| (user instanceof Admin)) {
 				Lremove.add(user);
 			}
 		}
-			LrecherchFN.removeAll(Lremove);
-		UsersData.clear();
+		LrecherchFN.removeAll(Lremove);
 		Picture.setResizable(false);
 		Picture.setSortable(false);
 		Picture.setCellValueFactory(new PropertyValueFactory<User, byte[]>("Picture"));
@@ -526,67 +540,75 @@ public class ProfileuserController implements Initializable {
 			}
 
 		});
-		 Action.setCellValueFactory( new PropertyValueFactory<>( "Action" ) );
-		 Callback<TableColumn<User, String>, TableCell<User, String>> cellFactory = //
-	                new Callback<TableColumn<User, String>, TableCell<User, String>>()
-	                {
-	                    @Override
-	                    public TableCell call( final TableColumn<User, String> param )
-	                    {
-	                        final TableCell<User, String> cell = new TableCell<User, String>()
-	                        {
+		Action.setCellValueFactory(new PropertyValueFactory<>("Action"));
+		Callback<TableColumn<User, String>, TableCell<User, String>> cellFactory = //
+				new Callback<TableColumn<User, String>, TableCell<User, String>>() {
+					@Override
+					public TableCell call(final TableColumn<User, String> param) {
+						final TableCell<User, String> cell = new TableCell<User, String>() {
 
-	                            final JFXButton btn = new JFXButton();
+							final JFXButton btn = new JFXButton();
 
-	                            @Override
-	                            public void updateItem( String item, boolean empty )
-	                            {
-	                                super.updateItem( item, empty );
-	                                if ( empty )
-	                                {
-	                                    setGraphic( null );
-	                                    setText( null );
-	                                }
-	                                else
-	                                {
-	                                	if(LoginController.userManagment.getAllFollowed(LoginController.userLogedIn).contains(getTableView().getItems().get(getIndex())))
-	                                	{
-	                                		btn.setText("UnFollow");
-		                                    btn.setOnAction( ( ActionEvent event ) ->
-                                            {
-                                                User person = getTableView().getItems().get( getIndex() );
-                                                LoginController.userManagment.removeFollower(LoginController.userLogedIn,person);
-                                                searchTable.refresh();
-                                    } );
-	                                	}
-	                                	else
-	                                	{
-	                                		btn.setText("Follow");
-		                                    btn.setOnAction( ( ActionEvent event ) ->
-                                            {
-                                                User person = getTableView().getItems().get( getIndex() );
-                                                LoginController.userManagment.addFollower(LoginController.userLogedIn,person);
-                                                searchTable.refresh();
-                                    } );
-	                                	}
+							@Override
+							public void updateItem(String item, boolean empty) {
+								super.updateItem(item, empty);
+								if (empty) {
+									setGraphic(null);
+									setText(null);
+								} else {
+									if (getTableView().getItems().get(getIndex()) instanceof Gallery) {
+										btn.setText("More Information");
+										btn.setOnAction((ActionEvent event) -> {
+										});
+									} else {
+										if (LoginController.userManagment.getAllFollowed(LoginController.userLogedIn)
+												.contains(getTableView().getItems().get(getIndex()))) {
+											btn.setText("UnFollow");
+											btn.setOnAction((ActionEvent event) -> {
+												User person = getTableView().getItems().get(getIndex());
+												LoginController.userManagment
+														.removeFollower(LoginController.userLogedIn, person);
+												searchTable.refresh();
+											});
+										} else {
+											btn.setText("Follow");
+											btn.setOnAction((ActionEvent event) -> {
+												User person = getTableView().getItems().get(getIndex());
+												LoginController.userManagment.addFollower(LoginController.userLogedIn,
+														person);
+												searchTable.refresh();
+											});
+										}
+									}
+									setGraphic(btn);
+									setText(null);
+								}
+							}
+						};
+						return cell;
+					}
+				};
 
-	                                    setGraphic( btn );
-	                                    setText( null );
-	                                }
-	                            }
-	                        };
-	                        return cell;
-	                    }
-	                };
+	Action.setCellFactory(cellFactory);
 
-	        Action.setCellFactory( cellFactory );
+	/**************************************************************/
+	UsersData.addAll(LrecherchFN);FirstName.setCellValueFactory(new PropertyValueFactory<User,String>("firstName"));LastName.setCellValueFactory(new PropertyValueFactory<User,String>("lastName"));searchTable.setItems(UsersData);searchTable.setVisible(true);
 
-		/**************************************************************/
-		UsersData.addAll(LrecherchFN);
-		FirstName.setCellValueFactory(new PropertyValueFactory<User, String>("firstName"));
-		LastName.setCellValueFactory(new PropertyValueFactory<User, String>("lastName"));
-		searchTable.setItems(UsersData);
-		searchTable.setVisible(true);
+	}
+
+	@FXML
+	public void OpenSearchedProfile(MouseEvent event) throws IOException {
+		if (PopupUserController.userChoosen == searchTable.getSelectionModel().getSelectedItem()) {
+			return;
+		}
+		PopupUserController.userChoosen = searchTable.getSelectionModel().getSelectedItem();
+		Parent adminScene = FXMLLoader.load(getClass().getResource("popupUser.fxml"));
+		Scene scene = new Scene(adminScene);
+		Stage Sc = new Stage();
+		Sc.setScene(scene);
+		Sc.setScene(scene);
+		Sc.setTitle("FannyTUNISIA");
+		Sc.showAndWait();
 
 	}
 

@@ -221,7 +221,7 @@
       </AnchorPane>
       <AnchorPane fx:id="AymensPane" layoutX="235.0" layoutY="79.0" prefHeight="540.0" prefWidth="804.0">
          <children>
-            <TabPane fx:id="OwnProfile" layoutY="100.0" prefHeight="452.0" prefWidth="804.0" tabClosingPolicy="UNAVAILABLE">
+            <TabPane fx:id="OwnProfileArtist" layoutY="100.0" prefHeight="452.0" prefWidth="804.0" tabClosingPolicy="UNAVAILABLE">
               <tabs>
                 <Tab text="General Information">
                   <content>
@@ -281,14 +281,73 @@
               </tabs>
             </TabPane>
             <JFXTextField fx:id="searchTF" layoutX="25.0" layoutY="37.0" maxWidth="674.0" minWidth="674.0" onKeyTyped="#findUsers" prefHeight="31.0" prefWidth="674.0" promptText="Look for Someone ?? try from here" />
-            <TableView fx:id="searchTable" layoutY="100.0" prefHeight="364.0" prefWidth="804.0">
+            <TableView fx:id="searchTable" layoutX="103.0" layoutY="100.0" onMouseClicked="#OpenSearchedProfile" prefHeight="364.0" prefWidth="576.0">
               <columns>
-                <TableColumn fx:id="Picture" prefWidth="75.0" text="Picture" />
-                <TableColumn fx:id="FirstName" prefWidth="75.0" text="First Name" />
-                  <TableColumn fx:id="LastName" prefWidth="75.0" text="Last Name" />
-                  <TableColumn fx:id="Action" prefWidth="75.0" text="Action" />
+                <TableColumn fx:id="Picture" prefWidth="145.0" text="Picture" />
+                <TableColumn fx:id="FirstName" prefWidth="159.0" text="First Name" />
+                  <TableColumn fx:id="LastName" prefWidth="140.0" text="Last Name" />
+                  <TableColumn fx:id="Action" prefWidth="128.0" text="Action" />
               </columns>
             </TableView>
+            <TabPane fx:id="OwnProfileGallery" layoutY="100.0" prefHeight="452.0" prefWidth="804.0" tabClosingPolicy="UNAVAILABLE">
+               <tabs>
+                  <Tab text="General Information">
+                     <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <ScrollPane prefHeight="424.0" prefWidth="806.0">
+                                 <content>
+                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="772.0" prefWidth="794.0">
+                                       <children>
+                                          <GridPane layoutX="189.0" layoutY="-3.0" prefHeight="571.0" prefWidth="604.0" AnchorPane.bottomAnchor="206.0" AnchorPane.leftAnchor="189.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="-5.0">
+                                             <columnConstraints>
+                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="392.0" minWidth="10.0" prefWidth="204.0" />
+                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="600.0" minWidth="10.0" prefWidth="319.0" />
+                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="702.0" minWidth="10.0" prefWidth="149.0" />
+                                             </columnConstraints>
+                                             <rowConstraints>
+                                                <RowConstraints maxHeight="227.0" minHeight="10.0" prefHeight="209.0" vgrow="SOMETIMES" />
+                                                <RowConstraints maxHeight="310.0" minHeight="10.0" prefHeight="264.0" vgrow="SOMETIMES" />
+                                             </rowConstraints>
+                                             <children>
+                                                <Label text="E-mail" />
+                                                <Label text="Bio" GridPane.rowIndex="1" />
+                                                <JFXTextField fx:id="mailTF1" onMouseMoved="#EmailEDIT" GridPane.columnIndex="1" />
+                                                <Button fx:id="mailEDIT1" mnemonicParsing="false" onAction="#mailEDITPERFORM" prefHeight="35.0" prefWidth="34.0" text="Button" GridPane.columnIndex="2">
+                                                   <effect>
+                                                      <ImageInput>
+                                                         <source>
+                                                            <Image url="@../buttons/rsz_1rsz_edit-new-icon-22.png" />
+                                                         </source>
+                                                      </ImageInput>
+                                                   </effect>
+                                                </Button>
+                                                <Button fx:id="bioEDIT1" mnemonicParsing="false" onAction="#bioEDITPERFORM" prefHeight="35.0" prefWidth="30.0" text="Button" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                                                   <effect>
+                                                      <ImageInput>
+                                                         <source>
+                                                            <Image url="file:/C:/Users/ElarbiMohamedAymen/git/Eureka/ClientFanny/src/main/java/buttons/rsz_1rsz_edit-new-icon-22.png" />
+                                                         </source>
+                                                      </ImageInput>
+                                                   </effect>
+                                                </Button>
+                                                <JFXTextArea fx:id="BIOTF1" onMouseMoved="#BIOEDIT" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                             </children>
+                                          </GridPane>
+                                          <ImageView fx:id="imageViewProfile1" fitHeight="150.0" fitWidth="162.0" onMouseClicked="#ChangeProfilePIC" pickOnBounds="true" preserveRatio="true" />
+                                          <JFXTextField fx:id="FirstNameTF1" layoutX="2.0" layoutY="166.0" onMouseClicked="#FirstNameEDIT" />
+                                          <JFXTextField fx:id="LastNameTF1" layoutX="1.0" layoutY="225.0" onMouseClicked="#LastNameEDIT" />
+                                          <JFXButton fx:id="SaveButton1" layoutX="650.0" layoutY="615.0" onAction="#SaveChanges" text="Save" />
+                                       </children>
+                                    </AnchorPane>
+                                 </content>
+                              </ScrollPane>
+                           </children>
+                        </AnchorPane>
+                     </content>
+                  </Tab>
+               </tabs>
+            </TabPane>
          </children>
       </AnchorPane>
    </children>
