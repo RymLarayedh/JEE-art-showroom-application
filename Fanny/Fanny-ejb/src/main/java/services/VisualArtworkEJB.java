@@ -11,9 +11,10 @@ import javax.persistence.TypedQuery;
 import entities.Artwork;
 import entities.Category;
 import entities.Comment;
+import entities.Feedback;
 import entities.User;
 import entities.VisualArt;
-import relation.Client;
+
 
 
 /**
@@ -89,7 +90,10 @@ public class VisualArtworkEJB implements VisualArtworkEJBRemote {
 
 	@Override
 	public List<Comment> findAllVisualComment() {
-		TypedQuery<Comment> qc = em.createQuery("SELECT c FROM Artwork c", Comment.class);
+//		TypedQuery<Feedback> qc = em.createQuery("SELECT c FROM Feedback c where c.DTYPE=:pCo ", Feedback.class).
+//				setParameter("pCo", "COMMENT");
+//		List<Feedback> Lcomment = qc.getResultList();
+		TypedQuery<Comment> qc = em.createQuery("SELECT c FROM Comment c", Comment.class);
 		List<Comment> Lcomment = qc.getResultList();
 		return Lcomment;
 	}
@@ -100,11 +104,20 @@ public class VisualArtworkEJB implements VisualArtworkEJBRemote {
 		return (List<VisualArt>) em.createQuery("select c from VisualArt c where c.user_idUser=:pid",VisualArt.class)
 				.setParameter("pid", idUser).getSingleResult();
 	}
-
+//a refaire"/////////
 	@Override
 	public List<Comment> findMyVisualComment(int idUser, int idVisualart) {
 		// TODO Auto-generated method stub
-		return null;
+		return (List<Comment>) em.createQuery("select c from Comment c where c.user_idUser=:pid",Comment.class)
+				.setParameter("pid", idUser).getSingleResult();
+	}
+
+	@Override
+	public List<Comment> findAllVisualArtComment(int idVisualart) {
+		//return null;
+		// TODO Auto-generated method stub
+		return (List<Comment>) em.createQuery("select c from Comment c where c.FeedbackId.ArtworkId=:pid",Comment.class)
+				.setParameter("pid", idVisualart).getSingleResult();
 	}
 
 }

@@ -6,6 +6,7 @@ import javax.ejb.Remote;
 
 import entities.Artwork;
 import entities.Comment;
+import entities.Feedback;
 import entities.VisualArt;
 
 
@@ -24,5 +25,6 @@ public void upadateVisualComment(Comment VC);
 public void deleteVisualComment(Comment VC);
 public Comment findVisualCommentById(int IdVisualComment );
 public List<Comment> findAllVisualComment ();
+public List<Comment> findAllVisualArtComment (int idVisualart);
 public List<Comment> findMyVisualComment (int idUser ,int idVisualart);
 }
