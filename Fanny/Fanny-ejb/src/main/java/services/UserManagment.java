@@ -91,7 +91,7 @@ public class UserManagment implements UserManagmentRemote {
 		if (user == null) {
 			return false;
 		} else if (user.getPassword().equals(password)) {
-			if (user.isActive()&& (!user.isBlocked())) {
+			if (user.isActive() && (!user.isBlocked())) {
 				return true;
 			}
 			return false;
@@ -405,7 +405,8 @@ public class UserManagment implements UserManagmentRemote {
 	@Override
 	public List<Artist> getAllFollowed(User user) {
 		try {
-			TypedQuery<Artist> q = em.createQuery("SELECT a FROM Artist a join a.Followers af where af.user=:User", Artist.class);
+			TypedQuery<Artist> q = em.createQuery("SELECT a FROM Artist a join a.Followers af where af.user=:User",
+					Artist.class);
 			q.setParameter("User", user);
 			List<Artist> Lartist = q.getResultList();
 			return Lartist;
@@ -422,6 +423,19 @@ public class UserManagment implements UserManagmentRemote {
 			Fields fields = q.getSingleResult();
 			return fields;
 		} catch (javax.persistence.NoResultException e) {
+			return null;
+		}
+	}
+
+	@Override
+	public List<User> filterLastNameAndLastName(String name) {
+		try {
+			TypedQuery<User> q = em
+					.createQuery("SELECT u FROM User u where u.firstName LIKE :ln or u.lastName LIKE :ln ", User.class);
+			q.setParameter("ln", '%' + name + '%');
+			List<User> Luser = q.getResultList();
+			return Luser;
+		} catch (javax.persistence.NoResultException E) {
 			return null;
 		}
 	}

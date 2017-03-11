@@ -11,6 +11,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -20,10 +21,14 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 
+import entities.Admin;
 import entities.Artist;
 import entities.User;
 import javafx.animation.PathTransition;
 import javafx.application.Platform;
+import javafx.beans.property.ReadOnlyStringWrapper;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -31,8 +36,11 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TabPane;
+import javafx.scene.control.TableCell;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.Tooltip;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.PixelWriter;
@@ -40,9 +48,12 @@ import javafx.scene.image.WritableImage;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.shape.Polyline;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
+import javafx.util.Callback;
 import javafx.util.Duration;
 import utils.ConfirmBox;
 
@@ -112,7 +123,24 @@ public class ProfileuserController implements Initializable {
 	private JFXButton SaveButton;
 	boolean isChanged = false;
 	@FXML
-	private JFXTextField searchTF;	
+	private JFXTextField searchTF;
+	@FXML
+	private TableView<User> searchTable;
+
+	@FXML
+	private TableColumn<User, byte[]> Picture;
+
+	@FXML
+	private TableColumn<User, String> FirstName;
+
+	@FXML
+	private TableColumn<User, String> LastName;
+
+	@FXML
+	private TableColumn<User, String> Action;
+	ObservableList<User> UsersData = FXCollections.observableArrayList();
+	List<User> LrecherchFN = new ArrayList<>();
+	List<User> Lremove = new ArrayList<>();
 
 	/**
 	 * Initializes the controller class.
@@ -259,6 +287,7 @@ public class ProfileuserController implements Initializable {
 
 	@FXML
 	public void showProfileBTN(ActionEvent event) {
+		searchTable.setVisible(false);
 		AymensPane.setVisible(true);
 		OwnProfile.setVisible(true);
 		mailTF.setEditable(false);
@@ -415,25 +444,150 @@ public class ProfileuserController implements Initializable {
 			LoginController.userManagment.updateUser((Artist) LoginController.userLogedIn);
 		}
 	}
-	
+
 	@FXML
-	public void findUsers(KeyEvent event)
-	{
+	public void findUsers(KeyEvent event) {
+		LrecherchFN.clear();
+		Lremove.clear();
+		searchTable.setVisible(true);
 		OwnProfile.setVisible(false);
-		List<User> LrecherchFN = LoginController.userManagment.filterFirstName(searchTF.getText());
-		List<User> LrecherchLN = LoginController.userManagment.filterLastName(searchTF.getText());
-		for (User user : LrecherchLN) {
-			if(LrecherchFN.contains(user))
-			{
-				
-			}
-			else
-			{
-				LrecherchFN.add(user);
+		if(searchTF.getText().trim().length() < 1)
+		{
+			return ;
+		}
+		LrecherchFN = LoginController.userManagment.filterLastNameAndLastName(searchTF.getText());
+		if(LrecherchFN == null || LrecherchFN.equals(UsersData))
+		{
+			return;
+		}
+		
+			for (User user : LrecherchFN) {
+			if (user.isBlocked() || (!user.isActive()) || (user.equals(LoginController.userLogedIn)) || (user instanceof Admin)) {
+				Lremove.add(user);
 			}
 		}
-		LrecherchLN.clear();
-		
+			LrecherchFN.removeAll(Lremove);
+		UsersData.clear();
+		Picture.setResizable(false);
+		Picture.setSortable(false);
+		Picture.setCellValueFactory(new PropertyValueFactory<User, byte[]>("Picture"));
+		Picture.setCellFactory(new Callback<TableColumn<User, byte[]>, TableCell<User, byte[]>>() {
+			@Override
+			public TableCell<User, byte[]> call(TableColumn<User, byte[]> param) {
+				TableCell<User, byte[]> cell = new TableCell<User, byte[]>() {
+					@Override
+					public void updateItem(byte[] item, boolean empty) {
+						if (item != null) {
+							HBox box = new HBox();
+							box.setSpacing(10);
+							VBox vbox = new VBox();
+							ImageView imageview = new ImageView();
+							imageview.setFitHeight(50);
+							imageview.setFitWidth(50);
+							if (item == null) {
+								File file = new File("./src/main/java/buttons/PasDePhotoDeProfil.png");
+								BufferedImage bufferedImage;
+								try {
+									bufferedImage = ImageIO.read(file);
+									Image image = SwingFXUtils.toFXImage(bufferedImage, null);
+									imageview.setImage(image);
+								} catch (IOException e) {
+								}
+
+							} else {
+								try {
+									byte[] b = item;
+									BufferedImage imgbf = null;
+
+									imgbf = ImageIO.read(new ByteArrayInputStream(b));
+									WritableImage wr = null;
+									if (imgbf != null) {
+										wr = new WritableImage(imgbf.getWidth(), imgbf.getHeight());
+										PixelWriter pw = wr.getPixelWriter();
+										for (int x = 0; x < imgbf.getWidth(); x++) {
+											for (int y = 0; y < imgbf.getHeight(); y++) {
+												pw.setArgb(x, y, imgbf.getRGB(x, y));
+											}
+										}
+									}
+									imageview.setImage(wr);
+								} catch (IOException e) {
+								}
+
+							}
+
+							box.getChildren().addAll(imageview, vbox);
+							// SETTING ALL THE GRAPHICS COMPONENT FOR CELL
+							setGraphic(box);
+						}
+					}
+				};
+				return cell;
+			}
+
+		});
+		 Action.setCellValueFactory( new PropertyValueFactory<>( "Action" ) );
+		 Callback<TableColumn<User, String>, TableCell<User, String>> cellFactory = //
+	                new Callback<TableColumn<User, String>, TableCell<User, String>>()
+	                {
+	                    @Override
+	                    public TableCell call( final TableColumn<User, String> param )
+	                    {
+	                        final TableCell<User, String> cell = new TableCell<User, String>()
+	                        {
+
+	                            final JFXButton btn = new JFXButton();
+
+	                            @Override
+	                            public void updateItem( String item, boolean empty )
+	                            {
+	                                super.updateItem( item, empty );
+	                                if ( empty )
+	                                {
+	                                    setGraphic( null );
+	                                    setText( null );
+	                                }
+	                                else
+	                                {
+	                                	if(LoginController.userManagment.getAllFollowed(LoginController.userLogedIn).contains(getTableView().getItems().get(getIndex())))
+	                                	{
+	                                		btn.setText("UnFollow");
+		                                    btn.setOnAction( ( ActionEvent event ) ->
+                                            {
+                                                User person = getTableView().getItems().get( getIndex() );
+                                                LoginController.userManagment.removeFollower(LoginController.userLogedIn,person);
+                                                searchTable.refresh();
+                                    } );
+	                                	}
+	                                	else
+	                                	{
+	                                		btn.setText("Follow");
+		                                    btn.setOnAction( ( ActionEvent event ) ->
+                                            {
+                                                User person = getTableView().getItems().get( getIndex() );
+                                                LoginController.userManagment.addFollower(LoginController.userLogedIn,person);
+                                                searchTable.refresh();
+                                    } );
+	                                	}
+
+	                                    setGraphic( btn );
+	                                    setText( null );
+	                                }
+	                            }
+	                        };
+	                        return cell;
+	                    }
+	                };
+
+	        Action.setCellFactory( cellFactory );
+
+		/**************************************************************/
+		UsersData.addAll(LrecherchFN);
+		FirstName.setCellValueFactory(new PropertyValueFactory<User, String>("firstName"));
+		LastName.setCellValueFactory(new PropertyValueFactory<User, String>("lastName"));
+		searchTable.setItems(UsersData);
+		searchTable.setVisible(true);
+
 	}
 
 }

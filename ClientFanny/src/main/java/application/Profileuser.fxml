@@ -280,7 +280,15 @@
                 </Tab>
               </tabs>
             </TabPane>
-            <JFXTextField fx:id="searchTF" layoutX="25.0" layoutY="37.0" maxWidth="674.0" minWidth="674.0" onKeyPressed="#findUsers" prefHeight="31.0" prefWidth="674.0" promptText="Look for Someone ?? try from here" />
+            <JFXTextField fx:id="searchTF" layoutX="25.0" layoutY="37.0" maxWidth="674.0" minWidth="674.0" onKeyTyped="#findUsers" prefHeight="31.0" prefWidth="674.0" promptText="Look for Someone ?? try from here" />
+            <TableView fx:id="searchTable" layoutY="100.0" prefHeight="364.0" prefWidth="804.0">
+              <columns>
+                <TableColumn fx:id="Picture" prefWidth="75.0" text="Picture" />
+                <TableColumn fx:id="FirstName" prefWidth="75.0" text="First Name" />
+                  <TableColumn fx:id="LastName" prefWidth="75.0" text="Last Name" />
+                  <TableColumn fx:id="Action" prefWidth="75.0" text="Action" />
+              </columns>
+            </TableView>
          </children>
       </AnchorPane>
    </children>

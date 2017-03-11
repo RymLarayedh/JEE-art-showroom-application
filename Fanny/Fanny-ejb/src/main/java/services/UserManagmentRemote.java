@@ -110,6 +110,13 @@ public interface UserManagmentRemote {
 	public List<User> filterLastName(String name);
 	
 	/**
+	 * this method will filter the Users by lastName and FirstName 
+	 * @param name
+	 * @return
+	 */
+	public List<User> filterLastNameAndLastName(String name);
+	
+	/**
 	 *  this method will filter the Users by isActive status
 	 * @return only the blockedUser
 	 */
@@ -218,6 +225,11 @@ public interface UserManagmentRemote {
 	 */
 	public List<Artist> getAllFollowed(User user);
 	
+	/**
+	 * this method allowed to find an entity of Field by its name
+	 * @param name
+	 * @return
+	 */
 	public Fields findFieldsByName(String name);
 	
 	
