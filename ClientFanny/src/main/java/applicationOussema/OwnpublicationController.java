@@ -66,7 +66,7 @@ int i =0 ;
 			lst= proxy.getAllTunisianCraft();
 			for (  i =0 ; i< lst.size();i++);
 			{
-			
+			 //ooo
 		        artnamet.setText(lst.get(i).getUser().getUsername());
 		        type1.setText(lst.get(i).getType());
 		       artwnamet1.setText(lst.get(i).getName());
