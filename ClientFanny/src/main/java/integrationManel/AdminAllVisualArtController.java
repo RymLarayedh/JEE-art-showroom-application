@@ -365,7 +365,7 @@ public class AdminAllVisualArtController implements Initializable {
 		
 		proxy.upadateVisualArt(VisArt);
     }
-    
+    //
   
 	
 }
