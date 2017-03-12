@@ -1,0 +1,11 @@
+
+
+#tableMusic {
+    -fx-base: #1d1d1d;
+    -fx-control-inner-background: transparent;
+    -fx-background-color: transparent;
+    -fx-table-cell-border-color: #1d1d1d;
+    -fx-table-header-border-color: #1d1d1d;
+    -fx-padding: 5;
+}
+

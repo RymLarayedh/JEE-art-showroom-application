@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXPasswordField?>
+<?import com.jfoenix.controls.JFXTextArea?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.effect.ImageInput?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="registrationFrame" prefHeight="616.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.RegistrationController">
+   <children>
+      <AnchorPane fx:id="firstFrame" layoutY="77.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="600.0">
+         <children>
+            <Label layoutX="85.0" layoutY="61.0" text="First Name" />
+            <JFXTextField fx:id="firstNameRegistrationTF" layoutX="267.0" layoutY="54.0" />
+            <Label layoutX="85.0" layoutY="120.0" text="Last Name" />
+            <JFXTextField fx:id="lastNameRegistrationTF" layoutX="267.0" layoutY="113.0" />
+            <Label layoutX="85.0" layoutY="179.0" text="e-mail" />
+            <JFXTextField fx:id="mailRegistrationTF" layoutX="267.0" layoutY="172.0" onKeyReleased="#verifyRegistrationMail" />
+            <Label layoutX="85.0" layoutY="238.0" text="Username" />
+            <JFXTextField fx:id="usernameRegistrationTF" layoutX="267.0" layoutY="231.0" onKeyReleased="#verifyRegistrationUsername" />
+            <Label layoutX="85.0" layoutY="297.0" text="Password" />
+            <JFXPasswordField fx:id="PasswordRegistrationTF" layoutX="267.0" layoutY="290.0" />
+            <Label layoutX="85.0" layoutY="356.0" text="RePassword" />
+            <JFXPasswordField fx:id="rePasswordRegistrationTF" layoutX="267.0" layoutY="349.0" />
+            <Label layoutX="85.0" layoutY="415.0" text="Profile picture" />
+            <JFXButton layoutX="300.0" layoutY="408.0" onAction="#pickPicture" text="Choose" />
+            <ImageView fx:id="myImageView" fitHeight="59.0" fitWidth="74.0" layoutX="445.0" layoutY="396.0" pickOnBounds="true" preserveRatio="true" />
+            <Button fx:id="mailRegistrationError" layoutX="477.0" layoutY="175.0" mnemonicParsing="false" text="Button">
+               <effect>
+                  <ImageInput>
+                     <source>
+                        <Image url="@../buttons/rsz_error-128.png" />
+                     </source>
+                  </ImageInput>
+               </effect>
+            </Button>
+            <Button fx:id="usernameRegistrationError" layoutX="477.0" layoutY="234.0" mnemonicParsing="false" text="Button">
+               <effect>
+                  <ImageInput>
+                     <source>
+                        <Image url="@../buttons/rsz_error-128.png" />
+                     </source>
+                  </ImageInput>
+               </effect>
+            </Button>
+         </children>
+      </AnchorPane>
+      <Button fx:id="Generalinformation" layoutX="23.0" layoutY="10.0" mnemonicParsing="false" onAction="#reTypeGeneralInformation" prefHeight="52.0" prefWidth="178.0" text="Button">
+         <effect>
+            <ImageInput>
+               <source>
+                  <Image url="@../buttons/Sans%20titre-4.png" />
+               </source>
+            </ImageInput>
+         </effect>
+      </Button>
+      <Button fx:id="lastStep" layoutX="398.0" layoutY="10.0" mnemonicParsing="false" prefHeight="59.0" prefWidth="194.0" text="Button">
+         <effect>
+            <ImageInput>
+               <source>
+                  <Image url="@../buttons/Sans%20titre-1.png" />
+               </source>
+            </ImageInput>
+         </effect>
+      </Button>
+      <Button fx:id="youare" layoutX="214.0" layoutY="9.0" mnemonicParsing="false" onAction="#ChooseWhoYouAre" prefHeight="59.0" prefWidth="184.0" text="Button">
+         <effect>
+            <ImageInput>
+               <source>
+                  <Image url="@../buttons/Sans%20titre-5.png" />
+               </source>
+            </ImageInput>
+         </effect>
+      </Button>
+      <JFXButton fx:id="GalleryFinish" layoutX="475.0" layoutY="555.0" />
+      <JFXButton fx:id="stepsButtonRegistration" layoutX="475.0" layoutY="555.0" onAction="#nextStepRegistration" text="Next" />
+      <Label layoutX="40.0" layoutY="13.0" onMouseClicked="#goToGeneral" prefHeight="46.0" prefWidth="141.0" text="General Information" textFill="WHITE">
+         <font>
+            <Font name="Comic Sans MS Bold" size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="260.0" layoutY="12.0" onMouseClicked="#goToWhoYouAre" prefHeight="46.0" prefWidth="130.0" text="You are ?" textFill="WHITE">
+         <font>
+            <Font name="Comic Sans MS Bold" size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="430.0" layoutY="14.0" prefHeight="46.0" prefWidth="168.0" text="The Last Step" textFill="WHITE">
+         <font>
+            <Font name="Comic Sans MS Bold" size="16.0" />
+         </font>
+      </Label>
+      <AnchorPane fx:id="secondFrame" layoutY="96.0" prefHeight="450.0" prefWidth="607.0">
+         <children>
+            <Button fx:id="GalleryRegistration" layoutX="103.0" layoutY="110.0" mnemonicParsing="false" prefHeight="217.0" prefWidth="141.0" text="Button">
+               <effect>
+                  <ImageInput>
+                     <source>
+                        <Image url="@../buttons/gallery.png" />
+                     </source>
+                  </ImageInput>
+               </effect>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets></Button>
+            <Button fx:id="ArtistRegistration" layoutX="338.0" layoutY="97.0" mnemonicParsing="false" prefHeight="240.0" prefWidth="240.0" text="Button">
+               <effect>
+                  <ImageInput>
+                     <source>
+                        <Image url="@../buttons/artist.png" />
+                     </source>
+                  </ImageInput>
+               </effect></Button>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="thirdFrameArtist" layoutY="105.0" prefHeight="432.0" prefWidth="600.0">
+         <children>
+            <ToggleButton fx:id="musicField" layoutX="335.0" layoutY="66.0" mnemonicParsing="false" text="Music" />
+            <Label layoutX="70.0" layoutY="301.0" prefHeight="31.0" prefWidth="34.0" text="Bio">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <JFXTextArea fx:id="bioTextArea" layoutX="150.0" layoutY="248.0" maxWidth="419.0" minWidth="419.0" prefHeight="137.0" prefWidth="419.0" />
+            <ToggleButton fx:id="PaintingsField" layoutX="202.0" layoutY="66.0" mnemonicParsing="false" text="Painting" />
+            <ToggleButton fx:id="TcraftField" layoutX="202.0" layoutY="108.0" mnemonicParsing="false" text="Tunisian Craft" />
+            <ToggleButton fx:id="photographyField" layoutX="335.0" layoutY="108.0" mnemonicParsing="false" text="Photography" />
+            <ToggleButton fx:id="scultureField" layoutX="268.0" layoutY="150.0" mnemonicParsing="false" text="Scultupe" />
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="thirdFrameGallery" layoutX="25.0" layoutY="149.0" prefHeight="385.0" prefWidth="558.0">
+         <children>
+            <JFXTextField fx:id="surfaceRegistrationTF" layoutX="157.0" layoutY="34.0" />
+            <Label layoutX="28.0" layoutY="254.0" text="Description" />
+            <Label layoutX="28.0" layoutY="100.0" text="Address" />
+            <Label layoutX="28.0" layoutY="41.0" text="Surface" />
+            <JFXTextField fx:id="addressRegistrationTF" layoutX="157.0" layoutY="93.0" />
+            <JFXTextArea fx:id="DescriptionRegistrationTA" layoutX="157.0" layoutY="206.0" maxWidth="387.0" minWidth="387.0" prefHeight="112.0" prefWidth="387.0" />
+            <Label layoutX="331.0" layoutY="41.0" text="m²" />
+         </children>
+      </AnchorPane>
+      <JFXButton fx:id="ArtistFinish" layoutX="475.0" layoutY="555.0" />
+      <Button layoutX="23.0" layoutY="555.0" mnemonicParsing="false" onAction="#goBack" prefHeight="25.0" prefWidth="34.0" text="Button">
+         <effect>
+            <ImageInput>
+               <source>
+                  <Image url="file:/C:/Users/ElarbiMohamedAymen/git/Eureka/ClientFanny/src/main/java/buttons/address.png" />
+               </source>
+            </ImageInput>
+         </effect>
+      </Button>
+   </children>
+</AnchorPane>
