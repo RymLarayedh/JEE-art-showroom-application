@@ -172,7 +172,7 @@
             <Insets right="5.0" />
          </opaqueInsets>
       </Button>
-      <Button layoutX="763.0" layoutY="37.0" mnemonicParsing="false" text="Button">
+      <Button fx:id="goToForum" layoutX="763.0" layoutY="37.0" mnemonicParsing="false" text="Button">
          <effect>
             <ImageInput>
                <source>
