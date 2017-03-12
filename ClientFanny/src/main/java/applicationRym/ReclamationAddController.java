@@ -28,7 +28,6 @@ import javax.naming.NamingException;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 
-import entities.FeedbackId;
 import entities.Reclamation;
 import javafx.event.ActionEvent;
 
@@ -105,12 +104,18 @@ public class ReclamationAddController implements Initializable {
 			Instant instant = now.atZone(ZoneId.systemDefault()).toInstant();
 			Date date = Date.from(instant);
 			//r.setDate(date);
-			FeedbackId feedbackId =new FeedbackId();
+			
 			//*************************change*****************************
-			feedbackId.setArtworkId(1);
-			feedbackId.setUserId(3);
+			ctx = new InitialContext();
+			Object objectPP2 = ctx.lookup("/Fanny-ear/Fanny-ejb/ArtworkManagemet!services.ArtworkManagemetRemote");
+			ArtworkManagemetRemote proxyPP2 = (ArtworkManagemetRemote) objectPP2;
+			r.setArtwork(proxyPP2.findArtworkByID(1));
+			ctx = new InitialContext();
+			Object objectPP = ctx.lookup("/Fanny-ear/Fanny-ejb/UserManagment!services.UserManagmentRemote");
+			UserManagmentRemote proxyPP = (UserManagmentRemote) objectPP;
+			r.setUser(proxyPP.findById(1));
 			//*************************change*****************************
-			r.setFeedbackId(feedbackId);
+			
 			proxy.addReclamation(r);
 	    }
 
