@@ -8,12 +8,11 @@ import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.fxml.FXMLLoader;
 
-
 public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-			Parent root = FXMLLoader.load(getClass().getResource("DetailArtwork.fxml"));
+			Parent root = FXMLLoader.load(getClass().getResource("DisplayTunisianCr.fxml"));
 			Scene scene = new Scene(root,920,970);
 
 			primaryStage.setScene(scene);

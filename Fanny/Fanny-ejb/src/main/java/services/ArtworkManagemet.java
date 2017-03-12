@@ -9,7 +9,6 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
 import entities.Artwork;
-import entities.Topic;
 import entities.TunisianCraft;
 import entities.User;
 
@@ -47,11 +46,7 @@ public class ArtworkManagemet implements ArtworkManagemetRemote {
 			return null;
 		}	
 	}
-	@Override
-	public TunisianCraft findByArtist(String name) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
 	
 	@Override
 	public List<TunisianCraft> getAllTunisianCraft() {
@@ -71,6 +66,19 @@ public class ArtworkManagemet implements ArtworkManagemetRemote {
 		}
 	}
 	@Override
+	public List<TunisianCraft> findByArtist(int id) {
+		try {
+
+			TypedQuery<TunisianCraft> T = em.createQuery("SELECT t FROM TunisianCraft t  JOIN t.user u where u.idUser = :id ", TunisianCraft.class);
+			T.setParameter("id", id);
+			List<TunisianCraft> TcraftType = T.getResultList();
+			return TcraftType; 
+		} catch (javax.persistence.NoResultException E) {
+			return null;
+		}
+		
+	}
+	@Override
 	public List<Artwork> findAllArtworks() {
 		// TODO Auto-generated method stub
 		try {
@@ -81,9 +89,6 @@ public class ArtworkManagemet implements ArtworkManagemetRemote {
 			return null;
 		}
 	}
-	
-	
-	
 	}
 
 	

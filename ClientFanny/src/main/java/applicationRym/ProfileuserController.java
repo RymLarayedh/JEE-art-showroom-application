@@ -358,10 +358,10 @@ public class ProfileuserController implements Initializable {
     	nbrMax2.setText("");
     	nbrMax3.setText("");
     	
-    	InitialContext ctx = new InitialContext();
-    	Object objet = ctx.lookup("/Fanny-ear/Fanny-ejb/EventManagment!services.EventManagmentRemote");
-		EventManagmentRemote proxy = (EventManagmentRemote) objet;
-		List<Event> au = proxy.getAllEvents();	
+    	InitialContext ctxRym = new InitialContext();
+    	Object objet = ctxRym.lookup("/Fanny-ear/Fanny-ejb/EventManagment!services.EventManagmentRemote");
+		EventManagmentRemote proxyRym = (EventManagmentRemote) objet;
+		List<Event> au = proxyRym.getAllEvents();	
 		InitialContext ctxEU = new InitialContext();
 		Object objetEU = ctxEU.lookup("/Fanny-ear/Fanny-ejb/EventUserManagment!services.EventUserManagmentRemote");
     	EventUserManagmentRemote proxyEU = (EventUserManagmentRemote) objetEU;	
@@ -375,13 +375,13 @@ public class ProfileuserController implements Initializable {
 //        	for (EventUser eventUser : Leu) {
 //    			if(eventUser.getStatus()==1){
 //    				EventBySize.add(e);
-//    				//EventBySize.add(proxy.findEventById(eventUser.getEvent().getIdEvent()));
+//    				//EventBySize.add(proxyRym.findEventById(eventUser.getEvent().getIdEvent()));
 //    			}
 //    		}  
 //        }
 //        
 //        System.out.println(EventBySize.get(1).getIdEvent());
-    	EventBySize2=proxy.getAllEvents();
+    	EventBySize2=proxyRym.getAllEvents();
     	
           for (Event event : EventBySize2) {
         	  int t=0;
@@ -486,13 +486,13 @@ public class ProfileuserController implements Initializable {
 		}	
     }
     public void remplirEvents() throws NamingException{
-    	InitialContext ctx = new InitialContext();
-		Object objet = ctx.lookup("/Fanny-ear/Fanny-ejb/EventManagment!services.EventManagmentRemote");
-		EventManagmentRemote proxy = (EventManagmentRemote) objet;
+    	InitialContext ctxRym = new InitialContext();
+		Object objet = ctxRym.lookup("/Fanny-ear/Fanny-ejb/EventManagment!services.EventManagmentRemote");
+		EventManagmentRemote proxyRym = (EventManagmentRemote) objet;
 		ObservableList<Event> eventSelected, allEvent;
         allEvent = eventsPane.getItems();
         allEvent.clear();
-        for (Event e : proxy.getAllEvents()) {
+        for (Event e : proxyRym.getAllEvents()) {
             dataEvent.add(e);
         }
         DateBeginEvents.setCellValueFactory(new PropertyValueFactory<Event, Date>("dateBegin"));
@@ -504,15 +504,15 @@ public class ProfileuserController implements Initializable {
     public void remplirEvents1() throws NamingException{
     		
     		try {
-    		InitialContext ctx = new InitialContext();
-    		Object objet = ctx.lookup("/Fanny-ear/Fanny-ejb/EventUserManagment!services.EventUserManagmentRemote");
-        	EventUserManagmentRemote proxy = (EventUserManagmentRemote) objet;	
+    		InitialContext ctxRym = new InitialContext();
+    		Object objet = ctxRym.lookup("/Fanny-ear/Fanny-ejb/EventUserManagment!services.EventUserManagmentRemote");
+        	EventUserManagmentRemote proxyRym = (EventUserManagmentRemote) objet;	
     		ObservableList<EventUser> eventUSelected, allEvent;
             allEvent = eventsPane1.getItems();
             allEvent.clear();
             //******************************change***************************
             List<EventUser> abc=new ArrayList<EventUser>();
-            for (EventUser e : proxy.findByUserId(1) ){
+            for (EventUser e : proxyRym.findByUserId(1) ){
                 if(e.getStatus()==1)
                 {
                 	abc.add(e);
@@ -656,14 +656,14 @@ public class ProfileuserController implements Initializable {
     public void remplirTableParticipant(Event ptp){
     		Integer idEvent=ptp.getIdEvent();
     		try {
-    		InitialContext ctx = new InitialContext();
-    		Object objet = ctx.lookup("/Fanny-ear/Fanny-ejb/EventUserManagment!services.EventUserManagmentRemote");
-        	EventUserManagmentRemote proxy = (EventUserManagmentRemote) objet;	
+    		InitialContext ctxRym = new InitialContext();
+    		Object objet = ctxRym.lookup("/Fanny-ear/Fanny-ejb/EventUserManagment!services.EventUserManagmentRemote");
+        	EventUserManagmentRemote proxyRym = (EventUserManagmentRemote) objet;	
     		ObservableList<EventUser> eventUSelected, allEvent;
             allEvent = tableP.getItems();
             allEvent.clear();
             List<EventUser> aEU = new ArrayList<EventUser>();
-            for (EventUser eventUser : proxy.findByEventId(idEvent)) {
+            for (EventUser eventUser : proxyRym.findByEventId(idEvent)) {
             	if(eventUser.getStatus()==1){
             		aEU.add(eventUser);
             	}	
@@ -740,12 +740,12 @@ public class ProfileuserController implements Initializable {
     	Event PTP = eventsPane.getSelectionModel().getSelectedItem();
         if (PTP != null) {
             this.selected = 1;
-            InitialContext ctx = new InitialContext();
-    		Object objet = ctx.lookup("/Fanny-ear/Fanny-ejb/EventUserManagment!services.EventUserManagmentRemote");
-        	EventUserManagmentRemote proxy = (EventUserManagmentRemote) objet;
+            InitialContext ctxRym = new InitialContext();
+    		Object objet = ctxRym.lookup("/Fanny-ear/Fanny-ejb/EventUserManagment!services.EventUserManagmentRemote");
+        	EventUserManagmentRemote proxyRym = (EventUserManagmentRemote) objet;
         	//*************************change****************
         	
-        	if(proxy.findByUserEventId(1, PTP.getIdEvent())==null){
+        	if(proxyRym.findByUserEventId(1, PTP.getIdEvent())==null){
         		EventUser eu = new EventUser();
             	//eu.setEvent(PTP);
             	//*******************change*********
@@ -760,14 +760,14 @@ public class ProfileuserController implements Initializable {
             	euID.setIdUserPK(1);
             	eu.setEtudiantCoursID(euID);
             	eu.setStatus(1);
-            	proxy.addEventUser(eu);
+            	proxyRym.addEventUser(eu);
         	}
         	
         	else{
         		//************change********
-        		EventUser eu = proxy.findByUserEventId(1, PTP.getIdEvent());
+        		EventUser eu = proxyRym.findByUserEventId(1, PTP.getIdEvent());
             	eu.setStatus(1);
-            	proxy.updateEventUser(eu);
+            	proxyRym.updateEventUser(eu);
         			
         	}       	
         	//************************************
@@ -798,13 +798,13 @@ public class ProfileuserController implements Initializable {
     	noLabel.setVisible(true);
     	Event PTP = eventsPane.getSelectionModel().getSelectedItem();
     	 if (PTP != null) {
-    	InitialContext ctx = new InitialContext();
-		Object objet = ctx.lookup("/Fanny-ear/Fanny-ejb/EventUserManagment!services.EventUserManagmentRemote");
-    	EventUserManagmentRemote proxy = (EventUserManagmentRemote) objet;
+    	InitialContext ctxRym = new InitialContext();
+		Object objet = ctxRym.lookup("/Fanny-ear/Fanny-ejb/EventUserManagment!services.EventUserManagmentRemote");
+    	EventUserManagmentRemote proxyRym = (EventUserManagmentRemote) objet;
     	//********change
-    	EventUser eu = proxy.findByUserEventId(1, PTP.getIdEvent());
+    	EventUser eu = proxyRym.findByUserEventId(1, PTP.getIdEvent());
     	eu.setStatus(9);
-    	proxy.updateEventUser(eu);
+    	proxyRym.updateEventUser(eu);
 //    	ObservableList<Event> eventSelected, allEvent;
 //        allEvent = eventsPane.getItems();
 //        allEvent.clear();
@@ -822,13 +822,13 @@ public class ProfileuserController implements Initializable {
      		}
     	 EventUser PTP2 = eventsPane1.getSelectionModel().getSelectedItem();
     	 if (PTP2 != null) {
-    	InitialContext ctx = new InitialContext();
-		Object objet = ctx.lookup("/Fanny-ear/Fanny-ejb/EventUserManagment!services.EventUserManagmentRemote");
-    	EventUserManagmentRemote proxy = (EventUserManagmentRemote) objet;
+    	InitialContext ctxRym = new InitialContext();
+		Object objet = ctxRym.lookup("/Fanny-ear/Fanny-ejb/EventUserManagment!services.EventUserManagmentRemote");
+    	EventUserManagmentRemote proxyRym = (EventUserManagmentRemote) objet;
     	//********change
     	
     	PTP2.setStatus(9);
-    	proxy.updateEventUser(PTP2);
+    	proxyRym.updateEventUser(PTP2);
 //    	ObservableList<Event> eventSelected, allEvent;
 //        allEvent = eventsPane.getItems();
 //        allEvent.clear();

@@ -11,7 +11,13 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URL;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -20,6 +26,7 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXSlider;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
@@ -27,13 +34,18 @@ import com.jfoenix.controls.JFXTextField;
 import entities.Admin;
 import entities.Artist;
 import entities.Artwork;
+import entities.Event;
+import entities.EventUser;
+import entities.EventUserID;
 import entities.Gallery;
 import entities.Music;
+import entities.TunisianCraft;
 import entities.User;
 import entities.VisualArt;
 import javafx.animation.PathTransition;
 import javafx.application.Platform;
 import javafx.beans.property.ReadOnlyStringWrapper;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -48,6 +60,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
@@ -73,6 +86,9 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import javafx.util.Duration;
+import services.ArtworkManagemetRemote;
+import services.EventManagmentRemote;
+import services.EventUserManagmentRemote;
 import services.ForumManagementRemote;
 import services.UserManagmentRemote;
 import services.VisualArtworkEJBRemote;
@@ -275,7 +291,158 @@ public class ProfileuserController implements Initializable {
 	// = new MediaPlayer(hit);
 
 	/****************************** End Ines ************************/
+	
+	/*****************DEBUT RYM*******************/
+	
+	 @FXML
+	    private TableView<Event> eventsPane;
+	    @FXML
+	    private TableColumn<Event, Date> DateBeginEvents;
+	    @FXML
+	    private TableColumn<Event, String> TitleEvents;
+		ObservableList<Event> dataEvent = FXCollections.observableArrayList();
 
+	    //***
+		public static User userLogedIn;
+		@FXML
+	    private TableView<EventUser> eventsPane1;
+	    @FXML
+	    private TableColumn<EventUser, Date> DateBeginEvents1;
+	    @FXML
+	    private TableColumn<EventUser, String> TitleEvents1;
+	    ObservableList<EventUser> dataEvent1 = FXCollections.observableArrayList();
+		//***
+	    @FXML
+	    private Label nbrParticipant;
+	    @FXML
+	    private Label usernameArtist;
+	    @FXML
+	    private Label usernameGallery;
+	    //***
+		private int selected;
+		//*****
+		@FXML
+	    private TableView<EventUser> tableP;
+	    @FXML
+	    private TableColumn<EventUser, String> usernameP;
+	    @FXML
+	    private TableColumn<EventUser, String> firstNameP;
+	    @FXML
+	    private TableColumn<EventUser, String> lastNameP;
+	    @FXML
+	    private TableColumn<EventUser, String> emailP;
+	    ObservableList<EventUser> dataEventUser = FXCollections.observableArrayList();
+	    
+	    @FXML
+	    private ImageView yes;
+	    @FXML
+	    private Label yesLabel;
+	    @FXML
+	    private ImageView no;
+	    @FXML
+	    private Label noLabel;
+
+		//*****
+	    @FXML
+	    private Label eventMax1;
+	    @FXML
+	    private Label eventMax2;
+	    @FXML
+	    private Label eventMax3;
+	    @FXML
+	    private Label nbrMax1;
+	    @FXML
+	    private Label nbrMax2;
+	    @FXML
+	    private Label nbrMax3;
+	    @FXML
+	    private ImageView imgMax1;
+	    @FXML
+	    private ImageView imgMax2;
+	    @FXML
+	    private ImageView imgMax3;
+	    
+	    //*****
+	    @FXML
+	    private AnchorPane EventsPane;
+	    private static Event GlobalPTP;
+	    
+	    //***
+	    @FXML
+	    private Label bodyLabel;
+	    @FXML
+	    private Label dateBeginLabel;
+	    @FXML
+	    private Label dateBeginLabel1;
+		
+	    
+	
+	/*****************FIN RYM********************/
+
+	    /*Debut oussama*/
+	    @FXML
+	    private AnchorPane OussamasPane;
+		@FXML
+		private Label artist;
+		@FXML
+		private Label artwork;
+		@FXML
+		private Label price;
+		@FXML
+		private Label date;
+		 @FXML
+		    private ImageView img;
+		InitialContext ctxO;
+	 int pos = 0;
+		@FXML
+		private AnchorPane OussamaCraft;
+		
+	    @FXML
+	    private JFXComboBox<String> TypeT;
+	    @FXML
+	    private JFXTextArea DescT;
+	    @FXML
+	    private JFXTextField QuantityT;
+	    @FXML
+	    private ImageView ImageT;
+	    
+	    @FXML
+	    private JFXTextField  pricet;
+	    @FXML
+	    private JFXTextField namet;
+	    int idar = 1 ;  
+		InitialContext ctxo;
+
+	    @FXML
+	    private TableColumn< TunisianCraft,byte[] > pictureo;
+
+	    @FXML
+	    private TableColumn<TunisianCraft,String > nameo;
+
+	    @FXML
+	    private TableColumn<TunisianCraft,String> priceo;
+
+	    @FXML
+	    private TableColumn<TunisianCraft,String> Typeo;
+
+	    @FXML
+	    private TableColumn<TunisianCraft,String> stateo;
+
+	    @FXML
+	    private TableColumn<TunisianCraft,String> dateo;
+
+	    @FXML
+	    private TableColumn<TunisianCraft,String> desco;
+	    @FXML
+	    private TableView<TunisianCraft> TunisianTable;
+		ObservableList<TunisianCraft> TCdata = FXCollections.observableArrayList();
+
+		File pictureoo;
+	 
+	 /*FIN OUSSAMA*/
+	 
+	 
+	 
 	/**
 	 * Initializes the controller class.
 	 */
@@ -287,6 +454,9 @@ public class ProfileuserController implements Initializable {
 		AymensPane.setVisible(true);
 		magicbar.setVisible(false);
 		ManelsPane.setVisible(false);
+		OussamasPane.setVisible(false);
+		OussamaCraft.setVisible(false);
+		
 
 		// aymen//
 		if (LoginController.userLogedIn.getPicture() == null) {
@@ -352,6 +522,18 @@ public class ProfileuserController implements Initializable {
             }});
 		DisplayArts();
 		/*ENDMANEL*/
+		
+		/*RYM*/
+        EventsPane.setVisible(false);
+        yes.setVisible(false);
+        yesLabel.setVisible(false);
+        no.setVisible(false);
+        noLabel.setVisible(false);
+		/*END RYM*/
+        
+        /*D.Oussama*/
+        AfficherTn();
+        /*F.Oussama*/
 
 	}
 
@@ -454,17 +636,6 @@ public class ProfileuserController implements Initializable {
 		magic.setVisible(true);
 	}
 
-	@FXML
-	private void Myownspace(ActionEvent event) {
-	}
-
-	@FXML
-	private void Event(ActionEvent event) {
-	}
-
-	@FXML
-	private void Tunisiancraft(ActionEvent event) {
-	}
 
 	/*******************************************************************************************************************/
 	/********************************************************** Ines ***************************************************/
@@ -1361,5 +1532,798 @@ public void visualart(ActionEvent actionEvent)
 }
 	
 	/*FNMANEL*/
+
+/*RYM*/
+@FXML
+private void Event(ActionEvent event) throws NamingException {
+	yes.setVisible(false);
+    yesLabel.setVisible(false);
+    no.setVisible(false);
+    noLabel.setVisible(false);
+	EventsPane.setVisible(true);
+	remplirEvents();
+	remplirEvents1();
+	updateMaxEvents();
+	
+}
+public void updateMaxEvents() throws NamingException{
+	eventMax1.setText("");
+	eventMax2.setText("");
+	eventMax3.setText("");
+	nbrMax1.setText("");
+	nbrMax2.setText("");
+	nbrMax3.setText("");
+	
+	InitialContext ctxRym = new InitialContext();
+	Object objet = ctxRym.lookup("/Fanny-ear/Fanny-ejb/EventManagment!services.EventManagmentRemote");
+	EventManagmentRemote proxyRym = (EventManagmentRemote) objet;
+	List<Event> au = proxyRym.getAllEvents();	
+	InitialContext ctxEU = new InitialContext();
+	Object objetEU = ctxEU.lookup("/Fanny-ear/Fanny-ejb/EventUserManagment!services.EventUserManagmentRemote");
+	EventUserManagmentRemote proxyEU = (EventUserManagmentRemote) objetEU;	
+	
+	//********************
+	List<Event> EventBySize =new ArrayList<Event>();
+	List<EventUser> Leu = new ArrayList<EventUser>();
+	List<Event> EventBySize2 = new ArrayList<Event>();
+//    for (Event e : au ){
+//    	Leu = proxyEU.findByEventId(e.getIdEvent());
+//    	for (EventUser eventUser : Leu) {
+//			if(eventUser.getStatus()==1){
+//				EventBySize.add(e);
+//				//EventBySize.add(proxyRym.findEventById(eventUser.getEvent().getIdEvent()));
+//			}
+//		}  
+//    }
+//    
+//    System.out.println(EventBySize.get(1).getIdEvent());
+	EventBySize2=proxyRym.getAllEvents();
+	
+      for (Event event : EventBySize2) {
+    	  int t=0;
+		Leu=event.getListEventUser();
+		for (EventUser eventUser : Leu) {
+			if(eventUser.getStatus()==1){
+				
+				t=t+1;
+			}
+	}
+		System.out.println(t);
+		EventBySize.add(event);
+		System.out.println();
+      
+	}
+    //************************
+   
+    //*************************
+    
+	Collections.sort(EventBySize, new Comparator<Event>() {
+        public int compare(Event o1, Event o2) {
+        	List<EventUser> aaa = new ArrayList<EventUser>();
+        	for (EventUser eu : o2.getListEventUser()) {
+				if(eu.getStatus()==1){
+					aaa.add(eu);
+				}
+			}
+        	List<EventUser> aaa2 = new ArrayList<EventUser>();
+        	for (EventUser eu : o1.getListEventUser()) {
+				if(eu.getStatus()==1){
+					aaa2.add(eu);
+				}
+			}
+            return aaa.size() - aaa2.size();
+        }
+    });
+	if(EventBySize.size()>=3)
+	{
+		eventMax1.setText("Title = "+EventBySize.get(0).getTitle()+"\nArtist = "
+			      +EventBySize.get(0).getArtist().getUsername()+"\nGallery="
+						+EventBySize.get(0).getGallery().getUsername());
+		eventMax2.setText("Title = "+EventBySize.get(1).getTitle()+"\nArtist = "
+			      +EventBySize.get(1).getArtist().getUsername()+"\nGallery="
+						+EventBySize.get(1).getGallery().getUsername());
+		
+		eventMax3.setText("Title = "+EventBySize.get(2).getTitle()+"\nArtist = "
+			      +EventBySize.get(2).getArtist().getUsername()+"\nGallery="
+						+EventBySize.get(2).getGallery().getUsername());
+		
+		List<EventUser> aaab = new ArrayList<EventUser>();
+    	for (EventUser eu : EventBySize.get(0).getListEventUser()) {
+			if(eu.getStatus()==1){
+				aaab.add(eu);
+			}
+		}
+    	
+    	List<EventUser> aaab2 = new ArrayList<EventUser>();
+    	for (EventUser eu : EventBySize.get(1).getListEventUser()) {
+			if(eu.getStatus()==1){
+				aaab2.add(eu);
+			}
+		}
+    	
+    	List<EventUser> aaab3 = new ArrayList<EventUser>();
+    	for (EventUser eu : EventBySize.get(2).getListEventUser()) {
+			if(eu.getStatus()==1){
+				aaab3.add(eu);
+			}
+		}
+    	
+		Integer i1=aaab.size();
+		nbrMax1.setText(i1.toString());
+		Integer i2=aaab2.size();
+		nbrMax2.setText(i2.toString());
+		Integer i3=aaab3.size();
+		nbrMax3.setText(i3.toString());
+	}
+	if(EventBySize.size()==2)
+	{
+		eventMax1.setText("Title = "+EventBySize.get(0).getTitle()+"\nArtist = "
+			      +EventBySize.get(0).getArtist().getUsername()+"\nGallery="
+						+EventBySize.get(0).getGallery().getUsername());
+		eventMax2.setText("Title = "+EventBySize.get(1).getTitle()+"\nArtist = "
+			      +EventBySize.get(1).getArtist().getUsername()+"\nGallery="
+						+EventBySize.get(1).getGallery().getUsername());
+		eventMax3.setText("");
+		
+		Integer i1=EventBySize.get(0).getListEventUser().size();
+		nbrMax1.setText(i1.toString());
+		Integer i2=EventBySize.get(1).getListEventUser().size();
+		nbrMax2.setText(i2.toString());
+	}
+	if(EventBySize.size()==1)
+	{
+		eventMax1.setText("Title = "+EventBySize.get(0).getTitle()+"\nArtist = "
+			      +EventBySize.get(0).getArtist().getUsername()+"\nGallery="
+						+EventBySize.get(0).getGallery().getUsername());
+		eventMax2.setText("");
+		eventMax3.setText("");
+		Integer i1=EventBySize.get(0).getListEventUser().size();
+		nbrMax1.setText(i1.toString());
+	}	
+}
+public void remplirEvents() throws NamingException{
+	InitialContext ctxRym = new InitialContext();
+	Object objet = ctxRym.lookup("/Fanny-ear/Fanny-ejb/EventManagment!services.EventManagmentRemote");
+	EventManagmentRemote proxyRym = (EventManagmentRemote) objet;
+	ObservableList<Event> eventSelected, allEvent;
+    allEvent = eventsPane.getItems();
+    allEvent.clear();
+    for (Event e : proxyRym.getAllEvents()) {
+        dataEvent.add(e);
+    }
+    DateBeginEvents.setCellValueFactory(new PropertyValueFactory<Event, Date>("dateBegin"));
+    TitleEvents.setCellValueFactory(new PropertyValueFactory<Event, String>("title"));
+   
+    	eventsPane.setItems(dataEvent);
+	
+}
+public void remplirEvents1() throws NamingException{
+		
+		try {
+		InitialContext ctxRym = new InitialContext();
+		Object objet = ctxRym.lookup("/Fanny-ear/Fanny-ejb/EventUserManagment!services.EventUserManagmentRemote");
+    	EventUserManagmentRemote proxyRym = (EventUserManagmentRemote) objet;	
+		ObservableList<EventUser> eventUSelected, allEvent;
+        allEvent = eventsPane1.getItems();
+        allEvent.clear();
+        //******************************change***************************
+        List<EventUser> abc=new ArrayList<EventUser>();
+        for (EventUser e : proxyRym.findByUserId(LoginController.userLogedIn.getIdUser()) ){
+            if(e.getStatus()==1)
+            {
+            	abc.add(e);
+            }
+        }
+        for (EventUser e : abc ){
+            dataEvent1.add(e);
+        }
+        
+        DateBeginEvents1.setCellValueFactory(new Callback<CellDataFeatures<EventUser, Date>, ObservableValue<Date>>() {
+
+			@Override
+			public ObservableValue<Date> call(CellDataFeatures<EventUser, Date> param) {
+				// TODO Auto-generated method stub
+				return new SimpleObjectProperty<Date>(param.getValue().getEvent().getDateBegin());
+			}
+
+		});
+        TitleEvents1.setCellValueFactory(new Callback<CellDataFeatures<EventUser, String>, ObservableValue<String>>() {
+
+			@Override
+			public ObservableValue<String> call(CellDataFeatures<EventUser, String> param) {
+				// TODO Auto-generated method stub
+				return new SimpleStringProperty(param.getValue().getEvent().getTitle());
+			}
+
+		});
+
+        eventsPane1.setItems(dataEvent1);
+		
+		} catch (NamingException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+	}
+	
+
+
+@FXML
+private void Tunisiancraft(ActionEvent event) {
+	OussamasPane.setVisible(true);
+}
+@FXML
+private void complain(ActionEvent event) throws IOException {
+	Parent ReclamationScene = FXMLLoader.load(getClass().getResource("ReclamationAdd.fxml"));
+	Scene scene = new Scene(ReclamationScene);
+	//scene.getStylesheets().add(getClass().getResource("Gallery.css").toExternalForm());
+	Stage Sc = new Stage();
+	Sc.setScene(scene);
+	Sc.show();
+}
+@FXML
+private void detailsMyEvents(MouseEvent event) {
+	
+	EventUser PTP = eventsPane1.getSelectionModel().getSelectedItem();
+    if (PTP != null) {
+    	yes.setVisible(true);
+    	yesLabel.setVisible(true);
+    	no.setVisible(false);
+    	noLabel.setVisible(false);
+    	
+        this.selected = 1;
+        remplirTableParticipant(PTP.getEvent());
+        usernameArtist.setText(PTP.getEvent().getArtist().getUsername());
+        usernameGallery.setText(PTP.getEvent().getGallery().getUsername());
+        //*****************NBR Participant********************
+        List<EventUser> dFinal = new ArrayList<EventUser>();
+        List<EventUser> d=PTP.getEvent().getListEventUser(); 
+        for (EventUser eventUser : d) {
+			if(eventUser.getStatus()==1){
+				dFinal.add(eventUser);
+			}
+		}
+        Integer iFinal= dFinal.size();
+        nbrParticipant.setText(iFinal.toString()+" participants");
+        //*****************************************************
+    } else {
+        this.selected = 0;
+        yes.setVisible(false);
+    	yesLabel.setVisible(false);
+    	no.setVisible(false);
+    	noLabel.setVisible(false);
+    }
+}
+@FXML
+private void detailsEvents(MouseEvent event) {
+	ObservableList<EventUser> eventUSelected, allEvent;
+    allEvent = tableP.getItems();
+    allEvent.clear();
+	Event PTP = eventsPane.getSelectionModel().getSelectedItem();
+    if (PTP != null) {
+    	remplirTableParticipant(PTP);
+    	Boolean test =false;
+    	
+    	
+    	for (EventUser e : PTP.getListEventUser()) {
+    		//*******************change***************
+			if ((e.getUser().getIdUser()==LoginController.userLogedIn.getIdUser())&&(e.getStatus()==1)){
+				test =true;	
+			}
+		}
+    	if (test ==true){
+    		yes.setVisible(true);
+        	yesLabel.setVisible(true);
+        	no.setVisible(false);
+        	noLabel.setVisible(false);
+    	}
+    	else{
+    		yes.setVisible(false);
+        	yesLabel.setVisible(false);
+        	no.setVisible(true);
+        	noLabel.setVisible(true);
+    	}
+        this.selected = 1;
+        
+        usernameArtist.setText(PTP.getArtist().getUsername());
+        usernameGallery.setText(PTP.getGallery().getUsername()+"\n"+PTP.getGallery().getAddress());
+        
+        dateBeginLabel.setText(PTP.getDateBegin().toString());
+        dateBeginLabel1.setText(PTP.getDateEnd().toString());
+        bodyLabel.setText(PTP.getDescription());
+        
+//        Integer d=PTP.getListEventUser().size(); 
+//        nbrParticipant.setText(d.toString());
+        
+    	//********* NBR Participant ******************
+        List<EventUser> dFinal = new ArrayList<EventUser>();
+        List<EventUser> d=PTP.getListEventUser(); 
+        for (EventUser eventUser : d) {
+			if(eventUser.getStatus()==1){
+				dFinal.add(eventUser);
+			}
+		}
+        Integer iFinal= dFinal.size();
+        nbrParticipant.setText(iFinal.toString()+" participants");
+        GlobalPTP=PTP;
+    } else {
+        this.selected = 0;
+    }
+}
+public void remplirTableParticipant(Event ptp){
+		Integer idEvent=ptp.getIdEvent();
+		try {
+		InitialContext ctxRym = new InitialContext();
+		Object objet = ctxRym.lookup("/Fanny-ear/Fanny-ejb/EventUserManagment!services.EventUserManagmentRemote");
+    	EventUserManagmentRemote proxyRym = (EventUserManagmentRemote) objet;	
+		ObservableList<EventUser> eventUSelected, allEvent;
+        allEvent = tableP.getItems();
+        allEvent.clear();
+        List<EventUser> aEU = new ArrayList<EventUser>();
+        for (EventUser eventUser : proxyRym.findByEventId(idEvent)) {
+        	if(eventUser.getStatus()==1){
+        		aEU.add(eventUser);
+        	}	
+		}
+        for (EventUser e : aEU) {
+            dataEventUser.add(e);
+        }
+        
+        usernameP.setCellValueFactory(new Callback<CellDataFeatures<EventUser, String>, ObservableValue<String>>() {
+
+			@Override
+			public ObservableValue<String> call(CellDataFeatures<EventUser, String> param) {
+				// TODO Auto-generated method stub
+				return new SimpleStringProperty(param.getValue().getUser().getUsername());
+			}
+
+		});
+        firstNameP.setCellValueFactory(new Callback<CellDataFeatures<EventUser, String>, ObservableValue<String>>() {
+
+			@Override
+			public ObservableValue<String> call(CellDataFeatures<EventUser, String> param) {
+				// TODO Auto-generated method stub
+				return new SimpleStringProperty(param.getValue().getUser().getFirstName());
+			}
+
+		});
+        lastNameP.setCellValueFactory(new Callback<CellDataFeatures<EventUser, String>, ObservableValue<String>>() {
+
+			@Override
+			public ObservableValue<String> call(CellDataFeatures<EventUser, String> param) {
+				// TODO Auto-generated method stub
+				return new SimpleStringProperty(param.getValue().getUser().getLastName());
+			}
+
+		});
+        emailP.setCellValueFactory(new Callback<CellDataFeatures<EventUser, String>, ObservableValue<String>>() {
+
+			@Override
+			public ObservableValue<String> call(CellDataFeatures<EventUser, String> param) {
+				// TODO Auto-generated method stub
+				return new SimpleStringProperty(param.getValue().getUser().getEmail());
+			}
+
+		});
+
+        tableP.setItems(dataEventUser);
+		
+		} catch (NamingException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}	
+	
+}
+public void updatenbrParticipant(){
+	//*******ryyym
+	
+	//********* NBR Participant ******************
+    List<EventUser> dFinal = new ArrayList<EventUser>();
+    System.out.println("********"+GlobalPTP.getIdEvent());
+    List<EventUser> d=GlobalPTP.getListEventUser(); 
+    for (EventUser eventUser : d) {
+		if(eventUser.getStatus()==1){
+			dFinal.add(eventUser);
+		}
+	}
+    Integer iFinal= dFinal.size();
+    nbrParticipant.setText(iFinal.toString()+" participants");
+    //***********************************
+	
+}
+@FXML
+private void yesParticipate(MouseEvent event) throws NamingException {
+	
+	Event PTP = eventsPane.getSelectionModel().getSelectedItem();
+    if (PTP != null) {
+        this.selected = 1;
+        InitialContext ctxRym = new InitialContext();
+		Object objet = ctxRym.lookup("/Fanny-ear/Fanny-ejb/EventUserManagment!services.EventUserManagmentRemote");
+    	EventUserManagmentRemote proxyRym = (EventUserManagmentRemote) objet;
+    	//*************************change****************
+    	
+    	if(proxyRym.findByUserEventId(LoginController.userLogedIn.getIdUser(), PTP.getIdEvent())==null){
+    		EventUser eu = new EventUser();
+        	//eu.setEvent(PTP);
+        	//*******************change*********
+        	InitialContext ctxU = new InitialContext();	
+    		Object object = ctxU.lookup("/Fanny-ear/Fanny-ejb/UserManagment!services.UserManagmentRemote");
+    		UserManagmentRemote proxyU = (UserManagmentRemote) object;
+    		User u = proxyU.findById(LoginController.userLogedIn.getIdUser());
+        	//eu.setUser(u);
+        	
+        	EventUserID euID = new EventUserID();
+        	euID.setIdEventPK(PTP.getIdEvent());
+        	euID.setIdUserPK(LoginController.userLogedIn.getIdUser());
+        	eu.setEtudiantCoursID(euID);
+        	eu.setStatus(1);
+        	proxyRym.addEventUser(eu);
+    	}
+    	
+    	else{
+    		//************change********
+    		EventUser eu = proxyRym.findByUserEventId(LoginController.userLogedIn.getIdUser(), PTP.getIdEvent());
+        	eu.setStatus(1);
+        	proxyRym.updateEventUser(eu);
+    			
+    	}       	
+    	//************************************
+    	
+    	yes.setVisible(true);
+    	yesLabel.setVisible(true);
+    	no.setVisible(false);
+    	noLabel.setVisible(false);
+    	remplirEvents();
+    	remplirEvents1();
+    	updateMaxEvents();
+    	updatenbrParticipant();
+    } else {
+        this.selected = 0;
+    }
+    
+	
+}
+@FXML
+private void noParticipate(MouseEvent event) throws NamingException {
+//	eventMax1.setText("");
+//	eventMax2.setText("");
+//	eventMax3.setText("");
+	
+	yes.setVisible(false);
+	yesLabel.setVisible(false);
+	no.setVisible(true);
+	noLabel.setVisible(true);
+	Event PTP = eventsPane.getSelectionModel().getSelectedItem();
+	 if (PTP != null) {
+	InitialContext ctxRym = new InitialContext();
+	Object objet = ctxRym.lookup("/Fanny-ear/Fanny-ejb/EventUserManagment!services.EventUserManagmentRemote");
+	EventUserManagmentRemote proxyRym = (EventUserManagmentRemote) objet;
+	//********change
+	EventUser eu = proxyRym.findByUserEventId(LoginController.userLogedIn.getIdUser(), PTP.getIdEvent());
+	eu.setStatus(9);
+	proxyRym.updateEventUser(eu);
+//	ObservableList<Event> eventSelected, allEvent;
+//    allEvent = eventsPane.getItems();
+//    allEvent.clear();
+	remplirEvents();
+//	ObservableList<EventUser> eventSelected1, allEvent1;
+//    allEvent1 = eventsPane1.getItems();
+//    allEvent1.clear();
+	remplirEvents1();
+	updateMaxEvents();
+	updatenbrParticipant();
+	 } 
+	
+	 else {
+	 this.selected = 0;
+ 		}
+	 EventUser PTP2 = eventsPane1.getSelectionModel().getSelectedItem();
+	 if (PTP2 != null) {
+	InitialContext ctxRym = new InitialContext();
+	Object objet = ctxRym.lookup("/Fanny-ear/Fanny-ejb/EventUserManagment!services.EventUserManagmentRemote");
+	EventUserManagmentRemote proxyRym = (EventUserManagmentRemote) objet;
+	//********change
+	
+	PTP2.setStatus(9);
+	proxyRym.updateEventUser(PTP2);
+//	ObservableList<Event> eventSelected, allEvent;
+//    allEvent = eventsPane.getItems();
+//    allEvent.clear();
+	remplirEvents();
+//	ObservableList<EventUser> eventSelected1, allEvent1;
+//    allEvent1 = eventsPane1.getItems();
+//    allEvent1.clear();
+	remplirEvents1();
+	updateMaxEvents();
+	updatenbrParticipant();
+	 } 
+	
+	 else {
+	 this.selected = 0;
+ 		}
+}
+/*FIN RYM*/
+
+/*Debut Oussama*/
+@FXML
+public void First(ActionEvent event)  {
+	
+pos =0 ;
+AfficherTn();
+	
+}
+// Event Listener on Button.onAction
+@FXML
+public void Next(ActionEvent event) throws NamingException {
+	ctxo = new InitialContext();
+	Object objeto = ctx.lookup("/Fanny-ear/Fanny-ejb/ArtworkManagemet!services.ArtworkManagemetRemote");
+	ArtworkManagemetRemote proxyo = (ArtworkManagemetRemote) objeto;
+	List <TunisianCraft> lst= new ArrayList<>();
+	lst= proxyo.getAllTunisianCraft();
+	int size = lst.size();
+
+    if (pos < size-1) {
+        pos++;
+        AfficherTn(); 
+    }	}
+// Event Listener on Button.onAction
+@FXML
+public void Prec(ActionEvent event) throws NamingException {
+	ctxo = new InitialContext();
+	Object objeto = ctx.lookup("/Fanny-ear/Fanny-ejb/ArtworkManagemet!services.ArtworkManagemetRemote");
+	ArtworkManagemetRemote proxyo = (ArtworkManagemetRemote) objeto;
+	List <TunisianCraft> lst= new ArrayList<>();
+	lst= proxyo.getAllTunisianCraft(); 
+	int size = lst.size();
+
+        if (pos >= 0) {
+            pos--;
+            AfficherTn();
+            
+            
+        }
+}
+// Event Listener on Button.onAction
+@FXML
+public void Last(ActionEvent event) throws NamingException {
+	ctxo = new InitialContext();
+	Object objeto = ctx.lookup("/Fanny-ear/Fanny-ejb/ArtworkManagemet!services.ArtworkManagemetRemote");
+	ArtworkManagemetRemote proxyo = (ArtworkManagemetRemote) objeto;
+	List <TunisianCraft> lst= new ArrayList<>();
+	lst= proxyo.getAllTunisianCraft(); 
+	int size = lst.size();
+
+       pos=size-1;
+            AfficherTn();
+        }
+
+public void AfficherTn()
+{
+	try {
+		ctxo = new InitialContext();
+		Object objeto = ctx.lookup("/Fanny-ear/Fanny-ejb/ArtworkManagemet!services.ArtworkManagemetRemote");
+		ArtworkManagemetRemote proxyo = (ArtworkManagemetRemote) objeto;
+		List <TunisianCraft> lst= new ArrayList<>();
+		lst= proxyo.getAllTunisianCraft();
+		
+		
+		System.out.println(lst);
+    //artist.setText(lst.get(pos).getUser().getUsername());
+    String P = String.valueOf(lst.get(pos).getPrice());
+    price.setText(P);
+   artwork.setText(lst.get(pos).getName());
+  // artist.setText(lst.get(pos).getUser().getUsername());
+	if (lst.get(pos).getPicture()== null) {
+		File file = new File("./src/main/java/buttons/PasDePhotoDeProfil.png");
+		BufferedImage bufferedImage;
+		try {
+			bufferedImage = ImageIO.read(file);
+			Image image = SwingFXUtils.toFXImage(bufferedImage, null);
+			img.setImage(image);
+		} catch (IOException e) {
+		}}
+		else
+		{
+   BufferedImage imgbf = null;
+   byte[] b = lst.get(pos).getPicture();
+
+   imgbf = ImageIO.read(new ByteArrayInputStream(b));
+
+   WritableImage wr = null;
+   if (imgbf != null) {
+       wr = new WritableImage(imgbf.getWidth(), imgbf.getHeight());
+       PixelWriter pw = wr.getPixelWriter();
+       for (int x = 0; x < imgbf.getWidth(); x++) {
+           for (int y = 0; y < imgbf.getHeight(); y++) {
+               pw.setArgb(x, y, imgbf.getRGB(x, y));
+           }
+       }
+   }
+
+   // ImageView imView = new ImageView(wr);
+   img.setImage(wr);
+
+     
+		}} catch (NamingException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	} catch (IOException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	} 
+	
+	
+	
+}
+
+@FXML
+public void Myownspace(ActionEvent event) {
+	OussamaCraft.setVisible(true);
+	ObservableList<String> Types = FXCollections.observableArrayList();
+    Types.add("Pottery");
+    Types.add("Ceramique");
+    Types.add("Mosaic");
+    Types.add("Traditional Clothing");
+    Types.add("Other");
+	TypeT.setItems(Types);
+    try {
+		DisplayTunisianCraft();
+	} catch (NamingException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+        }
+
+@FXML
+private void choosePic(ActionEvent event) {
+	FileChooser fileChooser = new FileChooser();
+	FileChooser.ExtensionFilter extFilterJPG = new FileChooser.ExtensionFilter("JPG files (*.jpg)", "*.JPG");
+	FileChooser.ExtensionFilter extFilterPNG = new FileChooser.ExtensionFilter("PNG files (*.png)", "*.PNG");
+	fileChooser.getExtensionFilters().addAll(extFilterJPG, extFilterPNG);
+	pictureoo = fileChooser.showOpenDialog(null);
+	if (picture == null) {
+		return;
+	}
+	try {
+		BufferedImage bufferedImage = ImageIO.read(pictureoo);
+		Image image = SwingFXUtils.toFXImage(bufferedImage, null);
+		ImageT.setImage(image);
+	} catch (IOException ex) {
+	}
+	
+}
+
+@FXML
+private void AddTunisianCraft(ActionEvent event) throws NamingException {
+	ctx = new InitialContext();
+	Object objet = ctx.lookup("/Fanny-ear/Fanny-ejb/ArtworkManagemet!services.ArtworkManagemetRemote");
+	ArtworkManagemetRemote proxy = (ArtworkManagemetRemote) objet;	
+    TunisianCraft TunC = new TunisianCraft() ;
+    LocalDateTime now = LocalDateTime.now();
+	Instant instant = now.atZone(ZoneId.systemDefault()).toInstant();
+	Date date = Date.from(instant);
+	System.out.println(date);
+	TunC.setDateOfOublication(date);
+    TunC = new TunisianCraft();
+	TunC.setType(TypeT.getValue());
+	TunC.setDescription(DescT.getText());
+	TunC.setName(namet.getText());
+	
+	float f = Float.parseFloat(pricet.getText());
+	
+
+	TunC.setPrice(f);
+	int Q = Integer.parseInt(QuantityT.getText());
+	TunC.setQuantity(Q);
+	
+	Object object = ctx.lookup("/Fanny-ear/Fanny-ejb/UserManagment!services.UserManagmentRemote");
+	UserManagmentRemote proxyU = (UserManagmentRemote) object;
+	User U =new Artist();
+	U= proxyU.findById(idar);
+	System.out.println(U);
+	TunC.setUser(U);
+	byte[] bFile = new byte[(int) pictureoo.length()];
+	try {
+		FileInputStream fileInputStream = new FileInputStream(pictureoo);
+		fileInputStream.read(bFile);
+		fileInputStream.close();
+		TunC.setPicture(bFile);
+
+	} catch (Exception e) {
+	}
+	proxy.addTunisianCraft(TunC);
+	DisplayTunisianCraft();
+}
+ 
+public void DisplayTunisianCraft() throws NamingException 
+{
+	TunisianTable.getItems().clear();
+	pictureo.setResizable(false);
+	pictureo.setSortable(false);
+	pictureo.setCellValueFactory(new PropertyValueFactory<TunisianCraft, byte[]>("picture"));
+	pictureo.setCellFactory(new Callback<TableColumn<TunisianCraft, byte[]>, TableCell<TunisianCraft, byte[]>>() {
+		@Override
+		public TableCell<TunisianCraft, byte[]> call(TableColumn<TunisianCraft, byte[]> param) {
+			TableCell<TunisianCraft, byte[]> cell = new TableCell<TunisianCraft, byte[]>() {
+				@Override
+				public void updateItem(byte[] item, boolean empty) {
+					if (item != null) {
+						HBox box = new HBox();
+						box.setSpacing(10);
+						VBox vbox = new VBox();
+						ImageView imageview = new ImageView();
+						imageview.setFitHeight(50);
+						imageview.setFitWidth(50);
+						if (item == null) {
+							File file = new File("./src/main/java/buttons/PasDePhotoDeProfil.png");
+							BufferedImage bufferedImage;
+							try {
+								bufferedImage = ImageIO.read(file);
+								Image image = SwingFXUtils.toFXImage(bufferedImage, null);
+								imageview.setImage(image);
+							} catch (IOException e) {
+							}
+
+						} else {
+							try {
+								byte[] b = item;
+								BufferedImage imgbf = null;
+
+								imgbf = ImageIO.read(new ByteArrayInputStream(b));
+								WritableImage wr = null;
+								if (imgbf != null) {
+									wr = new WritableImage(imgbf.getWidth(), imgbf.getHeight());
+									PixelWriter pw = wr.getPixelWriter();
+									for (int x = 0; x < imgbf.getWidth(); x++) {
+										for (int y = 0; y < imgbf.getHeight(); y++) {
+											pw.setArgb(x, y, imgbf.getRGB(x, y));
+										}
+									}
+								}
+								imageview.setImage(wr);
+							} catch (IOException e) {
+							}
+
+						}
+
+						box.getChildren().addAll(imageview, vbox);
+						// SETTING ALL THE GRAPHICS COMPONENT FOR CELL
+						setGraphic(box);
+					}
+				}
+			};
+			return cell;
+		}
+
+	});
+	ctx = new InitialContext();
+	Object objet = ctx.lookup("/Fanny-ear/Fanny-ejb/ArtworkManagemet!services.ArtworkManagemetRemote");
+	ArtworkManagemetRemote proxy = (ArtworkManagemetRemote) objet;	
+
+	TunisianTable.getItems().clear();
+	List<TunisianCraft> ListTc = proxy.findByArtist(idar);
+	for (TunisianCraft T : ListTc ) {
+		TCdata.add(T);
+	}
+	
+
+	
+	nameo.setCellValueFactory(new PropertyValueFactory<TunisianCraft, String>("name"));
+	Typeo.setCellValueFactory(new PropertyValueFactory<TunisianCraft, String>("Type"));
+	desco.setCellValueFactory(new PropertyValueFactory<TunisianCraft, String>("Description"));
+	priceo.setCellValueFactory(new PropertyValueFactory<TunisianCraft, String>("price"));
+	dateo.setCellValueFactory(new PropertyValueFactory<TunisianCraft, String>("dateOfOublication"));
+	stateo.setCellValueFactory(new PropertyValueFactory<TunisianCraft, String>("state"));
+	
+	TunisianTable.setItems(TCdata);
+	TunisianTable.setVisible(true);
+	
+	
+	
+	
+
+}
+
+/*FIN Oussama*/
 
 }

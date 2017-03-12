@@ -37,7 +37,6 @@ import entities.Category;
 import entities.Comment;
 import entities.Feedback;
 //import entities.Feedback;
-import entities.FeedbackId;
 import entities.VisualArt;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -228,7 +227,7 @@ public class MyArtworlDetailController implements Initializable {
 //
 //		} catch (Exception e) {
 //		}
-		FeedbackId feedbackId =new FeedbackId();
+	/*	FeedbackId feedbackId =new FeedbackId();
 		//*************************change*****************************
 		feedbackId.setArtworkId(a.getIdArtwork());
 		feedbackId.setUserId(3);
@@ -243,7 +242,7 @@ public class MyArtworlDetailController implements Initializable {
 		
 		proxy.addVisualComment(TunC);
 		DisplayVisualComment();
-		commenttable.getItems().clear();
+		commenttable.getItems().clear();*/
     }
     @FXML
     private void selectComment(MouseEvent event) {

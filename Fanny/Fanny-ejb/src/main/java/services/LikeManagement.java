@@ -50,22 +50,23 @@ public class LikeManagement implements LikeManagementRemote {
 
 
 	@Override
-	public boolean checkexistance(int idu, int ida) {
+	public boolean checkexistance(User idu, Artwork ida) {
 		if (findByUserartID(idu, ida) == null) {
 			return false;
 		}
 
 		return true;
 		
-	}
+
+		}
 
 	@Override
-	public Like findByUserartID(int id , int ida ) {
+	public Like findByUserartID(User user , Artwork artwork ) {
 		try {
-			TypedQuery<Like> q = em.createQuery("SELECT b from Like b JOIN b.feedbackId c where c.userId = :id and c.artworkId =:ida)", Like.class);
-			q.setParameter("id", id);
-			q.setParameter( "ida", ida);
-			Like like = q.getSingleResult();
+			TypedQuery<Like> q = em.createQuery("SELECT b from Like b where b.user =:user AND b.artwork =:ida )", Like.class);
+			q.setParameter("user", user);
+			q.setParameter( "ida", artwork);
+			Like like =  q.getSingleResult();
 			return like;
 		} catch (javax.persistence.NoResultException E) {
 			return null;
@@ -73,10 +74,10 @@ public class LikeManagement implements LikeManagementRemote {
 	}
 
 	@Override
-	public long nbrlike(int ida )
+	public long nbrlike(Artwork ida )
 	{
 		Query q = em.createQuery
-			    ("Select count(*) from Like b JOIN b.feedbackId c where c.artworkId =:ida)");
+			    ("Select count(*) from Like b  where b.artwork =:ida)");
 			q.setParameter("ida", ida);
 			long countResult = (long)q.getSingleResult();
 			
@@ -84,12 +85,12 @@ public class LikeManagement implements LikeManagementRemote {
 	}
 
 	@Override
-	public Rating findByUserartIDR(int id, int ida) {
+	public Rating findByUserartIDR(User user, Artwork artwork) {
 		try {
-			TypedQuery<Rating> q = em.createQuery("SELECT b from Rating b JOIN b.feedbackId c where c.userId = :id and c.artworkId =:ida)", Rating.class);
-			q.setParameter("id", id);
-			q.setParameter( "ida", ida);
-			Rating rating = q.getSingleResult();
+			TypedQuery<Rating> q = em.createQuery("SELECT b from Rating b where b.user =:user AND b.artwork =:ida)", Rating.class);
+			q.setParameter("user", user);
+			q.setParameter( "ida", artwork);
+			Rating rating = (Rating) q.getSingleResult();
 			return rating;
 		} catch (javax.persistence.NoResultException E) {
 			return null;
@@ -97,7 +98,7 @@ public class LikeManagement implements LikeManagementRemote {
 	}
 
 	@Override
-	public boolean checkexistanceR(int idu, int ida) {
+	public boolean checkexistanceR(User idu, Artwork ida) {
 		if (findByUserartIDR(idu, ida) == null) {
 			return true;
 		}
@@ -115,6 +116,16 @@ public class LikeManagement implements LikeManagementRemote {
 	@Override
 	public void upadateRating(Rating R) {
         em.merge(R);		
+	}
+
+	@Override
+	public Feedback FindbyId(int id) {
+		try {
+			return em.find(Feedback.class, id);
+		} catch (javax.persistence.NoResultException e) {
+			return null;
+		}	
+	
 	}
 
 

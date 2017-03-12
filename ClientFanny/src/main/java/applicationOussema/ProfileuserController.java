@@ -15,6 +15,7 @@ import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.shape.Polyline;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
@@ -55,6 +56,17 @@ public class ProfileuserController implements Initializable {
     private Button eventb;
     @FXML
     private Button tunisianc;
+    @FXML
+    private Pane pane1;
+
+    @FXML
+    private Pane pane2;
+
+    @FXML
+    private Pane pane3;
+
+    @FXML
+    private Pane pane4;
     
 
     /**
@@ -63,7 +75,11 @@ public class ProfileuserController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         magicbar.setVisible(false);
-       
+        pane1.setVisible(false);
+    	pane2.setVisible(false);
+    	pane3.setVisible(false);
+    	pane4.setVisible(false);
+
     }    
 
   
@@ -110,7 +126,7 @@ public class ProfileuserController implements Initializable {
         transation.setPath(polyline);
         transation.play();
     }
-        public void afficherbouton(Button x, Button y, Button z) {
+        public void afficherbouton(Pane x, Pane y, Pane z,Pane u) {
         Polyline polyline = new Polyline();
         polyline.getPoints().addAll(new Double[]{
             100.0, 30.0,
@@ -142,10 +158,11 @@ public class ProfileuserController implements Initializable {
         transation3.setDuration(Duration.seconds(2));
         transation3.setPath(polyline3);
         transation3.play();
-
+        
+      
     }
 
-    public void cacherbouton(Button x, Button y, Button z) {
+    public void cacherbouton(Pane x, Pane y, Pane z ,Pane u) {
         Polyline polyline = new Polyline();
         polyline.getPoints().addAll(new Double[]{
             100.0, 52.0,
@@ -177,6 +194,17 @@ public class ProfileuserController implements Initializable {
         transation3.setDuration(Duration.seconds(2));
         transation3.setPath(polyline3);
         transation3.play();
+        
+        Polyline polyline4 = new Polyline();
+        polyline4.getPoints().addAll(new Double[]{
+            100.0, 172.0,
+            100.0, 20.0,});
+        
+        PathTransition transation4 = new PathTransition();
+        transation4.setNode(z);
+        transation4.setDuration(Duration.seconds(2));
+        transation4.setPath(polyline4);
+        transation4.play();
     }
 
     @FXML
@@ -199,7 +227,6 @@ public class ProfileuserController implements Initializable {
 
     @FXML
     private void visualart(ActionEvent event) {
-    	System.out.println("oussamaaaaa");
     }
 
     @FXML
@@ -212,6 +239,14 @@ public class ProfileuserController implements Initializable {
 
     @FXML
     private void Tunisiancraft(ActionEvent event) {
+    	System.out.println("oussama");
+    	pane1.setVisible(true);
+     	pane2.setVisible(true);
+     	pane3.setVisible(true);
+     	pane4.setVisible(true);
+
+    	afficherbouton(pane1, pane2, pane3, pane4);
+    	
     }
 
 }

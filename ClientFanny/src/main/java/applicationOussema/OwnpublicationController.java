@@ -64,6 +64,10 @@ int i =0 ;
 			ArtworkManagemetRemote proxy = (ArtworkManagemetRemote) objet;
 			List <TunisianCraft> lst= new ArrayList<>();
 			lst= proxy.getAllTunisianCraft();
+			
+		
+				
+			
 			for (  i =0 ; i< lst.size();i++);
 			{
 			 //ooo

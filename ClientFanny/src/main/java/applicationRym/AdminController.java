@@ -69,7 +69,7 @@ public class AdminController implements Initializable {
 	static int idGa;
 	static int idAr;
 	static int idAr1;
-	InitialContext ctx;
+	InitialContext ctxRym;
 	private int selected;
 	//rrt
 	@FXML
@@ -196,13 +196,13 @@ public class AdminController implements Initializable {
     	displayEventPane.setVisible(false);
     	addEventPane.setVisible(true);
     	try {
-			ctx = new InitialContext();
-		Object object = ctx.lookup("/Fanny-ear/Fanny-ejb/UserManagment!services.UserManagmentRemote");
-		UserManagmentRemote proxy = (UserManagmentRemote) object;
+    		ctxRym = new InitialContext();
+		Object object = ctxRym.lookup("/Fanny-ear/Fanny-ejb/UserManagment!services.UserManagmentRemote");
+		UserManagmentRemote proxyRYM = (UserManagmentRemote) object;
 		
 		//Remplir Combobox Gallery
     	ObservableList<String> LocG = FXCollections.observableArrayList();
-    	List<Gallery> Lg = proxy.getAllGalleries();  
+    	List<Gallery> Lg = proxyRYM.getAllGalleries();  
         for (Gallery X : Lg) {
         	String s=X.getUsername();
             LocG.add(s);
@@ -211,7 +211,7 @@ public class AdminController implements Initializable {
         
         //Remplir Combobox Artist
         ObservableList<String> LocA = FXCollections.observableArrayList();
-    	List<Artist> La = proxy.getAllArtists();
+    	List<Artist> La = proxyRYM.getAllArtists();
         for (Artist X : La) {
         	String s=X.getUsername();
             LocA.add(s);
@@ -220,7 +220,7 @@ public class AdminController implements Initializable {
 
        /* ObservableList<User> data = FXCollections.observableArrayList();
        // CityService CIS = new CityService();
-        List<Artist> Lt = proxy.getAllArtists();
+        List<Artist> Lt = proxyRYM.getAllArtists();
         for (Artist X : Lt) {
             data.add(X);
         }*/
@@ -250,15 +250,15 @@ public class AdminController implements Initializable {
     private void addEvent(ActionEvent event) throws NamingException {
     	displayReclamation.setVisible(false);
     	
-    	ctx = new InitialContext();
-		Object objet = ctx.lookup("/Fanny-ear/Fanny-ejb/EventManagment!services.EventManagmentRemote");
-		EventManagmentRemote proxy = (EventManagmentRemote) objet;	
+    	ctxRym = new InitialContext();
+		Object objet = ctxRym.lookup("/Fanny-ear/Fanny-ejb/EventManagment!services.EventManagmentRemote");
+		EventManagmentRemote proxyRYM = (EventManagmentRemote) objet;	
 		Event e= new Event();
 		e.setTitle(title.getText());
 		e.setDescription(description.getText());
 		
 		//insert gallery and Artist
-		Object object = ctx.lookup("/Fanny-ear/Fanny-ejb/UserManagment!services.UserManagmentRemote");
+		Object object = ctxRym.lookup("/Fanny-ear/Fanny-ejb/UserManagment!services.UserManagmentRemote");
 		UserManagmentRemote proxyU = (UserManagmentRemote) object;
 		Gallery g =new Gallery();
 		g=(Gallery) proxyU.findById(idGa);
@@ -284,7 +284,7 @@ public class AdminController implements Initializable {
 		
 	  //Condition chosen Date
 		if((dateNow.before(dateDateBegin))&&(dateDateBegin.before(dateDateEnd))){
-			proxy.addEvent(e);
+			proxyRYM.addEvent(e);
 			addEventPane.setVisible(false);
 			displayEventPane.setVisible(true);
 			remplirTableEvent();
@@ -302,14 +302,14 @@ public class AdminController implements Initializable {
     @FXML
     private void chooseGallery(ActionEvent event) {
     	try {
-			ctx = new InitialContext();
+    		ctxRym = new InitialContext();
 		
-		Object object = ctx.lookup("/Fanny-ear/Fanny-ejb/UserManagment!services.UserManagmentRemote");
-		UserManagmentRemote proxy = (UserManagmentRemote) object;
+		Object object = ctxRym.lookup("/Fanny-ear/Fanny-ejb/UserManagment!services.UserManagmentRemote");
+		UserManagmentRemote proxyRYM = (UserManagmentRemote) object;
     	String chosenGallery = galleryList.getValue();
         
         Gallery Ga = new Gallery();
-        Ga = (Gallery) proxy.findByUsername(chosenGallery);
+        Ga = (Gallery) proxyRYM.findByUsername(chosenGallery);
         idGa= Ga.getIdUser();
 
         details.setText("First Name = "+Ga.getFirstName()+"\n"+
@@ -327,14 +327,14 @@ public class AdminController implements Initializable {
     @FXML
     private void chooseArtist(ActionEvent event) {
     	try {
-			ctx = new InitialContext();
+    		ctxRym = new InitialContext();
 		
-		Object object = ctx.lookup("/Fanny-ear/Fanny-ejb/UserManagment!services.UserManagmentRemote");
-		UserManagmentRemote proxy = (UserManagmentRemote) object;
+		Object object = ctxRym.lookup("/Fanny-ear/Fanny-ejb/UserManagment!services.UserManagmentRemote");
+		UserManagmentRemote proxyRYM = (UserManagmentRemote) object;
     	String chosenArtist = artistList.getValue();
         
         Artist Ar = new Artist();
-        Ar = (Artist) proxy.findByUsername(chosenArtist);
+        Ar = (Artist) proxyRYM.findByUsername(chosenArtist);
         idAr= Ar.getIdUser();
         details.setText("First Name = "+Ar.getFirstName()+"\n"+
         		"Last Name = "+Ar.getLastName()+"\n"+
@@ -392,14 +392,14 @@ public class AdminController implements Initializable {
     
     private void remplirTableReclamation(){
 		try {
-			ctx = new InitialContext();
+			ctxRym = new InitialContext();
 		
-		Object objet = ctx.lookup("/Fanny-ear/Fanny-ejb/FeedbackManagment!services.FeedbackManagmentRemote");
-		FeedbackManagmentRemote proxy = (FeedbackManagmentRemote) objet;	
+		Object objet = ctxRym.lookup("/Fanny-ear/Fanny-ejb/FeedbackManagment!services.FeedbackManagmentRemote");
+		FeedbackManagmentRemote proxyRYM = (FeedbackManagmentRemote) objet;	
 		ObservableList<Reclamation> eventSelected, allRec;
         allRec = tableReclamation.getItems();
        // allRec.clear();
-        for (Reclamation e : proxy.getAllReclamation()) {
+        for (Reclamation e : proxyRYM.getAllReclamation()) {
             dataReclamation.add(e);
            // System.out.println(data);
         }
@@ -425,7 +425,7 @@ public class AdminController implements Initializable {
         date.setCellValueFactory(new PropertyValueFactory<Reclamation, Date>("date"));
         degree.setCellValueFactory(new PropertyValueFactory<Reclamation, Integer>("degree"));
         tableReclamation.setItems(dataReclamation);
-        System.out.println(proxy.getAllReclamation());
+        System.out.println(proxyRYM.getAllReclamation());
 		} catch (NamingException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -463,14 +463,14 @@ public class AdminController implements Initializable {
 	public void remplirTableEventUser(Event ptp){
 		Integer idEvent=ptp.getIdEvent();
 		try {
-		ctx = new InitialContext();
-		Object objet = ctx.lookup("/Fanny-ear/Fanny-ejb/EventUserManagment!services.EventUserManagmentRemote");
-    	EventUserManagmentRemote proxy = (EventUserManagmentRemote) objet;	
+			ctxRym = new InitialContext();
+		Object objet = ctxRym.lookup("/Fanny-ear/Fanny-ejb/EventUserManagment!services.EventUserManagmentRemote");
+    	EventUserManagmentRemote proxyRYM = (EventUserManagmentRemote) objet;	
 		ObservableList<EventUser> eventUSelected, allEvent;
         allEvent = tableParticipant.getItems();
         allEvent.clear();
         System.out.println(idEvent);
-        for (EventUser e : proxy.findByEventId(idEvent)) {
+        for (EventUser e : proxyRYM.findByEventId(idEvent)) {
             dataEventUser.add(e);
         }
         
@@ -505,14 +505,14 @@ public class AdminController implements Initializable {
     
     private void remplirTableEvent(){
 		try {
-			ctx = new InitialContext();
+			ctxRym = new InitialContext();
 		
-		Object objet = ctx.lookup("/Fanny-ear/Fanny-ejb/EventManagment!services.EventManagmentRemote");
-		EventManagmentRemote proxy = (EventManagmentRemote) objet;	
+		Object objet = ctxRym.lookup("/Fanny-ear/Fanny-ejb/EventManagment!services.EventManagmentRemote");
+		EventManagmentRemote proxyRYM = (EventManagmentRemote) objet;	
 		ObservableList<Event> eventSelected, allEvent;
         allEvent = tableEvent.getItems();
         allEvent.clear();
-        for (Event e : proxy.getAllEvents()) {
+        for (Event e : proxyRYM.getAllEvents()) {
             dataEvent.add(e);
         }
         title1.setCellValueFactory(new PropertyValueFactory<Event, String>("title"));
@@ -562,18 +562,18 @@ public class AdminController implements Initializable {
             userSelected.forEach(allUser::remove);
 
             //**********
-            ctx = new InitialContext();
-    		Object objetEU = ctx.lookup("/Fanny-ear/Fanny-ejb/EventUserManagment!services.EventUserManagmentRemote");
+            ctxRym = new InitialContext();
+    		Object objetEU = ctxRym.lookup("/Fanny-ear/Fanny-ejb/EventUserManagment!services.EventUserManagmentRemote");
         	EventUserManagmentRemote proxyEU = (EventUserManagmentRemote) objetEU;
         	List<EventUser> checkParticipant=proxyEU.findByEventId(ptp.getIdEvent());
         	//*************
         	
         	if(checkParticipant==null){
         		System.out.println("Liste vide");
-        		ctx = new InitialContext();
-        		Object objet = ctx.lookup("/Fanny-ear/Fanny-ejb/EventManagment!services.EventManagmentRemote");
-        		EventManagmentRemote proxy = (EventManagmentRemote) objet;
-                proxy.deleteEvent(ptp);
+        		ctxRym = new InitialContext();
+        		Object objet = ctxRym.lookup("/Fanny-ear/Fanny-ejb/EventManagment!services.EventManagmentRemote");
+        		EventManagmentRemote proxyRYM = (EventManagmentRemote) objet;
+        		proxyRYM.deleteEvent(ptp);
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Information Dialog");
                 alert.setHeaderText(null);
@@ -586,10 +586,10 @@ public class AdminController implements Initializable {
         		for (EventUser eventUser : checkParticipant) {
 					proxyEU.deleteEvent(eventUser);
 				}
-        		ctx = new InitialContext();
-        		Object objet = ctx.lookup("/Fanny-ear/Fanny-ejb/EventManagment!services.EventManagmentRemote");
-        		EventManagmentRemote proxy = (EventManagmentRemote) objet;
-                proxy.deleteEvent(ptp);
+        		ctxRym = new InitialContext();
+        		Object objet = ctxRym.lookup("/Fanny-ear/Fanny-ejb/EventManagment!services.EventManagmentRemote");
+        		EventManagmentRemote proxyRYM = (EventManagmentRemote) objet;
+        		proxyRYM.deleteEvent(ptp);
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Information Dialog");
                 alert.setHeaderText("Event with Participant");
@@ -631,9 +631,9 @@ public class AdminController implements Initializable {
     	updateEventPane.setVisible(false);
     	tableEvent.setVisible(true);
     	
-    	ctx = new InitialContext();
-		Object objet = ctx.lookup("/Fanny-ear/Fanny-ejb/EventManagment!services.EventManagmentRemote");
-		EventManagmentRemote proxy = (EventManagmentRemote) objet;
+    	ctxRym = new InitialContext();
+		Object objet = ctxRym.lookup("/Fanny-ear/Fanny-ejb/EventManagment!services.EventManagmentRemote");
+		EventManagmentRemote proxyRYM = (EventManagmentRemote) objet;
 		ObservableList<Event> userSelected, allEvent;
         allEvent = tableEvent.getItems();
         userSelected = tableEvent.getSelectionModel().getSelectedItems();
@@ -641,7 +641,7 @@ public class AdminController implements Initializable {
 		e.setTitle(title11.getText());
 		e.setDescription(description11.getText());
 		//insert gallery and Artist
-		Object object = ctx.lookup("/Fanny-ear/Fanny-ejb/UserManagment!services.UserManagmentRemote");
+		Object object = ctxRym.lookup("/Fanny-ear/Fanny-ejb/UserManagment!services.UserManagmentRemote");
 		UserManagmentRemote proxyU = (UserManagmentRemote) object;
 		Gallery g =new Gallery();
 		g=(Gallery) proxyU.findById(idGa1);
@@ -665,7 +665,7 @@ public class AdminController implements Initializable {
 		java.util.Date dateNow = Date.from(instantb);
 	  //Condition chosen Date
 		if((dateNow.before(dateDateBegin))&&(dateDateBegin.before(dateDateEnd))){
-			proxy.updateEvent(e);
+			proxyRYM.updateEvent(e);
 			remplirTableEvent();
 		}
 		else{
@@ -681,14 +681,14 @@ public class AdminController implements Initializable {
     @FXML
     private void chooseGalleryUpdate(ActionEvent event) {
     	try {
-			ctx = new InitialContext();
+    		ctxRym = new InitialContext();
 		
-		Object object = ctx.lookup("/Fanny-ear/Fanny-ejb/UserManagment!services.UserManagmentRemote");
-		UserManagmentRemote proxy = (UserManagmentRemote) object;
+		Object object = ctxRym.lookup("/Fanny-ear/Fanny-ejb/UserManagment!services.UserManagmentRemote");
+		UserManagmentRemote proxyRYM = (UserManagmentRemote) object;
     	String chosenGallery = galleryList1.getValue();
         
         Gallery Ga = new Gallery();
-        Ga = (Gallery) proxy.findByUsername(chosenGallery);
+        Ga = (Gallery) proxyRYM.findByUsername(chosenGallery);
         idGa1= Ga.getIdUser();
 
         
@@ -701,14 +701,14 @@ public class AdminController implements Initializable {
     @FXML
     private void chooseArtistUpdate(ActionEvent event) {
     	try {
-			ctx = new InitialContext();
+    		ctxRym = new InitialContext();
 		
-		Object object = ctx.lookup("/Fanny-ear/Fanny-ejb/UserManagment!services.UserManagmentRemote");
-		UserManagmentRemote proxy = (UserManagmentRemote) object;
+		Object object = ctxRym.lookup("/Fanny-ear/Fanny-ejb/UserManagment!services.UserManagmentRemote");
+		UserManagmentRemote proxyRYM = (UserManagmentRemote) object;
     	String chosenArtist = artistList1.getValue();
         
         Artist Ar = new Artist();
-        Ar = (Artist) proxy.findByUsername(chosenArtist);
+        Ar = (Artist) proxyRYM.findByUsername(chosenArtist);
         idAr1= Ar.getIdUser();
 
     	} catch (NamingException e) {
@@ -718,13 +718,13 @@ public class AdminController implements Initializable {
     }
     
     private void remplirComboboxUpdate() throws NamingException{
-		 ctx = new InitialContext();
-			Object object = ctx.lookup("/Fanny-ear/Fanny-ejb/UserManagment!services.UserManagmentRemote");
-			UserManagmentRemote proxy = (UserManagmentRemote) object;
+    	ctxRym = new InitialContext();
+			Object object = ctxRym.lookup("/Fanny-ear/Fanny-ejb/UserManagment!services.UserManagmentRemote");
+			UserManagmentRemote proxyRYM = (UserManagmentRemote) object;
 			
 			//Remplir Combobox Gallery
 	    	ObservableList<String> LocG = FXCollections.observableArrayList();
-	    	List<Gallery> Lg = proxy.getAllGalleries();  
+	    	List<Gallery> Lg = proxyRYM.getAllGalleries();  
 	        for (Gallery X : Lg) {
 	        	String s=X.getUsername();
 	            LocG.add(s);
@@ -733,7 +733,7 @@ public class AdminController implements Initializable {
 	        
 	        //Remplir Combobox Artist
 	        ObservableList<String> LocA = FXCollections.observableArrayList();
-	    	List<Artist> La = proxy.getAllArtists();
+	    	List<Artist> La = proxyRYM.getAllArtists();
 	        for (Artist X : La) {
 	        	String s=X.getUsername();
 	            LocA.add(s);
@@ -748,7 +748,7 @@ public class AdminController implements Initializable {
         userSelected = tableReclamation.getSelectionModel().getSelectedItems();
         Reclamation ptp = tableReclamation.getSelectionModel().getSelectedItem();
         userSelected.forEach(allRec::remove);
-        Object objet = ctx.lookup("/Fanny-ear/Fanny-ejb/FeedbackManagment!services.FeedbackManagmentRemote");
+        Object objet = ctxRym.lookup("/Fanny-ear/Fanny-ejb/FeedbackManagment!services.FeedbackManagmentRemote");
 		FeedbackManagmentRemote proxyF = (FeedbackManagmentRemote) objet;	
 		ptp.setHandle(1);
 		proxyF.updateReclamation(ptp);

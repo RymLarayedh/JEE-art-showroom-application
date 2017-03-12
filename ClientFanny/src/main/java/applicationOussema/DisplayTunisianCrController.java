@@ -6,6 +6,7 @@ import javafx.fxml.Initializable;
 
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -16,13 +17,16 @@ import javax.imageio.ImageIO;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
+import application.LoginController;
 import entities.Artwork;
 import entities.TunisianCraft;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.PixelWriter;
 import javafx.scene.image.WritableImage;
@@ -63,10 +67,10 @@ public class DisplayTunisianCrController implements Initializable{
 	@FXML
 	public void Next(ActionEvent event) throws NamingException {
 		ctx = new InitialContext();
-		Object objet = ctx.lookup("/Fanny-ear/Fanny-ejb/ArtworkManagemet!services.ArtworkManagemetRemote");
-		ArtworkManagemetRemote proxy = (ArtworkManagemetRemote) objet;
+		Object objeto = ctx.lookup("/Fanny-ear/Fanny-ejb/ArtworkManagemet!services.ArtworkManagemetRemote");
+		ArtworkManagemetRemote proxyo = (ArtworkManagemetRemote) objeto;
 		List <TunisianCraft> lst= new ArrayList<>();
-		lst= proxy.getAllTunisianCraft();
+		lst= proxyo.getAllTunisianCraft();
 		int size = lst.size();
 
         if (pos < size-1) {
@@ -77,10 +81,10 @@ public class DisplayTunisianCrController implements Initializable{
 	@FXML
 	public void Prec(ActionEvent event) throws NamingException {
 		ctx = new InitialContext();
-		Object objet = ctx.lookup("/Fanny-ear/Fanny-ejb/ArtworkManagemet!services.ArtworkManagemetRemote");
-		ArtworkManagemetRemote proxy = (ArtworkManagemetRemote) objet;
+		Object objeto = ctx.lookup("/Fanny-ear/Fanny-ejb/ArtworkManagemet!services.ArtworkManagemetRemote");
+		ArtworkManagemetRemote proxyo = (ArtworkManagemetRemote) objeto;
 		List <TunisianCraft> lst= new ArrayList<>();
-		lst= proxy.getAllTunisianCraft(); 
+		lst= proxyo.getAllTunisianCraft(); 
 		int size = lst.size();
 
 	        if (pos >= 0) {
@@ -94,10 +98,10 @@ public class DisplayTunisianCrController implements Initializable{
 	@FXML
 	public void Last(ActionEvent event) throws NamingException {
 		ctx = new InitialContext();
-		Object objet = ctx.lookup("/Fanny-ear/Fanny-ejb/ArtworkManagemet!services.ArtworkManagemetRemote");
-		ArtworkManagemetRemote proxy = (ArtworkManagemetRemote) objet;
+		Object objeto = ctx.lookup("/Fanny-ear/Fanny-ejb/ArtworkManagemet!services.ArtworkManagemetRemote");
+		ArtworkManagemetRemote proxyo = (ArtworkManagemetRemote) objeto;
 		List <TunisianCraft> lst= new ArrayList<>();
-		lst= proxy.getAllTunisianCraft(); 
+		lst= proxyo.getAllTunisianCraft(); 
 		int size = lst.size();
 
 	       pos=size-1;
@@ -108,10 +112,10 @@ public class DisplayTunisianCrController implements Initializable{
 	{
 		try {
 			ctx = new InitialContext();
-			Object objet = ctx.lookup("/Fanny-ear/Fanny-ejb/ArtworkManagemet!services.ArtworkManagemetRemote");
-			ArtworkManagemetRemote proxy = (ArtworkManagemetRemote) objet;
+			Object objeto = ctx.lookup("/Fanny-ear/Fanny-ejb/ArtworkManagemet!services.ArtworkManagemetRemote");
+			ArtworkManagemetRemote proxyo = (ArtworkManagemetRemote) objeto;
 			List <TunisianCraft> lst= new ArrayList<>();
-			lst= proxy.getAllTunisianCraft();
+			lst= proxyo.getAllTunisianCraft();
 			
 			
 			System.out.println(lst);
@@ -119,6 +123,18 @@ public class DisplayTunisianCrController implements Initializable{
         String P = String.valueOf(lst.get(pos).getPrice());
         price.setText(P);
        artwork.setText(lst.get(pos).getName());
+       artist.setText(lst.get(pos).getUser().getUsername());
+		if (lst.get(pos).getPicture()== null) {
+			File file = new File("./src/main/java/buttons/PasDePhotoDeProfil.png");
+			BufferedImage bufferedImage;
+			try {
+				bufferedImage = ImageIO.read(file);
+				Image image = SwingFXUtils.toFXImage(bufferedImage, null);
+				img.setImage(image);
+			} catch (IOException e) {
+			}}
+			else
+			{
        BufferedImage imgbf = null;
        byte[] b = lst.get(pos).getPicture();
 
@@ -139,7 +155,7 @@ public class DisplayTunisianCrController implements Initializable{
        img.setImage(wr);
 
          
-    	} catch (NamingException e) {
+			}} catch (NamingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {

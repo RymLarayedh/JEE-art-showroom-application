@@ -16,20 +16,20 @@ import entities.User;
 
 import java.awt.Label;
 import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -43,9 +43,18 @@ import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.TableCell;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.image.PixelWriter;
+import javafx.scene.image.WritableImage;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
+import javafx.util.Callback;
 import services.ArtworkManagemetRemote;
 import services.EventManagmentRemote;
 import services.UserManagmentRemote;
@@ -73,6 +82,31 @@ public class TunisianCraftController implements Initializable {
     int idar = 1 ;  
 	InitialContext ctx;
 
+    @FXML
+    private TableColumn< TunisianCraft,byte[] > pictureo;
+
+    @FXML
+    private TableColumn<TunisianCraft,String > nameo;
+
+    @FXML
+    private TableColumn<TunisianCraft,String> priceo;
+
+    @FXML
+    private TableColumn<TunisianCraft,String> Typeo;
+
+    @FXML
+    private TableColumn<TunisianCraft,String> stateo;
+
+    @FXML
+    private TableColumn<TunisianCraft,String> dateo;
+
+    @FXML
+    private TableColumn<TunisianCraft,String> desco;
+    @FXML
+    private TableView<TunisianCraft> TunisianTable;
+	ObservableList<TunisianCraft> TCdata = FXCollections.observableArrayList();
+
+
     File picture ;
     /**
      * Initializes the controller class.
@@ -89,7 +123,13 @@ public class TunisianCraftController implements Initializable {
         Types.add("Traditional Clothing");
         Types.add("Other");
     	TypeT.setItems(Types);
-    	
+        try {
+			DisplayTunisianCraft();
+		} catch (NamingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
         }    
 
     @FXML
@@ -117,15 +157,16 @@ public class TunisianCraftController implements Initializable {
 		Object objet = ctx.lookup("/Fanny-ear/Fanny-ejb/ArtworkManagemet!services.ArtworkManagemetRemote");
 		ArtworkManagemetRemote proxy = (ArtworkManagemetRemote) objet;	
 	    TunisianCraft TunC = new TunisianCraft() ;
-	    DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-        LocalDateTime now = LocalDateTime.now();
-        Instant instant = now.atZone(ZoneId.systemDefault()).toInstant();     
-		java.util.Date date = Date.from(instant);
+	    LocalDateTime now = LocalDateTime.now();
+		Instant instant = now.atZone(ZoneId.systemDefault()).toInstant();
+		Date date = Date.from(instant);
+		System.out.println(date);
 		TunC.setDateOfOublication(date);
 	    TunC = new TunisianCraft();
 		TunC.setType(TypeT.getValue());
 		TunC.setDescription(DescT.getText());
 		TunC.setName(namet.getText());
+		
 		float f = Float.parseFloat(pricet.getText());
 		
 
@@ -149,7 +190,96 @@ public class TunisianCraftController implements Initializable {
 		} catch (Exception e) {
 		}
 		proxy.addTunisianCraft(TunC);
+		DisplayTunisianCraft();
     }
-    
-    
+     
+    public void DisplayTunisianCraft() throws NamingException 
+	{
+		TunisianTable.getItems().clear();
+		pictureo.setResizable(false);
+		pictureo.setSortable(false);
+		pictureo.setCellValueFactory(new PropertyValueFactory<TunisianCraft, byte[]>("picture"));
+		pictureo.setCellFactory(new Callback<TableColumn<TunisianCraft, byte[]>, TableCell<TunisianCraft, byte[]>>() {
+			@Override
+			public TableCell<TunisianCraft, byte[]> call(TableColumn<TunisianCraft, byte[]> param) {
+				TableCell<TunisianCraft, byte[]> cell = new TableCell<TunisianCraft, byte[]>() {
+					@Override
+					public void updateItem(byte[] item, boolean empty) {
+						if (item != null) {
+							HBox box = new HBox();
+							box.setSpacing(10);
+							VBox vbox = new VBox();
+							ImageView imageview = new ImageView();
+							imageview.setFitHeight(50);
+							imageview.setFitWidth(50);
+							if (item == null) {
+								File file = new File("./src/main/java/buttons/PasDePhotoDeProfil.png");
+								BufferedImage bufferedImage;
+								try {
+									bufferedImage = ImageIO.read(file);
+									Image image = SwingFXUtils.toFXImage(bufferedImage, null);
+									imageview.setImage(image);
+								} catch (IOException e) {
+								}
+
+							} else {
+								try {
+									byte[] b = item;
+									BufferedImage imgbf = null;
+
+									imgbf = ImageIO.read(new ByteArrayInputStream(b));
+									WritableImage wr = null;
+									if (imgbf != null) {
+										wr = new WritableImage(imgbf.getWidth(), imgbf.getHeight());
+										PixelWriter pw = wr.getPixelWriter();
+										for (int x = 0; x < imgbf.getWidth(); x++) {
+											for (int y = 0; y < imgbf.getHeight(); y++) {
+												pw.setArgb(x, y, imgbf.getRGB(x, y));
+											}
+										}
+									}
+									imageview.setImage(wr);
+								} catch (IOException e) {
+								}
+
+							}
+
+							box.getChildren().addAll(imageview, vbox);
+							// SETTING ALL THE GRAPHICS COMPONENT FOR CELL
+							setGraphic(box);
+						}
+					}
+				};
+				return cell;
+			}
+
+		});
+		ctx = new InitialContext();
+		Object objet = ctx.lookup("/Fanny-ear/Fanny-ejb/ArtworkManagemet!services.ArtworkManagemetRemote");
+		ArtworkManagemetRemote proxy = (ArtworkManagemetRemote) objet;	
+
+		TunisianTable.getItems().clear();
+		List<TunisianCraft> ListTc = proxy.findByArtist(idar);
+		for (TunisianCraft T : ListTc ) {
+			TCdata.add(T);
+		}
+		
+	
+		
+		nameo.setCellValueFactory(new PropertyValueFactory<TunisianCraft, String>("name"));
+		Typeo.setCellValueFactory(new PropertyValueFactory<TunisianCraft, String>("Type"));
+		desco.setCellValueFactory(new PropertyValueFactory<TunisianCraft, String>("Description"));
+		priceo.setCellValueFactory(new PropertyValueFactory<TunisianCraft, String>("price"));
+		dateo.setCellValueFactory(new PropertyValueFactory<TunisianCraft, String>("dateOfOublication"));
+		stateo.setCellValueFactory(new PropertyValueFactory<TunisianCraft, String>("state"));
+		
+		TunisianTable.setItems(TCdata);
+		TunisianTable.setVisible(true);
+		
+		
+		
+		
+
+	}
+	
 }
