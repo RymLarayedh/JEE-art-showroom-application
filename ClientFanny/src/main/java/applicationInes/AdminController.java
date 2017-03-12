@@ -50,6 +50,9 @@ import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.chart.BarChart;
+import javafx.scene.chart.CategoryAxis;
+import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.PieChart.Data;
 import javafx.scene.chart.ScatterChart;
@@ -137,6 +140,8 @@ public class AdminController implements Initializable {
 	private ScatterChart eventPerMonthChart;
 	@FXML
 	private PieChart pieChart;
+    @FXML
+    private BarChart<String, Integer> barChart;
 
 	/************** End Ines ***************/
 
@@ -164,6 +169,7 @@ public class AdminController implements Initializable {
 		}
 		scatteChart(); /** chart1 **/
 		pieChart(); /** chart2 **/
+		barChart(); /** chart3 **/
 
 		/********** End Initialize Ines ***************/
 
@@ -750,5 +756,101 @@ public class AdminController implements Initializable {
 		pieChart.setData(pieChartDataa);
 
 	}
+	
+	/** Bar ** publications perMonth **/
+	public void barChart()
+	{
+		int January = 0;
+		int February = 0;
+		int March = 0;
+		int April = 0;
+		int May = 0;
+		int June = 0;
+		int July = 0;
+		int August = 0;
+		int September = 0;
+		int October = 0;
+		int November = 0;
+		int December = 0;
+
+		List<Artwork> listArtwork = new ArrayList<Artwork>();
+		List<Date> Datepublication = new ArrayList<Date>();
+		listArtwork = artworkManagementI.findAllArtworks();
+		for (Artwork l : listArtwork) {
+
+			Datepublication.add(l.getDateOfOublication());
+			// System.out.println(DateEventsI);
+		}
+		for (Date date : Datepublication) {
+			if ((date.getYear()) == (LocalDateTime.now().getYear() - 1900)) {
+				switch (date.getMonth()) {
+				case 0:
+					January++;
+					break;
+				case 1:
+					February++;
+					break;
+				case 2:
+					March++;
+					break;
+				case 3:
+					April++;
+					break;
+				case 4:
+					May++;
+					break;
+				case 5:
+					June++;
+					break;
+				case 6:
+					July++;
+					break;
+				case 7:
+					August++;
+					break;
+				case 8:
+					September++;
+					break;
+				case 9:
+					October++;
+					break;
+				case 10:
+					November++;
+					break;
+				case 11:
+					December++;
+					break;
+
+				}
+			        final CategoryAxis xAxis = new CategoryAxis();
+			        final NumberAxis yAxis = new NumberAxis();
+			        final BarChart<String,Number> bc = 
+			            new BarChart<String,Number>(xAxis,yAxis);
+			        bc.setTitle("Country Summary");
+			        xAxis.setLabel("Country");       
+			        yAxis.setLabel("Value");
+			 
+			        XYChart.Series series = new XYChart.Series();
+			        series.setName("2003");       
+					series.getData().add(new XYChart.Data("January", January));
+					series.getData().add(new XYChart.Data("February", February));
+					series.getData().add(new XYChart.Data("March", March));
+					series.getData().add(new XYChart.Data("April", April));
+					series.getData().add(new XYChart.Data("May", May));
+					series.getData().add(new XYChart.Data("June", June));
+					series.getData().add(new XYChart.Data("July", July));
+					series.getData().add(new XYChart.Data("August", August));
+					series.getData().add(new XYChart.Data("September", September));
+					series.getData().add(new XYChart.Data("October", October));
+					series.getData().add(new XYChart.Data("November", November));
+					series.getData().add(new XYChart.Data("December", December));		
+					barChart.getData().addAll(series);
+
+			}
+
+		}
+		
+	}
+
 
 }
