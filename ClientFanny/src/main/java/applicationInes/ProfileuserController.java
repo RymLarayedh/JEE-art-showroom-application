@@ -178,9 +178,9 @@ public class ProfileuserController implements Initializable {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		//MusicPane.setVisible(false);
-		//musicBarAnchor.setDisable(true);
-		//magicbar.setVisible(false);
+		MusicPane.setVisible(false);
+		musicBarAnchor.setDisable(true);
+		magicbar.setVisible(false);
 
 	}
 
@@ -318,6 +318,7 @@ public class ProfileuserController implements Initializable {
 	public void displayMusic() {
 		tableMusic.getItems().clear();
 		List<Music> listMusic = forumManagement.findAllMusic();
+		
 		for (Music m : listMusic) {
 			dataMusic.add(m);
 		}
