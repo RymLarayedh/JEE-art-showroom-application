@@ -8,6 +8,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
+import entities.Artwork;
 import entities.Event;
 import entities.Feedback;
 import entities.Reclamation;
@@ -50,6 +51,18 @@ public class FeedbackManagment implements FeedbackManagmentRemote {
 		em.merge(r);
 		
 	}
+
+	
+
+	
+
+	@Override
+	public List<Feedback> findFeedbackByIdArtwork(Artwork artwork) {
+		// TODO Auto-generated method stub
+		return em.createQuery("select f from Feedback f where  f.artwork=:artwork",Feedback.class).setParameter("idArtwork",artwork).getResultList();
+	}
+
+
 	
 	
 

@@ -12,9 +12,16 @@ import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.ResourceBundle;
+import java.util.Set;
+import java.util.TreeMap;
 
 import javax.imageio.ImageIO;
 import javax.naming.InitialContext;
@@ -22,23 +29,29 @@ import javax.naming.NamingException;
 import javax.print.DocFlavor.BYTE_ARRAY;
 import javax.swing.text.StyledEditorKit.BoldAction;
 
-
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 
 import entities.Artist;
+import entities.Artwork;
+import entities.Feedback;
 import entities.Gallery;
+import entities.Like;
 import entities.User;
 import javafx.application.Platform;
+import javafx.beans.binding.StringExpression;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.chart.PieChart;
+import javafx.scene.chart.PieChart.Data;
 import javafx.scene.chart.ScatterChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Label;
@@ -61,8 +74,11 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import javafx.util.Callback;
+import services.ArtworkManagemetRemote;
 import services.EventManagmentRemote;
 import services.EventUserManagmentRemote;
+import services.FeedbackManagmentRemote;
+import services.LikeManagementRemote;
 import utils.ConfirmBox;
 
 public class AdminController implements Initializable {
@@ -109,12 +125,18 @@ public class AdminController implements Initializable {
 
 	InitialContext ctx;
 	public static EventManagmentRemote eventManagmentI;
+	public static ArtworkManagemetRemote artworkManagementI;
+	public static FeedbackManagmentRemote feedbackManagmentI;
+	public static LikeManagementRemote likeManagmentI;
+
 	@FXML
 	private JFXButton updateStatistics;
 	@FXML
 	private AnchorPane statisticsPane;
 	@FXML
 	private ScatterChart eventPerMonthChart;
+	@FXML
+	private PieChart pieChart;
 
 	/************** End Ines ***************/
 
@@ -127,6 +149,13 @@ public class AdminController implements Initializable {
 			ctx = new InitialContext();
 			eventManagmentI = (EventManagmentRemote) ctx
 					.lookup("/Fanny-ear/Fanny-ejb/EventManagment!services.EventManagmentRemote");
+			artworkManagementI = (ArtworkManagemetRemote) ctx
+					.lookup("/Fanny-ear/Fanny-ejb/ArtworkManagemet!services.ArtworkManagemetRemote");
+			feedbackManagmentI = (FeedbackManagmentRemote) ctx
+					.lookup("/Fanny-ear/Fanny-ejb/FeedbackManagment!services.FeedbackManagmentRemote");
+			likeManagmentI = (LikeManagementRemote) ctx
+					.lookup("/Fanny-ear/Fanny-ejb/LikeManagement!services.LikeManagementRemote");
+
 		}
 
 		catch (NamingException e) {
@@ -134,6 +163,7 @@ public class AdminController implements Initializable {
 			e.printStackTrace();
 		}
 		scatteChart(); /** chart1 **/
+		pieChart(); /** chart2 **/
 
 		/********** End Initialize Ines ***************/
 
@@ -606,63 +636,73 @@ public class AdminController implements Initializable {
 	public void scatteChart() {
 
 		/** Scatter** Event Per month **/
-		int January=0;
-		int February =0;
-		int March=0;
-		int April =0;
-		int May=0;
-		int June=0;
-		int July=0;
-		int August=0;
-		int September=0;
-		int October=0;
-		int November=0;
-		int December=0;
+		int January = 0;
+		int February = 0;
+		int March = 0;
+		int April = 0;
+		int May = 0;
+		int June = 0;
+		int July = 0;
+		int August = 0;
+		int September = 0;
+		int October = 0;
+		int November = 0;
+		int December = 0;
 
 		List<entities.Event> listEventsI = new ArrayList<entities.Event>();
 		List<Date> DateEventsI = new ArrayList<Date>();
 		listEventsI = eventManagmentI.getAllEvents();
 		for (entities.Event event : listEventsI) {
-			
-			DateEventsI.add(event.getDateBegin());
-			//System.out.println(DateEventsI);
-		}
-		for (Date date : DateEventsI)
-		{
-			System.out.println(date.getYear());
-			if((date.getYear()) == ( LocalDateTime.now().getYear()- 1900))
-			{
-				switch (date.getMonth())
-				{
-				case 0: January++;
-				break;
-				case 1: February++;
-				break;
-				case 2: March++;
-				break;
-				case 3: April ++;
-				break;
-				case 4:May ++;
-				break;
-				case 5: June ++;
-				break;
-				case 6: July++;
-				break;
-				case 7: August++;
-				break;
-				case 8: September++;
-				break;
-				case 9: October++;
-				break;
-				case 10: November++;
-				break;
-				case 11: December++;
-				break;
-					
-				}
-				XYChart.Series series = new XYChart.Series(); //Make a new XYChart object
 
-				//Add Data
+			DateEventsI.add(event.getDateBegin());
+			// System.out.println(DateEventsI);
+		}
+		for (Date date : DateEventsI) {
+			if ((date.getYear()) == (LocalDateTime.now().getYear() - 1900)) {
+				switch (date.getMonth()) {
+				case 0:
+					January++;
+					break;
+				case 1:
+					February++;
+					break;
+				case 2:
+					March++;
+					break;
+				case 3:
+					April++;
+					break;
+				case 4:
+					May++;
+					break;
+				case 5:
+					June++;
+					break;
+				case 6:
+					July++;
+					break;
+				case 7:
+					August++;
+					break;
+				case 8:
+					September++;
+					break;
+				case 9:
+					October++;
+					break;
+				case 10:
+					November++;
+					break;
+				case 11:
+					December++;
+					break;
+
+				}
+				XYChart.Series series = new XYChart.Series(); // Make a new
+																// XYChart
+																// object
+
+				// Add Data
 				series.getData().add(new XYChart.Data("January", January));
 				series.getData().add(new XYChart.Data("February", February));
 				series.getData().add(new XYChart.Data("March", March));
@@ -672,14 +712,42 @@ public class AdminController implements Initializable {
 				series.getData().add(new XYChart.Data("July", July));
 				series.getData().add(new XYChart.Data("August", August));
 				series.getData().add(new XYChart.Data("September", September));
-				series.getData().add(new XYChart.Data("October" ,October));
+				series.getData().add(new XYChart.Data("October", October));
 				series.getData().add(new XYChart.Data("November", November));
-				series.getData().add(new XYChart.Data("December" ,December));
+				series.getData().add(new XYChart.Data("December", December));
 				eventPerMonthChart.getData().addAll(series);
 
 			}
-			
+
 		}
+
+	}
+
+	/** Pie ** most liked artworks **/
+	public void pieChart() {
+
+		List<Artwork> listArtwork = new ArrayList<Artwork>();
+		Map<Integer, String> map = new TreeMap<Integer, String>();
+		Data pieChartData = null;
+
+		listArtwork = artworkManagementI.findAllArtworks();
+		for (Artwork A : listArtwork) {
+			long nbrLike = likeManagmentI.nbrlike(A.getIdArtwork());
+			System.out.println("nbrLike= " + nbrLike);
+			if (nbrLike > 0) {
+				map.put((int) nbrLike, A.getName());
+
+				for (Map.Entry<Integer, String> e : map.entrySet()) {
+					pieChartData = new PieChart.Data(e.getValue(), e.getKey());
+
+				}
+				;
+			}
+
+		}
+		ObservableList<PieChart.Data> pieChartDataa = FXCollections.observableArrayList(pieChartData);
+
+		pieChart.setData(pieChartDataa);
 
 	}
 

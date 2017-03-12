@@ -8,9 +8,11 @@ import javax.mail.internet.AddressException;
 
 import entities.Admin;
 import entities.Artist;
+import entities.Artwork;
 import entities.Feedback;
 import entities.Fields;
 import entities.Gallery;
+import entities.Like;
 import entities.Reclamation;
 import entities.User;
 /**
@@ -33,6 +35,11 @@ public interface FeedbackManagmentRemote {
 	
 	public void addReclamation(Reclamation r);
 	public void updateReclamation(Reclamation r);
+	
+	
+	/** Ines**/
+	
+	public List<Feedback> findFeedbackByIdArtwork(Artwork artwork);
 	
 	
 	
