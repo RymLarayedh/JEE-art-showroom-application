@@ -1,4 +1,4 @@
-package integration;
+package integrationInes;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;

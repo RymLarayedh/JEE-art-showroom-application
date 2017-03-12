@@ -173,7 +173,6 @@ public class ProfileuserController implements Initializable {
 					.lookup("/Fanny-ear/Fanny-ejb/ForumManagement!services.ForumManagementRemote");
 			userManagement = (UserManagmentRemote) ctx
 					.lookup("/Fanny-ear/Fanny-ejb/UserManagment!services.UserManagmentRemote");
-			Category p = new Category();
 
 		} catch (NamingException e) {
 			// TODO Auto-generated catch block
