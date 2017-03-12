@@ -18,7 +18,7 @@ public void deleteVisualArt(Artwork VA);
 public Artwork findVisualArtById(int IdVisualArt );
 public List<Artwork> findAllVisualArt ();
 public List<VisualArt> findMyVisualArt (int idUser);
-
+public List<VisualArt> findAllVisualArt2 ();
 
 public void addVisualComment(Comment VC);
 public void upadateVisualComment(Comment VC);

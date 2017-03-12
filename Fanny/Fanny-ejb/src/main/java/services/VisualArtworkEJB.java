@@ -120,4 +120,12 @@ public class VisualArtworkEJB implements VisualArtworkEJBRemote {
 				.setParameter("pid", idVisualart).getSingleResult();
 	}
 
+	@Override
+	public List<VisualArt> findAllVisualArt2() {
+		TypedQuery<VisualArt> q = em.createQuery("SELECT a FROM VisualArt a", VisualArt.class);
+		List<VisualArt> Lart2 = q.getResultList();
+		return Lart2;
+
+	}
+
 }

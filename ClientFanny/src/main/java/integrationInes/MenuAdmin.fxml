@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.ImageInput?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.text.Font?>
+
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.MenuAdminController">
+   <children>
+      <ImageView fitHeight="800.0" fitWidth="800.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@bck.jpg" />
+         </image>
+      </ImageView>
+      <AnchorPane fx:id="listCategories" prefHeight="800.0" prefWidth="800.0">
+         <children>
+            <JFXButton fx:id="ManageForum" buttonType="RAISED" layoutX="231.0" layoutY="176.0" onAction="#ManageForum" prefHeight="55.0" prefWidth="103.0" text="Manage FORUM" textFill="#eeebeb" textOverrun="CLIP">
+               <font>
+                  <Font size="40.0" />
+               </font>
+               <effect>
+                  <ImageInput>
+                     <source>
+                        <Image url="file:/C:/Users/Ines/git/Eureka/ClientFanny/src/main/java/buttons/forum.png" />
+                     </source>
+                  </ImageInput>
+               </effect>
+            </JFXButton>
+            <TabPane fx:id="tabpane" layoutX="156.0" layoutY="135.0" prefHeight="245.0" prefWidth="384.0" tabClosingPolicy="UNAVAILABLE">
+               <tabs>
+                  <Tab fx:id="flight" onSelectionChanged="#displayCategories" text="Categories">
+                     <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="171.0" prefWidth="335.0">
+                           <children>
+                              <Label layoutX="25.0" layoutY="35.0" text="Name" textOverrun="CLIP">
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="addCategoryTF" layoutX="155.0" layoutY="38.0" opacity="0.18" />
+                              <JFXButton fx:id="addCategoryButton" layoutX="147.0" layoutY="138.0" onAction="#addCategory" text="Add " />
+                              <TableView layoutY="8.0" prefHeight="200.0" prefWidth="200.0">
+                                <columns>
+                                  <TableColumn prefWidth="75.0" text="C1" />
+                                  <TableColumn prefWidth="75.0" text="C2" />
+                                </columns>
+                              </TableView>
+                           </children>
+                        </AnchorPane>
+                     </content>
+                  </Tab>
+                  <Tab text="Untitled Tab 2">
+                     <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                     </content>
+                  </Tab>
+               </tabs>
+            </TabPane>
+         </children>
+      </AnchorPane>
+   </children>
+</StackPane>
