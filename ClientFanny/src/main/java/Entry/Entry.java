@@ -87,7 +87,7 @@ public class Entry {
 		//at.setIdUser(5);
 		System.out.println(at);
 		userManagment.addUser(at);*/
-		List<User> Lremove = new ArrayList<>();
+	/*	List<User> Lremove = new ArrayList<>();
 		List<User>Luser = userManagment.filterLastNameAndLastName("EUREKA");
 		for (User user : Luser) {
 		if (user.isBlocked() || (!user.isActive())) {
@@ -101,7 +101,8 @@ public class Entry {
 		if(userManagment.filterLastNameAndLastName("EUREKA").equals(userManagment.filterLastNameAndLastName("ZIMOUARBI")))
 		{
 			System.err.println("hi");
-		}
+		}*/
+		
 		
 	}
 
