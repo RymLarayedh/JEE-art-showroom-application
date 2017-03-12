@@ -116,8 +116,9 @@ public class VisualArtworkEJB implements VisualArtworkEJBRemote {
 	public List<Comment> findAllVisualArtComment(int idVisualart) {
 		//return null;
 		// TODO Auto-generated method stub
-		return (List<Comment>) em.createQuery("select c from Comment c where c.FeedbackId.ArtworkId=:pid",Comment.class)
-				.setParameter("pid", idVisualart).getSingleResult();
+//		return (List<Comment>) em.createQuery("select c from Comment c where c.artwork=:partwork",Comment.class)
+//				.setParameter("partwork", idVisualart).getSingleResult();
+		return em.createQuery("select f from Comment f where  f.artwork.idArtwork=:artwork",Comment.class).setParameter("artwork",idVisualart).getResultList();
 	}
 
 	@Override

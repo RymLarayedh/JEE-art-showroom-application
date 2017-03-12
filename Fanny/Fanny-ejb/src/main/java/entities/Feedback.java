@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
@@ -17,18 +18,16 @@ public class Feedback implements Serializable{
 	 * **
 	 */
 	private static final long serialVersionUID = 1L;
-	@EmbeddedId
-	private FeedbackId  feedbackId ;
+	@Id
+	private int  feedbackId ;
 	@ManyToOne
-	@JoinColumn(name="userId",insertable=false,updatable=false)
 	private User user ;
 	@ManyToOne
-	@JoinColumn(name="artworkId",insertable=false,updatable=false)
 	private Artwork artwork;
-	public FeedbackId getFeedbackId() {
+	public int getFeedbackId() {
 		return feedbackId;
 	}
-	public void setFeedbackId(FeedbackId feedbackId) {
+	public void setFeedbackId(int feedbackId) {
 		this.feedbackId = feedbackId;
 	}
 	public User getUser() {

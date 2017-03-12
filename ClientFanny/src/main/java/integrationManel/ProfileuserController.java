@@ -72,7 +72,7 @@ import utils.ConfirmBox;
 /**
  * FXML Controller class
  *
- * @author Oussamabhhh
+ * @author 
  */
 public class ProfileuserController implements Initializable {
 
@@ -992,7 +992,7 @@ public class ProfileuserController implements Initializable {
 
 		});
 
-		/**************************************************************/
+		
 		AllArtworkTable2.getItems().clear();
 		List<VisualArt> ListArtworks = proxy.findAllVisualArt2();
 		for (VisualArt a : ListArtworks) {

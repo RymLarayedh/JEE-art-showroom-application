@@ -19,7 +19,6 @@ import entities.CartId;
 import entities.Event;
 import entities.EventUser;
 import entities.EventUserID;
-import entities.FeedbackId;
 import entities.Fields;
 import entities.Gallery;
 import entities.Music;
@@ -135,7 +134,7 @@ public class DataExample {
 		artworkManagment.addTunisianCraft(a);
 		
 		
-		Reclamation r = new Reclamation();
+	/*	Reclamation r = new Reclamation();
 		FeedbackId feedbackId =new FeedbackId();
 		feedbackId.setArtworkId(1);
 		feedbackId.setUserId(1);
@@ -144,7 +143,7 @@ public class DataExample {
 		r.setDegree(1);
 		r.setDate(d);
 		r.setHandle(0);
-		feedbackManagment.addReclamation(r);
+		feedbackManagment.addReclamation(r);*/
 		
 		/********Ines
 		 * 

@@ -31,7 +31,7 @@ public class Artwork implements Serializable {
 	private byte[] picture;
 	
 	private static final long serialVersionUID = 1L;
-	@OneToMany(mappedBy="artwork")
+	@OneToMany(cascade=CascadeType.ALL,fetch = FetchType.EAGER)
 	private List<Feedback> listFeedback;
 //	@OneToOne
 //	private Picture pictArt;

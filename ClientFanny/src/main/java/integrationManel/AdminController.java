@@ -685,7 +685,7 @@ public static VisualArtworkEJBRemote proxy;
 		
 		
 		chosenArtworkAdmin = AllArtworkTable1.getSelectionModel().getSelectedItem();
-		Parent adminScene = FXMLLoader.load(getClass().getResource("MyArtworlDetail.fxml"));
+		Parent adminScene = FXMLLoader.load(getClass().getResource("AdminAllVisualArt.fxml"));
 		Scene scene = new Scene(adminScene);
 		Stage Sc = new Stage();
 		Sc.setScene(scene);

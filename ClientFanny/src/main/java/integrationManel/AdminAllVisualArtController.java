@@ -1,6 +1,8 @@
 package integrationManel;
 
 
+
+
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -10,7 +12,6 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
-
 import java.io.IOException;
 import java.net.URL;
 import java.text.DateFormat;
@@ -59,7 +60,7 @@ import utils.ConfirmBox;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 
-public class MyArtworlDetailController implements Initializable {
+public class AdminAllVisualArtController implements Initializable {
 	 @FXML
 	    private AnchorPane Trip;
 	    @FXML
@@ -84,6 +85,8 @@ public class MyArtworlDetailController implements Initializable {
 	    private Button Del;
 	    @FXML
 	    private Button up;
+	    @FXML
+	    private Button Order;
 	    @FXML
 	    private JFXTextField artistn;
 	    @FXML
@@ -115,7 +118,7 @@ public class MyArtworlDetailController implements Initializable {
 			ctx = new InitialContext();
 			Object objet = ctx.lookup("/Fanny-ear/Fanny-ejb/VisualArtworkEJB!services.VisualArtworkEJBRemote");
 			VisualArtworkEJBRemote proxy = (VisualArtworkEJBRemote) objet;
-			a= proxy.findVisualArtById(integrationManel.ProfileuserController.chosenArtwork.getIdArtwork());
+			a= proxy.findVisualArtById(AdminController.chosenArtworkAdmin.getIdArtwork());
 			System.out.println(a);
 			VisualArt v=(VisualArt) a;
         artnamet.setText(a.getName());
@@ -123,6 +126,7 @@ public class MyArtworlDetailController implements Initializable {
         wi.setText(String.valueOf(v.getWidth()));
         String P = String.valueOf(a.getPrice());
         pricet.setText(P);
+      artistn.setText(a.getUser().getUsername());
         
        datet.setText(String.valueOf(a.getDateOfOublication()));
        desct.setText(a.getDescription());
@@ -196,16 +200,16 @@ public class MyArtworlDetailController implements Initializable {
 		
 
 	    Com.setBodyComment(commenttxt.getText());
-		a= proxy.findVisualArtById(integrationManel.ProfileuserController.chosenArtwork.getIdArtwork());
+		a= proxy.findVisualArtById(AdminController.chosenArtworkAdmin.getIdArtwork());
 		Com.setArtwork(a);
-		Com.setUser(LoginController.userLogedIn);
+	Com.setUser(LoginController.userLogedIn);
 		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 		LocalDateTime now = LocalDateTime.now();
 		Instant instant = now.atZone(ZoneId.systemDefault()).toInstant();
 		Date date = Date.from(instant);
 		Com.setDateComment(date);
 
-	
+		
 		Alert alert = new Alert(Alert.AlertType.ERROR);
 		alert.setTitle("Fanny");
 		alert.setHeaderText(null);
@@ -219,7 +223,7 @@ public class MyArtworlDetailController implements Initializable {
     }
     @FXML
     private void selectComment(MouseEvent event) {
-
+		
     	
     }
     
@@ -231,12 +235,13 @@ public class MyArtworlDetailController implements Initializable {
 		Object objet = ctx.lookup("/Fanny-ear/Fanny-ejb/VisualArtworkEJB!services.VisualArtworkEJBRemote");
 		VisualArtworkEJBRemote proxy = (VisualArtworkEJBRemote) objet;
 
-		a= proxy.findVisualArtById(integrationManel.ProfileuserController.chosenArtwork.getIdArtwork());
+		a= proxy.findVisualArtById(AdminController.chosenArtworkAdmin.getIdArtwork());
 		System.out.println(a);
 		VisualArt v=(VisualArt) a;
+		
     	commenttable.getItems().clear();
-    	
-    	List<Comment> ListComments = proxy.findAllVisualArtComment(AdminController.chosenArtworkAdmin.getIdArtwork());
+
+		List<Comment> ListComments = proxy.findAllVisualArtComment(AdminController.chosenArtworkAdmin.getIdArtwork());
 		for (Comment a : ListComments) {
 			MyCmtdata.add(a);
 		}
@@ -249,9 +254,10 @@ public class MyArtworlDetailController implements Initializable {
 				return new SimpleStringProperty(param.getValue().getUser().getUsername());
 			}
 
-		});	
+		});
 		bodycl.setCellValueFactory(new PropertyValueFactory<Comment, String>("bodyComment"));
 		datecl.setCellValueFactory(new PropertyValueFactory<Comment, String>("dateComment"));
+		//bodycl.setCellValueFactory(cellData -> new ReadOnlyStringWrapper("bodyComment"));
 		commenttable.setItems(MyCmtdata);
 		commenttable.setVisible(true);
 		
@@ -277,8 +283,9 @@ public class MyArtworlDetailController implements Initializable {
 				proxy.upadateVisualComment(selectedComment);
 			}
 		});
-		DisplayVisualComment();
-		commenttable.getItems().clear();	
+				//proxy.upadateVisualComment(selectedComment);
+		//DisplayVisualComment();
+	//	commenttable.getItems().clear();
     }
 
     @FXML
@@ -295,6 +302,10 @@ public class MyArtworlDetailController implements Initializable {
 		DisplayVisualComment();
 		commenttable.getItems().clear();
     }
+    @FXML
+    private void OrderAction(ActionEvent event) {
+  
+    }
 
     @FXML
     private void liked(ActionEvent event) {
@@ -307,9 +318,9 @@ public class MyArtworlDetailController implements Initializable {
 			ctx = new InitialContext();
 			Object objet = ctx.lookup("/Fanny-ear/Fanny-ejb/VisualArtworkEJB!services.VisualArtworkEJBRemote");
 			VisualArtworkEJBRemote proxy = (VisualArtworkEJBRemote) objet;
-			a= proxy.findVisualArtById(integrationManel.ProfileuserController.chosenArtwork.getIdArtwork());
+			a= proxy.findVisualArtById(AdminController.chosenArtworkAdmin.getIdArtwork());
 			proxy.deleteVisualArt(a);
-			Parent adminScene = FXMLLoader.load(getClass().getResource("UserArt.fxml"));
+			Parent adminScene = FXMLLoader.load(getClass().getResource("AdminAll.fxml"));
 			Scene scene = new Scene(adminScene);
 			Stage Sc = new Stage();
 			Sc.setScene(scene);
@@ -325,10 +336,9 @@ public class MyArtworlDetailController implements Initializable {
     	ctx = new InitialContext();
 		Object objet = ctx.lookup("/Fanny-ear/Fanny-ejb/VisualArtworkEJB!services.VisualArtworkEJBRemote");
 		VisualArtworkEJBRemote proxy = (VisualArtworkEJBRemote) objet;	
-		a= proxy.findVisualArtById(integrationManel.ProfileuserController.chosenArtwork.getIdArtwork());
+		a= proxy.findVisualArtById(AdminController.chosenArtworkAdmin.getIdArtwork());
 	    VisualArt VisArt =(VisualArt) a ;
 
-	
 	   
 
 	    VisArt.setName(artnamet.getText());

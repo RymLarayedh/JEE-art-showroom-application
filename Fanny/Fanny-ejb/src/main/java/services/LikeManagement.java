@@ -14,7 +14,6 @@ import javax.xml.registry.FederatedConnection;
 import entities.Artwork;
 import entities.EventUser;
 import entities.Feedback;
-import entities.FeedbackId;
 import entities.Like;
 import entities.Rating;
 import entities.User;

@@ -38,7 +38,7 @@ public class User implements Serializable {
 	private Set<ArtistFollowers> listFollow;
 	@OneToMany(mappedBy="user")
 	private List<EventUser>listEventUser;
-	@OneToMany(mappedBy="user")
+	@OneToMany(cascade=CascadeType.ALL,fetch = FetchType.EAGER)
 	private List <Feedback> listFeedback;
 	/*@OneToOne(mappedBy="user")
 	private Reclamation reclamation;*/
