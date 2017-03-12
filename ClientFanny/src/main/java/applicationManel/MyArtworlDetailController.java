@@ -241,6 +241,7 @@ public class MyArtworlDetailController implements Initializable {
 		
 		
 		proxy.addVisualComment(TunC);
+		DisplayVisualComment();
 		commenttable.getItems().clear();
     }
     @FXML
@@ -298,7 +299,7 @@ public class MyArtworlDetailController implements Initializable {
 
 	}
     @FXML
-    private void Modifycomment(ActionEvent event) {
+    private void Modifycomment(ActionEvent event) throws NamingException {
     	bodycl.setEditable(true);
 		selectedComment = (Comment) commenttable.getSelectionModel().getSelectedItem();
         commenttable.setEditable(true);
@@ -315,7 +316,8 @@ public class MyArtworlDetailController implements Initializable {
 			}
 		});
 				//proxy.upadateVisualComment(selectedComment);
-			
+		DisplayVisualComment();
+		commenttable.getItems().clear();	
     }
 
     @FXML
@@ -332,6 +334,7 @@ public class MyArtworlDetailController implements Initializable {
 			proxy.deleteVisualComment(selectedComment);
 			
 			}
+		DisplayVisualComment();
 		commenttable.getItems().clear();
     }
 

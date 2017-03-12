@@ -13,6 +13,7 @@ public class Message implements Serializable {
 
 	   
 	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int idMessage;
 	private String content;
 	private String time;
@@ -41,12 +42,7 @@ public class Message implements Serializable {
 	public void setSender(User sender) {
 		this.sender = sender;
 	}
-	public User getReceiver() {
-		return receiver;
-	}
-	public void setReceiver(User receiver) {
-		this.receiver = receiver;
-	}
+	
 	public String getContent() {
 		return content;
 	}
@@ -65,5 +61,34 @@ public class Message implements Serializable {
 	public void setStatus(int status) {
 		this.status = status;
 	}
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + idMessage;
+		return result;
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Message other = (Message) obj;
+		if (idMessage != other.idMessage)
+			return false;
+		return true;
+	}
+	public User getReceiver() {
+		return receiver;
+	}
+	public void setReceiver(User receiver) {
+		this.receiver = receiver;
+	}
+	
+	
+	
    
 }
