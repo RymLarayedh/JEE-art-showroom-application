@@ -125,7 +125,7 @@ public class MyArtworlDetailController implements Initializable {
 			Object objet = ctx.lookup("/Fanny-ear/Fanny-ejb/VisualArtworkEJB!services.VisualArtworkEJBRemote");
 			VisualArtworkEJBRemote proxy = (VisualArtworkEJBRemote) objet;
 //		 Artwork a = new Artwork ();
-			a= proxy.findVisualArtById(ProfileuserController.chosenArtwork.getIdArtwork());
+			a= proxy.findVisualArtById(integration.ProfileuserController.chosenArtwork.getIdArtwork());
 			System.out.println(a);
 			VisualArt v=(VisualArt) a;
         artnamet.setText(a.getName());
@@ -211,7 +211,7 @@ public class MyArtworlDetailController implements Initializable {
 //		String selectedCategory = cat.getValue();
 //		TunC.setCategory(selectedCategory);
 		TunC.setBodyComment(commenttxt.getText());
-		a= proxy.findVisualArtById(ProfileuserController.chosenArtwork.getIdArtwork());
+		a= proxy.findVisualArtById(integration.ProfileuserController.chosenArtwork.getIdArtwork());
 		TunC.setArtwork(a);
 		//TunC.setFeedbackId();
 		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
@@ -266,7 +266,7 @@ public class MyArtworlDetailController implements Initializable {
 		Object objet = ctx.lookup("/Fanny-ear/Fanny-ejb/VisualArtworkEJB!services.VisualArtworkEJBRemote");
 		VisualArtworkEJBRemote proxy = (VisualArtworkEJBRemote) objet;
 //	 Artwork a = new Artwork ();
-		a= proxy.findVisualArtById(ProfileuserController.chosenArtwork.getIdArtwork());
+		a= proxy.findVisualArtById(integration.ProfileuserController.chosenArtwork.getIdArtwork());
 		System.out.println(a);
 		VisualArt v=(VisualArt) a;
 		/**************************************************************/
@@ -352,7 +352,7 @@ public class MyArtworlDetailController implements Initializable {
 			Object objet = ctx.lookup("/Fanny-ear/Fanny-ejb/VisualArtworkEJB!services.VisualArtworkEJBRemote");
 			VisualArtworkEJBRemote proxy = (VisualArtworkEJBRemote) objet;
 //		 Artwork a = new Artwork ();
-			a= proxy.findVisualArtById(ProfileuserController.chosenArtwork.getIdArtwork());
+			a= proxy.findVisualArtById(integration.ProfileuserController.chosenArtwork.getIdArtwork());
 			proxy.deleteVisualArt(a);
 			Parent adminScene = FXMLLoader.load(getClass().getResource("UserArt.fxml"));
 			Scene scene = new Scene(adminScene);
@@ -370,7 +370,7 @@ public class MyArtworlDetailController implements Initializable {
     	ctx = new InitialContext();
 		Object objet = ctx.lookup("/Fanny-ear/Fanny-ejb/VisualArtworkEJB!services.VisualArtworkEJBRemote");
 		VisualArtworkEJBRemote proxy = (VisualArtworkEJBRemote) objet;	
-		a= proxy.findVisualArtById(ProfileuserController.chosenArtwork.getIdArtwork());
+		a= proxy.findVisualArtById(integration.ProfileuserController.chosenArtwork.getIdArtwork());
 	    VisualArt TunC =(VisualArt) a ;
 
 		//TunC = new VisualArt();
