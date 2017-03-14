@@ -26,6 +26,8 @@ public class Cart implements Serializable {
 	private int status;
 	private double price;
 	private int quantity;
+	private String address; 
+	
 	
 	
 	private static final long serialVersionUID = 1L;
@@ -33,6 +35,17 @@ public class Cart implements Serializable {
 	public Cart() {
 		super();
 	}
+	
+
+	public String getAddress() {
+		return address;
+	}
+
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
 
 	public CartId getIdCart() {
 		return idCart;

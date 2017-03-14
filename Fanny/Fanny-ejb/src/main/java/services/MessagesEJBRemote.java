@@ -22,7 +22,9 @@ public interface MessagesEJBRemote {
 	 * this method return list of conversations
 	 * @param message
 	 */
+	public Set <User> ConversationListFilter (User u, String m);
 	public Set <User> ConversationList (User u);
+	public List<Message> msgList(User u1, User u2);
 	
 	
 

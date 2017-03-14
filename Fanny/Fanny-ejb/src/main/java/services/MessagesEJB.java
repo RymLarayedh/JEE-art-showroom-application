@@ -35,16 +35,16 @@ public class MessagesEJB implements MessagesEJBRemote {
 	}
 
 	@Override
-	public Set<User> ConversationList(User u) {
-		TypedQuery<Message> q = em.createQuery("SELECT u FROM Message u where u.receiver.idUser=:id or u.sender.idUser=:idd", Message.class);
-		q.setParameter("id", u.getIdUser());
-		q.setParameter("idd", u.getIdUser());
+	public Set<User> ConversationListFilter(User u, String s) {
+		TypedQuery<Message> q = em.createQuery("SELECT u FROM Message u where ( u.receiver=:id and ( u.sender.firstName LIKE :m or u.sender.lastName LIKE :m )) or (u.sender=:id and ( u.receiver.firstName LIKE :m or u.receiver.lastName LIKE :m ))", Message.class);
+		q.setParameter("id", u);
+		q.setParameter("m", "%"+s+"%");
 		
 		List<Message> UserMessages = q.getResultList();
 		Set<User> contacts= new HashSet<>();
 		for( Message m: UserMessages)
 		{
-			if(m.getSender()!=u)
+			if(m.getSender().getIdUser()==u.getIdUser())
 				contacts.add(m.getReceiver());
 			else
 				contacts.add(m.getSender());
@@ -55,5 +55,43 @@ public class MessagesEJB implements MessagesEJBRemote {
 		
 		return contacts;
 	}
+	
+	
+	
+	@Override
+	public Set<User> ConversationList(User u) {
+		TypedQuery<Message> q = em.createQuery("SELECT u FROM Message u where  u.receiver=:id  or u.sender=:id ", Message.class);
+		q.setParameter("id", u);
+		
+		
+		
+		List<Message> UserMessages = q.getResultList();
+		Set<User> contacts= new HashSet<>();
+		for( Message m: UserMessages)
+		{
+			if(m.getSender().getIdUser()==u.getIdUser())
+				contacts.add(m.getReceiver());
+			else
+				contacts.add(m.getSender());
+				
+		
+			
+		}
+		
+		return contacts;
+	}
+
+	@Override
+	public List<Message> msgList(User u1, User u2) {
+		
+		TypedQuery<Message> q = em.createQuery("SELECT u FROM Message u where  ( u.receiver=:id1 and u.sender=:id2 ) or ( u.sender=:id1 and u.receiver=:id2 ) order by time asc", Message.class);
+		q.setParameter("id1", u1);
+		q.setParameter("id2", u2);
+		List<Message> UserMessages = q.getResultList();
+		return UserMessages;
+	}
+	
+	
+	
 
 }

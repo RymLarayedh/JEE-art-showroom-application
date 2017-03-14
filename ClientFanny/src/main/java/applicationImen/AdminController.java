@@ -13,7 +13,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
-
+import javafx.scene.control.TableCell;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.util.Callback;
@@ -46,6 +46,7 @@ import com.jfoenix.controls.JFXComboBox;
 import application.LoginController;
 import entities.Cart;
 import entities.Category;
+import entities.Gallery;
 import entities.User;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TitledPane;
@@ -79,19 +80,19 @@ public class AdminController implements Initializable {
 	@FXML
 	private TableView<Cart> OrdersTable;
 	@FXML
-	private TableColumn ProductPicture;
+	private TableColumn<Cart , String> ProductPicture;
 	@FXML
-	private TableColumn Client;
+	private TableColumn<Cart , String> Client;
 	@FXML
-	private TableColumn ProductPrice;
+	private TableColumn<Cart , Double> ProductPrice;
 	@FXML
-	private TableColumn ProductQuantity;
+	private TableColumn<Cart , String> ProductQuantity;
 	@FXML
-	private TableColumn PurchaseDate;
+	private TableColumn<Cart , String> PurchaseDate;
 	@FXML
-	private TableColumn PurchaseStatus;
+	private TableColumn<Cart , String> PurchaseStatus;
 	@FXML
-	private TableColumn Action;
+	private TableColumn<Cart , String> Action;
 	@FXML
 	private ImageView profilePicture;
 	@FXML
@@ -247,9 +248,64 @@ public class AdminController implements Initializable {
 			}
 
 		});
+		
+		
+		Action.setCellValueFactory(new PropertyValueFactory<>("Action"));
+		Callback<TableColumn<Cart, String>, TableCell<Cart, String>> cellFactory = //
+				new Callback<TableColumn<Cart, String>, TableCell<Cart, String>>() {
+					@Override
+					public TableCell call(final TableColumn<Cart, String> param) {
+						final TableCell<Cart, String> cell = new TableCell<Cart, String>() {
+
+							final JFXButton btn = new JFXButton();
+
+							@Override
+							public void updateItem(String item, boolean empty) {
+								super.updateItem(item, empty);
+								if (empty) {
+									setGraphic(null);
+									setText(null);
+								} else 
+									if (getTableView().getItems().get(getIndex()) instanceof Cart) {
+										btn.setText("More Information"); 
+										
+										btn.setOnAction((ActionEvent event) -> {
+										});
+									} /*else {
+										if (LoginController.userManagment.getAllFollowed(LoginController.userLogedIn)
+												.contains(getTableView().getItems().get(getIndex()))) {
+											btn.setText("UnFollow");
+											btn.setOnAction((ActionEvent event) -> {
+												User person = getTableView().getItems().get(getIndex());
+												LoginController.userManagment
+														.removeFollower(LoginController.userLogedIn, person);
+												searchTable.refresh();
+											});
+										} else {
+											btn.setText("Follow");
+											btn.setOnAction((ActionEvent event) -> {
+												User person = getTableView().getItems().get(getIndex());
+												LoginController.userManagment.addFollower(LoginController.userLogedIn,
+														person);
+												searchTable.refresh();
+											});
+										}
+									}*/
+									
+									setGraphic(btn);
+									//setText(null);
+								//}
+							}
+						};
+						return cell;
+					}
+				};
+
+		Action.setCellFactory(cellFactory);
     	//Client.setCellValueFactory(new PropertyValueFactory<Cart, String>("i"));
     		System.out.println(CartsData);
     	OrdersTable.setItems(CartsData);
+    	//OrdersTable.getColumns().addAll(Action);
 
     }
     

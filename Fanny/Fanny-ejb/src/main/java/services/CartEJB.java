@@ -48,4 +48,12 @@ public class CartEJB implements CartEJBRemote {
 		
 	}
 
+	@Override
+	public List<Cart> getMyCarts(User u) {
+		TypedQuery<Cart> q = em.createQuery("SELECT c FROM Cart c where c.idCart.buyerId=:id", Cart.class);
+		q.setParameter("id", u.getIdUser());
+		List<Cart> Lcarts = q.getResultList();
+		return Lcarts;
+	}
+
 }
