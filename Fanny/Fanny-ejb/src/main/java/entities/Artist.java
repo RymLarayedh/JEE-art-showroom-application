@@ -57,7 +57,7 @@ public class Artist extends User implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Artist [" + super.toString() + ", bio=" + bio + "]";
+		return super.toString();
 	}
 
 }
