@@ -8,10 +8,13 @@ import javax.mail.MessagingException;
 import javax.mail.internet.AddressException;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
+import javax.security.auth.login.LoginContext;
+import javax.security.auth.login.LoginException;
 import javax.swing.SwingWorker;
 
 import business.UserManagmentDelegate;
 import entities.User;
+import jaas.FannyCallbackHandler;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -50,39 +53,65 @@ public class LoginController implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		UserManagmentDelegate.findById(0);
 	}
 
 	@FXML
 	public void LogIn(ActionEvent event) throws IOException {
 		String username = usernameTF.getText();
 		String password = passwordTF.getText();
-		if (UserManagmentDelegate.loginUser(username, password)) {
-			userLogedIn = UserManagmentDelegate.findByUsername(username);
-			int redirect = UserManagmentDelegate.RedirectUser(userLogedIn);
-			if (redirect == 1) {
-				// Artist
-				gotoArtist(event);
-			} else if (redirect == 2) {
-				// Gallery
-				gotoGallery(event);
-			} else {
-				// Admin
-				gotoAdmin(event);
-			}
+		/*
+		 * if (UserManagmentDelegate.loginUser(username, password)) {
+		 * userLogedIn = UserManagmentDelegate.findByUsername(username); int
+		 * redirect = UserManagmentDelegate.RedirectUser(userLogedIn); if
+		 * (redirect == 1) { // Artist gotoArtist(event); } else if (redirect ==
+		 * 2) { // Gallery gotoGallery(event); } else { // Admin
+		 * gotoAdmin(event); }
+		 * 
+		 * } else { Alert alert = new Alert(Alert.AlertType.ERROR);
+		 * alert.setTitle("Fanny"); alert.setHeaderText(null);
+		 * alert.setContentText("Wrong Password or username");
+		 * 
+		 * alert.showAndWait(); usernameTF.clear(); passwordTF.clear(); return ;
+		 * }
+		 */
 
-		} else {
+		/****** JAAS **/
+		System.setProperty("java.security.auth.login.config", "jaasConfig.config");
+		LoginContext loginContext = null;
+		FannyCallbackHandler fannyCallbackHandler = new FannyCallbackHandler();
+		fannyCallbackHandler.setUsername(username);
+		fannyCallbackHandler.setPassword(password);
+		try {
+			loginContext = new LoginContext("jaasConfig", fannyCallbackHandler);
+		} catch (LoginException e) {
+			// TODO Auto-generated catch block
+			System.out.println(e.getMessage());
+			System.exit(0);
+		}
+		try {
+			loginContext.login();
+		} catch (LoginException e1) {
 			Alert alert = new Alert(Alert.AlertType.ERROR);
 			alert.setTitle("Fanny");
 			alert.setHeaderText(null);
 			alert.setContentText("Wrong Password or username");
-
 			alert.showAndWait();
 			usernameTF.clear();
 			passwordTF.clear();
-			return ;
+			return;
 		}
 
+		userLogedIn = UserManagmentDelegate.findByUsername(username);
+		int redirect = UserManagmentDelegate.RedirectUser(userLogedIn);
+		if (redirect == 1) { // Artist
+			gotoArtist(event);
+		} else if (redirect == 2)
+
+		{ // Gallery
+			gotoGallery(event);
+		} else { // Admin
+			gotoAdmin(event);
+		}
 	}
 
 	// Event Listener on Label.onMouseClicked
@@ -200,8 +229,7 @@ public class LoginController implements Initializable {
 
 								@Override
 								public void handle(ActionEvent event) {
-									if(!reNewPassword.getText().equals(newPassword.getText()))
-									{
+									if (!reNewPassword.getText().equals(newPassword.getText())) {
 										Alert alert = new Alert(Alert.AlertType.ERROR);
 										alert.setTitle("Fanny");
 										alert.setHeaderText(null);
@@ -209,8 +237,7 @@ public class LoginController implements Initializable {
 										alert.showAndWait();
 										return;
 									}
-									if(newPassword.getText().length() < 6)
-									{
+									if (newPassword.getText().length() < 6) {
 										Alert alert = new Alert(Alert.AlertType.ERROR);
 										alert.setTitle("Fanny");
 										alert.setHeaderText(null);
@@ -218,9 +245,9 @@ public class LoginController implements Initializable {
 										alert.showAndWait();
 										return;
 									}
-								User u = UserManagmentDelegate.findByEmail(mailTextField.getText().trim());
-								u.setPassword(newPassword.getText());
-								UserManagmentDelegate.updateUser(u);
+									User u = UserManagmentDelegate.findByEmail(mailTextField.getText().trim());
+									u.setPassword(newPassword.getText());
+									UserManagmentDelegate.updateUser(u);
 									Alert alert = new Alert(Alert.AlertType.INFORMATION);
 									alert.setTitle("Fanny");
 									alert.setHeaderText(null);
@@ -248,6 +275,7 @@ public class LoginController implements Initializable {
 				resetPasswordPane.getChildren().add(verificationCodeTyped);
 				resetPasswordPane.getChildren().add(verify);
 			}
+
 		});
 		resetPasswordPane.getChildren().add(inform);
 		resetPasswordPane.getChildren().add(mailTextField);
@@ -274,10 +302,10 @@ public class LoginController implements Initializable {
 		Stage Sc = new Stage();
 		Sc.setScene(scene);
 		Sc.setTitle("FannyTUNISIA");
-		Sc.setOnCloseRequest(e ->{
-            e.consume();
-            Main.closeProgram(Sc);
-        });
+		Sc.setOnCloseRequest(e -> {
+			e.consume();
+			Main.closeProgram(Sc);
+		});
 
 		Sc.show();
 		final Node source = (Node) event.getSource();
@@ -289,7 +317,7 @@ public class LoginController implements Initializable {
 
 		Parent artistScene = FXMLLoader.load(getClass().getResource("Profileuser.fxml"));
 		Scene scene = new Scene(artistScene);
-		//scene.getStylesheets().add(getClass().getResource("Artist.css").toExternalForm());
+		// scene.getStylesheets().add(getClass().getResource("Artist.css").toExternalForm());
 		scene.getStylesheets().add(getClass().getResource("tableView.css").toExternalForm());
 		Stage Sc = new Stage();
 		Sc.setScene(scene);
@@ -303,7 +331,7 @@ public class LoginController implements Initializable {
 	void gotoGallery(ActionEvent event) throws IOException {
 		Parent artistScene = FXMLLoader.load(getClass().getResource("Profileuser.fxml"));
 		Scene scene = new Scene(artistScene);
-		//scene.getStylesheets().add(getClass().getResource("Artist.css").toExternalForm());
+		// scene.getStylesheets().add(getClass().getResource("Artist.css").toExternalForm());
 		scene.getStylesheets().add(getClass().getResource("tableView.css").toExternalForm());
 		Stage Sc = new Stage();
 		Sc.setScene(scene);

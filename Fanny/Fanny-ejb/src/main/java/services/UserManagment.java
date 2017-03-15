@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Properties;
 import java.util.Random;
+import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -119,7 +120,8 @@ public class UserManagment implements UserManagmentRemote {
 		try {
 			return em.find(User.class, id);
 		} catch (javax.persistence.NoResultException e) {
-			return null;//Logger.info("NoResult(msg)")
+			Logger.getLogger("e").info("User with id = "+id+" not found");
+			return null;
 		}
 	}
 
@@ -131,6 +133,7 @@ public class UserManagment implements UserManagmentRemote {
 			User user = q.getSingleResult();
 			return user;
 		} catch (javax.persistence.NoResultException e) {
+			Logger.getLogger("e").info("User with username = "+username+" not found");
 			return null;
 		}
 
@@ -144,6 +147,7 @@ public class UserManagment implements UserManagmentRemote {
 			User user = q.getSingleResult();
 			return user;
 		} catch (javax.persistence.NoResultException E) {
+			Logger.getLogger("e").info("User with email = "+email+" not found");
 			return null;
 		}
 	}
@@ -169,6 +173,7 @@ public class UserManagment implements UserManagmentRemote {
 			List<User> Luser = q.getResultList();
 			return Luser;
 		} catch (javax.persistence.NoResultException E) {
+			Logger.getLogger("e").info("User with FirstName = "+name+" not found");
 			return null;
 		}
 	}
@@ -181,6 +186,7 @@ public class UserManagment implements UserManagmentRemote {
 			List<User> Luser = q.getResultList();
 			return Luser;
 		} catch (javax.persistence.NoResultException E) {
+			Logger.getLogger("e").info("User with LastName = "+name+" not found");
 			return null;
 		}
 	}
@@ -193,6 +199,7 @@ public class UserManagment implements UserManagmentRemote {
 			List<User> LuserBlocked = q.getResultList();
 			return LuserBlocked;
 		} catch (javax.persistence.NoResultException E) {
+			
 			return null;
 		}
 	}

@@ -11,7 +11,6 @@ import entities.Artist;
 import entities.Artwork;
 import entities.Comment;
 import entities.Feedback;
-import entities.FeedbackId;
 import entities.Gallery;
 import entities.VisualArt;
 
@@ -205,12 +204,13 @@ public class DetailArtworkController implements Initializable {
 //
 //		} catch (Exception e) {
 //		}
-		FeedbackId feedbackId =new FeedbackId();
-		//*************************change*****************************
-		feedbackId.setArtworkId(a.getIdArtwork());
-		feedbackId.setUserId(3);
-		//*************************change*****************************
-		TunC.setFeedbackId(feedbackId);
+		
+//		FeedbackId feedbackId =new FeedbackId();
+//		//*************************change*****************************
+//		feedbackId.setArtworkId(a.getIdArtwork());
+//		feedbackId.setUserId(3);
+//		//*************************change*****************************
+//		TunC.setFeedbackId(feedbackId);
 		Alert alert = new Alert(Alert.AlertType.ERROR);
 		alert.setTitle("Fanny");
 		alert.setHeaderText(null);
