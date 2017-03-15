@@ -129,10 +129,10 @@
                </font>
             </Label>
             <JFXTextArea fx:id="bioTextArea" layoutX="150.0" layoutY="248.0" maxWidth="419.0" minWidth="419.0" prefHeight="137.0" prefWidth="419.0" />
-            <ToggleButton fx:id="PaintingsField" layoutX="202.0" layoutY="66.0" mnemonicParsing="false" text="Painting" />
+            <ToggleButton fx:id="PaintingsField" layoutX="202.0" layoutY="66.0" mnemonicParsing="false" text="Paintings" />
             <ToggleButton fx:id="TcraftField" layoutX="202.0" layoutY="108.0" mnemonicParsing="false" text="Tunisian Craft" />
             <ToggleButton fx:id="photographyField" layoutX="335.0" layoutY="108.0" mnemonicParsing="false" text="Photography" />
-            <ToggleButton fx:id="scultureField" layoutX="268.0" layoutY="150.0" mnemonicParsing="false" text="Scultupe" />
+            <ToggleButton fx:id="scultureField" layoutX="268.0" layoutY="150.0" mnemonicParsing="false" text="Sculpture" />
          </children>
       </AnchorPane>
       <AnchorPane fx:id="thirdFrameGallery" layoutX="25.0" layoutY="149.0" prefHeight="385.0" prefWidth="558.0">

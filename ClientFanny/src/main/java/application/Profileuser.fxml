@@ -7,10 +7,12 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.effect.ImageInput?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -37,7 +39,7 @@
       </ImageView>
       <AnchorPane fx:id="magicbar" layoutX="20.0" layoutY="27.0" prefHeight="525.0" prefWidth="157.0">
          <children>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" blendMode="MULTIPLY" fill="#bec3cd" height="439.0" layoutX="-7.0" layoutY="18.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="177.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" blendMode="MULTIPLY" fill="#bec3cd" height="507.0" layoutX="-7.0" layoutY="18.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="177.0" />
             <ImageView fx:id="myimage" fitHeight="126.0" fitWidth="101.0" layoutX="24.0" layoutY="80.0" onMouseClicked="#showProfile" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../buttons/artist.png" />
@@ -75,12 +77,12 @@
                   <Font name="System Bold Italic" size="17.0" />
                </font>
             </Label>
-            <Label layoutX="39.0" layoutY="310.0" prefHeight="36.0" prefWidth="131.0" text="My Own Space ">
+            <Label layoutX="39.0" layoutY="295.0" prefHeight="36.0" prefWidth="131.0" text="My Own Space ">
                <font>
                   <Font name="System Bold Italic" size="17.0" />
                </font>
             </Label>
-            <Button fx:id="ownspace" layoutX="4.0" layoutY="311.0" mnemonicParsing="false" onAction="#Myownspace" text="Button">
+            <Button fx:id="ownspace" layoutX="4.0" layoutY="295.0" mnemonicParsing="false" onAction="#Myownspace" text="Button">
                <effect>
                   <ImageInput>
                      <source>
@@ -89,7 +91,7 @@
                   </ImageInput>
                </effect>
             </Button>
-            <Button layoutX="1.0" layoutY="374.0" mnemonicParsing="false" text="Button">
+            <Button fx:id="Logout" layoutX="7.0" layoutY="395.0" mnemonicParsing="false" onAction="#Logout" prefHeight="25.0" prefWidth="114.0" text="Button">
                <effect>
                   <ImageInput>
                      <source>
@@ -98,11 +100,42 @@
                   </ImageInput>
                </effect>
             </Button>
-            <Label layoutX="48.0" layoutY="371.0" prefHeight="33.0" prefWidth="99.0" text="Logout">
+            <Label layoutX="47.0" layoutY="395.0" prefHeight="33.0" prefWidth="99.0" text="Logout">
                <font>
                   <Font name="System Bold Italic" size="17.0" />
                </font>
             </Label>
+            <Label layoutX="48.0" layoutY="345.0" prefHeight="33.0" prefWidth="99.0" text="Settings">
+               <font>
+                  <Font name="System Bold Italic" size="17.0" />
+               </font>
+            </Label>
+            <Button fx:id="Disable" layoutX="7.0" layoutY="445.0" mnemonicParsing="false" onAction="#DisableAccount" prefHeight="25.0" prefWidth="159.0" text="Button">
+               <effect>
+                  <ImageInput>
+                     <source>
+                        <Image url="file:/C:/Users/ElarbiMohamedAymen/git/Eureka/ClientFanny/src/main/java/buttons/delete.png" />
+                     </source>
+                  </ImageInput>
+               </effect>
+            </Button>
+            <Label layoutX="47.0" layoutY="445.0" prefHeight="33.0" prefWidth="133.0" text="Disable my account">
+               <font>
+                  <Font name="System Bold Italic" size="13.0" />
+               </font>
+            </Label>
+            <Button layoutX="4.0" layoutY="345.0" mnemonicParsing="false" onAction="#showSettingsScreen" prefHeight="37.0" prefWidth="119.0" text="Button">
+               <effect>
+                  <ImageInput>
+                     <source>
+                        <Image url="file:/C:/Users/ElarbiMohamedAymen/git/Eureka/ClientFanny/src/main/java/buttons/rsz_11settings-50.png" />
+                     </source>
+                  </ImageInput>
+               </effect>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+            </Button>
          </children>
       </AnchorPane>
       <Label layoutX="237.0" layoutY="52.0" text="Home">
@@ -258,7 +291,7 @@
                                                    <effect>
                                                       <ImageInput>
                                                          <source>
-                                                            <Image url="file:/C:/Users/ElarbiMohamedAymen/git/Eureka/ClientFanny/src/main/java/buttons/rsz_1rsz_edit-new-icon-22.png" />
+                                                            <Image url="@../buttons/rsz_1rsz_edit-new-icon-22.png" />
                                                          </source>
                                                       </ImageInput>
                                                    </effect>
@@ -278,10 +311,62 @@
                         </AnchorPane>
                   </content>
                 </Tab>
-                  <Tab text="Untitled Tab">
-                    <content>
-                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                    </content>
+                  <Tab text="Following and Followers">
+                     <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <SplitPane dividerPositions="0.19198664440734559" prefHeight="373.0" prefWidth="601.0">
+                                 <items>
+                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="371.0" prefWidth="71.0">
+                                       <children>
+                                          <JFXButton fx:id="FollowersBTN" layoutX="6.0" layoutY="33.0" onAction="#ShowFollowers" text="Following" />
+                                          <JFXButton fx:id="followedBTN" layoutX="6.0" layoutY="66.0" onAction="#showFollowed" text="Show Followers" />
+                                       </children>
+                                    </AnchorPane>
+                                    <AnchorPane>
+                                       <children>
+                                          <TableView fx:id="Follow" onMouseClicked="#MoreInformation" prefHeight="278.0" prefWidth="479.0">
+                                             <columns>
+                                                <TableColumn fx:id="PictureTV" prefWidth="129.0" text="Picture" />
+                                                <TableColumn fx:id="FirstNameTV" prefWidth="131.0" text="First Name" />
+                                                <TableColumn fx:id="LastNameTV" prefWidth="105.0" text="Last Name" />
+                                                <TableColumn fx:id="ActionTV" prefWidth="112.0" text="Action" />
+                                             </columns>
+                                          </TableView>
+                                       </children>
+                                    </AnchorPane>
+                                 </items>
+                              </SplitPane>
+                           </children>
+                        </AnchorPane>
+                     </content>
+                  </Tab>
+                  <Tab text="Fields">
+                     <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <SplitPane dividerPositions="0.19198664440734559" prefHeight="373.0" prefWidth="601.0">
+                                 <items>
+                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="371.0" prefWidth="71.0">
+                                       <children>
+                                          <JFXButton fx:id="AddFieldsBTN" layoutX="6.0" layoutY="33.0" onAction="#AddField" text="Add Fields" />
+                                          <JFXButton fx:id="RemoveFieldsBTN" layoutX="6.0" layoutY="66.0" onAction="#RemoveField" text="Remove Fields" />
+                                       </children>
+                                    </AnchorPane>
+                                    <AnchorPane>
+                                       <children>
+                                          <ToggleButton fx:id="musicField" layoutX="152.0" layoutY="66.0" mnemonicParsing="false" onAction="#addMusic" text="Music" />
+                                          <ToggleButton fx:id="PaintingsField" layoutX="152.0" layoutY="108.0" mnemonicParsing="false" onAction="#addPaints" text="Paintings" />
+                                          <ToggleButton fx:id="TcraftField" layoutX="285.0" layoutY="108.0" mnemonicParsing="false" onAction="#addTC" text="Tunisian Craft" />
+                                          <ToggleButton fx:id="photographyField" layoutX="218.0" layoutY="150.0" mnemonicParsing="false" onAction="#addPHT" text="Photography" />
+                                          <ToggleButton fx:id="scultureField" layoutX="285.0" layoutY="66.0" mnemonicParsing="false" onAction="#addScu" text="Sculpture" />
+                                       </children>
+                                    </AnchorPane>
+                                 </items>
+                              </SplitPane>
+                           </children>
+                        </AnchorPane>
+                     </content>
                   </Tab>
               </tabs>
             </TabPane>
@@ -332,7 +417,7 @@
                                                    <effect>
                                                       <ImageInput>
                                                          <source>
-                                                            <Image url="file:/C:/Users/ElarbiMohamedAymen/git/Eureka/ClientFanny/src/main/java/buttons/rsz_1rsz_edit-new-icon-22.png" />
+                                                            <Image url="@../buttons/rsz_1rsz_edit-new-icon-22.png" />
                                                          </source>
                                                       </ImageInput>
                                                    </effect>
@@ -342,7 +427,7 @@
                                                    <effect>
                                                       <ImageInput>
                                                          <source>
-                                                            <Image url="file:/C:/Users/ElarbiMohamedAymen/git/Eureka/ClientFanny/src/main/java/buttons/rsz_1rsz_edit-new-icon-22.png" />
+                                                            <Image url="@../buttons/rsz_1rsz_edit-new-icon-22.png" />
                                                          </source>
                                                       </ImageInput>
                                                    </effect>
@@ -363,10 +448,34 @@
                         </AnchorPane>
                      </content>
                   </Tab>
-                  <Tab text="Untitled Tab">
-                    <content>
-                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                    </content>
+                  <Tab text="Following">
+                     <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <SplitPane dividerPositions="0.19198664440734559" prefHeight="373.0" prefWidth="601.0">
+                                 <items>
+                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="371.0" prefWidth="71.0">
+                                       <children>
+                                          <JFXButton fx:id="FollowersBTNG" layoutX="6.0" layoutY="33.0" onAction="#ShowFollowersG" text="Following" />
+                                       </children>
+                                    </AnchorPane>
+                                    <AnchorPane>
+                                       <children>
+                                          <TableView fx:id="FollowG" onMouseClicked="#MoreInformation" prefHeight="278.0" prefWidth="479.0">
+                                             <columns>
+                                                <TableColumn fx:id="PictureTVG" prefWidth="129.0" text="Picture" />
+                                                <TableColumn fx:id="FirstNameTVG" prefWidth="131.0" text="First Name" />
+                                                <TableColumn fx:id="LastNameTVG" prefWidth="105.0" text="Last Name" />
+                                                <TableColumn fx:id="ActionTVG" prefWidth="112.0" text="Action" />
+                                             </columns>
+                                          </TableView>
+                                       </children>
+                                    </AnchorPane>
+                                 </items>
+                              </SplitPane>
+                           </children>
+                        </AnchorPane>
+                     </content>
                   </Tab>
                </tabs>
             </TabPane>

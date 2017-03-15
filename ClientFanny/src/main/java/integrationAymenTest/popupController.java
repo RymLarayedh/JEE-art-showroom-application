@@ -1,4 +1,4 @@
-package application;
+package integrationAymenTest;
 
 import javafx.application.Platform;
 import javafx.embed.swing.SwingFXUtils;
@@ -70,6 +70,8 @@ public class popupController implements Initializable {
 	@FXML
 	private AnchorPane popupAnchor;
 
+	@FXML
+	private Tab titleTab;
 
 	@FXML
 	private Label DescriptionTF;
@@ -90,8 +92,13 @@ public class popupController implements Initializable {
 
 	@FXML
 	private JFXComboBox<String> FieldsCombo;
-
-
+	
+	@FXML
+	private JFXButton FollowersBTN;
+	
+	@FXML
+	private JFXButton ArtworksBTN;
+	
 	static public User userChoosen;
 	static public String fromWhere = "";
 
@@ -102,17 +109,22 @@ public class popupController implements Initializable {
 		if (userChoosen instanceof Gallery) {
 			GalleryThing.setVisible(true);
 			ArtistThing.setVisible(false);
+			FollowersBTN.setVisible(false);
+			ArtworksBTN.setVisible(false);
 			surfaceTF.setText(String.valueOf(((Gallery) userChoosen).getSurface()));
 			AddressTF.setText(((Gallery) userChoosen).getAddress());
 			DescriptionTF.setText(((Gallery) userChoosen).getDescription());
 		}
 
 		if (userChoosen instanceof Artist) {
+			FollowersBTN.setVisible(true);
+			ArtworksBTN.setVisible(true);
 			FieldsCombo.getItems().add("----------------------");
 			GalleryThing.setVisible(false);
 			ArtistThing.setVisible(true);
 			BioLabel.setText(((Artist) userChoosen).getBio());
-			for (ArtistFields af : ((Artist) userChoosen).getLfields()) {
+			for(ArtistFields af:((Artist) userChoosen).getLfields())
+			{
 				FieldsCombo.getItems().add(af.getField().getLibelle());
 			}
 		}
@@ -122,6 +134,7 @@ public class popupController implements Initializable {
 		LastName.setEditable(false);
 		mailTf.setEditable(false);
 		usernameTF.setEditable(false);
+		titleTab.setText("More about " + userChoosen.getFirstName() + " " + userChoosen.getLastName());
 		firstName.setText(userChoosen.getFirstName());
 		LastName.setText(userChoosen.getLastName());
 		mailTf.setText(userChoosen.getEmail());
@@ -413,24 +426,26 @@ public class popupController implements Initializable {
 			alert.showAndWait();
 			return false;
 		} else {
-			if ((!usernameTF.getText().equals(userChoosen.getUsername()))
-					|| (!mailTf.getText().equals(userChoosen.getEmail()))
-					|| (!LastName.getText().equals(userChoosen.getLastName()))
-					|| (!firstName.getText().equals(userChoosen.getFirstName()))) {
-				if (!UserManagmentDelegate.checkMailExistance(mailTf.getText())) {
-					Alert alert = new Alert(Alert.AlertType.ERROR);
-					alert.setTitle("Fanny");
-					alert.setHeaderText(null);
-					alert.setContentText(
-							"This mail address exists is assosiated to another account please choose another one");
-					alert.showAndWait();
-					return false;
-				}
+			if ((usernameTF.getText().equals(userChoosen.getUsername()))
+					|| (mailTf.getText().equals(userChoosen.getEmail()))
+					|| (LastName.getText().equals(userChoosen.getLastName()))
+					|| (firstName.getText().equals(userChoosen.getFirstName()))) {
 				return true;
 			}
 		}
 		return false;
 	}
 
+	@FXML
+	public void ShowFollowers(ActionEvent event){
+		FollowersBTN.setDisable(true);
+		
+	}
+	
+	@FXML
+	public void ShowArtworks(ActionEvent event){
+		ArtworksBTN.setDisable(true);
+		
+	}
 
 }

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="534.0" prefWidth="807.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="integrationAymenTest.DisplayTunisianCrController">
+   <children>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f0f8ff" height="260.0" layoutX="511.0" layoutY="53.0" opacity="0.35" stroke="BLACK" strokeType="INSIDE" width="282.0" />
+      <ImageView fx:id="img" fitHeight="275.0" fitWidth="400.0" layoutX="86.0" layoutY="51.0" pickOnBounds="true" preserveRatio="true" />
+      <Button layoutX="55.0" layoutY="360.0" mnemonicParsing="false" onAction="#First" text="First" />
+      <Button layoutX="393.0" layoutY="360.0" mnemonicParsing="false" onAction="#Next" text="Next" />
+      <Button layoutX="211.0" layoutY="360.0" mnemonicParsing="false" onAction="#Prec" text="Prec" />
+      <Button layoutX="560.0" layoutY="360.0" mnemonicParsing="false" onAction="#Last" text="Last" />
+      <Label layoutX="560.0" layoutY="105.0" text="Artist Name:" />
+      <Label layoutX="560.0" layoutY="146.0" text="Artwork Name:" />
+      <Label layoutX="563.0" layoutY="187.0" text="Price :" />
+      <Label layoutX="559.0" layoutY="230.0" text="PubliedOn :" />
+      <Label fx:id="artist" layoutX="679.0" layoutY="105.0" prefHeight="27.0" prefWidth="106.0" />
+      <Label fx:id="artwork" layoutX="693.0" layoutY="146.0" prefHeight="27.0" prefWidth="106.0" />
+      <Label fx:id="price" layoutX="659.0" layoutY="187.0" prefHeight="27.0" prefWidth="106.0" />
+      <Label fx:id="date" layoutX="670.0" layoutY="230.0" prefHeight="27.0" prefWidth="106.0" />
+   </children>
+</AnchorPane>

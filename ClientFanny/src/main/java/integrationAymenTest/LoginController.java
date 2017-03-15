@@ -1,4 +1,4 @@
-package application;
+package integrationAymenTest;
 
 import java.io.IOException;
 import java.net.URL;
@@ -50,7 +50,7 @@ public class LoginController implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		UserManagmentDelegate.findById(0);
+
 	}
 
 	@FXML

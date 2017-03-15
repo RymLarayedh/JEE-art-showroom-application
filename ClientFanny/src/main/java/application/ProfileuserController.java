@@ -16,13 +16,18 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import javax.imageio.ImageIO;
+import javax.swing.text.StyledEditorKit.BoldAction;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 
+import business.UserManagmentDelegate;
 import entities.Admin;
 import entities.Artist;
+import entities.ArtistFields;
+import entities.ArtistFollowers;
+import entities.Fields;
 import entities.Gallery;
 import entities.User;
 import javafx.animation.PathTransition;
@@ -35,6 +40,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -43,6 +49,7 @@ import javafx.scene.control.TabPane;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.control.Tooltip;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
@@ -96,6 +103,8 @@ public class ProfileuserController implements Initializable {
 	private Button musicb;
 	@FXML
 	private Button eventb;
+	@FXML
+	private Button Logout;
 	@FXML
 	private Button tunisianc;
 	@FXML
@@ -169,16 +178,80 @@ public class ProfileuserController implements Initializable {
 	@FXML
 	private JFXButton SaveGalleryButton;
 
+	@FXML
+	private TableView<User> Follow;
+
+	@FXML
+	private TableColumn<User, byte[]> PictureTV;
+
+	@FXML
+	private TableColumn<User, String> FirstNameTV;
+
+	@FXML
+	private TableColumn<User, String> LastNameTV;
+
+	@FXML
+	private TableColumn<User, String> ActionTV;
+	ObservableList<User> UsersDataME = FXCollections.observableArrayList();
+	List<User> LrecherchFNME = new ArrayList<>();
+	List<Artist> LrecherchArt = new ArrayList<>();
+	@FXML
+	private JFXButton FollowersBTN;
+	@FXML
+	private JFXButton followedBTN;
+    private JFXButton FollowersBTNG;
+    @FXML
+    private TableView<User> FollowG;
+    @FXML
+    private TableColumn<User, byte[]> PictureTVG;
+    @FXML
+    private TableColumn<User, String> FirstNameTVG;
+    @FXML
+    private TableColumn<User, String> LastNameTVG;
+    @FXML
+    private TableColumn<User, String> ActionTVG;
+    
+    @FXML
+    private JFXButton AddFieldsBTN;
+
+    @FXML
+    private JFXButton RemoveFieldsBTN;
+
+    @FXML
+    private ToggleButton musicField;
+
+    @FXML
+    private ToggleButton PaintingsField;
+
+    @FXML
+    private ToggleButton TcraftField;
+
+    @FXML
+    private ToggleButton photographyField;
+
+    @FXML
+    private ToggleButton scultureField;
+    private boolean isAdding = false;
+
+	static public User userChoosen = LoginController.userLogedIn;
+
 	/**
 	 * Initializes the controller class.
 	 */
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
+		PaintingsField.setVisible(false);
+		TcraftField.setVisible(false);
+		photographyField.setVisible(false);
+		scultureField.setVisible(false);
+		musicField.setVisible(false);
+		FollowG.setVisible(false);
 		OwnProfileArtist.setVisible(false);
 		OwnProfileGallery.setVisible(false);
 		searchTable.setVisible(false);
 		AymensPane.setVisible(true);
 		magicbar.setVisible(false);
+		userChoosen = LoginController.userLogedIn;
 
 		// aymen//
 		if (LoginController.userLogedIn.getPicture() == null) {
@@ -428,8 +501,8 @@ public class ProfileuserController implements Initializable {
 			FirstNameTFG.setText(LoginController.userLogedIn.getFirstName());
 			LastNameTFG.setText(LoginController.userLogedIn.getLastName());
 			mailTFGallery.setText(LoginController.userLogedIn.getEmail());
-			description.setText(((Gallery)LoginController.userLogedIn).getDescription());
-			AddressTFGallery.setText(((Gallery)LoginController.userLogedIn).getAddress());
+			description.setText(((Gallery) LoginController.userLogedIn).getDescription());
+			AddressTFGallery.setText(((Gallery) LoginController.userLogedIn).getAddress());
 			if (LoginController.userLogedIn.getPicture() == null) {
 				File file = new File("./src/main/java/buttons/PasDePhotoDeProfil.png");
 				BufferedImage bufferedImage;
@@ -560,7 +633,7 @@ public class ProfileuserController implements Initializable {
 			LoginController.userLogedIn.setFirstName(FirstNameTF.getText());
 			LoginController.userLogedIn.setLastName(LastNameTF.getText());
 			if (!LoginController.userLogedIn.getEmail().equals(mailTF.getText())) {
-				if (!LoginController.userManagment.checkMailExistance(mailTF.getText())) {
+				if (!UserManagmentDelegate.checkMailExistance(mailTF.getText())) {
 					Alert alert = new Alert(Alert.AlertType.ERROR);
 					alert.setTitle("Fanny");
 					alert.setHeaderText(null);
@@ -573,7 +646,7 @@ public class ProfileuserController implements Initializable {
 
 			LoginController.userLogedIn.setEmail(mailTF.getText());
 			((Artist) LoginController.userLogedIn).setBio(BIOTF.getText());
-			LoginController.userManagment.updateUser((Artist) LoginController.userLogedIn);
+			UserManagmentDelegate.updateUser((Artist) LoginController.userLogedIn);
 		}
 	}
 
@@ -593,7 +666,7 @@ public class ProfileuserController implements Initializable {
 			searchTable.setVisible(false);
 			return;
 		}
-		LrecherchFN = LoginController.userManagment.filterLastNameAndLastName(searchTF.getText());
+		LrecherchFN = UserManagmentDelegate.filterLastNameAndLastName(searchTF.getText());
 		if (LrecherchFN == null || LrecherchFN.equals(UsersData)) {
 			return;
 		}
@@ -684,21 +757,20 @@ public class ProfileuserController implements Initializable {
 										btn.setOnAction((ActionEvent event) -> {
 										});
 									} else {
-										if (LoginController.userManagment.getAllFollowed(LoginController.userLogedIn)
+										if (UserManagmentDelegate.getAllFollowed(LoginController.userLogedIn)
 												.contains(getTableView().getItems().get(getIndex()))) {
 											btn.setText("UnFollow");
 											btn.setOnAction((ActionEvent event) -> {
 												User person = getTableView().getItems().get(getIndex());
-												LoginController.userManagment
-														.removeFollower(LoginController.userLogedIn, person);
+												UserManagmentDelegate.removeFollower(LoginController.userLogedIn,
+														person);
 												searchTable.refresh();
 											});
 										} else {
 											btn.setText("Follow");
 											btn.setOnAction((ActionEvent event) -> {
 												User person = getTableView().getItems().get(getIndex());
-												LoginController.userManagment.addFollower(LoginController.userLogedIn,
-														person);
+												UserManagmentDelegate.addFollower(LoginController.userLogedIn, person);
 												searchTable.refresh();
 											});
 										}
@@ -735,10 +807,10 @@ public class ProfileuserController implements Initializable {
 		Sc.setScene(scene);
 		Sc.setScene(scene);
 		Sc.setTitle("FannyTUNISIA");
-		Sc.setOnCloseRequest(e ->{
-            e.consume();
-            Sc.close();
-            PopupUserController.userChoosen = null ;
+		Sc.setOnCloseRequest(e -> {
+			e.consume();
+			Sc.close();
+			PopupUserController.userChoosen = null;
 		});
 		Sc.showAndWait();
 
@@ -801,7 +873,7 @@ public class ProfileuserController implements Initializable {
 			LoginController.userLogedIn.setFirstName(FirstNameTFG.getText());
 			LoginController.userLogedIn.setLastName(LastNameTFG.getText());
 			if (!LoginController.userLogedIn.getEmail().equals(mailTFGallery.getText())) {
-				if (!LoginController.userManagment.checkMailExistance(mailTFGallery.getText())) {
+				if (!UserManagmentDelegate.checkMailExistance(mailTFGallery.getText())) {
 					Alert alert = new Alert(Alert.AlertType.ERROR);
 					alert.setTitle("Fanny");
 					alert.setHeaderText(null);
@@ -814,10 +886,10 @@ public class ProfileuserController implements Initializable {
 			LoginController.userLogedIn.setEmail(mailTFGallery.getText());
 			((Gallery) LoginController.userLogedIn).setDescription(description.getText());
 			((Gallery) LoginController.userLogedIn).setAddress(AddressTFGallery.getText());
-			LoginController.userManagment.updateUser((Gallery) LoginController.userLogedIn);
+			UserManagmentDelegate.updateUser((Gallery) LoginController.userLogedIn);
 		}
 	}
-	
+
 	@FXML
 	private void ChangeProfilePICG(MouseEvent event) {
 		Image image = null;
@@ -847,5 +919,606 @@ public class ProfileuserController implements Initializable {
 		}
 
 	}
+
+	@FXML
+	public void Logout(ActionEvent event) throws IOException {
+		LoginController.userLogedIn = null;
+		Parent adminScene = FXMLLoader.load(getClass().getResource("Login.fxml"));
+		Scene scene = new Scene(adminScene, 600, 600);
+		scene.getStylesheets().add(getClass().getResource("Login.css").toExternalForm());
+		Stage Sc = new Stage();
+		Sc.setScene(scene);
+		Sc.setTitle("FannyTUNISIA");
+		Sc.setOnCloseRequest(e -> {
+			e.consume();
+			Main.closeProgram(Sc);
+		});
+		Sc.show();
+		final Stage stage = (Stage) AymensPane.getScene().getWindow();
+		stage.close();
+	}
+
+	@FXML
+	public void showSettingsScreen(ActionEvent event) throws IOException {
+		System.out.println("hi");
+		if (!ChangePasswordController.isOpen) {
+			Parent adminScene = FXMLLoader.load(getClass().getResource("ChangePassword.fxml"));
+			Scene scene = new Scene(adminScene);
+			Stage Sc = new Stage();
+			Sc.setScene(scene);
+			Sc.setTitle("FannyTUNISIA");
+			Sc.setOnCloseRequest(e -> {
+				e.consume();
+				ChangePasswordController.isOpen = false;
+				Main.closeProgram(Sc);
+			});
+
+			Sc.show();
+		} else {
+			return;
+		}
+
+	}
+
+	@FXML
+	private void ShowFollowers(ActionEvent event) {
+		// eli houwa itaba3 fihom
+		Follow.setVisible(true);
+//		GalleryThing.setVisible(false);
+//		ArtistThing.setVisible(false);
+		LrecherchArt.clear();
+		UsersDataME.clear();
+		LrecherchArt = UserManagmentDelegate.getAllFollowed(userChoosen);
+		PictureTV.setCellValueFactory(new PropertyValueFactory<User, byte[]>("Picture"));
+		PictureTV.setCellFactory(new Callback<TableColumn<User, byte[]>, TableCell<User, byte[]>>() {
+			@Override
+			public TableCell<User, byte[]> call(TableColumn<User, byte[]> param) {
+				TableCell<User, byte[]> cell = new TableCell<User, byte[]>() {
+					@Override
+					public void updateItem(byte[] item, boolean empty) {
+						if (item != null) {
+							HBox box = new HBox();
+							box.setSpacing(10);
+							VBox vbox = new VBox();
+							ImageView imageview = new ImageView();
+							imageview.setFitHeight(50);
+							imageview.setFitWidth(50);
+							if (item == null) {
+								File file = new File("./src/main/java/buttons/PasDePhotoDeProfil.png");
+								BufferedImage bufferedImage;
+								try {
+									bufferedImage = ImageIO.read(file);
+									Image image = SwingFXUtils.toFXImage(bufferedImage, null);
+									imageview.setImage(image);
+								} catch (IOException e) {
+								}
+
+							} else {
+								try {
+									byte[] b = item;
+									BufferedImage imgbf = null;
+
+									imgbf = ImageIO.read(new ByteArrayInputStream(b));
+									WritableImage wr = null;
+									if (imgbf != null) {
+										wr = new WritableImage(imgbf.getWidth(), imgbf.getHeight());
+										PixelWriter pw = wr.getPixelWriter();
+										for (int x = 0; x < imgbf.getWidth(); x++) {
+											for (int y = 0; y < imgbf.getHeight(); y++) {
+												pw.setArgb(x, y, imgbf.getRGB(x, y));
+											}
+										}
+									}
+									imageview.setImage(wr);
+								} catch (IOException e) {
+								}
+
+							}
+
+							box.getChildren().addAll(imageview, vbox);
+							// SETTING ALL THE GRAPHICS COMPONENT FOR CELL
+							setGraphic(box);
+						}
+					}
+				};
+				return cell;
+			}
+
+		});
+		ActionTV.setCellValueFactory(new PropertyValueFactory<>("Action"));
+		Callback<TableColumn<User, String>, TableCell<User, String>> cellFactory = //
+				new Callback<TableColumn<User, String>, TableCell<User, String>>() {
+					@Override
+					public TableCell call(final TableColumn<User, String> param) {
+						final TableCell<User, String> cell = new TableCell<User, String>() {
+
+							final JFXButton btn = new JFXButton();
+
+							@Override
+							public void updateItem(String item, boolean empty) {
+								super.updateItem(item, empty);
+								if (empty) {
+									setGraphic(null);
+									setText(null);
+								} else {
+									if (UserManagmentDelegate.getAllFollowed(userChoosen)
+											.contains(getTableView().getItems().get(getIndex()))) {
+										btn.setText("UnFollow");
+										btn.setOnAction((ActionEvent event) -> {
+											User person = getTableView().getItems().get(getIndex());
+											UserManagmentDelegate.removeFollower(userChoosen,
+													person);
+											Follow.refresh();
+										});
+									} else {
+										btn.setText("More Information");
+									}
+
+									setGraphic(btn);
+									setText(null);
+								}
+							}
+						};
+						return cell;
+					}
+				};
+
+		ActionTV.setCellFactory(cellFactory);
+
+		/**************************************************************/
+		UsersDataME.addAll(LrecherchArt);
+		FirstNameTV.setCellValueFactory(new PropertyValueFactory<User, String>("firstName"));
+		LastNameTV.setCellValueFactory(new PropertyValueFactory<User, String>("lastName"));
+		Follow.setItems(UsersDataME);
+
+	}
+
+	@FXML
+	private void showFollowed(ActionEvent event) {
+		// eli houma itab3ou fih
+		// followUnfollow
+		LrecherchFNME.clear();
+		UsersDataME.clear();
+		Follow.setVisible(true);
+//		GalleryThing.setVisible(false);
+//		ArtistThing.setVisible(false);
+
+		for (ArtistFollowers u : ((Artist) userChoosen).getFollowers()) {
+			LrecherchFNME.add(u.getUser());
+		}
+		PictureTV.setCellValueFactory(new PropertyValueFactory<User, byte[]>("Picture"));
+		PictureTV.setCellFactory(new Callback<TableColumn<User, byte[]>, TableCell<User, byte[]>>() {
+			@Override
+			public TableCell<User, byte[]> call(TableColumn<User, byte[]> param) {
+				TableCell<User, byte[]> cell = new TableCell<User, byte[]>() {
+					@Override
+					public void updateItem(byte[] item, boolean empty) {
+						if (item != null) {
+							HBox box = new HBox();
+							box.setSpacing(10);
+							VBox vbox = new VBox();
+							ImageView imageview = new ImageView();
+							imageview.setFitHeight(50);
+							imageview.setFitWidth(50);
+							if (item == null) {
+								File file = new File("./src/main/java/buttons/PasDePhotoDeProfil.png");
+								BufferedImage bufferedImage;
+								try {
+									bufferedImage = ImageIO.read(file);
+									Image image = SwingFXUtils.toFXImage(bufferedImage, null);
+									imageview.setImage(image);
+								} catch (IOException e) {
+								}
+
+							} else {
+								try {
+									byte[] b = item;
+									BufferedImage imgbf = null;
+
+									imgbf = ImageIO.read(new ByteArrayInputStream(b));
+									WritableImage wr = null;
+									if (imgbf != null) {
+										wr = new WritableImage(imgbf.getWidth(), imgbf.getHeight());
+										PixelWriter pw = wr.getPixelWriter();
+										for (int x = 0; x < imgbf.getWidth(); x++) {
+											for (int y = 0; y < imgbf.getHeight(); y++) {
+												pw.setArgb(x, y, imgbf.getRGB(x, y));
+											}
+										}
+									}
+									imageview.setImage(wr);
+								} catch (IOException e) {
+								}
+
+							}
+
+							box.getChildren().addAll(imageview, vbox);
+							// SETTING ALL THE GRAPHICS COMPONENT FOR CELL
+							setGraphic(box);
+						}
+					}
+				};
+				return cell;
+			}
+
+		});
+		ActionTV.setCellValueFactory(new PropertyValueFactory<>("Action"));
+		Callback<TableColumn<User, String>, TableCell<User, String>> cellFactory = //
+				new Callback<TableColumn<User, String>, TableCell<User, String>>() {
+					@Override
+					public TableCell call(final TableColumn<User, String> param) {
+						final TableCell<User, String> cell = new TableCell<User, String>() {
+
+							final JFXButton btn = new JFXButton();
+
+							@Override
+							public void updateItem(String item, boolean empty) {
+								super.updateItem(item, empty);
+								if (empty) {
+									setGraphic(null);
+									setText(null);
+								} else {
+									btn.setText("More Information");
+									setGraphic(btn);
+									setText(null);
+								}
+							}
+						};
+						return cell;
+					}
+				};
+
+		ActionTV.setCellFactory(cellFactory);
+
+		/**************************************************************/
+		UsersDataME.addAll(LrecherchFNME);
+		FirstNameTV.setCellValueFactory(new PropertyValueFactory<User, String>("firstName"));
+		LastNameTV.setCellValueFactory(new PropertyValueFactory<User, String>("lastName"));
+		Follow.setItems(UsersDataME);
+
+	}
+
+	@FXML
+	public void MoreInformation(MouseEvent event) throws IOException {
+		if(LoginController.userLogedIn instanceof Artist)
+		{
+			if (PopupUserController.userChoosen == Follow.getSelectionModel().getSelectedItem()) {
+				return;
+			}
+			PopupUserController.userChoosen = Follow.getSelectionModel().getSelectedItem();
+			Parent adminScene = FXMLLoader.load(getClass().getResource("popupUser.fxml"));
+			Scene scene = new Scene(adminScene);
+			Stage Sc = new Stage();
+			Sc.setScene(scene);
+			Sc.setScene(scene);
+			Sc.setOnCloseRequest(e ->{
+	            e.consume();
+	            Sc.close();
+	            userChoosen = null ;
+			});
+			Sc.setTitle("FannyTUNISIA");
+			Sc.showAndWait();
+
+		}
+		
+		else
+		{
+			if (PopupUserController.userChoosen == FollowG.getSelectionModel().getSelectedItem()) {
+				return;
+			}
+			PopupUserController.userChoosen = FollowG.getSelectionModel().getSelectedItem();
+			Parent adminScene = FXMLLoader.load(getClass().getResource("popupUser.fxml"));
+			Scene scene = new Scene(adminScene);
+			Stage Sc = new Stage();
+			Sc.setScene(scene);
+			Sc.setScene(scene);
+			Sc.setOnCloseRequest(e ->{
+	            e.consume();
+	            Sc.close();
+	            userChoosen = null ;
+			});
+			Sc.setTitle("FannyTUNISIA");
+			Sc.showAndWait();
+
+		}
+	}
+
+    @FXML
+    private void ShowFollowersG(ActionEvent event) {
+    	//
+    	FollowG.setVisible(true);
+		LrecherchArt.clear();
+		UsersDataME.clear();
+		LrecherchArt = UserManagmentDelegate.getAllFollowed(userChoosen);
+		PictureTVG.setCellValueFactory(new PropertyValueFactory<User, byte[]>("Picture"));
+		PictureTVG.setCellFactory(new Callback<TableColumn<User, byte[]>, TableCell<User, byte[]>>() {
+			@Override
+			public TableCell<User, byte[]> call(TableColumn<User, byte[]> param) {
+				TableCell<User, byte[]> cell = new TableCell<User, byte[]>() {
+					@Override
+					public void updateItem(byte[] item, boolean empty) {
+						if (item != null) {
+							HBox box = new HBox();
+							box.setSpacing(10);
+							VBox vbox = new VBox();
+							ImageView imageview = new ImageView();
+							imageview.setFitHeight(50);
+							imageview.setFitWidth(50);
+							if (item == null) {
+								File file = new File("./src/main/java/buttons/PasDePhotoDeProfil.png");
+								BufferedImage bufferedImage;
+								try {
+									bufferedImage = ImageIO.read(file);
+									Image image = SwingFXUtils.toFXImage(bufferedImage, null);
+									imageview.setImage(image);
+								} catch (IOException e) {
+								}
+
+							} else {
+								try {
+									byte[] b = item;
+									BufferedImage imgbf = null;
+
+									imgbf = ImageIO.read(new ByteArrayInputStream(b));
+									WritableImage wr = null;
+									if (imgbf != null) {
+										wr = new WritableImage(imgbf.getWidth(), imgbf.getHeight());
+										PixelWriter pw = wr.getPixelWriter();
+										for (int x = 0; x < imgbf.getWidth(); x++) {
+											for (int y = 0; y < imgbf.getHeight(); y++) {
+												pw.setArgb(x, y, imgbf.getRGB(x, y));
+											}
+										}
+									}
+									imageview.setImage(wr);
+								} catch (IOException e) {
+								}
+
+							}
+
+							box.getChildren().addAll(imageview, vbox);
+							// SETTING ALL THE GRAPHICS COMPONENT FOR CELL
+							setGraphic(box);
+						}
+					}
+				};
+				return cell;
+			}
+
+		});
+		ActionTVG.setCellValueFactory(new PropertyValueFactory<>("Action"));
+		Callback<TableColumn<User, String>, TableCell<User, String>> cellFactory = //
+				new Callback<TableColumn<User, String>, TableCell<User, String>>() {
+					@Override
+					public TableCell call(final TableColumn<User, String> param) {
+						final TableCell<User, String> cell = new TableCell<User, String>() {
+
+							final JFXButton btn = new JFXButton();
+
+							@Override
+							public void updateItem(String item, boolean empty) {
+								super.updateItem(item, empty);
+								if (empty) {
+									setGraphic(null);
+									setText(null);
+								} else {
+									if (UserManagmentDelegate.getAllFollowed(userChoosen)
+											.contains(getTableView().getItems().get(getIndex()))) {
+										btn.setText("UnFollow");
+										btn.setOnAction((ActionEvent event) -> {
+											User person = getTableView().getItems().get(getIndex());
+											UserManagmentDelegate.removeFollower(userChoosen,
+													person);
+											Follow.refresh();
+										});
+									} else {
+										btn.setText("More Information");
+									}
+
+									setGraphic(btn);
+									setText(null);
+								}
+							}
+						};
+						return cell;
+					}
+				};
+
+		ActionTVG.setCellFactory(cellFactory);
+
+		/**************************************************************/
+		UsersDataME.addAll(LrecherchArt);
+		FirstNameTVG.setCellValueFactory(new PropertyValueFactory<User, String>("firstName"));
+		LastNameTVG.setCellValueFactory(new PropertyValueFactory<User, String>("lastName"));
+		FollowG.setItems(UsersDataME);
+
+
+    }
+    
+    @FXML
+    public void DisableAccount(ActionEvent actionEvent)
+    {
+    	UserManagmentDelegate.disableUser(LoginController.userLogedIn);
+		final Stage stage = (Stage) AymensPane.getScene().getWindow();
+		stage.close();
+    }
+    
+
+    @FXML
+    void addMusic(ActionEvent event) {
+    	musicField.setSelected(false);
+    	if(isAdding)
+    	{
+    		UserManagmentDelegate.addFields(UserManagmentDelegate.findFieldsByName(musicField.getText()), LoginController.userLogedIn);
+    		musicField.setVisible(false);
+    		LoginController.userLogedIn = UserManagmentDelegate.findById(LoginController.userLogedIn.getIdUser());
+    		return;
+    	}
+    	else
+    	{
+    		UserManagmentDelegate.removeFields(UserManagmentDelegate.findFieldsByName(musicField.getText()), LoginController.userLogedIn);
+    		musicField.setVisible(false);
+    		LoginController.userLogedIn = UserManagmentDelegate.findById(LoginController.userLogedIn.getIdUser());
+    		return;
+    	}
+
+    }
+
+    @FXML
+    void addPHT(ActionEvent event) {
+    	photographyField.setSelected(false);
+    	if(isAdding)
+    	{
+    		UserManagmentDelegate.addFields(UserManagmentDelegate.findFieldsByName(photographyField.getText()), LoginController.userLogedIn);
+    		photographyField.setVisible(false);
+    		LoginController.userLogedIn = UserManagmentDelegate.findById(LoginController.userLogedIn.getIdUser());
+    		return;
+    	}
+    	else
+    	{
+    		UserManagmentDelegate.removeFields(UserManagmentDelegate.findFieldsByName(photographyField.getText()), LoginController.userLogedIn);
+    		photographyField.setVisible(false);
+    		LoginController.userLogedIn = UserManagmentDelegate.findById(LoginController.userLogedIn.getIdUser());
+    		return;
+    	}
+
+    }
+
+    @FXML
+    void addPaints(ActionEvent event) {
+    	PaintingsField.setSelected(false);
+    	if(isAdding)
+    	{
+    		UserManagmentDelegate.addFields(UserManagmentDelegate.findFieldsByName(PaintingsField.getText()), LoginController.userLogedIn);
+    		PaintingsField.setVisible(false);
+    		LoginController.userLogedIn = UserManagmentDelegate.findById(LoginController.userLogedIn.getIdUser());
+    		return;
+    	}
+    	else
+    	{
+    		UserManagmentDelegate.removeFields(UserManagmentDelegate.findFieldsByName(PaintingsField.getText()), LoginController.userLogedIn);
+    		PaintingsField.setVisible(false);
+    		LoginController.userLogedIn = UserManagmentDelegate.findById(LoginController.userLogedIn.getIdUser());
+    		return;
+    	}
+
+    }
+
+    @FXML
+    void addScu(ActionEvent event) {
+    	scultureField.setSelected(false);
+    	if(isAdding)
+    	{
+    		UserManagmentDelegate.addFields(UserManagmentDelegate.findFieldsByName(scultureField.getText()), LoginController.userLogedIn);
+    		scultureField.setVisible(false);
+    		LoginController.userLogedIn = UserManagmentDelegate.findById(LoginController.userLogedIn.getIdUser());
+    		return;
+    	}
+    	else
+    	{
+    		UserManagmentDelegate.removeFields(UserManagmentDelegate.findFieldsByName(scultureField.getText()), LoginController.userLogedIn);
+    		scultureField.setVisible(false);
+    		LoginController.userLogedIn = UserManagmentDelegate.findById(LoginController.userLogedIn.getIdUser());
+    		return;
+    	}
+
+    }
+
+    @FXML
+    void addTC(ActionEvent event) {
+    	TcraftField.setSelected(false);
+    	if(isAdding)
+    	{
+    		UserManagmentDelegate.addFields(UserManagmentDelegate.findFieldsByName(TcraftField.getText()), LoginController.userLogedIn);
+    		TcraftField.setVisible(false);
+    		LoginController.userLogedIn = UserManagmentDelegate.findById(LoginController.userLogedIn.getIdUser());
+    		return;
+    	}
+    	else
+    	{
+    		UserManagmentDelegate.removeFields(UserManagmentDelegate.findFieldsByName(TcraftField.getText()), LoginController.userLogedIn);
+    		TcraftField.setVisible(false);
+    		LoginController.userLogedIn = UserManagmentDelegate.findById(LoginController.userLogedIn.getIdUser());
+    		return;
+    	}
+
+    }
+    
+
+    @FXML
+    void RemoveField(ActionEvent event) {
+    	isAdding = false;
+		PaintingsField.setVisible(true);
+		TcraftField.setVisible(true);
+		photographyField.setVisible(true);
+		scultureField.setVisible(true);
+		musicField.setVisible(true);
+    	List<ArtistFields>Lf = new ArrayList<ArtistFields>();
+    	Lf.addAll(((Artist)LoginController.userLogedIn).getLfields());
+    	List<String>Lfs = new ArrayList<String>();
+    	for (ArtistFields artistFields : Lf) {
+    		Lfs.add(artistFields.getField().getLibelle());
+		}
+    	if(!Lfs.contains(musicField.getText()))
+    	{
+    		musicField.setVisible(false);
+    	}
+    	if(!Lfs.contains(PaintingsField.getText()))
+    	{
+    		PaintingsField.setVisible(false);
+    	}
+    	if(!Lfs.contains(TcraftField.getText()))
+    	{
+    		TcraftField.setVisible(false);
+    	}
+    	if(!Lfs.contains(scultureField.getText()))
+    	{
+    		scultureField.setVisible(false);
+    	}
+    	if(!Lfs.contains(photographyField.getText()))
+    	{
+    		photographyField.setVisible(false);
+    	}
+
+    }
+    
+
+    @FXML
+    void AddField(ActionEvent event) {
+    	isAdding = true;
+		PaintingsField.setVisible(false);
+		TcraftField.setVisible(false);
+		photographyField.setVisible(false);
+		scultureField.setVisible(false);
+		musicField.setVisible(false);
+    	List<ArtistFields>Lf = new ArrayList<ArtistFields>();
+    	Lf.addAll(((Artist)LoginController.userLogedIn).getLfields());
+    	List<String>Lfs = new ArrayList<String>();
+    	for (ArtistFields artistFields : Lf) {
+    		Lfs.add(artistFields.getField().getLibelle());
+		}
+    	if(!Lfs.contains(musicField.getText()))
+    	{
+    		musicField.setVisible(true);
+    	}
+    	if(!Lfs.contains(PaintingsField.getText()))
+    	{
+    		PaintingsField.setVisible(true);
+    	}
+    	if(!Lfs.contains(TcraftField.getText()))
+    	{
+    		TcraftField.setVisible(true);
+    	}
+    	if(!Lfs.contains(scultureField.getText()))
+    	{
+    		scultureField.setVisible(true);
+    	}
+    	if(!Lfs.contains(photographyField.getText()))
+    	{
+    		photographyField.setVisible(true);
+    	}
+
+    }
+
 
 }

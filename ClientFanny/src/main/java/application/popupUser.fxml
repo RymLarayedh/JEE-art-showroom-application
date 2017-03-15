@@ -72,7 +72,7 @@
                            <items>
                               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="371.0" prefWidth="71.0">
                                  <children>
-                                    <JFXButton fx:id="FollowersBTN" layoutX="6.0" layoutY="33.0" onAction="#ShowFollowers" text="eli itabaa fihom" />
+                                    <JFXButton fx:id="FollowersBTN" layoutX="6.0" layoutY="33.0" onAction="#ShowFollowers" text="Following" />
                                     <JFXButton fx:id="followedBTN" layoutX="6.0" layoutY="66.0" onAction="#showFollowed" text="Show Followers" />
                                  </children></AnchorPane>
                               <AnchorPane>

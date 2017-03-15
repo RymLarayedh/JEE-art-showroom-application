@@ -119,7 +119,7 @@ public class UserManagment implements UserManagmentRemote {
 		try {
 			return em.find(User.class, id);
 		} catch (javax.persistence.NoResultException e) {
-			return null;
+			return null;//Logger.info("NoResult(msg)")
 		}
 	}
 

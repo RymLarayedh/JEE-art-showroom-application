@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package application;
+package integrationAymenTest;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
@@ -127,7 +127,6 @@ public class PopupUserController implements Initializable {
 			AddressTF.setText(((Gallery) userChoosen).getAddress());
 			DescriptionTF.setText(((Gallery) userChoosen).getDescription());
 			followedBTN.setVisible(false);
-			FollowUnfollow.setVisible(false);
 		}
 
 		if (userChoosen instanceof Artist) {

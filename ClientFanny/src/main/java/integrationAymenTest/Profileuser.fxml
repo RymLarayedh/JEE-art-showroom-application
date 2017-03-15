@@ -1,0 +1,698 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXSlider?>
+<?import com.jfoenix.controls.JFXTextArea?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.effect.ColorAdjust?>
+<?import javafx.scene.effect.ImageInput?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="610.0" prefWidth="1095.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="integrationAymenTest.ProfileuserController">
+   <children>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" blendMode="MULTIPLY" fill="#111111" height="90.0" layoutX="210.0" layoutY="-2.0" opacity="0.48" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="724.0" />
+      <ImageView fitHeight="741.0" fitWidth="1112.0" layoutX="-2.0" layoutY="-8.0" opacity="0.56" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../buttons/banner-1.jpg" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="magic" fitHeight="23.0" fitWidth="23.0" layoutX="20.0" layoutY="76.0" onMouseMoved="#magic" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../buttons/Menu-50.png" />
+         </image>
+      </ImageView>
+      <AnchorPane fx:id="magicbar" layoutX="20.0" layoutY="27.0" prefHeight="525.0" prefWidth="157.0">
+         <children>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" blendMode="MULTIPLY" fill="#bec3cd" height="439.0" layoutX="-7.0" layoutY="18.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="177.0" />
+            <ImageView fx:id="myimage" fitHeight="126.0" fitWidth="101.0" layoutX="24.0" layoutY="80.0" onMouseClicked="#showProfile" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../buttons/artist.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="magic2" fitHeight="23.0" fitWidth="23.0" layoutX="140.0" layoutY="-7.0" onMouseMoved="#magic2" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../buttons/Menu-50.png" />
+               </image>
+            </ImageView>
+            <Text fx:id="myname" fill="#fcf8f8" layoutX="24.0" layoutY="229.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="122.0">
+               <font>
+                  <Font size="22.0" />
+               </font>
+            </Text>
+            <Text fx:id="mylastname" fill="#fcf8f8" layoutX="25.0" layoutY="255.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="122.0">
+               <font>
+                  <Font size="22.0" />
+               </font>
+            </Text>
+            <Button fx:id="profil" blendMode="DARKEN" layoutX="-2.0" layoutY="232.0" mnemonicParsing="false" onAction="#showProfileBTN" prefHeight="59.0" prefWidth="133.0" text="Profil">
+               <font>
+                  <Font name="System Bold Italic" size="15.0" />
+               </font>
+               <effect>
+                  <ImageInput>
+                     <source>
+                        <Image url="@../buttons/Contacts-50.png" />
+                     </source>
+                  </ImageInput>
+               </effect>
+            </Button>
+            <Label layoutX="54.0" layoutY="245.0" prefHeight="29.0" prefWidth="62.0" text="Profil">
+               <font>
+                  <Font name="System Bold Italic" size="17.0" />
+               </font>
+            </Label>
+            <Label layoutX="39.0" layoutY="310.0" prefHeight="36.0" prefWidth="131.0" text="My Own Space ">
+               <font>
+                  <Font name="System Bold Italic" size="17.0" />
+               </font>
+            </Label>
+            <Button fx:id="ownspace" layoutX="4.0" layoutY="311.0" mnemonicParsing="false" onAction="#Myownspace" prefHeight="25.0" prefWidth="158.0" text="Button">
+               <effect>
+                  <ImageInput>
+                     <source>
+                        <Image url="@../buttons/icon4.png" />
+                     </source>
+                  </ImageInput>
+               </effect>
+            </Button>
+            <Button layoutX="1.0" layoutY="374.0" mnemonicParsing="false" text="Button">
+               <effect>
+                  <ImageInput>
+                     <source>
+                        <Image url="@../buttons/Shutdown-52.png" />
+                     </source>
+                  </ImageInput>
+               </effect>
+            </Button>
+            <Label layoutX="48.0" layoutY="371.0" prefHeight="33.0" prefWidth="99.0" text="Logout">
+               <font>
+                  <Font name="System Bold Italic" size="17.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <Label layoutX="237.0" layoutY="52.0" text="Home">
+         <font>
+            <Font name="System Bold Italic" size="17.0" />
+         </font>
+      </Label>
+      <Button fx:id="home" blendMode="SRC_ATOP" layoutX="238.0" layoutY="27.0" mnemonicParsing="false" onAction="#home" prefHeight="35.0" prefWidth="110.0" text="Home">
+         <effect>
+            <ImageInput>
+               <source>
+                  <Image url="@../buttons/address.png" />
+               </source>
+            </ImageInput>
+         </effect>
+      </Button>
+      <Button fx:id="message" layoutX="858.0" layoutY="29.0" mnemonicParsing="false" onAction="#message" prefHeight="35.0" prefWidth="123.0" text="Message">
+         <effect>
+            <ImageInput>
+               <source>
+                  <Image url="@../buttons/service-courier.png" />
+               </source>
+            </ImageInput>
+         </effect>
+      </Button>
+      <Label layoutX="849.0" layoutY="54.0" prefHeight="34.0" prefWidth="75.0" text="Message">
+         <font>
+            <Font name="System Bold Italic" size="17.0" />
+         </font>
+      </Label>
+      <Button fx:id="visuala" layoutX="341.0" layoutY="29.0" mnemonicParsing="false" onAction="#visualart" prefHeight="28.0" prefWidth="45.0" text="Visual">
+         <effect>
+            <ImageInput>
+               <source>
+                  <Image url="@../buttons/colors.png" />
+               </source>
+            </ImageInput>
+         </effect>
+         <opaqueInsets>
+            <Insets right="2.0" />
+         </opaqueInsets>
+      </Button>
+      <Label layoutX="321.0" layoutY="54.0" text="Visual Art">
+         <font>
+            <Font name="System Bold Italic" size="17.0" />
+         </font>
+      </Label>
+      <Button fx:id="musicb" layoutX="582.0" layoutY="30.0" mnemonicParsing="false" onAction="#music" text="Music">
+         <effect>
+            <ImageInput>
+               <source>
+                  <Image url="@../buttons/15638.png" />
+               </source>
+            </ImageInput>
+         </effect>
+      </Button>
+      <Button fx:id="eventb" layoutX="662.0" layoutY="30.0" mnemonicParsing="false" onAction="#Event" text="Button">
+         <effect>
+            <ImageInput>
+               <source>
+                  <Image url="@../buttons/46855.png" />
+               </source>
+            </ImageInput>
+         </effect>
+      </Button>
+      <Button fx:id="tunisianc" layoutX="464.0" layoutY="30.0" mnemonicParsing="false" onAction="#Tunisiancraft" text="Button">
+         <effect>
+            <ImageInput>
+               <source>
+                  <Image url="@../buttons/mediumsupplier_1383146939%20(1).png" />
+               </source>
+            </ImageInput>
+         </effect>
+         <opaqueInsets>
+            <Insets right="5.0" />
+         </opaqueInsets>
+      </Button>
+      <Button layoutX="763.0" layoutY="37.0" mnemonicParsing="false" text="Button">
+         <effect>
+            <ImageInput>
+               <source>
+                  <Image url="@../buttons/forum-512.png" />
+               </source>
+            </ImageInput>
+         </effect>
+      </Button>
+      <Label layoutX="580.0" layoutY="54.0" text="Music">
+         <font>
+            <Font name="System Bold Italic" size="17.0" />
+         </font>
+      </Label>
+      <Label layoutX="432.0" layoutY="54.0" text="Tunisian Craft">
+         <font>
+            <Font name="System Bold Italic" size="17.0" />
+         </font>
+      </Label>
+      <Label layoutX="658.0" layoutY="56.0" text="Event">
+         <font>
+            <Font name="System Bold Italic" size="17.0" />
+         </font>
+      </Label>
+      <Label layoutX="752.0" layoutY="60.0" text="Forum">
+         <font>
+            <Font name="System Bold Italic" size="17.0" />
+         </font>
+      </Label>
+      <AnchorPane fx:id="ManelsPane" layoutX="235.0" layoutY="174.0" prefHeight="445.0" prefWidth="804.0">
+         <children>
+            <TableView fx:id="AllArtworkTable2" onMouseClicked="#showPopuppp" prefHeight="427.0" prefWidth="701.0">
+               <columns>
+                  <TableColumn fx:id="picture1" editable="false" prefWidth="65.0" sortable="false" text="picture" />
+                  <TableColumn fx:id="name1" prefWidth="59.0" text="Name" />
+                  <TableColumn fx:id="price1" prefWidth="68.0" text="Price" />
+                  <TableColumn fx:id="category1" prefWidth="87.0" text="Category" />
+                  <TableColumn fx:id="lenght1" prefWidth="79.0" text="length" />
+                  <TableColumn fx:id="width1" text="width" />
+                  <TableColumn fx:id="state1" prefWidth="75.0" text="State" />
+                  <TableColumn fx:id="date1" prefWidth="75.0" text="dateOfOublication" />
+                  <TableColumn fx:id="desc1" prefWidth="111.0" text="Description" />
+               </columns>
+            </TableView>
+            <Button fx:id="artDet" layoutX="750.0" layoutY="50.0" mnemonicParsing="false" onAction="#showArtDetail" text="Show it in detail" />
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="AymensPane" layoutX="235.0" layoutY="79.0" prefHeight="540.0" prefWidth="804.0">
+         <children>
+            <TabPane fx:id="OwnProfileArtist" layoutY="100.0" prefHeight="452.0" prefWidth="804.0" tabClosingPolicy="UNAVAILABLE">
+              <tabs>
+                <Tab text="General Information">
+                  <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <ScrollPane prefHeight="424.0" prefWidth="806.0">
+                                <content>
+                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="772.0" prefWidth="794.0">
+                                       <children>
+                                          <GridPane layoutX="189.0" layoutY="-3.0" prefHeight="571.0" prefWidth="604.0" AnchorPane.bottomAnchor="206.0" AnchorPane.leftAnchor="189.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="-5.0">
+                                            <columnConstraints>
+                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="392.0" minWidth="10.0" prefWidth="204.0" />
+                                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="600.0" minWidth="10.0" prefWidth="319.0" />
+                                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="702.0" minWidth="10.0" prefWidth="149.0" />
+                                            </columnConstraints>
+                                            <rowConstraints>
+                                              <RowConstraints maxHeight="227.0" minHeight="10.0" prefHeight="209.0" vgrow="SOMETIMES" />
+                                              <RowConstraints maxHeight="310.0" minHeight="10.0" prefHeight="264.0" vgrow="SOMETIMES" />
+                                            </rowConstraints>
+                                             <children>
+                                                <Label text="E-mail" />
+                                                <Label text="Bio" GridPane.rowIndex="1" />
+                                                <JFXTextField fx:id="mailTF" onMouseMoved="#EmailEDIT" GridPane.columnIndex="1" />
+                                                <Button fx:id="mailEDIT" mnemonicParsing="false" onAction="#mailEDITPERFORM" prefHeight="35.0" prefWidth="34.0" text="Button" GridPane.columnIndex="2">
+                                                   <effect>
+                                                      <ImageInput>
+                                                         <source>
+                                                            <Image url="@../buttons/rsz_1rsz_edit-new-icon-22.png" />
+                                                         </source>
+                                                      </ImageInput>
+                                                   </effect>
+                                                </Button>
+                                                <Button fx:id="bioEDIT" mnemonicParsing="false" onAction="#bioEDITPERFORM" prefHeight="35.0" prefWidth="30.0" text="Button" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                                                   <effect>
+                                                      <ImageInput>
+                                                         <source>
+                                                            <Image url="file:/C:/Users/ElarbiMohamedAymen/git/Eureka/ClientFanny/src/main/java/buttons/rsz_1rsz_edit-new-icon-22.png" />
+                                                         </source>
+                                                      </ImageInput>
+                                                   </effect>
+                                                </Button>
+                                                <JFXTextArea fx:id="BIOTF" onMouseMoved="#BIOEDIT" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                             </children>
+                                          </GridPane>
+                                          <ImageView fx:id="imageViewProfile" fitHeight="150.0" fitWidth="162.0" onMouseClicked="#ChangeProfilePIC" pickOnBounds="true" preserveRatio="true" />
+                                          <JFXTextField fx:id="FirstNameTF" layoutX="2.0" layoutY="166.0" onMouseClicked="#FirstNameEDIT" />
+                                          <JFXTextField fx:id="LastNameTF" layoutX="1.0" layoutY="225.0" onMouseClicked="#LastNameEDIT" />
+                                          <JFXButton fx:id="SaveButton" layoutX="650.0" layoutY="615.0" onAction="#SaveChanges" text="Save" />
+                                       </children>
+                                    </AnchorPane>
+                                </content>
+                              </ScrollPane>
+                           </children>
+                        </AnchorPane>
+                  </content>
+                </Tab>
+                  <Tab text="Untitled Tab">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                    </content>
+                  </Tab>
+              </tabs>
+            </TabPane>
+            <JFXTextField fx:id="searchTF" layoutX="25.0" layoutY="20.0" maxWidth="674.0" minWidth="674.0" onKeyTyped="#findUsers" prefHeight="31.0" prefWidth="674.0" promptText="Look for Someone ?? try from here" />
+            <TableView fx:id="searchTable" layoutX="103.0" layoutY="100.0" onMouseClicked="#OpenSearchedProfile" prefHeight="364.0" prefWidth="576.0">
+              <columns>
+                <TableColumn fx:id="Picture" prefWidth="145.0" text="Picture" />
+                <TableColumn fx:id="FirstName" prefWidth="159.0" text="First Name" />
+                  <TableColumn fx:id="LastName" prefWidth="140.0" text="Last Name" />
+                  <TableColumn fx:id="Action" prefWidth="128.0" text="Action" />
+              </columns>
+            </TableView>
+            <TabPane fx:id="OwnProfileGallery" layoutY="100.0" prefHeight="452.0" prefWidth="804.0" tabClosingPolicy="UNAVAILABLE">
+               <tabs>
+                  <Tab text="General Information">
+                     <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <ScrollPane prefHeight="424.0" prefWidth="806.0">
+                                 <content>
+                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="772.0" prefWidth="794.0">
+                                       <children>
+                                          <GridPane layoutX="189.0" layoutY="-3.0" prefHeight="571.0" prefWidth="604.0" AnchorPane.bottomAnchor="206.0" AnchorPane.leftAnchor="189.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="-5.0">
+                                             <columnConstraints>
+                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="392.0" minWidth="10.0" prefWidth="204.0" />
+                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="600.0" minWidth="10.0" prefWidth="319.0" />
+                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="702.0" minWidth="10.0" prefWidth="149.0" />
+                                             </columnConstraints>
+                                             <rowConstraints>
+                                                <RowConstraints maxHeight="227.0" minHeight="10.0" prefHeight="209.0" vgrow="SOMETIMES" />
+                                                <RowConstraints maxHeight="310.0" minHeight="10.0" prefHeight="264.0" vgrow="SOMETIMES" />
+                                                <RowConstraints maxHeight="310.0" minHeight="10.0" prefHeight="264.0" vgrow="SOMETIMES" />
+                                             </rowConstraints>
+                                             <children>
+                                                <Label text="E-mail" />
+                                                <Label text="Description" GridPane.rowIndex="2" />
+                                                <JFXTextField fx:id="mailTFGallery" onMouseMoved="#EmailEDITGallery" GridPane.columnIndex="1" />
+                                                <Button fx:id="mailEDITGallery" mnemonicParsing="false" onAction="#gallerymailEDITPERFORM" prefHeight="35.0" prefWidth="34.0" text="Button" GridPane.columnIndex="2">
+                                                   <effect>
+                                                      <ImageInput>
+                                                         <source>
+                                                            <Image url="@../buttons/rsz_1rsz_edit-new-icon-22.png" />
+                                                         </source>
+                                                      </ImageInput>
+                                                   </effect>
+                                                </Button>
+                                                <Button fx:id="descriptionEDIT" mnemonicParsing="false" onAction="#descriptionEDITPERFORM" prefHeight="35.0" prefWidth="30.0" text="Button" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                                                   <effect>
+                                                      <ImageInput>
+                                                         <source>
+                                                            <Image url="file:/C:/Users/ElarbiMohamedAymen/git/Eureka/ClientFanny/src/main/java/buttons/rsz_1rsz_edit-new-icon-22.png" />
+                                                         </source>
+                                                      </ImageInput>
+                                                   </effect>
+                                                </Button>
+                                                <JFXTextArea fx:id="description" onMouseMoved="#DescriptionEDIT" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                                <Button fx:id="addressEDITGallery" mnemonicParsing="false" onAction="#galleryaddressEDITPERFORM" prefHeight="35.0" prefWidth="34.0" text="Button" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                                                   <effect>
+                                                      <ImageInput>
+                                                         <source>
+                                                            <Image url="file:/C:/Users/ElarbiMohamedAymen/git/Eureka/ClientFanny/src/main/java/buttons/rsz_1rsz_edit-new-icon-22.png" />
+                                                         </source>
+                                                      </ImageInput>
+                                                   </effect>
+                                                </Button>
+                                                <Label text="Address" GridPane.rowIndex="1" />
+                                                <JFXTextField fx:id="AddressTFGallery" onMouseMoved="#AddressEDITGallery" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                             </children>
+                                          </GridPane>
+                                          <ImageView fx:id="imageViewProfileG" fitHeight="150.0" fitWidth="162.0" onMouseClicked="#ChangeProfilePICG" pickOnBounds="true" preserveRatio="true" />
+                                          <JFXTextField fx:id="FirstNameTFG" layoutX="2.0" layoutY="166.0" onMouseClicked="#FirstNameEDIT" />
+                                          <JFXTextField fx:id="LastNameTFG" layoutX="1.0" layoutY="225.0" onMouseClicked="#LastNameEDIT" />
+                                          <JFXButton fx:id="SaveGalleryButton" layoutX="650.0" layoutY="615.0" onAction="#SaveChangesGallery" text="Save" />
+                                       </children>
+                                    </AnchorPane>
+                                 </content>
+                              </ScrollPane>
+                           </children>
+                        </AnchorPane>
+                     </content>
+                  </Tab>
+                  <Tab text="Untitled Tab">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                    </content>
+                  </Tab>
+               </tabs>
+            </TabPane>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="MusicPane" layoutX="303.0" layoutY="154.0" prefHeight="396.0" prefWidth="681.0">
+         <children>
+            <TableView id="tableMusic" fx:id="tableMusic" layoutX="76.0" layoutY="99.0" onMouseClicked="#selectSong" prefHeight="275.0" prefWidth="553.0">
+               <columns>
+                  <TableColumn fx:id="picture" prefWidth="117.66665649414062" text="Cover" />
+                  <TableColumn fx:id="user" prefWidth="94.33334350585938" text="Artist" />
+                  <TableColumn fx:id="name" prefWidth="112.66668701171875" text="Title" />
+               </columns>
+            </TableView>
+            <AnchorPane fx:id="musicBarAnchor" prefHeight="68.0" prefWidth="678.0">
+               <children>
+                  <Rectangle fx:id="musicBar" arcHeight="5.0" arcWidth="5.0" fill="#0a2239" height="50.0" opacity="0.32" stroke="BLACK" strokeType="INSIDE" width="670.0" />
+                  <Button fx:id="volume" layoutX="436.0" layoutY="10.0" mnemonicParsing="false" onAction="#volume" prefHeight="39.0" prefWidth="52.0" text="volume">
+                     <effect>
+                        <ImageInput>
+                           <source>
+                              <Image url="@../buttons/volume.png" />
+                           </source>
+                        </ImageInput>
+                     </effect>
+                  </Button>
+                  <Button fx:id="stopSong" layoutX="146.0" layoutY="8.0" mnemonicParsing="false" onAction="#stopSong" text="stop">
+                     <effect>
+                        <ImageInput>
+                           <source>
+                              <Image url="@../buttons/stop.png" />
+                           </source>
+                        </ImageInput>
+                     </effect>
+                  </Button>
+                  <Button fx:id="slowSpeedSong" layoutX="213.0" layoutY="10.0" mnemonicParsing="false" onAction="#slowSpeedSong" text="slow">
+                     <effect>
+                        <ImageInput>
+                           <source>
+                              <Image url="@../buttons/slow.png" />
+                           </source>
+                        </ImageInput>
+                     </effect>
+                  </Button>
+                  <Button fx:id="repeatSong" layoutX="78.0" layoutY="8.0" mnemonicParsing="false" onAction="#repeatSong" text="repeat">
+                     <effect>
+                        <ImageInput>
+                           <source>
+                              <Image url="@../buttons/repeat.png" />
+                           </source>
+                        </ImageInput>
+                     </effect>
+                  </Button>
+                  <Button fx:id="restartSong" accessibleText="repeat" layoutX="20.0" layoutY="10.0" mnemonicParsing="false" onAction="#restartSong" text="mute">
+                     <effect>
+                        <ImageInput>
+                           <source>
+                              <Image url="@../buttons/restart.png" />
+                           </source>
+                        </ImageInput>
+                     </effect>
+                  </Button>
+                  <Button fx:id="pause" layoutX="290.0" layoutY="2.0" mnemonicParsing="false" onAction="#pauseSong" prefHeight="39.0" prefWidth="48.0" text="pause">
+                     <effect>
+                        <ImageInput>
+                           <source>
+                              <Image url="@../buttons/pause.png" />
+                           </source>
+                        </ImageInput>
+                     </effect>
+                  </Button>
+                  <Button fx:id="muteVolume" layoutX="436.0" layoutY="10.0" mnemonicParsing="false" onAction="#muteVolume" prefHeight="39.0" prefWidth="52.0" text="mute">
+                     <effect>
+                        <ImageInput>
+                           <source>
+                              <Image url="@../buttons/mute.png" />
+                           </source>
+                        </ImageInput>
+                     </effect>
+                  </Button>
+                  <JFXSlider fx:id="volumeSlider" layoutX="520.0" layoutY="23.0">
+                     <effect>
+                        <ColorAdjust brightness="-1.0" />
+                     </effect>
+                  </JFXSlider>
+                  <Button fx:id="fastSpeedSong" layoutX="382.0" layoutY="10.0" mnemonicParsing="false" onAction="#fastSpeedSong" text="fast">
+                     <effect>
+                        <ImageInput>
+                           <source>
+                              <Image url="@../buttons/fast.png" />
+                           </source>
+                        </ImageInput>
+                     </effect>
+                  </Button>
+                  <Button fx:id="playSong" layoutX="290.0" layoutY="2.0" mnemonicParsing="false" onAction="#playSong" prefHeight="61.0" prefWidth="60.0" text="play">
+                     <effect>
+                        <ImageInput>
+                           <source>
+                              <Image url="@../buttons/start.png" />
+                           </source>
+                        </ImageInput>
+                     </effect>
+                  </Button>
+               </children>
+            </AnchorPane>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="EventsPane" layoutX="190.0" prefHeight="617.0" prefWidth="865.0">
+         <children>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#222020d9" height="90.0" layoutX="32.0" layoutY="138.0" stroke="#b2aaaa" strokeType="INSIDE" width="220.0" />
+            <SplitPane dividerPositions="0.3365921787709497" layoutX="31.0" layoutY="238.0" prefHeight="363.0" prefWidth="718.0">
+               <items>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="241.0" prefWidth="150.0">
+                     <children>
+                        <TabPane prefHeight="328.0" prefWidth="237.0" tabClosingPolicy="UNAVAILABLE">
+                           <tabs>
+                              <Tab text="Events">
+                                 <content>
+                                    <TableView fx:id="eventsPane" onMouseClicked="#detailsEvents" prefHeight="327.0" prefWidth="237.0">
+                                       <columns>
+                                          <TableColumn fx:id="DateBeginEvents" prefWidth="75.0" text="Date Begin" />
+                                          <TableColumn fx:id="TitleEvents" prefWidth="162.0" text="Title" />
+                                       </columns>
+                                    </TableView>
+                                 </content>
+                              </Tab>
+                              <Tab text="My Events">
+                                 <content>
+                                    <TableView fx:id="eventsPane1" onMouseClicked="#detailsMyEvents" prefHeight="200.0" prefWidth="200.0">
+                                       <columns>
+                                          <TableColumn fx:id="DateBeginEvents1" prefWidth="75.0" text="Date Begin" />
+                                          <TableColumn fx:id="TitleEvents1" prefWidth="162.0" text="Title" />
+                                       </columns>
+                                    </TableView>
+                                 </content>
+                              </Tab>
+                           </tabs>
+                        </TabPane>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                     <children>
+                        <TableView fx:id="tableP" layoutY="199.0" prefHeight="165.0" prefWidth="471.0">
+                           <columns>
+                              <TableColumn fx:id="usernameP" prefWidth="75.0" text="User Name" />
+                              <TableColumn fx:id="firstNameP" prefWidth="81.0" text="First Name" />
+                              <TableColumn fx:id="lastNameP" prefWidth="94.0" text="Last Name" />
+                              <TableColumn fx:id="emailP" prefWidth="220.0" text="Email" />
+                           </columns>
+                        </TableView>
+                        <ImageView fitHeight="97.0" fitWidth="204.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../buttons/art-69727_1280.jpg" />
+                           </image>
+                        </ImageView>
+                        <Label fx:id="nbrParticipant" layoutX="4.0" layoutY="170.0" prefHeight="27.0" prefWidth="192.0" textFill="#808080" />
+                        <Label fx:id="usernameArtist" layoutX="242.0" layoutY="53.0" prefHeight="33.0" prefWidth="59.0" />
+                        <Label fx:id="usernameGallery" layoutX="159.0" layoutY="49.0" prefHeight="33.0" prefWidth="59.0" />
+                        <ImageView fx:id="yes" fitHeight="27.0" fitWidth="23.0" layoutX="334.0" layoutY="172.0" onMouseClicked="#noParticipate" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../buttons/participateEvent.png" />
+                           </image>
+                        </ImageView>
+                        <Label fx:id="yesLabel" layoutX="363.0" layoutY="175.0" text="I will participate" />
+                        <ImageView fx:id="no" fitHeight="27.0" fitWidth="23.0" layoutX="334.0" layoutY="172.0" onMouseClicked="#yesParticipate" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../buttons/2.png" />
+                           </image>
+                        </ImageView>
+                        <Label fx:id="noLabel" layoutX="362.0" layoutY="176.0" prefHeight="17.0" prefWidth="110.0" text="Not interessted" />
+                        <ImageView fitHeight="111.0" fitWidth="96.0" layoutX="141.0" layoutY="-7.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../buttons/8f787018.gif" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="111.0" fitWidth="96.0" layoutX="225.0" layoutY="-7.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../buttons/8f787018.gif" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="36.0" fitWidth="34.0" layoutX="172.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../buttons/1.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="36.0" fitWidth="34.0" layoutX="255.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../buttons/reserve-bank.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="109.0" fitWidth="157.0" layoutX="315.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../buttons/art-69727_1280.jpg" />
+                           </image>
+                        </ImageView>
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#393b3c" height="9.0" layoutY="97.0" stroke="BLACK" strokeType="INSIDE" width="471.0" />
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#393b3c" height="9.0" layoutY="162.0" stroke="BLACK" strokeType="INSIDE" width="471.0" />
+                        <Label fx:id="dateBeginLabel" layoutX="66.0" layoutY="114.0" prefHeight="22.0" prefWidth="113.0" textFill="#bf0404" />
+                        <Label fx:id="dateBeginLabel1" layoutX="66.0" layoutY="134.0" prefHeight="22.0" prefWidth="113.0" textFill="#c30d0d" />
+                        <ImageView fitHeight="26.0" fitWidth="48.0" layoutX="27.0" layoutY="110.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../buttons/6-128.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="26.0" fitWidth="48.0" layoutX="27.0" layoutY="135.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../buttons/6-128.png" />
+                           </image>
+                        </ImageView>
+                        <Label layoutX="203.0" layoutY="110.0" prefHeight="26.0" prefWidth="262.0" text="Description:">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="bodyLabel" layoutX="196.0" layoutY="135.0" prefHeight="26.0" prefWidth="262.0">
+                           <font>
+                              <Font size="19.0" />
+                           </font>
+                        </Label>
+                        <Line endX="100.0" layoutX="289.0" layoutY="134.0" startX="-100.0" />
+                     </children>
+                  </AnchorPane>
+               </items>
+            </SplitPane>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#222020d9" height="90.0" layoutX="277.0" layoutY="138.0" stroke="#b2aaaa" strokeType="INSIDE" width="220.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#222020d9" height="90.0" layoutX="526.0" layoutY="138.0" stroke="#b2aaaa" strokeType="INSIDE" width="220.0" />
+            <Label fx:id="eventMax1" layoutX="106.0" layoutY="129.0" prefHeight="90.0" prefWidth="157.0" textFill="WHITE" />
+            <Label fx:id="eventMax2" layoutX="356.0" layoutY="128.0" prefHeight="90.0" prefWidth="146.0" textFill="WHITE" />
+            <Label fx:id="eventMax3" layoutX="604.0" layoutY="125.0" prefHeight="97.0" prefWidth="146.0" textFill="WHITE" />
+            <ImageView fx:id="imgMax1" fitHeight="81.0" fitWidth="90.0" layoutX="30.0" layoutY="143.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../buttons/generic-award.png" />
+               </image>
+            </ImageView>
+            <Label fx:id="nbrMax1" layoutX="66.0" layoutY="156.0" prefHeight="26.0" prefWidth="34.0" textFill="#8a5c5c">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Label>
+            <ImageView fx:id="imgMax3" fitHeight="81.0" fitWidth="90.0" layoutX="525.0" layoutY="143.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../buttons/generic-award.png" />
+               </image>
+            </ImageView>
+            <Label fx:id="nbrMax3" layoutX="562.0" layoutY="157.0" prefHeight="26.0" prefWidth="34.0">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Label>
+            <ImageView fx:id="imgMax2" fitHeight="81.0" fitWidth="90.0" layoutX="275.0" layoutY="143.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../buttons/generic-award.png" />
+               </image>
+            </ImageView>
+            <Label fx:id="nbrMax2" layoutX="312.0" layoutY="156.0" prefHeight="26.0" prefWidth="34.0">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="ReclamationArtworkPane" layoutX="9.0" layoutY="532.0" prefHeight="70.0" prefWidth="122.0">
+         <children>
+            <Button layoutX="14.0" layoutY="22.0" mnemonicParsing="false" onAction="#complain" text="Complain" />
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="OussamasPane" layoutX="235.0" layoutY="137.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="476.0" prefWidth="807.0">
+         <children>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f0f8ff" height="260.0" layoutX="511.0" layoutY="53.0" opacity="0.35" stroke="BLACK" strokeType="INSIDE" width="282.0" />
+            <ImageView fx:id="img" fitHeight="275.0" fitWidth="400.0" layoutX="86.0" layoutY="51.0" pickOnBounds="true" preserveRatio="true" />
+            <Button layoutX="55.0" layoutY="360.0" mnemonicParsing="false" onAction="#First" text="First" />
+            <Button layoutX="393.0" layoutY="360.0" mnemonicParsing="false" onAction="#Next" text="Next" />
+            <Button layoutX="211.0" layoutY="360.0" mnemonicParsing="false" onAction="#Prec" text="Prec" />
+            <Button layoutX="560.0" layoutY="360.0" mnemonicParsing="false" onAction="#Last" text="Last" />
+            <Label layoutX="560.0" layoutY="105.0" text="Artist Name:" />
+            <Label layoutX="560.0" layoutY="146.0" text="Artwork Name:" />
+            <Label layoutX="563.0" layoutY="187.0" text="Price :" />
+            <Label layoutX="559.0" layoutY="230.0" text="PubliedOn :" />
+            <Label fx:id="artist" layoutX="679.0" layoutY="105.0" prefHeight="27.0" prefWidth="106.0" />
+            <Label fx:id="artwork" layoutX="693.0" layoutY="146.0" prefHeight="27.0" prefWidth="106.0" />
+            <Label fx:id="price" layoutX="659.0" layoutY="187.0" prefHeight="27.0" prefWidth="106.0" />
+            <Label fx:id="date" layoutX="670.0" layoutY="230.0" prefHeight="27.0" prefWidth="106.0" />
+         </children>
+      </AnchorPane>
+      <AnchorPane id="AnchorPane" fx:id="OussamaCraft" layoutX="235.0" layoutY="195.0" prefHeight="535.0" prefWidth="818.0">
+         <children>
+            <Label layoutX="243.0" layoutY="9.0" prefHeight="40.0" prefWidth="116.0" text=" ADD TunisianCraft " />
+            <Label layoutX="50.0" layoutY="75.0" prefHeight="18.0" prefWidth="64.0" text="Type :" />
+            <JFXComboBox fx:id="TypeT" layoutX="119.0" layoutY="65.0" prefHeight="25.0" prefWidth="109.0" />
+            <Label layoutX="47.0" layoutY="213.0" prefHeight="18.0" prefWidth="71.0" text="Description:" />
+            <JFXTextArea fx:id="DescT" layoutX="123.0" layoutY="187.0" maxWidth="235.0" minWidth="183.0" prefHeight="55.0" prefWidth="210.0" />
+            <Label layoutX="48.0" layoutY="273.0" prefHeight="18.0" prefWidth="71.0" text="Quantity :" />
+            <JFXTextField fx:id="QuantityT" layoutX="118.0" layoutY="252.0" maxWidth="88.0" minWidth="50.0" prefHeight="40.0" prefWidth="50.0" />
+            <Button layoutX="142.0" layoutY="374.0" mnemonicParsing="false" onAction="#choosePic" prefHeight="25.0" prefWidth="109.0" text="Choose Picture" />
+            <Label layoutX="50.0" layoutY="376.0" prefHeight="18.0" prefWidth="56.0" text="Picture :" />
+            <ImageView fx:id="ImageT" fitHeight="218.0" fitWidth="223.0" layoutX="359.0" layoutY="91.0" pickOnBounds="true" preserveRatio="true" />
+            <Button layoutX="486.0" layoutY="380.0" mnemonicParsing="false" onAction="#AddTunisianCraft" prefHeight="25.0" prefWidth="44.0" text="Add" />
+            <Label layoutX="45.0" layoutY="141.0" prefHeight="18.0" prefWidth="116.0" text="Name Of Artwork :" />
+            <Label layoutX="48.0" layoutY="328.0" prefHeight="18.0" prefWidth="116.0" text="Price :" />
+            <JFXTextField fx:id="pricet" layoutX="96.0" layoutY="322.0" maxWidth="44.0" minWidth="44.0" prefHeight="18.0" prefWidth="44.0" />
+            <JFXTextField fx:id="namet" layoutX="154.0" layoutY="130.0" />
+            <TableView fx:id="TunisianTable" layoutX="27.0" layoutY="436.0" prefHeight="215.0" prefWidth="652.0">
+               <columns>
+                  <TableColumn fx:id="pictureo" editable="false" prefWidth="108.66668701171875" sortable="false" text="picture" />
+                  <TableColumn fx:id="nameo" prefWidth="95.33331298828125" text="Name" />
+                  <TableColumn fx:id="priceo" prefWidth="94.6666259765625" text="Price" />
+                  <TableColumn fx:id="Typeo" prefWidth="91.3333740234375" text="Type" />
+                  <TableColumn fx:id="stateo" prefWidth="94.3333740234375" text="State" />
+                  <TableColumn fx:id="dateo" prefWidth="86.6666259765625" text="dateOfOublication" />
+                  <TableColumn fx:id="desco" prefWidth="133.333251953125" text="Description" />
+               </columns>
+            </TableView>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>
