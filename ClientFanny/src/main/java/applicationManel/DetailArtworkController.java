@@ -11,7 +11,6 @@ import entities.Artist;
 import entities.Artwork;
 import entities.Comment;
 import entities.Feedback;
-import entities.FeedbackId;
 import entities.Gallery;
 import entities.VisualArt;
 
@@ -205,22 +204,22 @@ public class DetailArtworkController implements Initializable {
 //
 //		} catch (Exception e) {
 //		}
-		FeedbackId feedbackId =new FeedbackId();
-		//*************************change*****************************
-		feedbackId.setArtworkId(a.getIdArtwork());
-		feedbackId.setUserId(3);
-		//*************************change*****************************
-		TunC.setFeedbackId(feedbackId);
-		Alert alert = new Alert(Alert.AlertType.ERROR);
-		alert.setTitle("Fanny");
-		alert.setHeaderText(null);
-		alert.setContentText("Comment Add succes");
-		alert.showAndWait();
-		
-		
-		proxy.addVisualComment(TunC);
-		DisplayVisualComment();
-		commenttable.getItems().clear();
+//		FeedbackId feedbackId =new FeedbackId();
+//		//*************************change*****************************
+//		feedbackId.setArtworkId(a.getIdArtwork());
+//		feedbackId.setUserId(3);
+//		//*************************change*****************************
+//		TunC.setFeedbackId(feedbackId);
+//		Alert alert = new Alert(Alert.AlertType.ERROR);
+//		alert.setTitle("Fanny");
+//		alert.setHeaderText(null);
+//		alert.setContentText("Comment Add succes");
+//		alert.showAndWait();
+//		
+//		
+//		proxy.addVisualComment(TunC);
+//		DisplayVisualComment();
+//		commenttable.getItems().clear();
     }
     @FXML
     private void selectComment(MouseEvent event) {

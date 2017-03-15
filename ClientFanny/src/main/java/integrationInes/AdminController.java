@@ -1023,28 +1023,28 @@ private BarChart<String, Integer> barChart;
 		/** Pie ** most liked artworks **/
 		public void pieChart() {
 
-			List<Artwork> listArtwork = new ArrayList<Artwork>();
-			Map<Integer, String> map = new TreeMap<Integer, String>();
-			Data pieChartData = null;
-
-			listArtwork = artworkManagementI.findAllArtworks();
-			for (Artwork A : listArtwork) {
-				long nbrLike = likeManagmentI.nbrlike(A.getIdArtwork());
-				System.out.println("nbrLike= " + nbrLike);
-				if (nbrLike > 0) {
-					map.put((int) nbrLike, A.getName());
-
-					for (Map.Entry<Integer, String> e : map.entrySet()) {
-						pieChartData = new PieChart.Data(e.getValue(), e.getKey());
-
-					}
-					;
-				}
-
-			}
-			ObservableList<PieChart.Data> pieChartDataa = FXCollections.observableArrayList(pieChartData);
-
-			pieChart.setData(pieChartDataa);
+//			List<Artwork> listArtwork = new ArrayList<Artwork>();
+//			Map<Integer, String> map = new TreeMap<Integer, String>();
+//			Data pieChartData = null;
+//
+//			listArtwork = artworkManagementI.findAllArtworks();
+//			for (Artwork A : listArtwork) {
+//				long nbrLike = likeManagmentI.nbrlike(A.getIdArtwork());
+//				System.out.println("nbrLike= " + nbrLike);
+//				if (nbrLike > 0) {
+//					map.put((int) nbrLike, A.getName());
+//
+//					for (Map.Entry<Integer, String> e : map.entrySet()) {
+//						pieChartData = new PieChart.Data(e.getValue(), e.getKey());
+//
+//					}
+//					;
+//				}
+//
+//			}
+//			ObservableList<PieChart.Data> pieChartDataa = FXCollections.observableArrayList(pieChartData);
+//
+//			pieChart.setData(pieChartDataa);
 
 		}
 		
