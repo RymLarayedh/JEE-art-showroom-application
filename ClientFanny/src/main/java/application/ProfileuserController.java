@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import javax.imageio.ImageIO;
+import javax.security.auth.login.LoginException;
 import javax.swing.text.StyledEditorKit.BoldAction;
 
 import com.jfoenix.controls.JFXButton;
@@ -199,39 +200,39 @@ public class ProfileuserController implements Initializable {
 	private JFXButton FollowersBTN;
 	@FXML
 	private JFXButton followedBTN;
-    private JFXButton FollowersBTNG;
-    @FXML
-    private TableView<User> FollowG;
-    @FXML
-    private TableColumn<User, byte[]> PictureTVG;
-    @FXML
-    private TableColumn<User, String> FirstNameTVG;
-    @FXML
-    private TableColumn<User, String> LastNameTVG;
-    @FXML
-    private TableColumn<User, String> ActionTVG;
-    
-    @FXML
-    private JFXButton AddFieldsBTN;
+	private JFXButton FollowersBTNG;
+	@FXML
+	private TableView<User> FollowG;
+	@FXML
+	private TableColumn<User, byte[]> PictureTVG;
+	@FXML
+	private TableColumn<User, String> FirstNameTVG;
+	@FXML
+	private TableColumn<User, String> LastNameTVG;
+	@FXML
+	private TableColumn<User, String> ActionTVG;
 
-    @FXML
-    private JFXButton RemoveFieldsBTN;
+	@FXML
+	private JFXButton AddFieldsBTN;
 
-    @FXML
-    private ToggleButton musicField;
+	@FXML
+	private JFXButton RemoveFieldsBTN;
 
-    @FXML
-    private ToggleButton PaintingsField;
+	@FXML
+	private ToggleButton musicField;
 
-    @FXML
-    private ToggleButton TcraftField;
+	@FXML
+	private ToggleButton PaintingsField;
 
-    @FXML
-    private ToggleButton photographyField;
+	@FXML
+	private ToggleButton TcraftField;
 
-    @FXML
-    private ToggleButton scultureField;
-    private boolean isAdding = false;
+	@FXML
+	private ToggleButton photographyField;
+
+	@FXML
+	private ToggleButton scultureField;
+	private boolean isAdding = false;
 
 	static public User userChoosen = LoginController.userLogedIn;
 
@@ -922,20 +923,25 @@ public class ProfileuserController implements Initializable {
 
 	@FXML
 	public void Logout(ActionEvent event) throws IOException {
-		LoginController.userLogedIn = null;
-		Parent adminScene = FXMLLoader.load(getClass().getResource("Login.fxml"));
-		Scene scene = new Scene(adminScene, 600, 600);
-		scene.getStylesheets().add(getClass().getResource("Login.css").toExternalForm());
-		Stage Sc = new Stage();
-		Sc.setScene(scene);
-		Sc.setTitle("FannyTUNISIA");
-		Sc.setOnCloseRequest(e -> {
-			e.consume();
-			Main.closeProgram(Sc);
-		});
-		Sc.show();
-		final Stage stage = (Stage) AymensPane.getScene().getWindow();
-		stage.close();
+		try {
+			LoginController.loginContext.logout();
+			//LoginController.userLogedIn = null;
+			Parent adminScene = FXMLLoader.load(getClass().getResource("Login.fxml"));
+			Scene scene = new Scene(adminScene, 600, 600);
+			scene.getStylesheets().add(getClass().getResource("Login.css").toExternalForm());
+			Stage Sc = new Stage();
+			Sc.setScene(scene);
+			Sc.setTitle("FannyTUNISIA");
+			Sc.setOnCloseRequest(e -> {
+				e.consume();
+				Main.closeProgram(Sc);
+			});
+			Sc.show();
+			final Stage stage = (Stage) AymensPane.getScene().getWindow();
+			stage.close();
+		} catch (LoginException e1) {
+			// TODO Auto-generated catch block
+		}
 	}
 
 	@FXML
@@ -964,8 +970,8 @@ public class ProfileuserController implements Initializable {
 	private void ShowFollowers(ActionEvent event) {
 		// eli houwa itaba3 fihom
 		Follow.setVisible(true);
-//		GalleryThing.setVisible(false);
-//		ArtistThing.setVisible(false);
+		// GalleryThing.setVisible(false);
+		// ArtistThing.setVisible(false);
 		LrecherchArt.clear();
 		UsersDataME.clear();
 		LrecherchArt = UserManagmentDelegate.getAllFollowed(userChoosen);
@@ -1046,8 +1052,7 @@ public class ProfileuserController implements Initializable {
 										btn.setText("UnFollow");
 										btn.setOnAction((ActionEvent event) -> {
 											User person = getTableView().getItems().get(getIndex());
-											UserManagmentDelegate.removeFollower(userChoosen,
-													person);
+											UserManagmentDelegate.removeFollower(userChoosen, person);
 											Follow.refresh();
 										});
 									} else {
@@ -1080,8 +1085,8 @@ public class ProfileuserController implements Initializable {
 		LrecherchFNME.clear();
 		UsersDataME.clear();
 		Follow.setVisible(true);
-//		GalleryThing.setVisible(false);
-//		ArtistThing.setVisible(false);
+		// GalleryThing.setVisible(false);
+		// ArtistThing.setVisible(false);
 
 		for (ArtistFollowers u : ((Artist) userChoosen).getFollowers()) {
 			LrecherchFNME.add(u.getUser());
@@ -1180,8 +1185,7 @@ public class ProfileuserController implements Initializable {
 
 	@FXML
 	public void MoreInformation(MouseEvent event) throws IOException {
-		if(LoginController.userLogedIn instanceof Artist)
-		{
+		if (LoginController.userLogedIn instanceof Artist) {
 			if (PopupUserController.userChoosen == Follow.getSelectionModel().getSelectedItem()) {
 				return;
 			}
@@ -1191,18 +1195,17 @@ public class ProfileuserController implements Initializable {
 			Stage Sc = new Stage();
 			Sc.setScene(scene);
 			Sc.setScene(scene);
-			Sc.setOnCloseRequest(e ->{
-	            e.consume();
-	            Sc.close();
-	            userChoosen = null ;
+			Sc.setOnCloseRequest(e -> {
+				e.consume();
+				Sc.close();
+				userChoosen = null;
 			});
 			Sc.setTitle("FannyTUNISIA");
 			Sc.showAndWait();
 
 		}
-		
-		else
-		{
+
+		else {
 			if (PopupUserController.userChoosen == FollowG.getSelectionModel().getSelectedItem()) {
 				return;
 			}
@@ -1212,10 +1215,10 @@ public class ProfileuserController implements Initializable {
 			Stage Sc = new Stage();
 			Sc.setScene(scene);
 			Sc.setScene(scene);
-			Sc.setOnCloseRequest(e ->{
-	            e.consume();
-	            Sc.close();
-	            userChoosen = null ;
+			Sc.setOnCloseRequest(e -> {
+				e.consume();
+				Sc.close();
+				userChoosen = null;
 			});
 			Sc.setTitle("FannyTUNISIA");
 			Sc.showAndWait();
@@ -1223,10 +1226,10 @@ public class ProfileuserController implements Initializable {
 		}
 	}
 
-    @FXML
-    private void ShowFollowersG(ActionEvent event) {
-    	//
-    	FollowG.setVisible(true);
+	@FXML
+	private void ShowFollowersG(ActionEvent event) {
+		//
+		FollowG.setVisible(true);
 		LrecherchArt.clear();
 		UsersDataME.clear();
 		LrecherchArt = UserManagmentDelegate.getAllFollowed(userChoosen);
@@ -1307,8 +1310,7 @@ public class ProfileuserController implements Initializable {
 										btn.setText("UnFollow");
 										btn.setOnAction((ActionEvent event) -> {
 											User person = getTableView().getItems().get(getIndex());
-											UserManagmentDelegate.removeFollower(userChoosen,
-													person);
+											UserManagmentDelegate.removeFollower(userChoosen, person);
 											Follow.refresh();
 										});
 									} else {
@@ -1332,193 +1334,172 @@ public class ProfileuserController implements Initializable {
 		LastNameTVG.setCellValueFactory(new PropertyValueFactory<User, String>("lastName"));
 		FollowG.setItems(UsersDataME);
 
+	}
 
-    }
-    
-    @FXML
-    public void DisableAccount(ActionEvent actionEvent)
-    {
-    	UserManagmentDelegate.disableUser(LoginController.userLogedIn);
+	@FXML
+	public void DisableAccount(ActionEvent actionEvent) {
+		UserManagmentDelegate.disableUser(LoginController.userLogedIn);
 		final Stage stage = (Stage) AymensPane.getScene().getWindow();
 		stage.close();
-    }
-    
+	}
 
-    @FXML
-    void addMusic(ActionEvent event) {
-    	musicField.setSelected(false);
-    	if(isAdding)
-    	{
-    		UserManagmentDelegate.addFields(UserManagmentDelegate.findFieldsByName(musicField.getText()), LoginController.userLogedIn);
-    		musicField.setVisible(false);
-    		LoginController.userLogedIn = UserManagmentDelegate.findById(LoginController.userLogedIn.getIdUser());
-    		return;
-    	}
-    	else
-    	{
-    		UserManagmentDelegate.removeFields(UserManagmentDelegate.findFieldsByName(musicField.getText()), LoginController.userLogedIn);
-    		musicField.setVisible(false);
-    		LoginController.userLogedIn = UserManagmentDelegate.findById(LoginController.userLogedIn.getIdUser());
-    		return;
-    	}
+	@FXML
+	void addMusic(ActionEvent event) {
+		musicField.setSelected(false);
+		if (isAdding) {
+			UserManagmentDelegate.addFields(UserManagmentDelegate.findFieldsByName(musicField.getText()),
+					LoginController.userLogedIn);
+			musicField.setVisible(false);
+			LoginController.userLogedIn = UserManagmentDelegate.findById(LoginController.userLogedIn.getIdUser());
+			return;
+		} else {
+			UserManagmentDelegate.removeFields(UserManagmentDelegate.findFieldsByName(musicField.getText()),
+					LoginController.userLogedIn);
+			musicField.setVisible(false);
+			LoginController.userLogedIn = UserManagmentDelegate.findById(LoginController.userLogedIn.getIdUser());
+			return;
+		}
 
-    }
+	}
 
-    @FXML
-    void addPHT(ActionEvent event) {
-    	photographyField.setSelected(false);
-    	if(isAdding)
-    	{
-    		UserManagmentDelegate.addFields(UserManagmentDelegate.findFieldsByName(photographyField.getText()), LoginController.userLogedIn);
-    		photographyField.setVisible(false);
-    		LoginController.userLogedIn = UserManagmentDelegate.findById(LoginController.userLogedIn.getIdUser());
-    		return;
-    	}
-    	else
-    	{
-    		UserManagmentDelegate.removeFields(UserManagmentDelegate.findFieldsByName(photographyField.getText()), LoginController.userLogedIn);
-    		photographyField.setVisible(false);
-    		LoginController.userLogedIn = UserManagmentDelegate.findById(LoginController.userLogedIn.getIdUser());
-    		return;
-    	}
+	@FXML
+	void addPHT(ActionEvent event) {
+		photographyField.setSelected(false);
+		if (isAdding) {
+			UserManagmentDelegate.addFields(UserManagmentDelegate.findFieldsByName(photographyField.getText()),
+					LoginController.userLogedIn);
+			photographyField.setVisible(false);
+			LoginController.userLogedIn = UserManagmentDelegate.findById(LoginController.userLogedIn.getIdUser());
+			return;
+		} else {
+			UserManagmentDelegate.removeFields(UserManagmentDelegate.findFieldsByName(photographyField.getText()),
+					LoginController.userLogedIn);
+			photographyField.setVisible(false);
+			LoginController.userLogedIn = UserManagmentDelegate.findById(LoginController.userLogedIn.getIdUser());
+			return;
+		}
 
-    }
+	}
 
-    @FXML
-    void addPaints(ActionEvent event) {
-    	PaintingsField.setSelected(false);
-    	if(isAdding)
-    	{
-    		UserManagmentDelegate.addFields(UserManagmentDelegate.findFieldsByName(PaintingsField.getText()), LoginController.userLogedIn);
-    		PaintingsField.setVisible(false);
-    		LoginController.userLogedIn = UserManagmentDelegate.findById(LoginController.userLogedIn.getIdUser());
-    		return;
-    	}
-    	else
-    	{
-    		UserManagmentDelegate.removeFields(UserManagmentDelegate.findFieldsByName(PaintingsField.getText()), LoginController.userLogedIn);
-    		PaintingsField.setVisible(false);
-    		LoginController.userLogedIn = UserManagmentDelegate.findById(LoginController.userLogedIn.getIdUser());
-    		return;
-    	}
+	@FXML
+	void addPaints(ActionEvent event) {
+		PaintingsField.setSelected(false);
+		if (isAdding) {
+			UserManagmentDelegate.addFields(UserManagmentDelegate.findFieldsByName(PaintingsField.getText()),
+					LoginController.userLogedIn);
+			PaintingsField.setVisible(false);
+			LoginController.userLogedIn = UserManagmentDelegate.findById(LoginController.userLogedIn.getIdUser());
+			return;
+		} else {
+			UserManagmentDelegate.removeFields(UserManagmentDelegate.findFieldsByName(PaintingsField.getText()),
+					LoginController.userLogedIn);
+			PaintingsField.setVisible(false);
+			LoginController.userLogedIn = UserManagmentDelegate.findById(LoginController.userLogedIn.getIdUser());
+			return;
+		}
 
-    }
+	}
 
-    @FXML
-    void addScu(ActionEvent event) {
-    	scultureField.setSelected(false);
-    	if(isAdding)
-    	{
-    		UserManagmentDelegate.addFields(UserManagmentDelegate.findFieldsByName(scultureField.getText()), LoginController.userLogedIn);
-    		scultureField.setVisible(false);
-    		LoginController.userLogedIn = UserManagmentDelegate.findById(LoginController.userLogedIn.getIdUser());
-    		return;
-    	}
-    	else
-    	{
-    		UserManagmentDelegate.removeFields(UserManagmentDelegate.findFieldsByName(scultureField.getText()), LoginController.userLogedIn);
-    		scultureField.setVisible(false);
-    		LoginController.userLogedIn = UserManagmentDelegate.findById(LoginController.userLogedIn.getIdUser());
-    		return;
-    	}
+	@FXML
+	void addScu(ActionEvent event) {
+		scultureField.setSelected(false);
+		if (isAdding) {
+			UserManagmentDelegate.addFields(UserManagmentDelegate.findFieldsByName(scultureField.getText()),
+					LoginController.userLogedIn);
+			scultureField.setVisible(false);
+			LoginController.userLogedIn = UserManagmentDelegate.findById(LoginController.userLogedIn.getIdUser());
+			return;
+		} else {
+			UserManagmentDelegate.removeFields(UserManagmentDelegate.findFieldsByName(scultureField.getText()),
+					LoginController.userLogedIn);
+			scultureField.setVisible(false);
+			LoginController.userLogedIn = UserManagmentDelegate.findById(LoginController.userLogedIn.getIdUser());
+			return;
+		}
 
-    }
+	}
 
-    @FXML
-    void addTC(ActionEvent event) {
-    	TcraftField.setSelected(false);
-    	if(isAdding)
-    	{
-    		UserManagmentDelegate.addFields(UserManagmentDelegate.findFieldsByName(TcraftField.getText()), LoginController.userLogedIn);
-    		TcraftField.setVisible(false);
-    		LoginController.userLogedIn = UserManagmentDelegate.findById(LoginController.userLogedIn.getIdUser());
-    		return;
-    	}
-    	else
-    	{
-    		UserManagmentDelegate.removeFields(UserManagmentDelegate.findFieldsByName(TcraftField.getText()), LoginController.userLogedIn);
-    		TcraftField.setVisible(false);
-    		LoginController.userLogedIn = UserManagmentDelegate.findById(LoginController.userLogedIn.getIdUser());
-    		return;
-    	}
+	@FXML
+	void addTC(ActionEvent event) {
+		TcraftField.setSelected(false);
+		if (isAdding) {
+			UserManagmentDelegate.addFields(UserManagmentDelegate.findFieldsByName(TcraftField.getText()),
+					LoginController.userLogedIn);
+			TcraftField.setVisible(false);
+			LoginController.userLogedIn = UserManagmentDelegate.findById(LoginController.userLogedIn.getIdUser());
+			return;
+		} else {
+			UserManagmentDelegate.removeFields(UserManagmentDelegate.findFieldsByName(TcraftField.getText()),
+					LoginController.userLogedIn);
+			TcraftField.setVisible(false);
+			LoginController.userLogedIn = UserManagmentDelegate.findById(LoginController.userLogedIn.getIdUser());
+			return;
+		}
 
-    }
-    
+	}
 
-    @FXML
-    void RemoveField(ActionEvent event) {
-    	isAdding = false;
+	@FXML
+	void RemoveField(ActionEvent event) {
+		isAdding = false;
 		PaintingsField.setVisible(true);
 		TcraftField.setVisible(true);
 		photographyField.setVisible(true);
 		scultureField.setVisible(true);
 		musicField.setVisible(true);
-    	List<ArtistFields>Lf = new ArrayList<ArtistFields>();
-    	Lf.addAll(((Artist)LoginController.userLogedIn).getLfields());
-    	List<String>Lfs = new ArrayList<String>();
-    	for (ArtistFields artistFields : Lf) {
-    		Lfs.add(artistFields.getField().getLibelle());
+		List<ArtistFields> Lf = new ArrayList<ArtistFields>();
+		Lf.addAll(((Artist) LoginController.userLogedIn).getLfields());
+		List<String> Lfs = new ArrayList<String>();
+		for (ArtistFields artistFields : Lf) {
+			Lfs.add(artistFields.getField().getLibelle());
 		}
-    	if(!Lfs.contains(musicField.getText()))
-    	{
-    		musicField.setVisible(false);
-    	}
-    	if(!Lfs.contains(PaintingsField.getText()))
-    	{
-    		PaintingsField.setVisible(false);
-    	}
-    	if(!Lfs.contains(TcraftField.getText()))
-    	{
-    		TcraftField.setVisible(false);
-    	}
-    	if(!Lfs.contains(scultureField.getText()))
-    	{
-    		scultureField.setVisible(false);
-    	}
-    	if(!Lfs.contains(photographyField.getText()))
-    	{
-    		photographyField.setVisible(false);
-    	}
+		if (!Lfs.contains(musicField.getText())) {
+			musicField.setVisible(false);
+		}
+		if (!Lfs.contains(PaintingsField.getText())) {
+			PaintingsField.setVisible(false);
+		}
+		if (!Lfs.contains(TcraftField.getText())) {
+			TcraftField.setVisible(false);
+		}
+		if (!Lfs.contains(scultureField.getText())) {
+			scultureField.setVisible(false);
+		}
+		if (!Lfs.contains(photographyField.getText())) {
+			photographyField.setVisible(false);
+		}
 
-    }
-    
+	}
 
-    @FXML
-    void AddField(ActionEvent event) {
-    	isAdding = true;
+	@FXML
+	void AddField(ActionEvent event) {
+		isAdding = true;
 		PaintingsField.setVisible(false);
 		TcraftField.setVisible(false);
 		photographyField.setVisible(false);
 		scultureField.setVisible(false);
 		musicField.setVisible(false);
-    	List<ArtistFields>Lf = new ArrayList<ArtistFields>();
-    	Lf.addAll(((Artist)LoginController.userLogedIn).getLfields());
-    	List<String>Lfs = new ArrayList<String>();
-    	for (ArtistFields artistFields : Lf) {
-    		Lfs.add(artistFields.getField().getLibelle());
+		List<ArtistFields> Lf = new ArrayList<ArtistFields>();
+		Lf.addAll(((Artist) LoginController.userLogedIn).getLfields());
+		List<String> Lfs = new ArrayList<String>();
+		for (ArtistFields artistFields : Lf) {
+			Lfs.add(artistFields.getField().getLibelle());
 		}
-    	if(!Lfs.contains(musicField.getText()))
-    	{
-    		musicField.setVisible(true);
-    	}
-    	if(!Lfs.contains(PaintingsField.getText()))
-    	{
-    		PaintingsField.setVisible(true);
-    	}
-    	if(!Lfs.contains(TcraftField.getText()))
-    	{
-    		TcraftField.setVisible(true);
-    	}
-    	if(!Lfs.contains(scultureField.getText()))
-    	{
-    		scultureField.setVisible(true);
-    	}
-    	if(!Lfs.contains(photographyField.getText()))
-    	{
-    		photographyField.setVisible(true);
-    	}
+		if (!Lfs.contains(musicField.getText())) {
+			musicField.setVisible(true);
+		}
+		if (!Lfs.contains(PaintingsField.getText())) {
+			PaintingsField.setVisible(true);
+		}
+		if (!Lfs.contains(TcraftField.getText())) {
+			TcraftField.setVisible(true);
+		}
+		if (!Lfs.contains(scultureField.getText())) {
+			scultureField.setVisible(true);
+		}
+		if (!Lfs.contains(photographyField.getText())) {
+			photographyField.setVisible(true);
+		}
 
-    }
-
+	}
 
 }

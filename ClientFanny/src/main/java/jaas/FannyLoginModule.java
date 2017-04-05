@@ -19,10 +19,11 @@ import entities.User;
 public class FannyLoginModule implements LoginModule {
 	private boolean authentificationSuccessFlag = false;
 	
-    private Subject subject;
+    private Subject subject = null;
     private CallbackHandler callbackHandler;
     private Map sharedState;
     private Map options;
+    private FannyPrincipal fannyPrincipal = null;
 
 	@Override
 	public void initialize(Subject subject, CallbackHandler callbackHandler, Map<String, ?> sharedState,
@@ -46,14 +47,13 @@ public class FannyLoginModule implements LoginModule {
 		try {
 			callbackHandler.handle(callbacks);
 		} catch (IOException | UnsupportedCallbackException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		String name = ((NameCallback) callbacks[0]).getName();
 		String password = new String(((PasswordCallback) callbacks[1]).getPassword());
 		if(UserManagmentDelegate.loginUser(name, password))
 		{
-			System.out.println("authentification succss ...");
+			fannyPrincipal = new FannyPrincipal(name);
 			authentificationSuccessFlag = true;
 		}
 		else
@@ -66,20 +66,29 @@ public class FannyLoginModule implements LoginModule {
 
 	@Override
 	public boolean commit() throws LoginException {
-	
+		authentificationSuccessFlag = false ;
+		if(subject!=null && !subject.getPrincipals().contains(fannyPrincipal))
+		{
+			subject.getPrincipals().add(fannyPrincipal); 
+			authentificationSuccessFlag = true;
+		}
 		return authentificationSuccessFlag;
 	}
 
 	@Override
 	public boolean abort() throws LoginException {
-		// TODO Auto-generated method stub
+		if(subject != null && fannyPrincipal!=null && subject.getPrincipals().contains(fannyPrincipal))
+		{
+			subject.getPrincipals().remove(fannyPrincipal);
+		}
 		return false;
 	}
 
 	@Override
 	public boolean logout() throws LoginException {
-		// TODO Auto-generated method stub
-		return false;
+		subject.getPrincipals().remove(fannyPrincipal);
+		subject = null;
+		return true; 
 	}
 
 }

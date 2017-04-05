@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Properties;
 import java.util.Random;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -120,7 +121,7 @@ public class UserManagment implements UserManagmentRemote {
 		try {
 			return em.find(User.class, id);
 		} catch (javax.persistence.NoResultException e) {
-			Logger.getLogger("e").info("User with id = "+id+" not found");
+			Logger.getLogger(this.getClass().getName()).log(Level.INFO, "User with id = " + id + " not found");
 			return null;
 		}
 	}
@@ -133,7 +134,8 @@ public class UserManagment implements UserManagmentRemote {
 			User user = q.getSingleResult();
 			return user;
 		} catch (javax.persistence.NoResultException e) {
-			Logger.getLogger("e").info("User with username = "+username+" not found");
+			Logger.getLogger(this.getClass().getName()).log(Level.INFO,
+					"User with username = " + username + " not found");
 			return null;
 		}
 
@@ -147,7 +149,7 @@ public class UserManagment implements UserManagmentRemote {
 			User user = q.getSingleResult();
 			return user;
 		} catch (javax.persistence.NoResultException E) {
-			Logger.getLogger("e").info("User with email = "+email+" not found");
+			Logger.getLogger(this.getClass().getName()).log(Level.INFO, "User with email = " + email + " not found");
 			return null;
 		}
 	}
@@ -173,8 +175,9 @@ public class UserManagment implements UserManagmentRemote {
 			List<User> Luser = q.getResultList();
 			return Luser;
 		} catch (javax.persistence.NoResultException E) {
-			Logger.getLogger("e").info("User with FirstName = "+name+" not found");
+			Logger.getLogger(this.getClass().getName()).log(Level.INFO, "User with FirstName = " + name + " not found");
 			return null;
+
 		}
 	}
 
@@ -186,7 +189,7 @@ public class UserManagment implements UserManagmentRemote {
 			List<User> Luser = q.getResultList();
 			return Luser;
 		} catch (javax.persistence.NoResultException E) {
-			Logger.getLogger("e").info("User with LastName = "+name+" not found");
+			Logger.getLogger(this.getClass().getName()).log(Level.INFO, "User with LastName = " + name + " not found");
 			return null;
 		}
 	}
@@ -199,7 +202,7 @@ public class UserManagment implements UserManagmentRemote {
 			List<User> LuserBlocked = q.getResultList();
 			return LuserBlocked;
 		} catch (javax.persistence.NoResultException E) {
-			
+			Logger.getLogger(this.getClass().getName()).log(Level.INFO, "no blocked user found");
 			return null;
 		}
 	}
@@ -213,6 +216,7 @@ public class UserManagment implements UserManagmentRemote {
 			List<User> LuserActive = q.getResultList();
 			return LuserActive;
 		} catch (javax.persistence.NoResultException E) {
+			Logger.getLogger(this.getClass().getName()).log(Level.INFO, "no active user found");
 			return null;
 		}
 	}
@@ -299,6 +303,7 @@ public class UserManagment implements UserManagmentRemote {
 			List<Artist> Lartist = q.getResultList();
 			return Lartist;
 		} catch (javax.persistence.NoResultException e) {
+			Logger.getLogger(this.getClass().getName()).log(Level.INFO, "no artist found");
 			return null;
 		}
 	}
@@ -310,6 +315,7 @@ public class UserManagment implements UserManagmentRemote {
 			List<Admin> Ladmin = q.getResultList();
 			return Ladmin;
 		} catch (javax.persistence.NoResultException e) {
+			Logger.getLogger(this.getClass().getName()).log(Level.INFO, "no admins found");
 			return null;
 		}
 	}
@@ -321,6 +327,7 @@ public class UserManagment implements UserManagmentRemote {
 			List<Gallery> Lgallery = q.getResultList();
 			return Lgallery;
 		} catch (javax.persistence.NoResultException e) {
+			Logger.getLogger(this.getClass().getName()).log(Level.INFO, "no gallery found");
 			return null;
 		}
 	}
@@ -418,6 +425,7 @@ public class UserManagment implements UserManagmentRemote {
 			List<Artist> Lartist = q.getResultList();
 			return Lartist;
 		} catch (javax.persistence.NoResultException e) {
+			Logger.getLogger(this.getClass().getName()).log(Level.INFO, "no Followed found");
 			return null;
 		}
 	}
@@ -430,6 +438,7 @@ public class UserManagment implements UserManagmentRemote {
 			Fields fields = q.getSingleResult();
 			return fields;
 		} catch (javax.persistence.NoResultException e) {
+			Logger.getLogger(this.getClass().getName()).log(Level.INFO, "no fields with name = " + name + " found");
 			return null;
 		}
 	}
@@ -443,6 +452,8 @@ public class UserManagment implements UserManagmentRemote {
 			List<User> Luser = q.getResultList();
 			return Luser;
 		} catch (javax.persistence.NoResultException E) {
+			Logger.getLogger(this.getClass().getName()).log(Level.INFO,
+					"no user found with firstName like = " + name + " or lastName like = " + name);
 			return null;
 		}
 	}

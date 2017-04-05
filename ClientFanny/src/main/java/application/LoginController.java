@@ -50,6 +50,7 @@ public class LoginController implements Initializable {
 	private AnchorPane loginAnchor;
 	@FXML
 	private StackPane resetPasswordPane;
+	public static LoginContext loginContext = null;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -76,8 +77,6 @@ public class LoginController implements Initializable {
 		 */
 
 		/****** JAAS **/
-		System.setProperty("java.security.auth.login.config", "jaasConfig.config");
-		LoginContext loginContext = null;
 		FannyCallbackHandler fannyCallbackHandler = new FannyCallbackHandler();
 		fannyCallbackHandler.setUsername(username);
 		fannyCallbackHandler.setPassword(password);
@@ -100,8 +99,7 @@ public class LoginController implements Initializable {
 			passwordTF.clear();
 			return;
 		}
-
-		userLogedIn = UserManagmentDelegate.findByUsername(username);
+		userLogedIn = UserManagmentDelegate.findByUsername(loginContext.getSubject().getPrincipals().iterator().next().getName());
 		int redirect = UserManagmentDelegate.RedirectUser(userLogedIn);
 		if (redirect == 1) { // Artist
 			gotoArtist(event);
@@ -321,7 +319,7 @@ public class LoginController implements Initializable {
 		scene.getStylesheets().add(getClass().getResource("tableView.css").toExternalForm());
 		Stage Sc = new Stage();
 		Sc.setScene(scene);
-		Sc.show();
+        Sc.show();
 		final Node source = (Node) event.getSource();
 		final Stage stage = (Stage) source.getScene().getWindow();
 		stage.close();

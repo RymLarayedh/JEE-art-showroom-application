@@ -20,13 +20,13 @@ import services.UserManagmentRemote;
 public class Entry {
 
 	public static void main(String[] args) throws NamingException, AddressException, MessagingException {
-		InitialContext ctx = new InitialContext();
+		/*InitialContext ctx = new InitialContext();
 		Object object = ctx.lookup("/Fanny-ear/Fanny-ejb/UserManagment!services.UserManagmentRemote");
 		UserManagmentRemote userManagment = (UserManagmentRemote) object;
 		
 		object = ctx.lookup("/Fanny-ear/Fanny-ejb/ForumManagement!services.ForumManagementRemote");
 		ForumManagementRemote frmManagment = (ForumManagementRemote) object;
-		
+	*/	
 		/*User u = userManagment.findById(3);
 		userManagment.blockUser(u);
 		userManagment.unblockUser(u);*/
@@ -103,6 +103,8 @@ public class Entry {
 			System.err.println("hi");
 		}*/
 		
+		String x = "C:\\Aymen\\A\\B\\C";
+		System.out.println(x.replaceAll("\\\\", "/"));
 		
 	}
 

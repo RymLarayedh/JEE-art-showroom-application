@@ -15,6 +15,7 @@ import java.util.ResourceBundle;
 
 import javax.imageio.ImageIO;
 import javax.print.DocFlavor.BYTE_ARRAY;
+import javax.security.auth.login.LoginException;
 import javax.swing.text.StyledEditorKit.BoldAction;
 
 import com.jfoenix.controls.JFXComboBox;
@@ -405,20 +406,24 @@ public class AdminController implements Initializable {
 
 	@FXML
 	public void Disconnect(ActionEvent event) throws IOException {
-		LoginController.userLogedIn = null;
-		Parent adminScene = FXMLLoader.load(getClass().getResource("Login.fxml"));
-		Scene scene = new Scene(adminScene, 600, 600);
-		scene.getStylesheets().add(getClass().getResource("Login.css").toExternalForm());
-		Stage Sc = new Stage();
-		Sc.setScene(scene);
-		Sc.setTitle("FannyTUNISIA");
-		Sc.setOnCloseRequest(e -> {
-			e.consume();
-			Main.closeProgram(Sc);
-		});
-		Sc.show();
-		final Stage stage = (Stage) AymensPane.getScene().getWindow();
-		stage.close();
+		try {
+			LoginController.loginContext.logout();
+			//LoginController.userLogedIn = null;
+			Parent adminScene = FXMLLoader.load(getClass().getResource("Login.fxml"));
+			Scene scene = new Scene(adminScene, 600, 600);
+			scene.getStylesheets().add(getClass().getResource("Login.css").toExternalForm());
+			Stage Sc = new Stage();
+			Sc.setScene(scene);
+			Sc.setTitle("FannyTUNISIA");
+			Sc.setOnCloseRequest(e -> {
+				e.consume();
+				Main.closeProgram(Sc);
+			});
+			Sc.show();
+			final Stage stage = (Stage) AymensPane.getScene().getWindow();
+			stage.close();
+		} catch (LoginException e1) {
+		}
 	}
 
 	@FXML
