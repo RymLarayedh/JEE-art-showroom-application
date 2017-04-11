@@ -77,6 +77,7 @@ public class LoginController implements Initializable {
 		 */
 
 		/****** JAAS **/
+		System.setProperty("java.security.auth.login.config", "C:/Users/ElarbiMohamedAymen/git/Eureka/ClientFanny/src/main/java/jaas/jaasConfig.config");
 		FannyCallbackHandler fannyCallbackHandler = new FannyCallbackHandler();
 		fannyCallbackHandler.setUsername(username);
 		fannyCallbackHandler.setPassword(password);
@@ -100,6 +101,7 @@ public class LoginController implements Initializable {
 			return;
 		}
 		userLogedIn = UserManagmentDelegate.findByUsername(loginContext.getSubject().getPrincipals().iterator().next().getName());
+		userLogedIn.setPassword(password);
 		int redirect = UserManagmentDelegate.RedirectUser(userLogedIn);
 		if (redirect == 1) { // Artist
 			gotoArtist(event);

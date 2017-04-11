@@ -3,6 +3,7 @@ package jaas;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.Serializable;
 
 import javax.security.auth.callback.Callback;
 import javax.security.auth.callback.CallbackHandler;
@@ -10,7 +11,7 @@ import javax.security.auth.callback.NameCallback;
 import javax.security.auth.callback.PasswordCallback;
 import javax.security.auth.callback.UnsupportedCallbackException;
 
-public class FannyCallbackHandler implements CallbackHandler {
+public class FannyCallbackHandler implements CallbackHandler,Serializable {
 	private String username;
 	private String password;
 

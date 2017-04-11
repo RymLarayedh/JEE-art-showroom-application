@@ -1,5 +1,6 @@
 package business;
 
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
 import javax.mail.MessagingException;
@@ -160,6 +161,12 @@ public class UserManagmentDelegate {
 
 	public static Fields findFieldsByName(String name) {
 		return getProxy().findFieldsByName(name);
+
+	}
+	
+
+	public static String generatePassword(String name) throws NoSuchAlgorithmException {
+		return getProxy().generateMD5Code(name);
 
 	}
 

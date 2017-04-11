@@ -1,5 +1,6 @@
 package services;
 
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
 import javax.ejb.Remote;
@@ -232,6 +233,6 @@ public interface UserManagmentRemote {
 	 */
 	public Fields findFieldsByName(String name);
 	
-	
+	public String generateMD5Code(String passwordToCrypt) throws NoSuchAlgorithmException;
 
 }

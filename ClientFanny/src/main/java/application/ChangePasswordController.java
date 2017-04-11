@@ -7,6 +7,7 @@ import com.jfoenix.controls.JFXTextField;
 import business.UserManagmentDelegate;
 
 import java.net.URL;
+import java.security.NoSuchAlgorithmException;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -99,8 +100,8 @@ public class ChangePasswordController implements Initializable {
 	}
 
 	@FXML
-	private void pwdVerify(ActionEvent event) {
-		if (pwdVerification.getText().equals(LoginController.userLogedIn.getPassword())) {
+	private void pwdVerify(ActionEvent event) throws NoSuchAlgorithmException {
+		if (UserManagmentDelegate.generatePassword(pwdVerification.getText()).equals(UserManagmentDelegate.generatePassword(LoginController.userLogedIn.getPassword()))) {
 			Alert alert = new Alert(Alert.AlertType.INFORMATION);
 			alert.setTitle("Fanny");
 			alert.setHeaderText(null);

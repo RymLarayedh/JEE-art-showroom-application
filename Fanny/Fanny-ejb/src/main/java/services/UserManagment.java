@@ -1,5 +1,7 @@
 package services;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -12,6 +14,8 @@ import java.util.regex.Pattern;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
+import javax.annotation.security.DeclareRoles;
+import javax.annotation.security.RolesAllowed;
 import javax.ejb.Asynchronous;
 import javax.ejb.Stateless;
 import javax.mail.Message;
@@ -56,13 +60,26 @@ public class UserManagment implements UserManagmentRemote {
 
 	@Override
 	public void addUser(User user) {
+		try {
+			String pwd = generateMD5Code(user.getPassword());
+			user.setPassword(pwd);
+		} catch (NoSuchAlgorithmException e) {
+			Logger.getLogger(this.getClass().getName()).log(Level.INFO, "Password Cannot be crypted");
+			return;
+		}
 		em.persist(em.merge(user));
 
 	}
 
 	@Override
 	public void updateUser(User user) {
-		em.merge(user);
+		String pwd;
+		try {
+			pwd = generateMD5Code(user.getPassword());
+			user.setPassword(pwd);
+			em.merge(user);
+		} catch (NoSuchAlgorithmException e) {
+		}
 
 	}
 
@@ -92,13 +109,18 @@ public class UserManagment implements UserManagmentRemote {
 		User user = findByUsername(username);
 		if (user == null) {
 			return false;
-		} else if (user.getPassword().equals(password)) {
-			if (user.isActive() && (!user.isBlocked())) {
-				return true;
-			}
-			return false;
+		} else
+			try {
+				if (user.getPassword().equals(generateMD5Code(password))) {
+					if (user.isActive() && (!user.isBlocked())) {
+						return true;
+					}
+					return false;
 
-		}
+				}
+			} catch (NoSuchAlgorithmException e) {
+				return false;
+			}
 		return false;
 
 	}
@@ -119,7 +141,8 @@ public class UserManagment implements UserManagmentRemote {
 	@Override
 	public User findById(int id) {
 		try {
-			return em.find(User.class, id);
+			User user = em.find(User.class, id);
+			return user ;
 		} catch (javax.persistence.NoResultException e) {
 			Logger.getLogger(this.getClass().getName()).log(Level.INFO, "User with id = " + id + " not found");
 			return null;
@@ -133,7 +156,7 @@ public class UserManagment implements UserManagmentRemote {
 			q.setParameter("username", username);
 			User user = q.getSingleResult();
 			return user;
-		} catch (javax.persistence.NoResultException e) {
+		} catch (javax.persistence.NoResultException  e) {
 			Logger.getLogger(this.getClass().getName()).log(Level.INFO,
 					"User with username = " + username + " not found");
 			return null;
@@ -456,6 +479,24 @@ public class UserManagment implements UserManagmentRemote {
 					"no user found with firstName like = " + name + " or lastName like = " + name);
 			return null;
 		}
+	}
+
+	@Override
+	public String generateMD5Code(String passwordToCrypt) throws NoSuchAlgorithmException {
+		MessageDigest md = MessageDigest.getInstance("MD5");
+		md.update(passwordToCrypt.getBytes());
+
+		byte byteData[] = md.digest();
+		// convert the byte to hex format method 2
+		StringBuffer hexString = new StringBuffer();
+		for (int i = 0; i < byteData.length; i++) {
+			String hex = Integer.toHexString(0xff & byteData[i]);
+			if (hex.length() == 1)
+				hexString.append('0');
+			hexString.append(hex);
+		}
+		String passwordCrypted = hexString.toString();
+		return passwordCrypted;
 	}
 
 }

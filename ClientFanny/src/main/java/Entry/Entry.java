@@ -1,8 +1,11 @@
 package Entry;
 
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.crypto.Cipher;
+import javax.crypto.spec.SecretKeySpec;
 import javax.mail.MessagingException;
 import javax.mail.internet.AddressException;
 import javax.naming.InitialContext;
@@ -19,14 +22,13 @@ import services.UserManagmentRemote;
 
 public class Entry {
 
-	public static void main(String[] args) throws NamingException, AddressException, MessagingException {
-		/*InitialContext ctx = new InitialContext();
+	public static void main(String[] args) throws NamingException, NoSuchAlgorithmException {
+		InitialContext ctx = new InitialContext();
 		Object object = ctx.lookup("/Fanny-ear/Fanny-ejb/UserManagment!services.UserManagmentRemote");
 		UserManagmentRemote userManagment = (UserManagmentRemote) object;
 		
 		object = ctx.lookup("/Fanny-ear/Fanny-ejb/ForumManagement!services.ForumManagementRemote");
-		ForumManagementRemote frmManagment = (ForumManagementRemote) object;
-	*/	
+		ForumManagementRemote frmManagment = (ForumManagementRemote) object;	
 		/*User u = userManagment.findById(3);
 		userManagment.blockUser(u);
 		userManagment.unblockUser(u);*/
@@ -102,10 +104,10 @@ public class Entry {
 		{
 			System.err.println("hi");
 		}*/
-		
-		String x = "C:\\Aymen\\A\\B\\C";
-		System.out.println(x.replaceAll("\\\\", "/"));
+		System.out.println(userManagment.generateMD5Code("ines"));
+		System.out.println(userManagment.generateMD5Code("ines"));
+		System.out.println(userManagment.generateMD5Code("ines"));
 		
 	}
-
+	
 }
