@@ -3,6 +3,8 @@ package jaas;
 import java.io.IOException;
 import java.util.Map;
 
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 import javax.security.auth.Subject;
 import javax.security.auth.callback.Callback;
 import javax.security.auth.callback.CallbackHandler;
@@ -13,8 +15,8 @@ import javax.security.auth.login.FailedLoginException;
 import javax.security.auth.login.LoginException;
 import javax.security.auth.spi.LoginModule;
 
-import business.UserManagmentDelegate;
 import entities.User;
+import services.UserManagmentRemote;
 
 public class FannyLoginModule implements LoginModule {
 	private boolean authentificationSuccessFlag = false;
@@ -24,6 +26,7 @@ public class FannyLoginModule implements LoginModule {
     private Map sharedState;
     private Map options;
     private FannyPrincipal fannyPrincipal = null;
+    private UserManagmentRemote userManagment;
 
 	@Override
 	public void initialize(Subject subject, CallbackHandler callbackHandler, Map<String, ?> sharedState,
@@ -32,6 +35,16 @@ public class FannyLoginModule implements LoginModule {
         this.callbackHandler = callbackHandler;
         this.sharedState = sharedState;
         this.options = options;
+		InitialContext ctx;
+		try {
+			ctx = new InitialContext();
+			Object object = ctx.lookup("/Fanny-ear/Fanny-ejb/UserManagment!services.UserManagmentRemote");
+			userManagment = (UserManagmentRemote) object;
+		} catch (NamingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 
 	}
 
@@ -51,9 +64,9 @@ public class FannyLoginModule implements LoginModule {
 		}
 		String name = ((NameCallback) callbacks[0]).getName();
 		String password = new String(((PasswordCallback) callbacks[1]).getPassword());
-		if(UserManagmentDelegate.loginUser(name, password))
+		if(userManagment.loginUser(name, password))
 		{
-			fannyPrincipal = new FannyPrincipal(name);
+			fannyPrincipal = new FannyPrincipal(name,userManagment.findByUsername(name));
 			authentificationSuccessFlag = true;
 		}
 		else

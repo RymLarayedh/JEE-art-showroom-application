@@ -77,7 +77,7 @@ public class LoginController implements Initializable {
 		 */
 
 		/****** JAAS **/
-		System.setProperty("java.security.auth.login.config", "C:/Users/ElarbiMohamedAymen/git/Eureka/ClientFanny/src/main/java/jaas/jaasConfig.config");
+		System.setProperty("java.security.auth.login.config", "C:/Users/ElarbiMohamedAymen/git/Eureka/Fanny/Fanny-ejb/src/main/java/jaas/jaasConfig.config");
 		FannyCallbackHandler fannyCallbackHandler = new FannyCallbackHandler();
 		fannyCallbackHandler.setUsername(username);
 		fannyCallbackHandler.setPassword(password);
