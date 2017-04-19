@@ -1,0 +1,48 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+	
+
+<h:head>
+	<link rel="shortcut icon" type="image/x-icon"
+		href="#{request.contextPath}/resources/img/fanny.ico" />
+</h:head>
+<body>
+	<h3>List users</h3>
+	<h:form rendered="#{not empty userBean}">
+		<h:dataTable value="#{userBean.lu}" var="item" border="1">
+			<h:column>
+				<f:facet name="header"> </f:facet> <p:graphicImage value="#{userBean.getImageFromDB(item)}" width="100" alt="La photo de #{item.lastName}" /> </h:column>
+			<h:column>
+				<f:facet name="header">First Name</f:facet>#{item.firstName}</h:column>
+			<h:column>
+				<f:facet name="header">Last Name</f:facet>#{item.lastName}</h:column>
+			<h:column>
+				<f:facet name="header">email</f:facet>#{item.email}</h:column>
+			<h:column>
+				<f:facet name="header">Active</f:facet>#{item.active}</h:column>
+			<h:column>
+				<f:facet name="header">username</f:facet>#{item.username}</h:column>
+			<h:column>
+				<h:commandButton value="edit" />
+			</h:column>
+			<h:column>
+				<h:commandButton value="delete" />
+			</h:column>
+			<h:column style="width:32px;text-align: center">
+				<h:commandButton update=":form:carDetail" oncomplete=""
+					icon="ui-icon-search" title="View">
+				</h:commandButton>
+			</h:column>
+		</h:dataTable>
+	</h:form>
+
+	<h:panelGroup rendered="#{empty userBean.lu}">
+		<p>No users! Please add some users.</p>
+	</h:panelGroup>
+
+</body>
+</html>

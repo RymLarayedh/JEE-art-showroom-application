@@ -17,6 +17,7 @@ import javax.annotation.Resource;
 import javax.annotation.security.DeclareRoles;
 import javax.annotation.security.RolesAllowed;
 import javax.ejb.Asynchronous;
+import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -46,6 +47,7 @@ import entities.User;
  * Session Bean implementation class UserManagment
  */
 @Stateless
+@LocalBean
 public class UserManagment implements UserManagmentRemote {
 
 	@PersistenceContext(unitName = "Fanny-ejb")

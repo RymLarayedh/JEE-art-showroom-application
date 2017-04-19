@@ -3,6 +3,7 @@ package jaas;
 import java.io.IOException;
 import java.util.Map;
 
+import javax.ejb.EJB;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.security.auth.Subject;
@@ -26,7 +27,7 @@ public class FannyLoginModule implements LoginModule {
     private Map sharedState;
     private Map options;
     private FannyPrincipal fannyPrincipal = null;
-    private UserManagmentRemote userManagment;
+    @EJB private UserManagmentRemote userManagment;
 
 	@Override
 	public void initialize(Subject subject, CallbackHandler callbackHandler, Map<String, ?> sharedState,
@@ -35,15 +36,15 @@ public class FannyLoginModule implements LoginModule {
         this.callbackHandler = callbackHandler;
         this.sharedState = sharedState;
         this.options = options;
-		InitialContext ctx;
-		try {
-			ctx = new InitialContext();
-			Object object = ctx.lookup("/Fanny-ear/Fanny-ejb/UserManagment!services.UserManagmentRemote");
-			userManagment = (UserManagmentRemote) object;
-		} catch (NamingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//		InitialContext ctx;
+//		try {
+//			ctx = new InitialContext();
+//			Object object = ctx.lookup("/Fanny-ear/Fanny-ejb/UserManagment!services.UserManagmentRemote");
+//			userManagment = (UserManagmentRemote) object;
+//		} catch (NamingException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 
 
 	}
