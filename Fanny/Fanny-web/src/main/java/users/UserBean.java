@@ -71,10 +71,10 @@ public class UserBean {
 			user = userManagment.findByUsername(user.getUsername());
 			if (user instanceof Admin) {
 				loggedIN = true;
-				navTo = "admin/AdminDashboard?faces-redirect=true";
+				navTo = "pages/admin/AdminDashboard?faces-redirect=true";
 			} else {
 				loggedIN = true;
-				navTo = "users/userIndex?faces-redirect=true";
+				navTo = "pages/users/userIndex?faces-redirect=true";
 			}
 
 		} else {
