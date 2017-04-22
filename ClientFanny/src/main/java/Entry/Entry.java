@@ -11,6 +11,7 @@ import javax.mail.internet.AddressException;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
+import entities.Admin;
 import entities.Artist;
 import entities.ArtistFields;
 import entities.ArtistFollowers;
@@ -32,7 +33,15 @@ public class Entry {
 //		User u = userManagment.findById(2);
 		//userManagment.blockUser(u);
 		//userManagment.unblockUser(u);
-		userManagment.addFollower(userManagment.findById(1), userManagment.findById(2));
+	//	userManagment.addFollower(userManagment.findById(1), userManagment.findById(2));
+		Admin admin = new Admin();
+		admin.setUsername("ines");
+		admin.setPassword("ines");
+		admin.setActive(true);
+		admin.setEmail("inese.elarbi@esprit.tn");
+		admin.setFirstName("ines");
+		admin.setLastName("ines");
+		userManagment.addUser(admin);
 //		Artist x = (Artist) userManagment.findById(2);
 //		for(ArtistFollowers u :x.getFollowers())
 //		{

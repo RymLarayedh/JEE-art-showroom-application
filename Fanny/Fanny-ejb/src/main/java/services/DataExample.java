@@ -91,7 +91,7 @@ public class DataExample {
 		
 		
 		Admin admin = new Admin();
-		admin.setUsername("ines");
+		admin.setUsername("inesW");
 		admin.setPassword("ines");
 		admin.setActive(true);
 		admin.setEmail("ines.elarbi@esprit.tn");

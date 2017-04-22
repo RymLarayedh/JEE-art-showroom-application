@@ -1,22 +1,23 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:h="http://java.sun.com/jsf/html"> 
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
 
 <h:head>
-<script type="text/javascript" src="#{request.contextPath}/resources/js/index.js"></script>
-</h:head> 
-<body> 
+	<script type="text/javascript"
+		src="#{request.contextPath}/resources/js/index.js"></script>
+</h:head>
+<body>
 	<h:form>
-			<h:panelGrid columns="2">
-				<h:outputText value="login" />
-				<h:inputText value="#{userBean.user.username}" />
-				<h:outputText value="password" />
-				<h:inputSecret value="#{userBean.user.password}" />
-				<h:commandButton value="connect"
-					action="#{userBean.doLogin()}" />
-			</h:panelGrid>
-		</h:form>
-</body> 
+		<h:panelGrid columns="2">
+			<h:outputText value="login" />
+			<h:inputText value="#{userBean.user.username}" />
+			<h:outputText value="password" />
+			<h:inputSecret value="#{userBean.user.password}" />
+			<p:commandButton value="connect" action="#{userBean.doLogin()}" />
+		</h:panelGrid>
+	</h:form>
+</body>
 </html>

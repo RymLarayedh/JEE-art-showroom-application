@@ -98,9 +98,10 @@ public class UserBean {
 			}
 
 		} else {
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
-					"Incorrect Username and Passowrd", "Please enter correct username and Password"));
-			return "Index";
+	        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Fanny ERROR", "Wrong username/Password");
+	         
+	        RequestContext.getCurrentInstance().showMessageInDialog(message);
+	        return "";
 		}
 
 		// status = "Login Failed please try again";

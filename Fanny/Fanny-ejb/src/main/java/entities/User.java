@@ -24,10 +24,12 @@ public class User implements Serializable {
 	private String firstName;
 	private String lastName;
 	@NotNull
+	@Column(unique = true)
 	private String username;
 	@NotNull
 	private String password;
 	@NotNull
+	@Column(unique = true)
 	private String email;
 	private boolean isActive;
 	private boolean isBlocked;
