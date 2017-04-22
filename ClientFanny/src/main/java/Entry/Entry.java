@@ -29,9 +29,38 @@ public class Entry {
 		
 		object = ctx.lookup("/Fanny-ear/Fanny-ejb/ForumManagement!services.ForumManagementRemote");
 		ForumManagementRemote frmManagment = (ForumManagementRemote) object;	
-		/*User u = userManagment.findById(3);
-		userManagment.blockUser(u);
-		userManagment.unblockUser(u);*/
+//		User u = userManagment.findById(2);
+		//userManagment.blockUser(u);
+		//userManagment.unblockUser(u);
+		userManagment.addFollower(userManagment.findById(1), userManagment.findById(2));
+//		Artist x = (Artist) userManagment.findById(2);
+//		for(ArtistFollowers u :x.getFollowers())
+//		{
+//			System.err.println("list1");
+//			System.out.println(u.getUser());
+//		}
+//		
+//		List<Artist> LA = userManagment.getAllFollowed(userManagment.findById(2));
+//		
+//		for(Artist u : LA)
+//		{
+//			System.err.println("list2");
+//			System.out.println(u);
+//		}
+//		User u = userManagment.findById(2);
+//		if(u instanceof Artist)
+//		{
+//			Artist artist = (Artist) userManagment.findById(2);
+//			for(ArtistFollowers zu :artist.getFollowers())
+//			{
+//				System.err.println("list1");
+//				System.out.println(zu.getUser());
+//			}
+//		}
+//		else
+//		{
+//			System.out.println("mouch");
+//		}
 		
 		//Category ctg = new Category(1,"aa");
 		
@@ -104,9 +133,9 @@ public class Entry {
 		{
 			System.err.println("hi");
 		}*/
-		System.out.println(userManagment.generateMD5Code("ines"));
-		System.out.println(userManagment.generateMD5Code("ines"));
-		System.out.println(userManagment.generateMD5Code("ines"));
+//		System.out.println(userManagment.generateMD5Code("ines"));
+//		System.out.println(userManagment.generateMD5Code("ines"));
+//		System.out.println(userManagment.generateMD5Code("ines"));
 		
 	}
 	

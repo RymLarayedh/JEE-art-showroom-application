@@ -24,6 +24,8 @@ import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 
 import entities.Admin;
+import entities.Artist;
+import entities.ArtistFollowers;
 import entities.User;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
@@ -200,5 +202,37 @@ public class UserBean {
 				"Welcome aboard");
 		Lu = userManagment.getAllUsers();
 	}
+	
+	public List<Artist> getAllFollowed()
+	{
+		return userManagment.getAllFollowed(userChoosen);
+	}
+	
+	public int getAllFollow()
+	{
+		if(userChoosen instanceof Artist)
+		{
+			Artist artist = (Artist) userChoosen;
+			return artist.getFollowers().size();
+		}
+		return 0;
+	}
+	
+	public List<User> getAllFollowers()
+	{
+		if(userChoosen instanceof Artist)
+		{
+			List<User> Lues = new ArrayList<User>();
+			Artist artist = (Artist) userChoosen;
+			for(ArtistFollowers af:artist.getFollowers())
+			{
+				Lues.add(af.getUser());
+			}
+			return Lues;
+		}
+		return null;
+	}
+	
+	
 
 }

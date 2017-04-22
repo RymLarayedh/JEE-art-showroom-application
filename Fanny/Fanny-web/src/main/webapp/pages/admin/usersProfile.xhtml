@@ -1,7 +1,8 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets">
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
 
 	<h:head>
 		<link rel="stylesheet"
@@ -84,16 +85,36 @@
 					internet!</div>
 				<ul class="data-user">
 					<li onclick="Posts()"><a><strong>3390</strong><span>Posts</span></a></li>
-					<li onclick="Followers()"><a><strong>718</strong><span>Followers</span></a></li>
-					<li onclick="Following()"><a><strong>239</strong><span>Following</span></a></li>
+					<li onclick="Following()"><a><strong>#{userBean.allFollowed.size()}</strong><span>Following</span></a></li>
+					<li onclick="Followers()"><a><strong>#{userBean.allFollow}</strong><span>Followers</span></a></li>
 				</ul>
 			</div>
 		</div>
 		<div id="posts" hidden="true">those are some posts</div>
 
-		<div id="followers" hidden="true">those are the followers</div>
+		<div id="followers" hidden="true">
+			<p>those are the followers</p>
+			<h:dataTable value="#{userBean.allFollowers}" var="item">
+				<h:column>
+					<p:graphicImage width="100" alt="La photo de #{item.lastName}" />
+				</h:column>
+				<h:column>
+					#{item.firstName} #{item.lastName}
+				</h:column>
+			</h:dataTable>
+		</div>
 
-		<div id="following" hidden="true">those are the followings</div>
+		<div id="following" hidden="true">
+			<p>those are the followings</p>
+			<h:dataTable value="#{userBean.allFollowed}" var="item">
+				<h:column>
+					<p:graphicImage width="100" alt="La photo de #{item.lastName}" />
+				</h:column>
+				<h:column>
+					#{item.firstName} #{item.lastName}
+				</h:column>
+			</h:dataTable>
+		</div>
 
 
 	</h:body>
