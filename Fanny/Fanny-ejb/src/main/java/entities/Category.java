@@ -110,7 +110,7 @@ public class Category implements Serializable {
 	public String toString() {
 		return "Category [idCategory=" + idCategory + ", name=" + name + ", addedAt=" + addedAt + ", addedBy=" + addedBy
 				+ ", listTopic=" +  "]";
-	}//
+	}
 	
 	
 	
