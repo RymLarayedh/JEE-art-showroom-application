@@ -54,7 +54,7 @@ public class User implements Serializable {
 	private Set<Cart> listCart;
 	
 	/**Ines **/
-	@OneToMany(mappedBy="addedBy")
+	@OneToMany(mappedBy="addedBy",cascade={CascadeType.PERSIST,CascadeType.MERGE},fetch=FetchType.EAGER)
 	private Set<Category> listCategories;
 	
 	@OneToMany(mappedBy="AddedBy")
