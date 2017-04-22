@@ -18,8 +18,7 @@ import entities.Topic;
 
 public class Category implements Serializable {
 
-	//added
-	  // 
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int idCategory;
@@ -27,15 +26,11 @@ public class Category implements Serializable {
 	private Date addedAt ;
 	@ManyToOne(targetEntity=Admin.class)
 	private Admin addedBy ;
-//	@OneToMany(targetEntity=Topic.class,mappedBy="catgory",cascade={CascadeType.ALL},orphanRemoval=true)
-	//private List<Topic> listTopic;
+	@OneToMany(targetEntity=Topic.class,mappedBy="catgory",cascade={CascadeType.ALL},orphanRemoval=true)
+	private List<Topic> listTopic;
 	
 	private static final long serialVersionUID = 1L;
-//	@OneToOne(mappedBy="category")
-//	private Artwork visualArt ;
-//	manel
-//	@OneToMany(mappedBy="category")//,cascade=CascadeType.PERSIST,fetch=FetchType.EAGER*/)
-//	private List<VisualArt> listVisualArt;
+
 
 	public Category() {
 		super();
@@ -93,22 +88,22 @@ public class Category implements Serializable {
 	public void setName(String name) {
 		this.name = name;
 	}
-//	public List<Topic> getListTopic() {
-//		return listTopic;
-//	}
-//	public void setListTopic(List<Topic> listTopic) {
-//		this.listTopic = listTopic;
-//	}
+	public List<Topic> getListTopic() {
+		return listTopic;
+	}
+	public void setListTopic(List<Topic> listTopic) {
+		this.listTopic = listTopic;
+	}
 	public Category(int idCategory, String name, List<Topic> listTopic) {
 		super();
 		this.idCategory = idCategory;
 		this.name = name;
-		//this.listTopic = listTopic;
+		this.listTopic = listTopic;
 	}
 	public Category(String name, List<Topic> listTopic) {
 		super();
 		this.name = name;
-		//this.listTopic = listTopic;
+		this.listTopic = listTopic;
 	}
 
 	@Override
@@ -116,6 +111,8 @@ public class Category implements Serializable {
 		return "Category [idCategory=" + idCategory + ", name=" + name + ", addedAt=" + addedAt + ", addedBy=" + addedBy
 				+ ", listTopic=" +  "]";
 	}
+	
+	
 	
 	
    

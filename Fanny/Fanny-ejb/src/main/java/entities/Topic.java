@@ -2,6 +2,7 @@ package entities;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.*;
 
@@ -27,6 +28,8 @@ public class Topic implements Serializable {
 	@ManyToOne(targetEntity=User.class)
 	private User AddedBy;
 	private String Text;
+	@OneToMany(targetEntity=Post.class,mappedBy="topic",cascade={CascadeType.ALL},orphanRemoval=true)
+	private List<Post> listPost;
 	private static final long serialVersionUID = 1L;
 
 	public Topic() {
@@ -75,6 +78,19 @@ public class Topic implements Serializable {
 	public void setText(String text) {
 		Text = text;
 	}
+	public List<Post> getListPost() {
+		return listPost;
+	}
+	public void setListPost(List<Post> listPost) {
+		this.listPost = listPost;
+	}
+	@Override
+	public String toString() {
+		return "Topic [idTopic=" + idTopic + ", Title=" + Title + ", AddedAt=" + AddedAt + ", catgory=" + catgory
+				+ ", AddedBy=" + AddedBy + ", Text=" + Text + ", listPost=" + listPost + "]";
+	}
+	
+	
 	
 	
 	

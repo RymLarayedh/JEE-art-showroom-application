@@ -53,6 +53,18 @@ public class User implements Serializable {
 	@OneToMany(mappedBy="user")
 	private Set<Cart> listCart;
 	
+	/**Ines **/
+	@OneToMany(mappedBy="addedBy")
+	private Set<Category> listCategories;
+	
+	@OneToMany(mappedBy="AddedBy")
+	private Set<Topic> listTopics;
+	
+	@OneToMany(mappedBy="AddedBy")
+	private Set<Post> listPosts;
+	
+	@OneToMany(mappedBy="AddedBy")
+	private Set<Reply> listReply;
 	
 	
 
@@ -216,6 +228,59 @@ public class User implements Serializable {
 			return false;
 		return true;
 	}
+
+	public List<EventUser> getListEventUser() {
+		return listEventUser;
+	}
+
+	public void setListEventUser(List<EventUser> listEventUser) {
+		this.listEventUser = listEventUser;
+	}
+
+	public List<Feedback> getListFeedback() {
+		return listFeedback;
+	}
+
+	public void setListFeedback(List<Feedback> listFeedback) {
+		this.listFeedback = listFeedback;
+	}
+
+	public Set<Category> getListCategories() {
+		return listCategories;
+	}
+
+	public void setListCategories(Set<Category> listCategories) {
+		this.listCategories = listCategories;
+	}
+
+	public Set<Topic> getListTopics() {
+		return listTopics;
+	}
+
+	public void setListTopics(Set<Topic> listTopics) {
+		this.listTopics = listTopics;
+	}
+
+	public Set<Post> getListPosts() {
+		return listPosts;
+	}
+
+	public void setListPosts(Set<Post> listPosts) {
+		this.listPosts = listPosts;
+	}
+
+	public Set<Reply> getListReply() {
+		return listReply;
+	}
+
+	public void setListReply(Set<Reply> listReply) {
+		this.listReply = listReply;
+	}
+	
+	
+
+	
+	
 	
 	
 	
