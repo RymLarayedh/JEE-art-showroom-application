@@ -3,19 +3,27 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:p="http://primefaces.org/ui">
-	
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:rich="http://richfaces.org/rich">
+
 
 <h:head>
 	<link rel="shortcut icon" type="image/x-icon"
 		href="#{request.contextPath}/resources/img/fanny.ico" />
+	<script src="#{request.contextPath}/resources/js/jquery-3.1.1.js"></script>
+	<script src="#{request.contextPath}/resources/js/admin.js"></script>
 </h:head>
 <body>
 	<h3>List users</h3>
 	<h:form rendered="#{not empty userBean}">
 		<h:dataTable value="#{userBean.lu}" var="item" border="1">
 			<h:column>
-				<f:facet name="header"> </f:facet> <p:graphicImage value="#{userBean.getImageFromDB(item)}" width="100" alt="La photo de #{item.lastName}" /> </h:column>
+				<f:facet name="header">
+				</f:facet>
+				<p:graphicImage value="#{userBean.getImageFromDB(item)}" width="100"
+					alt="La photo de #{item.lastName}" />
+				<f:param name="imageId" value="#{item.idUser}" />
+			</h:column>
 			<h:column>
 				<f:facet name="header">First Name</f:facet>#{item.firstName}</h:column>
 			<h:column>
@@ -23,19 +31,17 @@
 			<h:column>
 				<f:facet name="header">email</f:facet>#{item.email}</h:column>
 			<h:column>
-				<f:facet name="header">Active</f:facet>#{item.active}</h:column>
-			<h:column>
 				<f:facet name="header">username</f:facet>#{item.username}</h:column>
 			<h:column>
-				<h:commandButton value="edit" />
+				<f:facet name="header">Status</f:facet>
+				<h:outputText rendered="#{not item.active}" value="Not Activated" />
+				<h:outputText rendered="#{not item.blocked and item.active}"
+					value="Activated" />
+				<h:outputText rendered="#{item.blocked}" value="Blocked" />
 			</h:column>
 			<h:column>
-				<h:commandButton value="delete" />
-			</h:column>
-			<h:column style="width:32px;text-align: center">
-				<h:commandButton update=":form:carDetail" oncomplete=""
-					icon="ui-icon-search" title="View">
-				</h:commandButton>
+					<h:commandButton value="View and Edit"
+						action="#{userBean.ShowUserProfile(item)}" onclick="showMyPage()" />
 			</h:column>
 		</h:dataTable>
 	</h:form>

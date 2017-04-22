@@ -14,8 +14,12 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.faces.event.PhaseId;
 import javax.imageio.ImageIO;
+import javax.mail.MessagingException;
+import javax.mail.internet.AddressException;
 
+import org.primefaces.context.RequestContext;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 
@@ -32,12 +36,14 @@ public class UserBean {
 	@EJB
 	private UserManagment userManagment;
 	private User user;
+	private User userChoosen ;
 	private boolean loggedIN = false;
 	List<User> Lu;
 
 	@PostConstruct
 	public void remplirList() {
 		user = new User();
+		userChoosen = new User();
 		Lu = new ArrayList<User>();
 	}
 
@@ -65,6 +71,18 @@ public class UserBean {
 		Lu = lu;
 	}
 
+	public User getUserChoosen() {
+		return userChoosen;
+	}
+
+	public void setUserChoosen(User userChoosen) {
+		this.userChoosen = userChoosen;
+	}
+
+	/**
+	 * this method ensure the login and the redirection
+	 * @return
+	 */
 	public String doLogin() {
 		String navTo = "";
 		if (userManagment.loginUser(user.getUsername(), user.getPassword())) {
@@ -87,6 +105,10 @@ public class UserBean {
 		return navTo;
 	}
 
+	/**
+	 * this method will returns all the users in the database (in order to display them later)
+	 * @return
+	 */
 	public String ShowAllUsers() {
 		String navTo = "ManageUsers?faces-redirect=true";
 		Lu = userManagment.getAllUsers();
@@ -109,20 +131,74 @@ public class UserBean {
 	}
 
 	public StreamedContent getImageFromDB(User u) throws IOException {
-		if (u.getPicture() == null) {
-			File file = new File("/img/PasDePhotoDeProfil.png");
-			byte[] bFile = new byte[(int) file.length()];
-			try {
-				FileInputStream fileInputStream = new FileInputStream(file);
-				fileInputStream.read(bFile);
-				fileInputStream.close();
-			} catch (Exception e) {
+		FacesContext context = FacesContext.getCurrentInstance();
+
+		if (context.getCurrentPhaseId() == PhaseId.RENDER_RESPONSE) {
+			// So, we're rendering the HTML. Return a stub StreamedContent so
+			// that it will generate right URL.
+			return new DefaultStreamedContent();
+		} else {
+			if (u.getPicture() == null) {
+				File file = new File("/img/PasDePhotoDeProfil.png");
+				byte[] bFile = new byte[(int) file.length()];
+				try {
+					FileInputStream fileInputStream = new FileInputStream(file);
+					fileInputStream.read(bFile);
+					fileInputStream.close();
+				} catch (Exception e) {
+				}
+				u.setPicture(bFile);
 			}
-			u.setPicture(bFile);
+
+			return new DefaultStreamedContent(new ByteArrayInputStream(u.getPicture()));
 		}
-
-		return new DefaultStreamedContent(new ByteArrayInputStream(u.getPicture()));
-
+	}
+	
+	public  void ShowUserProfile(User user)
+	{
+		userChoosen = user;
+	}
+	
+	/**
+	 * this method will block the "userChoosen from the dataTable" and the user will receive an e-mail in purpose
+	 * @throws AddressException
+	 * @throws MessagingException
+	 */
+	public void BlockUser() throws AddressException, MessagingException
+	{
+		userManagment.blockUser(userChoosen);
+		userManagment.sendMail(userChoosen.getEmail(),
+				"FannyTUNISIA is sorry to announce that we blocked your account for the moment",
+				"Something went wrong");
+		Lu = userManagment.getAllUsers();
+	}
+	
+	/**
+	 * this method will unblock the "userChoosen from the dataTable" and the user will receive an e-mail in purpose
+	 * @throws AddressException
+	 * @throws MessagingException
+	 */
+	public void unBlockUser() throws AddressException, MessagingException
+	{
+		userManagment.unblockUser(userChoosen);
+		userManagment.sendMail(userChoosen.getEmail(),
+				"FannyTUNISIA is so glad to have you again in our community welcome aboard again",
+				"Welcome again");
+		Lu = userManagment.getAllUsers();
+	}
+	
+	/**
+	 * this method will approve the "userChoosen from the dataTable" and the user will receive an e-mail in purpose
+	 * @throws AddressException
+	 * @throws MessagingException
+	 */
+	public void ApproveUser() throws AddressException, MessagingException
+	{
+		userManagment.enableUser(userChoosen);
+		userManagment.sendMail(userChoosen.getEmail(),
+				"FannyTUNISIA is so glad to have you in our community so please behave and respect other members",
+				"Welcome aboard");
+		Lu = userManagment.getAllUsers();
 	}
 
 }
