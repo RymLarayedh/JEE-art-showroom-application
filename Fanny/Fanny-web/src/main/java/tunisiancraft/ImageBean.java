@@ -16,7 +16,6 @@ import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.PhaseId;
 
-import org.omnifaces.cdi.GraphicImageBean;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 
