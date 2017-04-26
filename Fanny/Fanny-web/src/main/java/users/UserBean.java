@@ -5,6 +5,7 @@ import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,9 +13,11 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.component.UIComponent;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.event.PhaseId;
+import javax.faces.validator.ValidatorException;
 import javax.imageio.ImageIO;
 import javax.mail.MessagingException;
 import javax.mail.internet.AddressException;
@@ -31,9 +34,9 @@ import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
 import services.UserManagment;
 
-@ManagedBean
+@ManagedBean(name="userBean")
 @SessionScoped
-public class UserBean {
+public class UserBean implements Serializable {
 
 	@EJB
 	private UserManagment userManagment;
@@ -79,6 +82,12 @@ public class UserBean {
 
 	public void setUserChoosen(User userChoosen) {
 		this.userChoosen = userChoosen;
+	}
+	
+	public String doSignUp() {
+		String navTo = "";
+		userManagment.addUser(user);
+		return navTo;
 	}
 
 	/**
@@ -133,27 +142,15 @@ public class UserBean {
 		return navTo;
 	}
 
-	public StreamedContent getImageFromDB(User u) throws IOException {
-		FacesContext context = FacesContext.getCurrentInstance();
-
-		if (context.getCurrentPhaseId() == PhaseId.RENDER_RESPONSE) {
-			// So, we're rendering the HTML. Return a stub StreamedContent so
-			// that it will generate right URL.
-			return new DefaultStreamedContent();
-		} else {
-			if (u.getPicture() == null) {
-				File file = new File("/img/PasDePhotoDeProfil.png");
-				byte[] bFile = new byte[(int) file.length()];
-				try {
-					FileInputStream fileInputStream = new FileInputStream(file);
-					fileInputStream.read(bFile);
-					fileInputStream.close();
-				} catch (Exception e) {
-				}
-				u.setPicture(bFile);
-			}
-
-			return new DefaultStreamedContent(new ByteArrayInputStream(u.getPicture()));
+	public void validateLoginUnicity(FacesContext context,
+			UIComponent component, Object value) throws ValidatorException {
+		String loginToValidate = (String) value;
+		if (loginToValidate == null || loginToValidate.trim().isEmpty()) {
+			return;
+		}
+		if (userManagment.findByUsername(loginToValidate)!= null) {
+			throw new ValidatorException(new FacesMessage(
+					"login already in use!"));
 		}
 	}
 	

@@ -1,0 +1,85 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:p="http://primefaces.org/ui">
+
+	<h:head>
+		<title>Project1</title>
+		<link href="https://fonts.googleapis.com/css?family=Droid+Sans"
+			rel="stylesheet" />
+
+		<link rel="stylesheet"
+			href="#{request.contextPath}/resources/css/style.css" />
+	</h:head>
+	<h:body>
+		<div class="All">
+			<div class="container">
+				<div class="content">
+					<div class="sign-up">
+						<h2>Don't Have an account ?</h2>
+						<p>We Recommended you to sign up in our site you will be
+							up-to-date of all the new of technology</p>
+						<button class="signup">Sign Up</button>
+					</div>
+					<div class="sign-in">
+						<h2>Have an account ?</h2>
+						<p>The Right path is start from here ...</p>
+						<button class="signin">Log In</button>
+					</div>
+				</div>
+				<div class="signover">
+					<div class="first">
+						<h2>SIGN UP</h2>
+						<h:form>
+							<h:panelGrid columns="2">
+								<h:inputText id="firstName" a:placeholder="First Name"
+									value="#{userBean.user.firstName}" required="true"
+									requiredMessage="Please enter your firstName">
+								</h:inputText>
+								<h:message for="firstName" styleClass="error" />
+								<h:inputText id="lastname" a:placeholder="Last Name"
+									value="#{userBean.user.lastName}" required="true"
+									requiredMessage="Please enter your lastName"></h:inputText>
+								<h:message for="lastname" styleClass="error" />
+								<h:inputText id="mail" a:placeholder="E-mail"
+									value="#{userBean.user.email}" required="true"
+									requiredMessage="Please enter your Email"></h:inputText>
+								<h:message for="mail" styleClass="error" />
+								<h:inputText id="username" a:placeholder="Username"
+									value="#{userBean.user.username}" validator="#{userBean.validateLoginUnicity}" required="true"
+									requiredMessage="Please enter your username">
+									<p:ajax event="keyup" render="usernameThread" />
+								</h:inputText>
+								<h:message id="usernameThread" for="username" styleClass="error" />
+								<h:inputSecret a:placeholder="Password"
+									value="#{userBean.user.password}" />
+								<h:message for="firstName" styleClass="error" />
+								<h:inputSecret a:placeholder="retype Password"
+									value="#{userBean.user.password}" />
+								<h:message for="firstName" styleClass="error" />
+							</h:panelGrid>
+							<h:commandButton id="signUp" action="#{userBean.doSignUp()}"
+								value="SIGN UP" />
+						</h:form>
+					</div>
+					<div class="second" style="display: none">
+						<h2>LOG IN</h2>
+						<h:form>
+							<h:inputText id="username" a:placeholder="Username"
+								value="#{userBean.user.username}" />
+							<h:inputSecret id="password" a:placeholder="Password"
+								value="#{userBean.user.password}" />
+							<a href="#">Forget Password ? </a>
+							<h:commandButton id="login" action="#{userBean.doLogin()}"
+								value="LOG IN" />
+						</h:form>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script src="#{request.contextPath}/resources/js/jquery-3.1.1.js"></script>
+		<script src="#{request.contextPath}/resources/js/plugins.js"></script>
+	</h:body>
+</ui:composition>

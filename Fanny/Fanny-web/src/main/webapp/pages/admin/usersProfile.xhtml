@@ -55,14 +55,17 @@
       }
     </script>
 	</h:head>
-	<h:body>this is the body this is : #{userBean.userChoosen.username}
+	<h:body>
     <div class="content-profile-page">
 			<div class="profile-user-page card">
 				<div class="img-user-profile">
 					<img class="profile-bgHome"
 						src="http://37.media.tumblr.com/88cbce9265c55a70a753beb0d6ecc2cd/tumblr_n8gxzn78qH1st5lhmo1_1280.jpg" />
-					<img class="profilePic" src="img/PasDePhotoDeProfil.png"
-						alt="yourProfilePic" />
+					<p:graphicImage id="users_image" value="#{usersImageBean.image}"
+						cache="false"  styleClass="profilePic" width="50">
+						<f:param name="userName" value="#{userBean.userChoosen.username}" />
+					</p:graphicImage>
+
 				</div>
 				<h:form>
 					<h:commandButton class="blcUnblcApp"
@@ -96,7 +99,9 @@
 			<p>those are the followers</p>
 			<h:dataTable value="#{userBean.allFollowers}" var="item">
 				<h:column>
-					<p:graphicImage width="100" alt="La photo de #{item.lastName}" />
+						<p:graphicImage  id="users_image" value="#{usersImageBean.image}" cache="false" styleClass="editor-picture" width="50">
+    							<f:param name="userName" value="#{item.username}" />
+						</p:graphicImage>
 				</h:column>
 				<h:column>
 					#{item.firstName} #{item.lastName}
@@ -108,7 +113,9 @@
 			<p>those are the followings</p>
 			<h:dataTable value="#{userBean.allFollowed}" var="item">
 				<h:column>
-					<p:graphicImage width="100" alt="La photo de #{item.lastName}" />
+						<p:graphicImage  id="users_image" value="#{usersImageBean.image}" cache="false" styleClass="editor-picture" width="50">
+    							<f:param name="userName" value="#{item.username}" />
+						</p:graphicImage>
 				</h:column>
 				<h:column>
 					#{item.firstName} #{item.lastName}

@@ -3,8 +3,7 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:p="http://primefaces.org/ui"
-	xmlns:rich="http://richfaces.org/rich">
+	xmlns:p="http://primefaces.org/ui">
 
 
 <h:head>
@@ -20,9 +19,9 @@
 			<h:column>
 				<f:facet name="header">
 				</f:facet>
-				<p:graphicImage value="#{userBean.getImageFromDB(item)}" width="100"
-					alt="La photo de #{item.lastName}" />
-				<f:param name="imageId" value="#{item.idUser}" />
+						<p:graphicImage  id="users_image" value="#{usersImageBean.image}" cache="false" styleClass="editor-picture" width="50">
+    							<f:param name="userName" value="#{item.username}" />
+						</p:graphicImage>
 			</h:column>
 			<h:column>
 				<f:facet name="header">First Name</f:facet>#{item.firstName}</h:column>
@@ -41,7 +40,7 @@
 			</h:column>
 			<h:column>
 					<h:commandButton value="View and Edit"
-						action="#{userBean.ShowUserProfile(item)}" onclick="showMyPage()" />
+						action="#{userBean.ShowUserProfile(item)}" immediate="true" onclick="showMyPage()" />
 			</h:column>
 		</h:dataTable>
 	</h:form>
