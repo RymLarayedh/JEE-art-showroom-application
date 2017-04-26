@@ -1,0 +1,30 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+<h:head></h:head>
+<h:form>
+    <p:growl id="messages" showDetail="true" />
+ 
+  
+     
+      Rating :   <p:rating  value="#{ratingView.rating3}">
+            <p:ajax event="rate" listener="#{ratingView.onrate}" update="messages" />
+            <p:ajax event="cancel" listener="#{ratingView.oncancel}" update="messages" />
+        </p:rating>
+ 
+      
+ 
+  
+ 
+    <p:dialog header="Values" widgetVar="dlg" showEffect="fade" hideEffect="fade">
+        <h:panelGrid id="display" columns="2" cellpadding="5">
+           
+ 
+            <h:outputText value="Rating 3:" />
+            <h:outputText value="#{ratingView.rating3}" />
+        </h:panelGrid>
+    </p:dialog>
+</h:form>
+</ui:composition>

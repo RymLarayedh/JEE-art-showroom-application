@@ -1,6 +1,8 @@
 package services;
 
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
@@ -88,6 +90,28 @@ public class ArtworkManagemet implements ArtworkManagemetRemote {
 		} catch (javax.persistence.NoResultException e) {
 			return null;
 		}
+	}
+	@Override
+	public void upadateTunisianCraft(TunisianCraft TC) {
+        em.merge(TC);		
+	}
+	@Override
+	public void deleteTunisianCraft(TunisianCraft TC ){
+		em.remove(em.merge(TC));
+	}
+	@Override
+	public byte[] findPictureByProductName(String name) {
+		byte[] picture = null;
+		TypedQuery<byte[]> query = em.createQuery(
+				"select p.picture from TunisianCraft p where p.name=:x", byte[].class);
+		query.setParameter("x", name);
+		try {
+			picture = query.getSingleResult();
+		} catch (Exception ex) {
+			Logger.getLogger(this.getClass().getName()).log(Level.INFO,
+					"no picture");
+		}
+		return picture;
 	}
 	}
 

@@ -1,0 +1,31 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui	="http://java.sun.com/jsf/facelets"
+               > 
+                <h:form enctype="multipart/form-data"  >
+       <h:panelGrid columns="2">
+        
+    <h:outputText value="Type" />
+     <h:selectOneMenu value ="#{tunisiancraftBean.tunC.type}">
+   	<f:selectItem itemValue="Traditional weaving" itemLabel="Traditional weaving" />
+   	<f:selectItem itemValue="Table Art" itemLabel="Table Art" />
+   	<f:selectItem itemValue="Traditional Clothing" itemLabel="Traditional Clothing" />
+   	<f:selectItem itemValue="Other" itemLabel="Other" />
+   	</h:selectOneMenu>
+       <h:outputText value="Name Of Artwork" />
+       <h:inputText value="#{tunisiancraftBean.tunC.name}" /> 
+       <h:outputText value="Description" />
+       <h:inputText value="#{tunisiancraftBean.tunC.description}" />
+       <h:outputText value="Quantity"/>
+       <h:inputText value="#{tunisiancraftBean.tunC.quantity}" />   
+       <h:outputText value="Price" />
+       <h:inputText value="#{tunisiancraftBean.tunC.price}" />  
+       <h:outputText value="Picture" />
+<h:inputFile  id="file-id"  value="#{tunisiancraftBean.picture}" required="true"   
+requiredMessage="Please upload a picture " alt="upload file"></h:inputFile>    
+   <h:commandButton action="#{tunisiancraftBean.doSave()}" value="save">  </h:commandButton>
+ 	</h:panelGrid>
+
+         </h:form>      
+</ui:composition>
