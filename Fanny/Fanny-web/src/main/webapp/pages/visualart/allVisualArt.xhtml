@@ -1,0 +1,69 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="/template/User.xhtml">
+                	
+			<ui:define name=""></ui:define>		
+			<ui:define name="pageContent">
+			  <center>           	
+ 	<h:dataTable  value="#{visualartBean.listvisualArt}" var="visa" border="2" >
+ 	 <h:column>
+                   <f:facet name="header">picture</f:facet>
+                      
+           <p:graphicImage  id="product_image" value="#{imageBean.image}" cache="false" styleClass="editor-picture" width="100">
+    							<f:param name="productName" value="#{tun.name}" />
+						</p:graphicImage>
+              
+                	</h:column>
+                	<h:column>
+                	<f:facet name="header">Name </f:facet>
+                	<h:outputText value="#{visa.name}" ></h:outputText>
+                	</h:column>
+                	<h:column>
+                	<f:facet name="header">Category</f:facet>
+                	<h:outputText value="#{visa.category}" ></h:outputText>
+                	</h:column>
+                	<h:column>
+                	<f:facet name="header">price </f:facet>
+                	<h:outputText value="#{tun.price}"></h:outputText>
+                	</h:column>
+                	<h:column>
+                	<f:facet name="header">Description</f:facet>
+                	<h:outputText value="#{visa.description}" ></h:outputText>
+                	</h:column>
+                	<h:column>
+                	<f:facet name="header"> publied On </f:facet>
+                	<h:outputText value="#{visa.dateOfOublication}"></h:outputText>
+                	</h:column>
+                	<h:column>
+                	<f:facet name="header">Length </f:facet>
+                	<h:outputText value="#{visa.length}"></h:outputText>
+                	</h:column>
+                	<h:column>
+                	<f:facet name="header">width </f:facet>
+                	<h:outputText value="#{visa.width}"></h:outputText>
+                	</h:column>
+                 
+                	<h:column>
+                	<f:facet name="header">action</f:facet>
+                		<h:form>
+                	<h:commandButton  value="Select">
+                	<f:setPropertyActionListener value="#{tun}" target="#{tunisiancraftBean.tunC}"></f:setPropertyActionListener>
+                	<f:setPropertyActionListener value="true" target="#{tunisiancraftBean.formDisplay}"></f:setPropertyActionListener>
+
+                	</h:commandButton>
+                	</h:form>
+                	
+                	</h:column>
+                	
+                	</h:dataTable>
+                
+                	<h:form>
+                	<h:commandButton   value="New" action="#{tunisiancraftBean.doNew()}" >
+                	
+                	</h:commandButton>
+                	</h:form>
+                	</center> 
+                	</ui:define>
+</ui:composition>

@@ -1,0 +1,71 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="/template/User.xhtml">
+                	
+			<ui:define name="">addva</ui:define>		
+			<ui:define name="pageContent">
+			<h:form enctype="multipart/form-data"  >
+       <h:panelGrid columns="3">
+        
+                     <h:outputText value="Name"></h:outputText>
+             <h:inputText id="Name"  value="#{visualartBean.visualArt.name}" required="true" requiredMessage="Name obligatoire">
+<!--             <f:validateLength minimum="2" maximum="5" ></f:validateLength> -->
+<!--             <F:VALIDATEREGEX PATTERN=""></F:VALIDATEREGEX> -->
+             <f:ajax event="blur" render="msgName"></f:ajax>
+             </h:inputText>
+             <h:message id="msgName" for="Name"/>
+             
+             <h:outputText value="Price"></h:outputText>
+             <h:inputText id="Price" value="#{visualartBean.visualArt.price}" 
+             required="true" requiredMessage="price obligatoire">
+              <f:ajax event="blur" render="msgPrice"></f:ajax>
+             </h:inputText>
+             <h:message id="msgPrice" for="Price" />
+    
+        
+                     <h:outputText value="Category"></h:outputText>
+             
+<h:selectOneMenu value = "#{visualartBean.visualArt.category}"> 
+   <f:selectItem itemValue = "drawing" itemLabel = "drawing" /> 
+   <f:selectItem itemValue = "painting" itemLabel = "painting" /> 
+    <f:selectItem itemValue = "sculpture" itemLabel = "sculpture" /> 
+   <f:selectItem itemValue = "printmaking" itemLabel = "printmaking" /> 
+    <f:selectItem itemValue = "design" itemLabel = "design" /> 
+   <f:selectItem itemValue = "photography" itemLabel = "photography" /> 
+   <f:selectItem itemValue = "filmmaking" itemLabel = "filmmaking" /> 
+   <f:selectItem itemValue = "literature" itemLabel = "literature" /> 
+   <f:selectItem itemValue = "Other" itemLabel = "Other" /> 
+</h:selectOneMenu> 
+<h:message />
+
+
+                  <h:outputText value="Length"></h:outputText>
+             <h:inputText id="Length" value="#{visualartBean.visualArt.length}" required="true" requiredMessage="Length obligatoire">
+                     <f:ajax event="blur" render="msgLength"></f:ajax>
+             </h:inputText>
+             <h:message id="msgLength" for="Length" />
+             
+             <h:outputText value="width"></h:outputText>
+             <h:inputText id="width" value="#{visualartBean.visualArt.width}" required="true" requiredMessage="width obligatoire">
+                     <f:ajax event="blur" render="msgwidth"></f:ajax>
+             </h:inputText>
+             <h:message id="msgwidth" for="width" styleClass="error" />
+             
+             <h:outputText value="description"></h:outputText>
+             <h:inputText id="description" value="#{visualartBean.visualArt.description}" required="true" requiredMessage="description obligatoire">
+                     <f:ajax event="blur" render="msgdescription"></f:ajax>
+             </h:inputText>
+             
+             <h:message id="msgdescription" for="description" styleClass="error" />
+      
+       <h:outputText value="Picture" />
+<h:inputFile  id="file-id"  value="#{visualartBean.picture}" required="true"   
+requiredMessage="Please upload a picture " alt="upload file"></h:inputFile>    
+   <h:commandButton action="#{visualartBean.doSave()}" value="save">  </h:commandButton>
+ 	</h:panelGrid>
+
+         </h:form>      
+         </ui:define>
+</ui:composition>
