@@ -128,5 +128,19 @@ public class VisualArtworkEJB implements VisualArtworkEJBRemote {
 		return Lart2;
 
 	}
+	@Override
+	public byte[] findPictureByVisualArtName(String name) {
+		byte[] picture = null;
+		TypedQuery<byte[]> query = em.createQuery(
+				"select p.picture from VisualArt p where p.name=:x", byte[].class);
+		query.setParameter("x", name);
+		try {
+			picture = query.getSingleResult();
+		} catch (Exception ex) {
+			Logger.getLogger(this.getClass().getName()).log(Level.INFO,
+					"no picture");
+		}
+		return picture;
+	}
 
 }
