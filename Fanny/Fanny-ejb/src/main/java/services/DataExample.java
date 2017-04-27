@@ -139,6 +139,8 @@ public class DataExample {
 		e1.setTitle("CHACHIA EVENT");
 		eventManagment.addEvent(e1);
 
+		
+		
 		EventUser EU = new EventUser();
 		EventUserID ee = new EventUserID();
 		ee.setIdEventPK(1);
@@ -156,6 +158,8 @@ public class DataExample {
 		a.setType("Tissu");
 		a.setQuantity(2);
 		artworkManagment.addTunisianCraft(a);
+		
+		
 
 		// ************Ines
 

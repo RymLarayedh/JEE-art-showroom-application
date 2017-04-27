@@ -9,6 +9,7 @@ import javax.ejb.EJB;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
@@ -20,7 +21,7 @@ import services.EventManagmentRemote;
 import services.UserManagmentRemote;
 
 @ManagedBean
-@SessionScoped //application gourmond en ressource //utiliser une seule fois
+@ViewScoped //application gourmond en ressource //utiliser une seule fois
 public class EventsBean {
 	
 	@EJB
@@ -38,23 +39,14 @@ public class EventsBean {
 	private List<Event> listEvents = new ArrayList<Event>();
 	private Boolean formDisplayed = false;
 	private Boolean formDetails = false;
-	private Date test;
 	
 	
 	
 	
 
-	public Date getTest() {
-		return test;
-	}
-
-	public void setTest(Date test) {
-		this.test = test;
-	}
 
 	public String addEvent(){
 		String navTo="";
-		
 		
 		Integer idA = Integer.valueOf(artistString);
 	    User uA = userManagmentRemote.findById(idA);
@@ -66,8 +58,8 @@ public class EventsBean {
 		
 		eventManagmentRemote.addEvent(event);
 		listEvents = eventManagmentRemote.getAllEvents();
+		event = new Event();
 		navTo="displayevents?faces-redirect=true";
-		System.out.println("iciiii"+test);
 		return navTo;
 	}
 	
@@ -111,6 +103,23 @@ public String doDelete(Event event){
 	eventManagmentRemote.deleteEvent(event);
 	formDisplayed=false;
 	initialization();
+	return navTo;
+}
+
+public String directionAdd(){
+	
+	String navTo="";
+	
+	listEvents = eventManagmentRemote.getAllEvents();
+	System.out.println("5lat");
+	navTo="addevent?faces-redirect=true";
+	return navTo;
+}
+
+public String directionDisplay(){
+	
+	String navTo="";
+	navTo="displayevents?faces-redirect=true";
 	return navTo;
 }
 	
