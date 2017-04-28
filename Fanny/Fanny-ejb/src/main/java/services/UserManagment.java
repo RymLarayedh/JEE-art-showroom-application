@@ -78,8 +78,16 @@ public class UserManagment implements UserManagmentRemote {
 		String pwd;
 		try {
 			pwd = generateMD5Code(user.getPassword());
-			user.setPassword(pwd);
-			em.merge(user);
+			User u = user;
+			if(u.getPassword().equals(pwd))
+			{
+				em.merge(user);
+			}
+			else
+			{
+				user.setPassword(pwd);
+				em.merge(user);
+			}
 		} catch (NoSuchAlgorithmException e) {
 		}
 

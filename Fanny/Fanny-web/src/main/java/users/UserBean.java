@@ -29,6 +29,7 @@ import org.primefaces.model.StreamedContent;
 import entities.Admin;
 import entities.Artist;
 import entities.ArtistFollowers;
+import entities.Gallery;
 import entities.User;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
@@ -43,6 +44,9 @@ public class UserBean implements Serializable {
 	private User user;
 	private User userChoosen ;
 	private boolean loggedIN = false;
+	private boolean editIt = false;
+	private Gallery gallery;
+	private Artist artist;
 	List<User> Lu;
 
 	@PostConstruct
@@ -51,6 +55,26 @@ public class UserBean implements Serializable {
 		userChoosen = new User();
 		Lu = new ArrayList<User>();
 	}
+	
+	public boolean isEditIt() {
+		return editIt;
+	}
+
+	public void setEditIt(boolean editIt) {
+		this.editIt = editIt;
+	}
+
+	public boolean isLoggedIN() {
+		return loggedIN;
+	}
+
+
+
+	public void setLoggedIN(boolean loggedIN) {
+		this.loggedIN = loggedIN;
+	}
+
+
 
 	public UserManagment getUserManagment() {
 		return userManagment;
@@ -84,11 +108,34 @@ public class UserBean implements Serializable {
 		this.userChoosen = userChoosen;
 	}
 	
+	
+	public Gallery getGallery() {
+		return gallery;
+	}
+
+	public void setGallery(Gallery gallery) {
+		this.gallery = gallery;
+	}
+
+	public Artist getArtist() {
+		return artist;
+	}
+
+	public void setArtist(Artist artist) {
+		this.artist = artist;
+	}
+
 	public String doSignUp() {
 		String navTo = "";
 		userManagment.addUser(user);
 		return navTo;
 	}
+	
+	public String doEdit() {
+		String navTo = "userUpdate?faces-redirect=true";
+		return navTo;
+	}
+
 
 	/**
 	 * this method ensure the login and the redirection
@@ -99,18 +146,12 @@ public class UserBean implements Serializable {
 		if (userManagment.loginUser(user.getUsername(), user.getPassword())) {
 			user = userManagment.findByUsername(user.getUsername());
 			if (user instanceof Admin) {
-				loggedIN = true;
 				navTo = "pages/admin/AdminDashboard?faces-redirect=true";
 			} else {
-				loggedIN = true;
 				navTo = "pages/users/userIndex?faces-redirect=true";
 			}
 
 		} else {
-	        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Fanny ERROR", "Wrong username/Password");
-	         
-	        RequestContext.getCurrentInstance().showMessageInDialog(message);
-	        return "";
 		}
 
 		// status = "Login Failed please try again";
@@ -142,21 +183,21 @@ public class UserBean implements Serializable {
 		return navTo;
 	}
 
-	public void validateLoginUnicity(FacesContext context,
-			UIComponent component, Object value) throws ValidatorException {
-		String loginToValidate = (String) value;
-		if (loginToValidate == null || loginToValidate.trim().isEmpty()) {
-			return;
-		}
-		if (userManagment.findByUsername(loginToValidate)!= null) {
-			throw new ValidatorException(new FacesMessage(
-					"login already in use!"));
-		}
-	}
 	
 	public  void ShowUserProfile(User user)
 	{
 		userChoosen = user;
+		if(user instanceof Gallery)
+		{
+			gallery = new Gallery();
+			gallery = (Gallery) user;
+		}
+		
+		if(userChoosen instanceof Artist)
+		{
+			artist = new Artist();
+			artist = (Artist) user;
+		}
 	}
 	
 	/**

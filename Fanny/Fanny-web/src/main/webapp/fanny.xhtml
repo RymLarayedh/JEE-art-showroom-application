@@ -36,29 +36,50 @@
 							<h:panelGrid columns="2">
 								<h:inputText id="firstName" a:placeholder="First Name"
 									value="#{userBean.user.firstName}" required="true"
-									requiredMessage="Please enter your firstName">
+									requiredMessage="Please enter your firstName"
+									validator="#{registrationValidator.firstnameValidation}">
+									<f:ajax event="keyup" execute="@this" render="fNameThread" />
 								</h:inputText>
-								<h:message for="firstName" styleClass="error" />
+								<h:message id="fNameThread" for="firstName" styleClass="error" />
+
 								<h:inputText id="lastname" a:placeholder="Last Name"
 									value="#{userBean.user.lastName}" required="true"
-									requiredMessage="Please enter your lastName"></h:inputText>
-								<h:message for="lastname" styleClass="error" />
+									requiredMessage="Please enter your lastName"
+									validator="#{registrationValidator.lastnameValidation}">
+									<f:ajax event="keyup" execute="@this" render="lNameThread" />
+								</h:inputText>
+								<h:message id="lNameThread" for="lastname" styleClass="error" />
+
 								<h:inputText id="mail" a:placeholder="E-mail"
-									value="#{userBean.user.email}" required="true"
-									requiredMessage="Please enter your Email"></h:inputText>
-								<h:message for="mail" styleClass="error" />
+									value="#{userBean.user.email}"
+									validator="#{registrationValidator.mailValidation}"
+									required="true" requiredMessage="Please enter your Email">
+									<f:ajax event="keyup" execute="@this" render="mailThread" />
+								</h:inputText>
+								<h:message id="mailThread" for="mail" styleClass="error" />
 								<h:inputText id="username" a:placeholder="Username"
-									value="#{userBean.user.username}" validator="#{userBean.validateLoginUnicity}" required="true"
+									validator="#{registrationValidator.usernameValidation}"
+									value="#{userBean.user.username}" required="true"
 									requiredMessage="Please enter your username">
-									<p:ajax event="keyup" render="usernameThread" />
+									<f:ajax event="keyup" execute="@this" render="usernameThread" />
 								</h:inputText>
 								<h:message id="usernameThread" for="username" styleClass="error" />
-								<h:inputSecret a:placeholder="Password"
-									value="#{userBean.user.password}" />
-								<h:message for="firstName" styleClass="error" />
-								<h:inputSecret a:placeholder="retype Password"
-									value="#{userBean.user.password}" />
-								<h:message for="firstName" styleClass="error" />
+								<h:inputSecret id="Password" a:placeholder="Password"
+									value="#{userBean.user.password}"
+									validator="#{registrationValidator.passwordValidation}">
+									<f:attribute name="confirm"
+										value="#{confirmPassword.submittedValue}" />
+									<f:ajax event="blur" execute="password confirm"
+										render="m_password" />
+								</h:inputSecret>
+								<h:message id="m_password" for="Password" styleClass="error" />
+								<h:inputSecret binding="#{confirmPassword}" id="rePassword"
+									a:placeholder="retype Password">
+									<f:ajax event="blur" execute="password confirm"
+										render="passwodThread" />
+								</h:inputSecret>
+								<h:message id="passwodThread" for="rePassword"
+									styleClass="error" />
 							</h:panelGrid>
 							<h:commandButton id="signUp" action="#{userBean.doSignUp()}"
 								value="SIGN UP" />
@@ -75,6 +96,12 @@
 							<h:commandButton id="login" action="#{userBean.doLogin()}"
 								value="LOG IN" />
 						</h:form>
+						<p:dialog header="Effects"
+							widgetVar="dlg3" showEffect="explode" hideEffect="bounce"
+							height="100">
+							<h:outputText value="This dialog has nice effects." />
+						</p:dialog>
+
 					</div>
 				</div>
 			</div>

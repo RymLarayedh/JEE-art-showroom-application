@@ -53,16 +53,25 @@
           $("#followers").hide();
         })
       }
+
+      function doEdit() {
+    	    $("#editSpan").show();
+		
+	}
+      function doHideEdit() {
+    	    $("#editSpan").hide();
+  		
+  	}
     </script>
 	</h:head>
 	<h:body>
-    <div class="content-profile-page">
+		<div class="content-profile-page">
 			<div class="profile-user-page card">
 				<div class="img-user-profile">
 					<img class="profile-bgHome"
 						src="http://37.media.tumblr.com/88cbce9265c55a70a753beb0d6ecc2cd/tumblr_n8gxzn78qH1st5lhmo1_1280.jpg" />
 					<p:graphicImage id="users_image" value="#{usersImageBean.image}"
-						cache="false"  styleClass="profilePic" width="50">
+						cache="false" styleClass="profilePic" width="50">
 						<f:param name="userName" value="#{userBean.userChoosen.username}" />
 					</p:graphicImage>
 
@@ -78,9 +87,13 @@
 						rendered="#{userBean.userChoosen.blocked}" value="unBlock "
 						action="#{userBean.unBlockUser()}" />
 				</h:form>
-				<div class="user-profile-data">
+				<div class="user-profile-data" onmouseover="doEdit()"
+					onmouseout="doHideEdit()">
 					<h1>#{userBean.userChoosen.firstName}
 						#{userBean.userChoosen.lastName}</h1>
+					<h:form id="editSpan" hidden="true">
+						<h:commandButton class="blcUnblcApp" value="Edit" action="#{userBean.doEdit}" />
+					</h:form><br/>
 					<p>Fanny/#{userBean.userChoosen.username}</p>
 				</div>
 				<div class="description-profile">Front-end | Security
@@ -99,9 +112,10 @@
 			<p>those are the followers</p>
 			<h:dataTable value="#{userBean.allFollowers}" var="item">
 				<h:column>
-						<p:graphicImage  id="users_image" value="#{usersImageBean.image}" cache="false" styleClass="editor-picture" width="50">
-    							<f:param name="userName" value="#{item.username}" />
-						</p:graphicImage>
+					<p:graphicImage id="users_image" value="#{usersImageBean.image}"
+						cache="false" styleClass="editor-picture" width="50">
+						<f:param name="userName" value="#{item.username}" />
+					</p:graphicImage>
 				</h:column>
 				<h:column>
 					#{item.firstName} #{item.lastName}
@@ -113,9 +127,10 @@
 			<p>those are the followings</p>
 			<h:dataTable value="#{userBean.allFollowed}" var="item">
 				<h:column>
-						<p:graphicImage  id="users_image" value="#{usersImageBean.image}" cache="false" styleClass="editor-picture" width="50">
-    							<f:param name="userName" value="#{item.username}" />
-						</p:graphicImage>
+					<p:graphicImage id="users_image" value="#{usersImageBean.image}"
+						cache="false" styleClass="editor-picture" width="50">
+						<f:param name="userName" value="#{item.username}" />
+					</p:graphicImage>
 				</h:column>
 				<h:column>
 					#{item.firstName} #{item.lastName}

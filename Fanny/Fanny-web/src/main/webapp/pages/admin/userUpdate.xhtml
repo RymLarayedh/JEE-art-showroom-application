@@ -1,0 +1,69 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<ui:define name=""></ui:define>
+	<ui:define name=""></ui:define>
+
+	<h:body>
+		<h:form>
+			<h:panelGrid columns="4">
+				<h:column>
+					<h:outputText value="First Name" />
+				</h:column>
+				<h:column>
+					<h:inputText value="#{userBean.userChoosen.firstName}" />
+				</h:column>
+				<h:column>
+					<h:outputText value="Last Name" />
+				</h:column>
+				<h:column>
+					<h:inputText value="#{userBean.userChoosen.lastName}" />
+				</h:column>
+				<h:column>
+					<h:outputText value="Email" />
+				</h:column>
+				<h:column>
+					<h:inputText value="#{userBean.userChoosen.email}" />
+				</h:column>
+				<h:column>
+					<h:outputText value="Password" />
+				</h:column>
+				<h:column>
+					<h:inputSecret value="#{userBean.userChoosen.password}" />
+				</h:column>
+				<!-- 						Gallery -->
+				<h:column
+					rendered="#{userBean.userChoosen['class'].simpleName eq 'Gallery'}">
+					<h:outputText value="Address" />
+				</h:column>
+				<h:column rendered="#{userBean.userChoosen['class'].simpleName eq 'Gallery'}">
+					<h:inputText value="#{userBean.gallery.address}" />
+				</h:column>
+				<h:column
+					rendered="#{userBean.userChoosen['class'].simpleName eq 'Gallery'}">
+					<h:outputText value="Surface" />
+				</h:column>
+				<h:column rendered="#{userBean.userChoosen['class'].simpleName eq 'Gallery'}">
+					<h:inputText value="#{userBean.gallery.surface}" />
+				</h:column>
+				<h:column
+					rendered="#{userBean.userChoosen['class'].simpleName eq 'Gallery'}">
+					<h:outputText value="Decription" />
+				</h:column>
+				<h:column rendered="#{userBean.userChoosen['class'].simpleName eq 'Gallery'}">
+					<h:inputTextarea value="#{userBean.gallery.description}" />
+				</h:column>
+				<!-- 				ARTIST -->
+				<h:column
+					rendered="#{userBean.userChoosen['class'].simpleName eq 'Artist'}">
+					<h:outputText value="BIO" />
+				</h:column>
+				<h:column render="#{userBean.userChoosen['class'].simpleName eq 'Artist'}">
+					<h:inputTextarea value="#{userBean.artist.bio}" />
+				</h:column>
+			</h:panelGrid>
+		</h:form>
+	</h:body>
+</ui:composition>
